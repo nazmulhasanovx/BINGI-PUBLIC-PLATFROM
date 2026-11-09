@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
-import { ArrowRight, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
+import Lenis from 'lenis'
 import { Logo } from './Logo'
 import { useLang } from '../../i18n/lang'
 import { site } from '../../data/site'
@@ -46,7 +47,7 @@ function Header() {
         <Link to="/" aria-label="BinGi home"><Logo /></Link>
         <nav className="hidden md:flex items-center gap-1" aria-label="Main">
           {nav.map((n) => (
-            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-150 ${isActive ? 'text-ink font-medium bg-white border border-line' : 'text-muted hover:text-ink'}`}>
+            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted hover:text-ink'}`}>
               {t(n.label)}
             </NavLink>
           ))}
@@ -54,7 +55,7 @@ function Header() {
         <div className="hidden md:flex items-center gap-2">
           <LangToggle />
           <a href={site.hmsLogin} className="btn-ghost h-10">{t({ bn: 'লগইন', en: 'Sign in' })}</a>
-          <a href={site.hmsRegister} className="btn-primary h-10">{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
+          <a href={site.hmsRegister} className="btn-primary h-10">{t(ctaLabel)}</a>
         </div>
         <button className="md:hidden grid size-11 place-items-center rounded-full border border-line bg-white cursor-pointer" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'}>
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
@@ -131,15 +132,25 @@ function MobileCta() {
   return (
     <div className={`md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-white/90 backdrop-blur-xl border-t border-line shadow-[0_-8px_24px_-12px_rgb(16_24_40/0.2)] transition-transform duration-500 ease-spring ${show ? 'translate-y-0' : 'translate-y-full'}`} aria-hidden={!show}>
       <div className="flex gap-2">
-        <a href={site.hmsRegister} tabIndex={show ? 0 : -1} className="btn-primary flex-1 h-12">{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
+        <a href={site.hmsRegister} tabIndex={show ? 0 : -1} className="btn-primary flex-1 h-12">{t(ctaLabel)}</a>
         <a href={site.whatsapp} tabIndex={show ? 0 : -1} className="btn-ghost h-12 px-4">WhatsApp</a>
       </div>
     </div>
   )
 }
 
+// Smooth inertial scroll on desktop pointers only; off for touch and reduced motion.
+function useSmoothScroll() {
+  useEffect(() => {
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(pointer: fine)').matches) return
+    const lenis = new Lenis({ autoRaf: true, lerp: 0.11 })
+    return () => lenis.destroy()
+  }, [])
+}
+
 export function Layout() {
   const { pathname } = useLocation()
+  useSmoothScroll()
   useEffect(() => { window.scrollTo(0, 0) }, [pathname])
   return (
     <div className="min-h-dvh flex flex-col">

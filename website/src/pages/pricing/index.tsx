@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, BedDouble, Check, ChevronDown, Gift, Minus, Plus } from 'lucide-react'
+import { BedDouble, Check, ChevronDown, Gift, Minus, Plus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { compare, cycles, MIN_BILLABLE, offers, plans, priceFor, type Cell, type Cycle } from '../../data/pricing'
@@ -85,7 +85,7 @@ export default function Pricing() {
                 </div>
 
                 {p.rate ? (
-                  <a href={site.hmsRegister} className={`btn w-full mt-4 ${pop ? 'bg-white text-brand hover:bg-white/90 shadow-lift' : 'btn-primary'}`}>{t({ bn: `${p.name} বেছে নিন`, en: `Choose ${p.name}` })}<ArrowRight className="size-4" aria-hidden="true" /></a>
+                  <a href={site.hmsRegister} className={`btn w-full mt-4 ${pop ? 'bg-white text-brand hover:bg-white/90 shadow-lift' : 'btn-primary'}`}>{t({ bn: `${p.name} বেছে নিন`, en: `Choose ${p.name}` })}</a>
                 ) : (
                   <Link to="/contact" className="btn-ghost w-full mt-4">{t({ bn: 'প্রয়োজন জানান', en: 'Discuss requirements' })}</Link>
                 )}

@@ -1,5 +1,41 @@
 # 02 — UI & UX
 
+## v2 (9 Nov 2026) — current
+v0.1 was rated 2/10 by the founder (placeholders, card soup, flat colour, generic type, fade-up only).
+v2 follows the plan in the BINGI HMT project (`Public_Site_UI_v2_Plan.md`), built with the frontend-design
+and ui-ux-pro-max skills and one 21st.dev component (Scroll 01, adapted).
+
+**Signature — "Bay sunrise":** the coral horizon of Cox's Bazar, where BinGi started. A thin coral→peach
+horizon line with a soft sunrise glow, used only twice: hero and closing CTA. Everything else stays quiet.
+
+| Token | Value | Use | Contrast |
+|---|---|---|---|
+| pearl | `#F4F6F8` | canvas | — |
+| ink | `#0F1720` | text | 16.7 on pearl |
+| muted | `#4D5664` | secondary text | 6.9 pearl · 7.4 white · 6.2 on sunrise |
+| soft | `#616A77` | tertiary | ≥4.7 |
+| bay | `#0B2235` | the one dark section + CTA | white/75 = 9.6 |
+| coral / sun | `#FD413F` / `#FFB38A` | logo + sunrise only | decorative |
+| brand | `#B11C29` | primary action only | white text 6.85 |
+
+Type: **Bricolage Grotesque** (display, tracking −3.5%, hero 76px) + **Instrument Sans** (text, 17–19px) + Hind Siliguri (বাংলা).
+No ALL-CAPS labels, no arrows in buttons, no icon tiles, one gradient border per view.
+
+Motion (Motion for React + Lenis):
+- One orchestrated load: headline lines rise in sequence, horizon draws in, sunrise brightens.
+- Scroll-linked product reveal: Studio Display tilts from 24° to flat and grows; iPhone rises after it.
+- Sticky story (5 numbered steps — a real sequence): text scrolls, the display swaps screens; progress dots.
+- Bento tiles: light follows the cursor (pointer-triggered only).
+- Modules marquee, pauses on hover. Lenis smooth scroll on desktop pointers only.
+- Reduced motion: everything static and fully visible.
+
+Measured (Lighthouse 12): desktop 99 / 100 / 100 / 100 · mobile 89 / 100 / 100 / 100, CLS 0.
+Mobile LCP 3.4 s on simulated slow 4G — fix = prerender pages to static HTML (next step).
+
+---
+
+## v0.1 notes (kept for history)
+
 Rules applied from BinGi Foundation (visual identity wins) + the **ui-ux-pro-max** skill
 (nextlevelbuilder/ui-ux-pro-max-skill: style "Minimalism & Swiss", dials variance 3 · motion 3 · density 3)
 + the zatiqeasy.com reference (motion, buttons, price table).
