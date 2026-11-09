@@ -92,12 +92,12 @@ export default function Home() {
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-6">
           {bento.map((b) => (
-            <article key={b.media} onPointerMove={spot} className={`spotlight card overflow-hidden ${b.span}`}>
+            <article key={b.media} onPointerMove={spot} className={`spotlight card overflow-hidden flex flex-col ${b.span}`}>
               <div className="p-6 pb-4">
                 <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em]">{t(b.title)}</h3>
                 <p className="mt-1 text-[16px] text-muted-foreground">{t(b.text)}</p>
               </div>
-              <div className={`mx-4 mb-4 overflow-hidden rounded-[12px] border border-line ${b.media === 'bentoWebsite' ? 'md:h-[340px]' : 'md:h-[260px]'}`}><Media id={b.media} className="md:!aspect-auto" /></div>
+              <div className="mx-4 mb-4 mt-auto overflow-hidden rounded-[12px] border border-line"><Media id={b.media} /></div>
             </article>
           ))}
         </div>
