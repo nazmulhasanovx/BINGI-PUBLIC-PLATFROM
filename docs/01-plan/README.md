@@ -12,6 +12,7 @@ Founder direction (9 Nov 2026):
 - Leave places for custom GIFs.
 - Built in React (not Figma).
 - Reference for motion, buttons, price table and design sense: zatiqeasy.com.
+- Site language: English (বাংলা toggle kept). Motion, glow and shadow should give a SaaS feel.
 
 ## Sitemap — 8 screens
 

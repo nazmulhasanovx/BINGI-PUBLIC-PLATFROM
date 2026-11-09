@@ -56,14 +56,20 @@ Prefer **.mp4 / .webm** (autoplay, muted, loop) over .gif — 5–10× smaller.
 
 Use **real BinGi screens only**. No fake UI.
 
-## Motion
+## Motion, glow & shadow (SaaS feel — founder direction 9 Nov 2026)
+- Hero: faint grid + 3 slow-drifting blurred colour orbs (red, blue, peach; 14–20s loops) + coloured glow behind the devices.
+- Primary button: red gradient, red glow shadow, lifts 1px on hover; hero CTA has a light "shine" sweep.
+- Cards: lift 4px + bigger shadow + faint red border on hover (300ms). Highlighted cards get a red→blue gradient border.
+- Popular plan: gradient red card, lifted, deep red glow shadow.
+- Dark CTA band: two drifting glow orbs.
+- Live status dot: soft green pulse ring.
 - Scroll reveal: opacity 0→1 + 12px rise, 350ms ease-out, stagger 40–80ms.
-- Hover/press: 150–200ms colour/translate; accordion 200ms.
-- `prefers-reduced-motion`: everything shown immediately, no animation.
+- Shadows: `shadow-soft` (rest), `shadow-lift` (hover/featured), `shadow-glow` (brand actions) — tokens in `src/index.css`.
+- `prefers-reduced-motion`: all animation off, content shown immediately.
 
 ## Accessibility & interaction (pre-delivery checklist)
 - Touch targets ≥ 44px; visible focus ring (blue); skip-to-content link.
 - Every icon decorative (`aria-hidden`) or labelled; icon-only buttons have `aria-label`.
 - Tabs/segmented controls use `role="tab"` + `aria-selected`; accordion uses `aria-expanded`.
 - Form: visible labels, error under the field, focus jumps to first error, `aria-invalid`.
-- Language: বাংলা / EN toggle in header (remembered); default বাংলা for Bangladesh visitors; numbers shown in Bangla digits in বাংলা.
+- Language: **English is the site language** (founder direction 9 Nov 2026). বাংলা remains available from the header toggle (remembered per browser); in বাংলা numbers show in Bangla digits.

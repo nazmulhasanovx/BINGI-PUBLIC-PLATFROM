@@ -22,7 +22,7 @@ export default function Pricing() {
 
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[520px] -z-10 bg-[radial-gradient(60%_60%_at_50%_0%,#FBEDEE_0%,transparent_70%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] -z-10 overflow-hidden" aria-hidden="true"><div className="absolute inset-0 bg-grid" /><div className="absolute -top-40 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-50 blur-[120px] animate-float" /></div>
       <div className="container-x pt-14">
         <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'আপনার প্রপার্টির মাপে প্ল্যান', en: 'A plan that fits your property' })} lead={t({ bn: 'কোনো লুকানো খরচ নেই। প্রতিটা খরচ আলাদা করে দেখানো।', en: 'No hidden costs. Every charge shown separately.' })} />
 
@@ -36,7 +36,7 @@ export default function Pricing() {
             const pop = p.popular
             const pr = p.monthly ? priceFor(p.monthly, cycle) : null
             return (
-              <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-6 border transition-transform duration-200 ${pop ? 'bg-brand text-white border-brand shadow-[0_24px_48px_-16px_rgb(177_28_41/0.45)] lg:-translate-y-3' : 'bg-white border-line shadow-soft'}`}>
+              <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-6 border transition-transform duration-200 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
                 {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[11px] font-semibold tracking-wide text-white">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
                 <h2 className="text-[20px] font-semibold">BinGi {p.name}</h2>
                 <p className={`mt-1 text-[14px] ${pop ? 'text-white/75' : 'text-muted'}`}>{t(p.tagline)}</p>
@@ -97,7 +97,7 @@ export default function Pricing() {
         </div>
 
         {/* Offers */}
-        <div className="mt-10 card p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-center">
+        <div className="mt-10 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-center">
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-ok-soft text-ok"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>

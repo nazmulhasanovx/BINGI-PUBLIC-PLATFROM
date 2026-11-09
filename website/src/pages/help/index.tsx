@@ -30,7 +30,7 @@ export default function Help() {
       <div className="mt-10 grid gap-3 grid-cols-2 md:grid-cols-4">
         {categories.map((c) => (
           <button key={c.id} onClick={() => setCat(cat === c.id ? null : c.id)} aria-pressed={cat === c.id}
-            className={`card p-4 flex items-center gap-3 text-left cursor-pointer min-h-16 transition-colors duration-150 ${cat === c.id ? 'ring-2 ring-brand' : 'hover:bg-canvas/50'}`}>
+            className={`card card-hover p-4 flex items-center gap-3 text-left cursor-pointer min-h-16 ${cat === c.id ? 'glow-border shadow-glow' : ''}`}>
             <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Icon name={c.icon} /></span>
             <span className="text-[15px] font-medium">{t(c.name)}</span>
           </button>
@@ -61,7 +61,7 @@ export default function Help() {
       <section className="mt-14">
         <h2 className="text-[20px] font-semibold">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
+          {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card card-hover overflow-hidden"><Media id={id} /></div>)}
         </div>
       </section>
 

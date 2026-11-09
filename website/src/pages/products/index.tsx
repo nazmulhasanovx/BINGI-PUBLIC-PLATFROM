@@ -70,8 +70,8 @@ export default function Products() {
 
       {p && (
         <section key={p.id} className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_1fr] items-center" role="tabpanel">
-          <Reveal className="grid place-items-center rounded-[16px] bg-white border border-line p-6 md:p-10">
-            {p.device === 'display' ? <StudioDisplay media={p.media} className="w-full" /> : <IPhone16PM media={p.media} className="w-[48%] max-w-[300px]" />}
+          <Reveal className="relative grid place-items-center rounded-[16px] bg-white border border-line p-6 md:p-10 shadow-lift overflow-hidden"><div className="pointer-events-none absolute inset-x-[15%] top-[20%] bottom-[10%] rounded-full bg-gradient-to-r from-brand/20 to-[#6E8EF5]/20 blur-[60px]" aria-hidden="true" />
+            {p.device === 'display' ? <StudioDisplay media={p.media} className="relative w-full" /> : <IPhone16PM media={p.media} className="relative w-[48%] max-w-[300px]" />}
           </Reveal>
           <Reveal delay={80}>
             <StatusChip status={platformStatus[p.id]} />
@@ -87,7 +87,7 @@ export default function Products() {
       {tab === 'web' && (
         <section className="mt-16 grid gap-4 md:grid-cols-2">
           {bento.map((b, i) => (
-            <Reveal key={b.media} delay={i * 60} className="card overflow-hidden">
+            <Reveal key={b.media} delay={i * 60} className="card card-hover overflow-hidden">
               <div className="border-b border-line"><Media id={b.media} /></div>
               <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted">{t(b.text)}</p></div>
             </Reveal>
@@ -98,7 +98,7 @@ export default function Products() {
       {tab === 'modules' && (
         <section id="modules" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="tabpanel">
           {modules.map((m, i) => (
-            <Reveal key={m.id} delay={(i % 6) * 40} className="card p-5 flex gap-4">
+            <Reveal key={m.id} delay={(i % 6) * 40} className="card card-hover p-5 flex gap-4">
               <span className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${m.status === 'live' ? 'bg-brand-soft text-brand' : 'bg-canvas text-muted'}`}><Icon name={m.icon} /></span>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2"><h3 className="text-[16px] font-semibold">{t(m.name)}</h3><StatusChip status={m.status} /></div>

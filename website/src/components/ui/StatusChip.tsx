@@ -16,7 +16,7 @@ export function StatusChip({ status }: { status: Status }) {
   const { t } = useLang()
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium whitespace-nowrap ${cls[status]}`}>
-      <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />
+      <span className={`size-1.5 rounded-full bg-current ${status === 'live' ? 'animate-pulse-ring' : ''}`} aria-hidden="true" />
       {t(label[status])}
     </span>
   )

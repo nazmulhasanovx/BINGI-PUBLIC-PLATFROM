@@ -8,12 +8,10 @@ function detectLang(): Lang {
     const saved = localStorage.getItem('bingi-lang')
     if (saved === 'bn' || saved === 'en') return saved
   } catch { /* storage unavailable */ }
-  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone
-  if (tz === 'Asia/Dhaka' || navigator.language.startsWith('bn')) return 'bn'
-  return 'en'
+  return 'en' // English is the site language; বাংলা stays available from the header toggle
 }
 
-const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'bn', setLang: () => {} })
+const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} })
 
 export function LangProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>(detectLang)

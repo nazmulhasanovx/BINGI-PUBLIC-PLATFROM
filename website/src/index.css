@@ -16,9 +16,25 @@
   --font-sans: "Inter", "Hind Siliguri", system-ui, sans-serif;
   --radius-card: 12px;
   --shadow-soft: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px rgb(16 24 40 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(16 24 40 / 0.04), 0 18px 40px -12px rgb(16 24 40 / 0.18);
+  --shadow-glow: 0 10px 30px -8px rgb(177 28 41 / 0.55);
+  --animate-float: float 14s ease-in-out infinite;
+  --animate-float-slow: float 20s ease-in-out infinite reverse;
+  --animate-shine: shine 2.8s ease-in-out infinite;
+  --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
 }
 
 html { scroll-behavior: smooth; }
+
+@keyframes float { 0%,100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(3%,-4%,0) scale(1.06); } }
+@keyframes shine { 0% { transform: translateX(-120%) skewX(-20deg); } 60%,100% { transform: translateX(220%) skewX(-20deg); } }
+@keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgb(21 128 61 / 0.45); } 100% { box-shadow: 0 0 0 8px rgb(21 128 61 / 0); } }
+
+/* faint grid behind hero */
+.bg-grid { background-image: linear-gradient(to right, rgb(16 24 40 / 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgb(16 24 40 / 0.05) 1px, transparent 1px); background-size: 48px 48px; mask-image: radial-gradient(70% 60% at 50% 0%, black 30%, transparent 75%); }
+/* glowing gradient border for highlighted cards */
+.glow-border { position: relative; }
+.glow-border::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; background: linear-gradient(135deg, rgb(177 28 41 / 0.55), rgb(29 78 216 / 0.35), rgb(177 28 41 / 0.15)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
 html[lang="bn"] body { font-family: "Hind Siliguri", "Inter", system-ui, sans-serif; }
 body { @apply bg-canvas text-ink antialiased; }
 
@@ -29,9 +45,10 @@ body { @apply bg-canvas text-ink antialiased; }
 
 @utility container-x { @apply mx-auto w-full max-w-[1200px] px-5 md:px-8; }
 @utility card { @apply rounded-[12px] bg-white border border-line shadow-soft; }
+@utility card-hover { @apply transition-[transform,box-shadow,border-color] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift hover:border-brand/20; }
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-[15px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link; }
-@utility btn-primary { @apply btn bg-brand text-white hover:bg-brand-hover; }
-@utility btn-ghost { @apply btn bg-white text-ink border border-line hover:bg-canvas; }
+@utility btn-primary { @apply btn relative overflow-hidden bg-gradient-to-b from-[#C42433] to-brand text-white shadow-glow hover:-translate-y-px hover:shadow-[0_14px_36px_-8px_rgb(177_28_41/0.65)] transition-[transform,box-shadow] duration-200; }
+@utility btn-ghost { @apply btn bg-white text-ink border border-line shadow-soft hover:-translate-y-px hover:shadow-lift transition-[transform,box-shadow] duration-200; }
 @utility eyebrow { @apply text-[13px] font-semibold tracking-wide uppercase text-brand; }
 @utility h2 { @apply text-[28px] md:text-[36px] font-semibold tracking-tight leading-tight; }
 @utility lead { @apply text-[16px] md:text-[18px] text-muted leading-relaxed; }

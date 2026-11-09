@@ -60,7 +60,12 @@ export default function Home() {
     <>
       {/* HERO */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_0%,#FBEDEE_0%,transparent_70%),radial-gradient(40%_40%_at_90%_30%,#E8EEFB_0%,transparent_70%)]" />
+        <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+          <div className="absolute inset-0 bg-grid" />
+          <div className="absolute -top-40 left-1/2 h-[560px] w-[760px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-50 blur-[120px] animate-float" />
+          <div className="absolute top-40 -right-40 h-[420px] w-[520px] rounded-full bg-[#C9D6F7] opacity-50 blur-[120px] animate-float-slow" />
+          <div className="absolute top-[520px] -left-40 h-[360px] w-[460px] rounded-full bg-[#F9DCC9] opacity-40 blur-[120px] animate-float-slow" />
+        </div>
         <div className="container-x pt-14 md:pt-20 text-center">
           <Reveal>
             <span className="inline-flex items-center rounded-full border border-brand/30 bg-white px-3 py-1 text-[13px] font-medium text-brand">{t({ bn: 'হোটেল ম্যানেজমেন্ট টেকনোলজি', en: 'Hotel Management Technology' })}</span>
@@ -71,11 +76,12 @@ export default function Home() {
               {t({ bn: 'ওয়েবসাইট, বুকিং, ফ্রন্ট ডেস্ক, হাউসকিপিং, রেস্টুরেন্ট, স্টাফ আর হিসাব — সব যুক্ত। হোটেল টিম হোটেল চালায়; BinGi চালায় টেকনোলজি।', en: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts — all connected. Your team runs the hotel; BinGi runs the technology.' })}
             </p>
             <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
+              <a href={site.hmsRegister} className="btn-primary h-12 px-6"><span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shine" aria-hidden="true" />{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
               <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
             </div>
           </Reveal>
           <Reveal delay={120} className="relative mx-auto mt-14 max-w-[1000px] pb-6">
+            <div className="pointer-events-none absolute inset-x-[10%] top-[18%] bottom-[8%] -z-10 rounded-[40px] bg-gradient-to-r from-brand/30 via-[#6E8EF5]/25 to-brand/25 blur-[70px]" aria-hidden="true" />
             <StudioDisplay media="heroWeb" className="relative w-[88%] md:w-[86%]" />
             <IPhone16PM media="heroPhone" className="absolute right-0 bottom-0 w-[24%] md:w-[19%]" />
           </Reveal>
@@ -87,7 +93,7 @@ export default function Home() {
         <SectionHead eyebrow={t({ bn: 'সমস্যা', en: 'The problem' })} title={t({ bn: 'আলাদা আলাদা টুলে হোটেল চালানো কঠিন', en: 'Running a hotel on scattered tools is hard' })} />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {pains.map((p, i) => (
-            <Reveal key={i} delay={i * 60} className="card p-6">
+            <Reveal key={i} delay={i * 60} className="card card-hover p-6">
               <span className="grid size-11 place-items-center rounded-[10px] bg-brand-soft text-brand"><p.icon className="size-5" aria-hidden="true" /></span>
               <h3 className="mt-4 text-[17px] font-semibold">{t(p.title)}</h3>
               <p className="mt-1.5 text-[15px] text-muted leading-relaxed">{t(p.text)}</p>
@@ -103,14 +109,14 @@ export default function Home() {
           <ol className="flex flex-wrap justify-center gap-2">
             {chain.map((c, i) => (
               <li key={i} className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-2 rounded-full bg-white border border-line px-4 h-10 text-[14px] font-medium shadow-soft">
+                <span className="inline-flex items-center gap-2 rounded-full bg-white border border-line px-4 h-10 text-[14px] font-medium shadow-soft transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-lift">
                   <span className="grid size-6 place-items-center rounded-full bg-ink text-white text-[12px]">{i + 1}</span>{t(c)}
                 </span>
                 {i < chain.length - 1 && <ArrowRight className="size-4 text-muted hidden sm:block" aria-hidden="true" />}
               </li>
             ))}
           </ol>
-          <div className="card mt-8 overflow-hidden max-w-[900px] mx-auto"><Media id="chain" /></div>
+          <div className="card glow-border mt-8 overflow-hidden max-w-[900px] mx-auto shadow-lift"><Media id="chain" /></div>
         </Reveal>
       </section>
 
@@ -123,7 +129,7 @@ export default function Home() {
             { key: 'mobile', frame: <IPhone16PM media="platformMobile" className="w-[42%] mx-auto" />, title: { bn: 'BinGi HMS মোবাইল', en: 'BinGi HMS Mobile' }, text: { bn: 'স্টাফদের আজকের কাজ, যেকোনো জায়গা থেকে।', en: "Staff see today's work from anywhere." } },
             { key: 'guest', frame: <IPhone16PM media="platformGuest" className="w-[42%] mx-auto" />, title: { bn: 'গেস্ট অ্যাপ ও মার্কেটপ্লেস', en: 'Guest App & Marketplace' }, text: { bn: 'গেস্ট খুঁজে, বুক করে, চ্যাট করে।', en: 'Guests discover, book and chat.' } },
           ] as const).map((p, i) => (
-            <Reveal key={p.key} delay={i * 80} className="card p-6 flex flex-col">
+            <Reveal key={p.key} delay={i * 80} className="card card-hover p-6 flex flex-col">
               <div className="flex-1 grid place-items-center rounded-[10px] bg-canvas p-6 min-h-[260px]">{p.frame}</div>
               <div className="mt-5 flex items-start justify-between gap-3">
                 <div><h3 className="text-[17px] font-semibold">{t(p.title)}</h3><p className="mt-1 text-[15px] text-muted">{t(p.text)}</p></div>
@@ -144,7 +150,7 @@ export default function Home() {
               className={`h-11 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-colors duration-150 ${type === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted border-line hover:text-ink'}`}>{t(x.name)}</button>
           ))}
         </div>
-        <div className="card mt-6 max-w-[760px] mx-auto p-6 md:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center" role="tabpanel">
+        <div className="card glow-border mt-6 max-w-[760px] mx-auto p-6 md:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center" role="tabpanel">
           <ul className="space-y-3">
             {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[16px]"><Check className="size-5 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(p)}</li>)}
           </ul>
@@ -161,7 +167,7 @@ export default function Home() {
         <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'সহজ মাসিক প্ল্যান', en: 'Simple monthly plans' })} lead={t({ bn: '৬ মাসে ১০% আর বছরে ২৫% ছাড়।', en: '10% off for 6 months, 25% off yearly.' })} />
         <div className="mt-10 grid gap-4 sm:grid-cols-3 max-w-[900px] mx-auto">
           {plans.filter((p) => p.monthly).map((p) => (
-            <Link key={p.id} to="/pricing" className={`card p-6 text-center hover:-translate-y-0.5 transition-transform duration-200 ${p.popular ? 'ring-2 ring-brand' : ''}`}>
+            <Link key={p.id} to="/pricing" className={`card card-hover p-6 text-center ${p.popular ? 'glow-border shadow-glow' : ''}`}>
               <p className="text-[15px] font-medium text-muted">{p.name}</p>
               <p className="mt-2 text-[30px] font-semibold">{taka(p.monthly!)}<span className="text-[14px] font-normal text-muted">/{t({ bn: 'মাস', en: 'mo' })}</span></p>
             </Link>
@@ -177,12 +183,16 @@ export default function Home() {
 
       {/* CTA */}
       <section className="container-x mt-24">
-        <Reveal className="rounded-[20px] bg-ink text-white px-6 py-14 md:p-16 text-center">
+        <Reveal className="relative overflow-hidden rounded-[20px] bg-ink text-white px-6 py-14 md:p-16 text-center shadow-lift">
+          <div className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-brand/50 blur-[90px] animate-float" aria-hidden="true" />
+          <div className="pointer-events-none absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[#3B5BDB]/40 blur-[90px] animate-float-slow" aria-hidden="true" />
+          <div className="relative">
           <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight text-balance">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
           <p className="mt-3 text-white/70 text-[17px]">{t({ bn: 'অ্যাকাউন্ট খুলুন, প্রপার্টি সাজান, বুকিং নেওয়া শুরু করুন।', en: 'Create your account, set up your property and start taking bookings.' })}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a href={site.hmsRegister} className="btn bg-white text-ink hover:bg-white/90 h-12 px-6">{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
             <a href={site.whatsapp} className="btn border border-white/25 text-white hover:bg-white/10 h-12 px-6">WhatsApp</a>
+          </div>
           </div>
         </Reveal>
       </section>
