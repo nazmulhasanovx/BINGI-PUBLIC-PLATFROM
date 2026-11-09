@@ -87,7 +87,7 @@ function Footer() {
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1 space-y-4">
           <Logo className="h-7" />
-          <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
+          <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed hidden md:block">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
         </div>
         <div>
           <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h2>

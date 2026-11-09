@@ -80,7 +80,7 @@ export default function Home() {
       <section className="container-x pt-16 md:pt-24">
         <div className="max-w-[640px]">
           <h2 className="h2">{t({ bn: 'একটা বুকিং, শুরু থেকে শেষ পর্যন্ত', en: 'One booking, from first click to final report' })}</h2>
-          <p className="lead mt-4">{t({ bn: 'আলাদা খাতা, আলাদা অ্যাপ নয়। একই বুকিং নম্বর প্রতিটা ধাপে নিজে থেকে এগোয়।', en: 'No separate notebooks or apps. The same booking ID moves through every step on its own.' })}</p>
+          <p className="lead mt-4 hidden sm:block">{t({ bn: 'আলাদা খাতা, আলাদা অ্যাপ নয়। একই বুকিং নম্বর প্রতিটা ধাপে নিজে থেকে এগোয়।', en: 'No separate notebooks or apps. The same booking ID moves through every step on its own.' })}</p>
         </div>
         <div className="mt-12 lg:mt-0"><StoryScroll steps={story.map((s) => ({ media: s.media, title: t(s.title), text: t(s.text) }))} /></div>
       </section>
@@ -91,16 +91,16 @@ export default function Home() {
           <h2 className="h2 max-w-[560px]">{t({ bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' })}</h2>
           <Link to="/products" className="inline-flex min-h-11 items-center text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
         </div>
-        <div className="relative isolate mt-8 grid gap-4 md:grid-cols-6">
+        <div className="relative isolate mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-6">
           <div className="ambient -left-24 -top-16 h-[360px] w-[520px]" aria-hidden="true" />
           <div className="ambient -right-24 bottom-0 h-[320px] w-[460px] opacity-40" aria-hidden="true" />
-          {bento.map((b) => (
-            <article key={b.media} onPointerMove={spot} className={`spotlight card glow-hover overflow-hidden flex flex-col ${b.span}`}>
+          {bento.map((b, i) => (
+            <article key={b.media} onPointerMove={spot} className={`spotlight card glow-hover overflow-hidden flex flex-col ${i === 0 || i === bento.length - 1 ? 'col-span-2' : 'col-span-1 sm:col-span-2'} ${b.span}`}>
               <div className="p-6 pb-4">
                 <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em]">{t(b.title)}</h3>
-                <p className="mt-1 text-[16px] text-muted-foreground">{t(b.text)}</p>
+                <p className="mt-1 text-[16px] text-muted-foreground hidden sm:block">{t(b.text)}</p>
               </div>
-              <div className="mx-3 mb-3 mt-auto overflow-hidden rounded-[12px]"><Media id={b.media} /></div>
+              <div className={`mx-3 mb-3 mt-auto overflow-hidden rounded-[12px] ${i === 0 ? '' : 'hidden sm:block'}`}><Media id={b.media} /></div>
             </article>
           ))}
         </div>
@@ -112,7 +112,7 @@ export default function Home() {
         <div className="container-x relative py-14 md:py-20">
           <div className="max-w-[620px]">
             <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
-            <p className="mt-4 text-[18px] text-white/80 leading-relaxed">{t({ bn: 'তিনটা অ্যাপ, একই ডেটা। এক জায়গায় বদলালে সব জায়গায় বদলায়।', en: 'Three apps, one set of data. Change it once and it changes everywhere.' })}</p>
+            <p className="mt-4 text-[18px] text-white/80 leading-relaxed hidden sm:block">{t({ bn: 'তিনটা অ্যাপ, একই ডেটা। এক জায়গায় বদলালে সব জায়গায় বদলায়।', en: 'Three apps, one set of data. Change it once and it changes everywhere.' })}</p>
           </div>
           <div className="mt-10 grid gap-x-4 gap-y-10 sm:gap-10 grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
             {([
@@ -123,7 +123,7 @@ export default function Home() {
               <div key={p.key} className={p.cls}>
                 {p.frame}
                 <div className="mt-6 flex flex-col items-start gap-2 sm:flex-row sm:justify-between sm:gap-3 border-t border-white/15 pt-4">
-                  <div><h3 className="text-[18px] font-semibold">{t(p.title)}</h3><p className="text-[15px] text-white/75">{t(p.text)}</p></div>
+                  <div><h3 className="text-[18px] font-semibold">{t(p.title)}</h3><p className="text-[15px] text-white/75 hidden sm:block">{t(p.text)}</p></div>
                   <StatusChip status={platformStatus[p.key]} />
                 </div>
               </div>
@@ -186,7 +186,7 @@ export default function Home() {
       <section className="container-x pt-16 md:pt-24" aria-labelledby="team-h">
         <div className="max-w-[620px]">
           <h2 id="team-h" className="h2">{t({ bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' })}</h2>
-          <p className="lead mt-4">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — ২০২৩ থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
+          <p className="lead mt-4 hidden sm:block">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — ২০২৩ থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
         </div>
         <ul className="relative isolate mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <li className="ambient left-1/2 -translate-x-1/2 top-1/3 h-[300px] w-[70%] opacity-45" aria-hidden="true" />
@@ -214,7 +214,7 @@ export default function Home() {
           <div className="pointer-events-none absolute left-0 right-0 bottom-[7%] h-px bg-[linear-gradient(90deg,transparent,#FD413F_30%,#FFB38A_50%,#FD413F_70%,transparent)] opacity-70" aria-hidden="true" />
           <div className="relative max-w-[640px]">
             <h2 className="display text-[40px] md:text-[64px]">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
-            <p className="mt-4 text-[18px] text-white/85">{t({ bn: 'অ্যাকাউন্ট খুলুন, রুম যোগ করুন, বুকিং নেওয়া শুরু করুন।', en: 'Create your account, add your rooms and start taking bookings.' })}</p>
+            <p className="mt-4 text-[18px] text-white/85 hidden sm:block">{t({ bn: 'অ্যাকাউন্ট খুলুন, রুম যোগ করুন, বুকিং নেওয়া শুরু করুন।', en: 'Create your account, add your rooms and start taking bookings.' })}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a href={site.hmsRegister} className="btn h-12 px-6 bg-white text-ink hover:-translate-y-px shadow-lift">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
               <a href={site.whatsapp} className="btn h-12 px-6 border border-white/25 bg-white/[0.06] backdrop-blur-sm text-white hover:bg-white/12">{t({ bn: 'WhatsApp-এ কথা বলুন', en: 'Talk on WhatsApp' })}</a>

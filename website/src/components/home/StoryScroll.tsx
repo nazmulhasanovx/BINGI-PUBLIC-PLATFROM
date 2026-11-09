@@ -4,7 +4,6 @@
 import { useRef, useState, type Dispatch, type SetStateAction } from 'react'
 import { motion, useMotionValueEvent, useScroll, useTransform, useReducedMotion } from 'motion/react'
 import type { MediaId } from '../../data/media'
-import { Media } from '../media/Media'
 import { StudioDisplay } from '../media/Devices'
 
 export type Step = { title: string; text: string; media: MediaId }
@@ -33,20 +32,19 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
   return (
     <>
       {/* mobile: plain stacked list */}
-      <div className="space-y-9 lg:hidden">
+      <ol className="space-y-5 lg:hidden">
         {steps.map((s, i) => (
-          <article key={s.media} className="space-y-4">
+          <li key={s.media}>
             <div className="flex gap-4">
               <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand text-white text-[14px] font-semibold">{i + 1}</span>
               <div>
-                <h3 className="font-[family-name:var(--font-display)] text-[24px] font-semibold tracking-[-0.02em]">{s.title}</h3>
+                <h3 className="font-[family-name:var(--font-display)] text-[20px] font-semibold tracking-[-0.02em]">{s.title}</h3>
                 <p className="mt-1 text-[16px] text-muted-foreground">{s.text}</p>
               </div>
             </div>
-            <div className="overflow-hidden rounded-[14px] border border-line shadow-soft"><Media id={s.media} /></div>
-          </article>
+          </li>
         ))}
-      </div>
+      </ol>
       {/* desktop: text scrolls, display stays */}
       <div className="hidden lg:grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
         <div className="py-[6vh] space-y-[14vh]">

@@ -84,7 +84,7 @@ export default function Products() {
           {bento.map((b, i) => (
             <Reveal key={b.media} delay={i * 60} className="card overflow-hidden">
               <div className="border-b border-line bg-[#F5F6F8] h-[220px] md:h-[260px]"><Media id={b.media} className="!aspect-auto" /></div>
-              <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted-foreground">{t(b.text)}</p></div>
+              <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted-foreground hidden sm:block">{t(b.text)}</p></div>
             </Reveal>
           ))}
         </section>
@@ -97,7 +97,7 @@ export default function Products() {
               <span className="mt-0.5 shrink-0 text-muted-foreground"><Icon name={m.icon} className="size-5" /></span>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2"><h3 className="text-[16px] font-semibold">{t(m.name)}</h3><StatusChip status={m.status} /></div>
-                <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{t(m.desc)}</p>
+                <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed hidden sm:block">{t(m.desc)}</p>
               </div>
             </Reveal>
           ))}

@@ -84,3 +84,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Soft glow (subtle, few places): `.glow-hover` warm halo on bento + team cards, `.ambient` light behind bento grid, team and the pricing strip, gradient hairline on the pricing strip.
 - Video `preload="none"` (loads only when on screen).
 - Device × page regression: no issues. Lighthouse mobile home: 90–92 perf (LCP 3.0 s = hero section), a11y/BP/SEO 100. Same score before this pass (92) — the drop from 97 came earlier; follow-up: hero LCP.
+
+## 9 Nov 2026 — less text on phones
+- Phones (<640px) hide supporting lines that repeat the heading: story intro, bento card sub-lines, platforms intro + sub-lines, team intro, CTA paragraph, footer tagline, products module/feature descriptions.
+- Story steps on phones: numbered list only (no 5 placeholder images). Bento on phones: Booking calendar keeps its loop, the other five become compact 2-up title cards.
+- Home on a 393px phone: 8,564 → 5,055 px tall (−41%). Desktop layout unchanged. Device × page regression: no issues.
