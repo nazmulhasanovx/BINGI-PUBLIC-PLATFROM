@@ -20,7 +20,7 @@ function Field({ id, label, error, children }: { id: string; label: string; erro
     </div>
   )
 }
-const input = 'w-full h-12 rounded-[10px] border border-line bg-white px-4 text-[16px] focus:outline-2 focus:outline-link aria-[invalid=true]:border-brand'
+const input = 'w-full h-12 rounded-[10px] border border-line-strong bg-white px-4 text-[16px] focus:outline-2 focus:outline-link aria-[invalid=true]:border-brand'
 
 export default function Contact() {
   const { t } = useLang()

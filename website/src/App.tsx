@@ -4,13 +4,15 @@ import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
 
-const Products = lazy(() => import('./pages/products'))
-const Pricing = lazy(() => import('./pages/pricing'))
-const Help = lazy(() => import('./pages/help'))
-const Article = lazy(() => import('./pages/help/Article'))
-const Contact = lazy(() => import('./pages/contact'))
-const Legal = lazy(() => import('./pages/legal'))
-const NotFound = lazy(() => import('./pages/not-found'))
+import { loaders, loadArticle, loadLegal, loadNotFound } from './routes'
+
+const Products = lazy(loaders['/products'])
+const Pricing = lazy(loaders['/pricing'])
+const Help = lazy(loaders['/help'])
+const Article = lazy(loadArticle)
+const Contact = lazy(loaders['/contact'])
+const Legal = lazy(loadLegal)
+const NotFound = lazy(loadNotFound)
 
 // Single-file preview build keeps routes in memory (works inside a sandboxed preview); the real site uses clean URLs.
 const Router = import.meta.env.MODE === 'single' ? MemoryRouter : BrowserRouter

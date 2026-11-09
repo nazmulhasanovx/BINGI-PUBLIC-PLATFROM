@@ -64,7 +64,7 @@ Side paths: Book a demo → WhatsApp (later: lead API → NEC TEAM)
 | 3b | "Min 10" = minimum *billing* (fewer real rooms allowed) — v4 marks this interpretation as recommended, not yet locked | FAQ says "billing starts at 10 rooms" |
 | 4 | Free trial — length and whether to advertise | not mentioned; CTA = "Get started" |
 | 5 | HMS Mobile + Guest App store status | "Status to confirm" chip |
-| 6 | Official logo SVG | temporary wordmark |
+| 6 | Official logo | PNG in place (SVG wanted) |
 | 7 | Real screenshots / GIFs | labelled placeholders (see 02-ui-ux) |
 | 8 | Legal text | placeholder until lawyer review |
 | 9 | Demo form backend (lead API → NEC TEAM) | "Send on WhatsApp" button with the request filled in |

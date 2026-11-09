@@ -12,7 +12,7 @@ export function Reveal({ children, className = '', delay = 0 }: { children: Reac
     return () => io.disconnect()
   }, [])
   return (
-    <div ref={ref} className={`transition-[opacity,transform] duration-[350ms] ease-out ${shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
+    <div ref={ref} className={`transition-[opacity,transform] duration-[600ms] ease-out-quint ${shown ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   )

@@ -10,16 +10,32 @@ Rules applied from BinGi Foundation (visual identity wins) + the **ui-ux-pro-max
 | brand | `#B11C29` | primary buttons, popular plan, eyebrow — sparingly |
 | brand-soft | `#FBEDEE` | icon tiles, hero glow |
 | ink | `#1D1D1F` | text, dark CTA band |
-| muted | `#6B7280` | secondary text (4.5:1 on white) |
+| muted | `#5B6170` | secondary text (6.2 white · 5.7 canvas · 5.1 hero glow) |
 | canvas | `#F5F6F8` | page background (cool grey) |
-| line | `#E5E7EB` | borders |
+| line | `#E5E7EB` | decorative card borders only |
+| line-strong | `#8A919C` | inputs & controls (3.2:1, WCAG non-text) |
+| logo red | `#FD413F` | **logo only** — never for UI |
 | link | `#1D4ED8` | text links, focus ring (Ocean Blue, D-B) |
-| ok / soon | `#15803D` / `#B45309` | Live / Coming Soon chips |
+| ok / soon | `#166534` / `#92400E` | Live / Coming Soon chips (6.4:1) |
 
 - Type: Inter (EN) + Hind Siliguri (বাংলা); body 16px, line-height 1.5–1.6; headings 28–56px, tight tracking.
 - Radius 12 (cards), 16 (plan cards), 999 (buttons, chips). One soft shadow.
 - Icons: Lucide outline, 1.75 stroke. No emoji as icons.
 - Light theme only (Pearl Light).
+
+## Contrast audit (9 Nov 2026, measured)
+| Element | Before | After |
+|---|---:|---:|
+| Muted text on canvas | 4.47 ✗ | 5.73 ✓ |
+| Muted text on hero glow | 4.01 ✗ | 5.14 ✓ |
+| Light text on red Business card | 3.79 ✗ | 4.90 ✓ (white/90) |
+| Input / control borders | 1.24 ✗ | 3.18 ✓ |
+| Compare "not included" mark | 1.24 ✗ | 5.73 ✓ + screen-reader text |
+| Live / Coming Soon chips | 4.47 / 4.58 | 6.35 / 6.46 ✓ |
+Minimum text size 12px (was 11px). Rule: never colour alone — every ✓/– and chip also has text.
+
+## Logo
+Official PNG in `website/src/assets/bingi-logo.png` (copy in `public/brand/`). Favicon + Apple touch icon cut from the logo mark. An SVG version is still wanted for perfect sharpness.
 
 ## Layout
 - Container 1200px, 20px side padding on mobile.
@@ -63,9 +79,24 @@ Use **real BinGi screens only**. No fake UI.
 - Popular plan: gradient red card, lifted, deep red glow shadow.
 - Dark CTA band: two drifting glow orbs.
 - Live status dot: soft green pulse ring.
-- Scroll reveal: opacity 0→1 + 12px rise, 350ms ease-out, stagger 40–80ms.
+- Scroll reveal: opacity 0→1 + 12px rise, 600ms ease-out-quint, stagger 40–80ms. Hero text is NOT hidden by reveal (faster first paint).
+- Spring easing `--ease-spring` cubic-bezier(0.34,1.4,0.64,1) on card hover, buttons (press = scale 0.98), tabs.
+- Page change: 320ms fade + 10px rise.
+- Glow orbs: blur 80px, animated on desktop only (static on phones), `will-change: transform`.
+- Videos in media slots play only while on screen.
+- Nav links prefetch the next page on hover / focus / touch.
+- Mobile: sticky "Get started + WhatsApp" bar appears after 480px scroll (safe-area aware).
 - Shadows: `shadow-soft` (rest), `shadow-lift` (hover/featured), `shadow-glow` (brand actions) — tokens in `src/index.css`.
 - `prefers-reduced-motion`: all animation off, content shown immediately.
+
+## Measured quality (Lighthouse 12, 9 Nov 2026)
+| Page | Performance | Accessibility | Best practices | SEO | LCP | CLS |
+|---|---:|---:|---:|---:|---:|---:|
+| Home — mobile (slow 4G sim) | 94 | 100 | 100 | 100 | 2.8 s | 0 |
+| Pricing — mobile | 91 | 100 | 100 | 100 | 3.1 s | 0 |
+| Home — desktop | 100 | 100 | 100 | 100* | 0.5 s | 0 |
+*desktop SEO measured before robots.txt was added (92 → expected 100).
+Next step for mobile LCP < 2.5 s: prerender each page to static HTML at build time.
 
 ## Accessibility & interaction (pre-delivery checklist)
 - Touch targets ≥ 44px; visible focus ring (blue); skip-to-content link.

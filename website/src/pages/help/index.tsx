@@ -24,7 +24,7 @@ export default function Help() {
         <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted" aria-hidden="true" />
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ bn: 'যেমন: বুকিং, রুম যোগ, প্ল্যান', en: 'e.g. booking, add room, plan' })}
-          className="w-full h-14 rounded-full border border-line bg-white pl-12 pr-5 text-[16px] shadow-soft focus:outline-2 focus:outline-link" />
+          className="w-full h-14 rounded-full border border-line-strong bg-white pl-12 pr-5 text-[16px] shadow-soft focus:outline-2 focus:outline-link" />
       </label>
 
       <div className="mt-10 grid gap-3 grid-cols-2 md:grid-cols-4">

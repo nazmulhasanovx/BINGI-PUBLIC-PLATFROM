@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://technology.bingi.com.bd/sitemap.xml

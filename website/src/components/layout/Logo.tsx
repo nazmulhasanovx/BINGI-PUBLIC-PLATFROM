@@ -1,9 +1,7 @@
-// TEMP wordmark — replace with the official BinGi SVG logo (public/brand/bingi-logo.svg).
-export function Logo({ className = '' }: { className?: string }) {
-  return (
-    <span className={`inline-flex items-center gap-2 font-semibold tracking-tight text-ink ${className}`}>
-      <span className="grid size-8 place-items-center rounded-[9px] bg-brand text-white text-[15px] font-bold" aria-hidden="true">B</span>
-      <span className="text-[19px]">BinGi</span>
-    </span>
-  )
+import logo from '../../assets/bingi-logo.png'
+
+// Official BinGi logo (supplied by Nazmul, 9 Nov 2026). Logo red #FD413F is for the logo only;
+// UI actions use brand #B11C29. Replace with an SVG version when available for sharper scaling.
+export function Logo({ className = 'h-8' }: { className?: string }) {
+  return <img src={logo} alt="BinGi" width={387} height={129} className={`w-auto ${className}`} decoding="async" />
 }

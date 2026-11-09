@@ -19,7 +19,8 @@ website/
 │   ├── brand/        official logo goes here (bingi-logo.svg)
 │   └── media/        screenshots, GIFs, videos for media slots
 └── src/
-    ├── main.tsx · App.tsx (routes) · index.css (tokens)
+    ├── main.tsx · App.tsx (routes) · routes.ts (page loaders + prefetch) · index.css (tokens)
+    ├── assets/bingi-logo.png
     ├── i18n/lang.tsx                 language context, bn digits, ৳ format
     ├── data/                         ALL editable content
     │   ├── pricing.ts                plans, cycles, compare table, offers, priceFor()
@@ -61,9 +62,10 @@ website/
 - All 8 routes rendered in headless Chrome at 1440 and 390: no console errors, no horizontal scroll.
 
 ## Developer handoff — what is left
-1. Replace `Logo.tsx` wordmark with the official SVG.
+1. Official logo is in (PNG). Swap to SVG when available.
 2. Fill media slots with real screens/GIFs.
 3. Wire pricing + status to the API (keep the same object shape).
 4. Demo form → lead API.
-5. Meta/OG tags per page, sitemap.xml, robots.txt, analytics.
+5. Meta/OG tags per page, analytics. (robots.txt + sitemap.xml done.)
+7. Prerender pages to static HTML (mobile LCP target < 2.5 s).
 6. Final legal text.

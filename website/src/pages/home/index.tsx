@@ -62,12 +62,12 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
           <div className="absolute inset-0 bg-grid" />
-          <div className="absolute -top-40 left-1/2 h-[560px] w-[760px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-50 blur-[120px] animate-float" />
-          <div className="absolute top-40 -right-40 h-[420px] w-[520px] rounded-full bg-[#C9D6F7] opacity-50 blur-[120px] animate-float-slow" />
-          <div className="absolute top-[520px] -left-40 h-[360px] w-[460px] rounded-full bg-[#F9DCC9] opacity-40 blur-[120px] animate-float-slow" />
+          <div className="absolute -top-40 left-1/2 h-[560px] w-[760px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-35 blur-[80px] md:animate-float will-change-transform" />
+          <div className="absolute top-40 -right-40 h-[420px] w-[520px] rounded-full bg-[#C9D6F7] opacity-35 blur-[80px] md:animate-float-slow will-change-transform" />
+          <div className="absolute top-[520px] -left-40 h-[360px] w-[460px] rounded-full bg-[#F9DCC9] opacity-30 blur-[80px] hidden md:block md:animate-float-slow will-change-transform" />
         </div>
         <div className="container-x pt-14 md:pt-20 text-center">
-          <Reveal>
+          <div className="animate-page-in">
             <span className="inline-flex items-center rounded-full border border-brand/30 bg-white px-3 py-1 text-[13px] font-medium text-brand">{t({ bn: 'হোটেল ম্যানেজমেন্ট টেকনোলজি', en: 'Hotel Management Technology' })}</span>
             <h1 className="mt-5 text-[36px] md:text-[56px] font-semibold tracking-tight leading-[1.08] text-balance max-w-[900px] mx-auto">
               {t({ bn: 'আপনার হোটেলের সব কাজ, এক সিস্টেমে', en: "Your whole hotel, in one system" })}
@@ -79,7 +79,7 @@ export default function Home() {
               <a href={site.hmsRegister} className="btn-primary h-12 px-6"><span className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/35 to-transparent animate-shine" aria-hidden="true" />{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
               <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
             </div>
-          </Reveal>
+          </div>
           <Reveal delay={120} className="relative mx-auto mt-14 max-w-[1000px] pb-6">
             <div className="pointer-events-none absolute inset-x-[10%] top-[18%] bottom-[8%] -z-10 rounded-[40px] bg-gradient-to-r from-brand/30 via-[#6E8EF5]/25 to-brand/25 blur-[70px]" aria-hidden="true" />
             <StudioDisplay media="heroWeb" className="relative w-[88%] md:w-[86%]" />
@@ -184,11 +184,11 @@ export default function Home() {
       {/* CTA */}
       <section className="container-x mt-24">
         <Reveal className="relative overflow-hidden rounded-[20px] bg-ink text-white px-6 py-14 md:p-16 text-center shadow-lift">
-          <div className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-brand/50 blur-[90px] animate-float" aria-hidden="true" />
-          <div className="pointer-events-none absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[#3B5BDB]/40 blur-[90px] animate-float-slow" aria-hidden="true" />
+          <div className="pointer-events-none absolute -top-24 left-1/4 h-72 w-72 rounded-full bg-brand/50 blur-[80px] md:animate-float will-change-transform" aria-hidden="true" />
+          <div className="pointer-events-none absolute -bottom-24 right-1/4 h-72 w-72 rounded-full bg-[#3B5BDB]/40 blur-[80px] md:animate-float-slow will-change-transform" aria-hidden="true" />
           <div className="relative">
           <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight text-balance">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
-          <p className="mt-3 text-white/70 text-[17px]">{t({ bn: 'অ্যাকাউন্ট খুলুন, প্রপার্টি সাজান, বুকিং নেওয়া শুরু করুন।', en: 'Create your account, set up your property and start taking bookings.' })}</p>
+          <p className="mt-3 text-white/85 text-[17px]">{t({ bn: 'অ্যাকাউন্ট খুলুন, প্রপার্টি সাজান, বুকিং নেওয়া শুরু করুন।', en: 'Create your account, set up your property and start taking bookings.' })}</p>
           <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
             <a href={site.hmsRegister} className="btn bg-white text-ink hover:bg-white/90 h-12 px-6">{t(ctaLabel)}<ArrowRight className="size-4" aria-hidden="true" /></a>
             <a href={site.whatsapp} className="btn border border-white/25 text-white hover:bg-white/10 h-12 px-6">WhatsApp</a>

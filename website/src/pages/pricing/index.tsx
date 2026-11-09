@@ -17,7 +17,7 @@ const faqs: { q: L; a: L }[] = [
 function CellView({ c }: { c: Cell }) {
   const { t } = useLang()
   if (c === true) return <Check className="size-[18px] text-ok mx-auto" aria-label="Included" />
-  if (c === false) return <Minus className="size-[18px] text-line mx-auto" aria-label="Not included" />
+  if (c === false) return <span className="inline-flex items-center gap-1 text-muted"><Minus className="size-4" aria-hidden="true" /><span className="sr-only">Not included</span></span>
   if (c === 'tailored') return <span className="rounded-full bg-canvas px-2.5 py-1 text-[12px] text-muted">{t({ bn: 'প্রয়োজন মতো', en: 'Tailored' })}</span>
   return <span className="text-[13px] font-medium">{t(c)}</span>
 }
@@ -32,7 +32,7 @@ export default function Pricing() {
 
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] -z-10 overflow-hidden" aria-hidden="true"><div className="absolute inset-0 bg-grid" /><div className="absolute -top-40 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-50 blur-[120px] animate-float" /></div>
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] -z-10 overflow-hidden" aria-hidden="true"><div className="absolute inset-0 bg-grid" /><div className="absolute -top-40 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-35 blur-[80px] md:animate-float will-change-transform" /></div>
       <div className="container-x pt-14">
         <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'যত রুম, তত দাম', en: 'Pay per room. Nothing hidden.' })} lead={t({ bn: 'প্রতি রুমের মাসিক রেট। প্রতিটা খরচ আলাদা করে দেখানো।', en: 'A simple monthly rate per room. Every charge shown separately.' })} />
 
@@ -43,10 +43,10 @@ export default function Pricing() {
           <div className="card glow-border flex flex-wrap items-center justify-center gap-3 px-4 py-3">
             <label htmlFor="rooms" className="flex items-center gap-2 text-[15px] font-medium"><BedDouble className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'আপনার রুম সংখ্যা', en: 'Your rooms' })}</label>
             <div className="flex items-center gap-1">
-              <button onClick={() => setR(rooms - 1)} className="grid size-11 place-items-center rounded-full border border-line bg-white cursor-pointer hover:bg-canvas" aria-label="Fewer rooms"><Minus className="size-4" /></button>
+              <button onClick={() => setR(rooms - 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="Fewer rooms"><Minus className="size-4" /></button>
               <input id="rooms" type="number" inputMode="numeric" min={1} value={rooms} onChange={(e) => setR(+e.target.value)}
-                className="h-11 w-20 rounded-[10px] border border-line text-center text-[17px] font-semibold focus:outline-2 focus:outline-link" />
-              <button onClick={() => setR(rooms + 1)} className="grid size-11 place-items-center rounded-full border border-line bg-white cursor-pointer hover:bg-canvas" aria-label="More rooms"><Plus className="size-4" /></button>
+                className="h-11 w-20 rounded-[10px] border border-line-strong text-center text-[17px] font-semibold focus:outline-2 focus:outline-link" />
+              <button onClick={() => setR(rooms + 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="More rooms"><Plus className="size-4" /></button>
             </div>
             <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => setR(+e.target.value)} aria-label="Rooms slider" className="w-44 accent-[#B11C29] cursor-pointer" />
           </div>
@@ -64,16 +64,16 @@ export default function Pricing() {
             const added = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id)
             return (
               <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-6 border transition-[transform,box-shadow] duration-300 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
-                {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[11px] font-semibold tracking-wide text-white whitespace-nowrap">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
+                {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[12px] font-semibold tracking-wide text-white whitespace-nowrap">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
                 <h2 className="text-[20px] font-semibold">BinGi {p.name}</h2>
-                <p className={`mt-1 text-[14px] min-h-[42px] ${pop ? 'text-white/75' : 'text-muted'}`}>{t(p.tagline)}</p>
+                <p className={`mt-1 text-[14px] min-h-[42px] ${pop ? 'text-white/90' : 'text-muted'}`}>{t(p.tagline)}</p>
 
                 <div className="mt-4 min-h-[104px]">
                   {pr ? (
                     <>
-                      <p className="text-[34px] font-semibold tracking-tight leading-none">{taka(pr.perRoom)}<span className={`text-[14px] font-normal ${pop ? 'text-white/75' : 'text-muted'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
-                      {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/60' : 'text-muted'}`}>{taka(p.rate!)}</p>}
-                      <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/85' : 'text-muted'}`}>
+                      <p className="text-[34px] font-semibold tracking-tight leading-none">{taka(pr.perRoom)}<span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
+                      {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/80' : 'text-muted'}`}>{taka(p.rate!)}</p>}
+                      <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/90' : 'text-muted'}`}>
                         {c.months === 1
                           ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} rooms · ${taka(pr.total)}/month` })
                           : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)} · সাশ্রয় ${taka(pr.saved)}`, en: `${pr.q} rooms · ${taka(pr.total)} for ${c.months} months · save ${taka(pr.saved)}` })}
@@ -91,7 +91,7 @@ export default function Pricing() {
                 )}
 
                 <ul className={`mt-6 space-y-2.5 text-[14px] flex-1 border-t pt-5 ${pop ? 'border-white/20' : 'border-line'}`}>
-                  {p.plus && <li className={`text-[13px] font-semibold ${pop ? 'text-white/85' : 'text-ink'}`}>{t(p.plus)}</li>}
+                  {p.plus && <li className={`text-[13px] font-semibold ${pop ? 'text-white/90' : 'text-ink'}`}>{t(p.plus)}</li>}
                   {added.map((r, j) => <li key={j} className="flex gap-2.5"><Check className={`size-[18px] shrink-0 ${pop ? 'text-white' : 'text-ok'}`} aria-hidden="true" />{t(r.name)}</li>)}
                   {p.id === 'starter' && <li className="flex gap-2.5"><Check className="size-[18px] shrink-0 text-ok" aria-hidden="true" />{t({ bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' })}</li>}
                   {p.id === 'custom' && [{ bn: 'একাধিক প্রপার্টি', en: 'Multiple properties' }, { bn: 'আপনার মডিউল ও ওয়ার্কফ্লো', en: 'Your modules and workflow' }, { bn: 'মাইগ্রেশন ও ইন্টিগ্রেশন প্ল্যান', en: 'Migration and integration planning' }, { bn: 'ডেডিকেটেড অনবোর্ডিং', en: 'Dedicated onboarding' }].map((x, j) => (
@@ -101,13 +101,13 @@ export default function Pricing() {
 
                 {p.fees && (
                   <div className={`mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
-                    <p className={`text-[11px] font-semibold tracking-wide uppercase ${pop ? 'text-white/75' : 'text-muted'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
+                    <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
                     <div className="mt-1.5 grid grid-cols-3 gap-1 text-[13px]">
                       {([['marketplace', { bn: 'মার্কেটপ্লেস', en: 'Marketplace' }], ['website', { bn: 'ওয়েবসাইট', en: 'Website' }], ['walkin', { bn: 'ওয়াক-ইন', en: 'Walk-in' }]] as const).map(([k, l]) => (
-                        <div key={k}><span className="font-semibold">{num(p.fees![k])}%</span><span className={`block text-[11px] ${pop ? 'text-white/75' : 'text-muted'}`}>{t(l)}</span></div>
+                        <div key={k}><span className="font-semibold">{num(p.fees![k])}%</span><span className={`block text-[12px] ${pop ? 'text-white/90' : 'text-muted'}`}>{t(l)}</span></div>
                       ))}
                     </div>
-                    <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/85' : 'border-line text-muted'}`}>
+                    <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/90' : 'border-line text-muted'}`}>
                       {p.activation
                         ? <>{t({ bn: 'অ্যাক্টিভেশন', en: 'Activation' })} <span className="line-through">{taka(p.activation.standard)}</span> <span className="font-semibold">{t({ bn: 'এখন', en: 'now' })} {taka(p.activation.now)}</span></>
                         : t({ bn: 'কোনো অ্যাক্টিভেশন ফি নেই', en: 'No activation fee' })}
