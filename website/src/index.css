@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand: #B11C29;
+  --color-brand-hover: #961722;
+  --color-brand-soft: #FBEDEE;
+  --color-ink: #1D1D1F;
+  --color-muted: #6B7280;
+  --color-line: #E5E7EB;
+  --color-canvas: #F5F6F8;
+  --color-link: #1D4ED8;
+  --color-ok: #15803D;
+  --color-ok-soft: #E8F5EC;
+  --color-soon: #B45309;
+  --color-soon-soft: #FEF3E2;
+  --font-sans: "Inter", "Hind Siliguri", system-ui, sans-serif;
+  --radius-card: 12px;
+  --shadow-soft: 0 1px 2px rgb(16 24 40 / 0.04), 0 8px 24px rgb(16 24 40 / 0.06);
+}
+
+html { scroll-behavior: smooth; }
+html[lang="bn"] body { font-family: "Hind Siliguri", "Inter", system-ui, sans-serif; }
+body { @apply bg-canvas text-ink antialiased; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+@utility container-x { @apply mx-auto w-full max-w-[1200px] px-5 md:px-8; }
+@utility card { @apply rounded-[12px] bg-white border border-line shadow-soft; }
+@utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-[15px] font-medium transition-colors duration-150 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link; }
+@utility btn-primary { @apply btn bg-brand text-white hover:bg-brand-hover; }
+@utility btn-ghost { @apply btn bg-white text-ink border border-line hover:bg-canvas; }
+@utility eyebrow { @apply text-[13px] font-semibold tracking-wide uppercase text-brand; }
+@utility h2 { @apply text-[28px] md:text-[36px] font-semibold tracking-tight leading-tight; }
+@utility lead { @apply text-[16px] md:text-[18px] text-muted leading-relaxed; }
