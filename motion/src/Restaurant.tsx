@@ -1,63 +1,31 @@
 import React from 'react';
-import { useCurrentFrame, interpolate } from 'remotion';
-import { C, Frame, Panel, Chip, Cursor, Ripple, useStep, mix, taka } from './kit';
+import { C, Stage, Card, useStep, taka } from './kit';
 
-// Restaurant POS: items added, order posted to Room 305; the room bill gains a Restaurant line.
-const items = [
-  { n: 'Chicken biryani', p: 450, at: 14 },
-  { n: 'Beef bhuna', p: 380, at: 30 },
-  { n: 'Lime soda ×2', p: 240, at: 46 },
-  { n: 'Firni', p: 150, at: 60 },
-];
-
+// Clean version: a table order is posted to Room 305 and the room bill grows.
 export const Restaurant: React.FC = () => {
-  const f = useCurrentFrame();
   const s = useStep();
-  const shown = items.map((it) => s(it.at, it.at + 14));
-  const total = items.reduce((a, it, i) => a + it.p * shown[i], 0);
-  const move = s(70, 94), press = s(96, 102) * (1 - s(102, 108)), posted = s(104, 114), line = s(114, 134), bal = s(122, 144);
-  const btn = { x: 360, y: 610 };
+  const items = [['Biryani', 450, 8], ['Bhuna', 380, 20], ['Soda ×2', 240, 32]] as const;
+  const shown = items.map(([, , at]) => s(at, at + 12));
+  const total = items.reduce((a, [, p], i) => a + p * shown[i], 0);
+  const fly = s(60, 86), line = s(84, 100), bal = s(90, 110);
   return (
-    <Frame pad={30}>
-      <div style={{ display: 'flex', gap: 26, height: '100%' }}>
-        <Panel style={{ flex: 1, padding: 30, display: 'flex', flexDirection: 'column' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <div style={{ fontSize: 32, fontWeight: 600 }}>Order · Table 4</div>
-            <Chip tone="blue" size={20}>Dine-in</Chip>
-          </div>
-          <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 12, flex: 1 }}>
-            {items.map((it, i) => (
-              <div key={it.n} style={{ opacity: shown[i], translate: `${(1 - shown[i]) * -30}px 0`, display: 'flex', justifyContent: 'space-between', fontSize: 25, padding: '14px 18px', borderRadius: 14, background: '#F6F7F9' }}>
-                <span>{it.n}</span><span style={{ fontWeight: 600 }}>{taka(it.p)}</span>
-              </div>
-            ))}
-          </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 28, fontWeight: 600, borderTop: `1.5px solid ${C.line}`, paddingTop: 18 }}>
-            <span>Total</span><span>{taka(total)}</span>
-          </div>
-          <div style={{ marginTop: 18, height: 70, borderRadius: 999, background: posted > 0.5 ? C.green : C.coral, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 25, fontWeight: 600, scale: String(1 - press * 0.04) }}>
-            {posted > 0.5 ? '✓ Posted to Room 305' : 'Post to room bill · 305'}
-          </div>
-        </Panel>
-        <Panel style={{ width: 470, padding: 30 }}>
-          <div style={{ fontSize: 22, color: C.muted }}>Room bill</div>
-          <div style={{ fontSize: 32, fontWeight: 600, marginTop: 4 }}>Room 305 · Haque</div>
-          <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 12, fontSize: 23 }}>
-            {[['Room · 2 nights', 7000], ['Laundry', 300]].map(([n, p]) => (
-              <div key={n as string} style={{ display: 'flex', justifyContent: 'space-between' }}><span style={{ color: C.muted }}>{n}</span><span>{taka(p as number)}</span></div>
-            ))}
-            <div style={{ height: line * 54, opacity: line, overflow: 'hidden' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', background: C.coralSoft, color: C.brand, borderRadius: 12, padding: '12px 14px', fontWeight: 600 }}><span>Restaurant · Table 4</span><span>{taka(1220)}</span></div>
-            </div>
-          </div>
-          <div style={{ marginTop: 22, borderTop: `1.5px solid ${C.line}`, paddingTop: 18, display: 'flex', justifyContent: 'space-between', fontSize: 28, fontWeight: 600 }}>
-            <span>Balance due</span><span>{taka(7300 + 1220 * bal)}</span>
-          </div>
-          <div style={{ marginTop: 16 }}><Chip tone="amber" size={20}>Payment: due at check-out</Chip></div>
-        </Panel>
+    <Stage w={1200} h={750} lw={300}>
+      <div style={{ position: 'absolute', inset: 10, display: 'flex', gap: 8, alignItems: 'center' }}>
+        <Card style={{ width: 128, padding: 10, translate: `${fly * 20}px 0`, opacity: 1 - fly * 0.35, scale: String(1 - fly * 0.08) }}>
+          <div style={{ fontSize: 12, color: C.muted }}>Table 4</div>
+          {items.map(([n, p], i) => (
+            <div key={n} style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12, marginTop: 6, opacity: shown[i] }}><span>{n}</span><span>{taka(p)}</span></div>
+          ))}
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 13, fontWeight: 600, marginTop: 8, paddingTop: 7, borderTop: `1px solid ${C.line}` }}><span>Total</span><span>{taka(total)}</span></div>
+        </Card>
+        <div style={{ fontSize: 14, color: C.coral, opacity: 0.4 + fly * 0.6 }}>→</div>
+        <Card style={{ flex: 1, padding: 12 }}>
+          <div style={{ fontSize: 12, color: C.muted }}>Room 305 bill</div>
+          <div style={{ fontSize: 22, fontWeight: 600, letterSpacing: -0.5, marginTop: 2, fontVariantNumeric: 'tabular-nums' }}>{taka(7300 + 1070 * bal)}</div>
+          <div style={{ fontSize: 11.5, color: C.muted, marginTop: 6 }}>Room · 2 nights</div>
+          <div style={{ marginTop: 6, opacity: line, translate: `0 ${(1 - line) * 8}px`, background: C.coralSoft, color: C.brand, borderRadius: 8, padding: '5px 8px', fontSize: 11.5, fontWeight: 600, display: 'flex', justifyContent: 'space-between', whiteSpace: 'nowrap', gap: 6 }}><span>+ Restaurant</span><span>{taka(1070)}</span></div>
+        </Card>
       </div>
-      <Cursor x={mix(move, 800, btn.x)} y={mix(move, 380, btn.y)} press={press} />
-      <Ripple x={btn.x - 4} y={btn.y - 4} p={interpolate(f, [102, 118], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} color={C.green} />
-    </Frame>
+    </Stage>
   );
 };

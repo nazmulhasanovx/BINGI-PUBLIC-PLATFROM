@@ -12,7 +12,7 @@ export const fontsReady = Promise.all(
 );
 
 export const C = {
-  canvas: '#EEF0F4',
+  canvas: '#F5F6F8',
   surface: '#FFFFFF',
   line: '#E3E6EC',
   ink: '#0F1720',
@@ -21,11 +21,11 @@ export const C = {
   coralSoft: '#FFE7E4',
   brand: '#B11C29',
   green: '#16804A',
-  greenSoft: '#E3F5EA',
+  greenSoft: '#D6F0E0',
   amber: '#A35A00',
-  amberSoft: '#FFF1DC',
+  amberSoft: '#FFE8C4',
   blue: '#2457D6',
-  blueSoft: '#E6EDFF',
+  blueSoft: '#DAE4FF',
   navy: '#12324B',
 };
 
@@ -60,7 +60,7 @@ export const Chip: React.FC<{ tone: 'green' | 'amber' | 'coral' | 'blue' | 'gray
   } as const;
   const [bg, fg] = map[tone];
   return (
-    <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: bg, color: fg, fontSize: size, fontWeight: 600, padding: `${size * 0.3}px ${size * 0.65}px`, borderRadius: 999, whiteSpace: 'nowrap', ...style }}>
+    <span style={{ display: 'inline-flex', alignItems: 'center', gap: size * 0.35, background: bg, color: fg, fontSize: size, fontWeight: 600, padding: `${size * 0.3}px ${size * 0.65}px`, borderRadius: 999, whiteSpace: 'nowrap', ...style }}>
       <span style={{ width: size * 0.36, height: size * 0.36, borderRadius: 99, background: fg }} />
       {children}
     </span>
@@ -81,3 +81,17 @@ export const Ripple: React.FC<{ x: number; y: number; p: number; color?: string 
   ) : null;
 
 export const taka = (n: number) => '৳' + Math.round(n).toLocaleString('en-US');
+
+/** Clean stage: designs in "logical" px (≈ the size the card shows on desktop) and scales up for a sharp render. */
+export const Stage: React.FC<{ w: number; h: number; lw: number; children: React.ReactNode }> = ({ w, h, lw, children }) => {
+  const z = w / lw;
+  return (
+    <AbsoluteFill style={{ background: '#F5F6F8', fontFamily: FONT, color: C.ink }}>
+      <div style={{ zoom: z, width: lw, height: h / z, position: 'relative', overflow: 'hidden' }}>{children}</div>
+    </AbsoluteFill>
+  );
+};
+
+export const Card: React.FC<{ children: React.ReactNode; style?: React.CSSProperties }> = ({ children, style }) => (
+  <div style={{ background: '#fff', borderRadius: 14, boxShadow: '0 1px 2px rgba(16,24,40,.06), 0 8px 24px rgba(16,24,40,.06)', ...style }}>{children}</div>
+);

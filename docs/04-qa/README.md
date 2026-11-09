@@ -72,3 +72,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 6 Remotion loops (`/motion`) rendered to MP4 (~1 MB total) and wired into `media.ts`. They autoplay only on screen. Bento media now keep their natural aspect ratio, and video is `object-contain` so nothing is cropped.
 - Checked at 1440/820/393: all load (readyState 4), only on-screen videos play. Device × page regression: no issues.
 - These are illustrations with sample data, not HMS screen recordings (see motion/README.md).
+
+## 9 Nov 2026 — cleaner bento loops + team section
+- Loops redesigned "one moment per card": fewer rows, larger type, designed at the size the card shows on desktop (logical px, rendered sharp at 2.5–4×). Removed the double frame around bento media.
+- New "The team behind BinGi" section after FAQ (zatiqeasy pattern): Nazmul Hasan, Md. Yeapas, Md. Abdul Hamim, Most. Shahina Akter. Roles only, no invented bios. Initials until photos arrive (`website/src/data/team.ts`, photos go in `public/team/`).
+- 1440/820/393 checked; device × page regression: no issues.

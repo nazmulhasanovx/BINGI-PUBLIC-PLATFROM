@@ -14,6 +14,7 @@ import { StudioDisplay, IPhone16PM } from '../../components/media/Devices'
 import { Media } from '../../components/media/Media'
 import { StatusChip } from '../../components/ui/StatusChip'
 import { Accordion, PillTabs } from '../../components/ui/Ui'
+import { team } from '../../data/team'
 
 const story: { title: L; text: L; media: MediaId }[] = [
   { media: 'story1', title: { bn: 'বুকিং আসে', en: 'A booking comes in' }, text: { bn: 'আপনার ওয়েবসাইট, BinGi মার্কেটপ্লেস বা রিসেপশন — সব বুকিং একই তালিকায়, একই নম্বরে।', en: 'From your website, the BinGi Marketplace or the front desk — every booking lands in one list with one ID.' } },
@@ -97,7 +98,7 @@ export default function Home() {
                 <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em]">{t(b.title)}</h3>
                 <p className="mt-1 text-[16px] text-muted-foreground">{t(b.text)}</p>
               </div>
-              <div className="mx-4 mb-4 mt-auto overflow-hidden rounded-[12px] border border-line"><Media id={b.media} /></div>
+              <div className="mx-3 mb-3 mt-auto overflow-hidden rounded-[12px]"><Media id={b.media} /></div>
             </article>
           ))}
         </div>
@@ -176,6 +177,30 @@ export default function Home() {
           </div>
           <Accordion items={faqs.map((f) => ({ q: t(f.q), a: t(f.a) }))} />
         </div>
+      </section>
+
+      {/* team — after FAQ, like zatiqeasy */}
+      <section className="container-x pt-16 md:pt-24" aria-labelledby="team-h">
+        <div className="max-w-[620px]">
+          <h2 id="team-h" className="h2">{t({ bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' })}</h2>
+          <p className="lead mt-4">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — ২০২৩ থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
+        </div>
+        <ul className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          {team.map((m) => (
+            <li key={m.name} onPointerMove={spot} className="spotlight card card-hover overflow-hidden">
+              <div className="relative aspect-[5/4] overflow-hidden bg-[radial-gradient(120%_80%_at_50%_115%,#FFB38A40,transparent_60%),linear-gradient(160deg,#16405F,#0B2235)]">
+                {m.photo
+                  ? <img src={m.photo} alt={m.name} loading="lazy" className="size-full object-cover" />
+                  : <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[44px] sm:text-[56px] font-semibold tracking-[-0.03em] text-white/85">{m.name.replace(/^(Md\.|Most\.)\s*/, '').split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>}
+                <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[12px] font-medium text-ink backdrop-blur">{t(m.group)}</span>
+              </div>
+              <div className="p-4">
+                <h3 className="text-[16px] font-semibold leading-snug">{m.name}</h3>
+                <p className="mt-0.5 text-[14px] text-muted-foreground leading-snug">{t(m.role)}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </section>
 
       {/* closing — the sunrise again */}

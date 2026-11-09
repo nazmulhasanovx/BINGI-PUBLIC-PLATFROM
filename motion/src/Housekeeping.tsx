@@ -1,54 +1,44 @@
 import React from 'react';
-import { useCurrentFrame, interpolate } from 'remotion';
-import { C, Frame, Panel, Chip, Cursor, Ripple, useStep, mix } from './kit';
+import { C, Stage, Card, Chip, Cursor, useStep, mix } from './kit';
 
-// Check-out → room readiness becomes "Needs cleaning" and a cleaning task appears.
-// Booking status and room readiness are shown as separate chips on purpose.
+// Clean version: Check out → room "Needs cleaning" → one cleaning task appears and is assigned.
+// Booking status and room readiness are separate chips on purpose.
 export const Housekeeping: React.FC = () => {
-  const f = useCurrentFrame();
   const s = useStep();
-  const move = s(10, 42), press = s(44, 52) * (1 - s(52, 58)), done = s(52, 62), task = s(70, 96), assign = s(110, 126);
-  const btn = { x: 470, y: 222 };
+  const come = s(8, 38), press = s(40, 46) * (1 - s(46, 52)), done = s(48, 56), task = s(64, 88), assign = s(104, 118);
   return (
-    <Frame pad={26}>
-      <Panel style={{ padding: 28 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: 34, fontWeight: 600 }}>Room 204</div>
-          <div style={{ fontSize: 22, color: C.muted }}>Deluxe · 2 guests</div>
-        </div>
-        <div style={{ display: 'flex', gap: 12, marginTop: 18 }}>
-          {done < 0.5 ? <Chip tone="blue">In-house</Chip> : <Chip tone="gray">Checked out</Chip>}
-          {done < 0.5 ? <Chip tone="green">Occupied</Chip> : <Chip tone="amber">Needs cleaning</Chip>}
-        </div>
-        <div style={{ marginTop: 22, height: 64, borderRadius: 999, background: done > 0.5 ? '#EEF0F3' : C.coral, color: done > 0.5 ? C.muted : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 24, fontWeight: 600, scale: String(1 - press * 0.04) }}>
-          {done > 0.5 ? 'Checked out 11:02' : 'Check out'}
-        </div>
-      </Panel>
-      <div style={{ marginTop: 26, fontSize: 24, fontWeight: 600, color: C.muted, paddingLeft: 6 }}>Housekeeping · Today</div>
-      <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 14 }}>
-        <div style={{ height: task * 120, opacity: task, overflow: 'hidden' }}>
-          <Panel style={{ padding: '20px 24px', border: `2px solid ${C.coral}`, display: 'flex', alignItems: 'center', gap: 16, translate: `0 ${(1 - task) * -20}px` }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: C.coralSoft, color: C.brand, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>🧹</div>
+    <Stage w={800} h={700} lw={300}>
+      <div style={{ position: 'absolute', inset: 12 }}>
+        <Card style={{ padding: 14 }}>
+          <div style={{ fontSize: 17, fontWeight: 600 }}>Room 204</div>
+          <div style={{ display: 'flex', gap: 6, marginTop: 8 }}>
+            {done < 0.5 ? <Chip tone="blue" size={11}>In-house</Chip> : <Chip tone="gray" size={11}>Checked out</Chip>}
+            {done < 0.5 ? <Chip tone="green" size={11}>Occupied</Chip> : <Chip tone="amber" size={11}>Needs cleaning</Chip>}
+          </div>
+          <div style={{ marginTop: 12, height: 32, borderRadius: 99, background: done > 0.5 ? '#EEF0F3' : C.coral, color: done > 0.5 ? C.muted : '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12.5, fontWeight: 600, scale: String(1 - press * 0.04) }}>
+            {done > 0.5 ? 'Checked out' : 'Check out'}
+          </div>
+        </Card>
+        <div style={{ opacity: task, translate: `0 ${(1 - task) * 12}px`, marginTop: 10 }}>
+          <Card style={{ padding: '11px 12px', display: 'flex', alignItems: 'center', gap: 10, outline: `1.5px solid ${assign > 0.5 ? C.line : C.coral}` }}>
+            <div style={{ width: 30, height: 30, borderRadius: 9, background: C.coralSoft, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15 }}>🧹</div>
             <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 24, fontWeight: 600 }}>Clean Room 204</div>
-              <div style={{ fontSize: 19, color: C.muted }}>{assign > 0.5 ? 'Assigned to Mitu' : 'New · from check-out'}</div>
+              <div style={{ fontSize: 13, fontWeight: 600 }}>Clean Room 204</div>
+              <div style={{ fontSize: 11, color: C.muted }}>{assign > 0.5 ? 'Mitu' : 'From check-out'}</div>
             </div>
-            {assign > 0.5 ? <Chip tone="blue" size={19}>Assigned</Chip> : <Chip tone="coral" size={19}>New</Chip>}
-          </Panel>
+            {assign > 0.5 ? <Chip tone="blue" size={10.5}>Assigned</Chip> : <Chip tone="coral" size={10.5}>New</Chip>}
+          </Card>
         </div>
-        {[['Room 108', 'Mitu', 'In progress', 'amber'], ['Room 312', 'Rafi', 'Ready', 'green']].map(([r, who, st, tone]) => (
-          <Panel key={r} style={{ padding: '20px 24px', display: 'flex', alignItems: 'center', gap: 16 }}>
-            <div style={{ width: 52, height: 52, borderRadius: 14, background: '#F2F4F7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 26 }}>🧹</div>
-            <div style={{ flex: 1 }}>
-              <div style={{ fontSize: 24, fontWeight: 600 }}>Clean {r}</div>
-              <div style={{ fontSize: 19, color: C.muted }}>{who}</div>
-            </div>
-            <Chip tone={tone as 'amber' | 'green'} size={19}>{st}</Chip>
-          </Panel>
-        ))}
+        <Card style={{ marginTop: 8, padding: '11px 12px', display: 'flex', alignItems: 'center', gap: 10 }}>
+          <div style={{ width: 30, height: 30, borderRadius: 9, background: '#F2F4F7', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 15 }}>🧹</div>
+          <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 13, fontWeight: 600 }}>Clean Room 108</div>
+            <div style={{ fontSize: 11, color: C.muted }}>Rafi</div>
+          </div>
+          <Chip tone="amber" size={10.5}>In progress</Chip>
+        </Card>
       </div>
-      <Cursor x={mix(move, 700, btn.x)} y={mix(move, 640, btn.y)} press={press} />
-      <Ripple x={btn.x - 6} y={btn.y - 4} p={interpolate(f, [50, 66], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
-    </Frame>
+      <Cursor x={mix(come, 250, 160)} y={mix(come, 245, 108)} press={press} size={20} />
+    </Stage>
   );
 };

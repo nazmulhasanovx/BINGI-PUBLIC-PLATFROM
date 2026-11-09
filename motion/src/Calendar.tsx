@@ -1,69 +1,46 @@
 import React from 'react';
-import { useCurrentFrame, interpolate } from 'remotion';
-import { C, Frame, Panel, Chip, Cursor, Ripple, useStep, mix } from './kit';
+import { C, Stage, Card, Cursor, useStep, mix } from './kit';
 
-// Booking calendar: a booking is dragged from Room 102 to Room 201 and a toast confirms the move.
-const days = ['Mon 10', 'Tue 11', 'Wed 12', 'Thu 13', 'Fri 14', 'Sat 15', 'Sun 16', 'Mon 17'];
-const rooms = ['101', '102', '103', '201', '202', '203'];
-const LEFT = 150, TOP = 92, COL = 172, ROW = 78;
+// Clean version: 4 rooms × 5 nights. One booking is dragged to Room 201; a small toast confirms.
+const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
+const rooms = ['101', '102', '201', '202'];
+const L = 70, T = 38, COL = 100, ROW = 46;
 
 const bars = [
-  { r: 0, d: 0, n: 3, name: 'Karim · 3 nights', tone: C.blue, soft: C.blueSoft },
-  { r: 2, d: 2, n: 2, name: 'Sultana · 2 nights', tone: C.green, soft: C.greenSoft },
-  { r: 4, d: 4, n: 3, name: 'Hossain · 3 nights', tone: C.amber, soft: C.amberSoft },
-  { r: 5, d: 0, n: 2, name: 'Akter · 2 nights', tone: C.blue, soft: C.blueSoft },
-  { r: 3, d: 5, n: 2, name: 'Islam · 2 nights', tone: C.green, soft: C.greenSoft },
+  { r: 0, d: 0, n: 2, name: 'Karim', c: C.blue, s: C.blueSoft },
+  { r: 2, d: 3, n: 2, name: 'Islam', c: C.green, s: C.greenSoft },
+  { r: 3, d: 1, n: 2, name: 'Hossain', c: C.amber, s: C.amberSoft },
 ];
 
 export const Calendar: React.FC = () => {
-  const f = useCurrentFrame();
   const s = useStep();
-  const approach = s(8, 40), grab = s(42, 50), drag = s(52, 96), drop = s(98, 106), toast = s(104, 120);
-  // dragged booking: Room 102, Tue → Room 201, Thu
-  const bx = LEFT + mix(drag, 1, 3) * COL + 6;
-  const by = TOP + mix(drag, 1, 3) * ROW + 8;
+  const come = s(6, 36), grab = s(38, 46), drag = s(48, 92), drop = s(94, 102), toast = s(100, 116);
+  const bx = L + mix(drag, 0, 1) * COL + 3;
+  const by = T + mix(drag, 1, 2) * ROW + 5;
   const lift = grab * (1 - drop);
-  const startX = 1400, startY = 620;
-  const cx = mix(approach, startX, LEFT + 1 * COL + 120) + (bx - (LEFT + COL + 6)) * (drag > 0 ? 1 : 0);
-  const cy = mix(approach, startY, TOP + 1 * ROW + 30) + (by - (TOP + ROW + 8)) * (drag > 0 ? 1 : 0);
+  const hx = L + 40, hy = T + ROW + 18; // grab point on the bar at rest
+  const cx = drag > 0 ? bx + 37 : mix(come, 560, hx);
+  const cy = drag > 0 ? by + 13 : mix(come, 270, hy);
   return (
-    <Frame pad={28}>
-      <Panel style={{ position: 'absolute', inset: 28, overflow: 'hidden' }}>
-        {/* header */}
-        <div style={{ position: 'absolute', left: 30, top: 22, right: 30, display: 'flex', alignItems: 'center', gap: 18 }}>
-          <div style={{ fontSize: 30, fontWeight: 600 }}>Booking calendar</div>
-          <Chip tone="gray" size={20}>Nov 10 – 17</Chip>
-          <div style={{ flex: 1 }} />
-          <Chip tone="green" size={20}>Confirmed</Chip>
-          <Chip tone="amber" size={20}>Pending</Chip>
-        </div>
-        {/* grid */}
+    <Stage w={1600} h={700} lw={600}>
+      <Card style={{ position: 'absolute', inset: 14 }}>
         {days.map((d, i) => (
-          <div key={d} style={{ position: 'absolute', left: LEFT + i * COL, top: TOP - 30, width: COL, textAlign: 'center', fontSize: 20, fontWeight: 500, color: i === 3 ? C.brand : C.muted }}>{d}</div>
+          <div key={d} style={{ position: 'absolute', left: L - 14 + i * COL, top: 12, width: COL, textAlign: 'center', fontSize: 12, fontWeight: 500, color: C.muted }}>{d}</div>
         ))}
         {rooms.map((r, i) => (
           <React.Fragment key={r}>
-            <div style={{ position: 'absolute', left: 30, top: TOP + i * ROW, height: ROW, display: 'flex', alignItems: 'center', fontSize: 24, fontWeight: 600 }}>Room {r}</div>
-            <div style={{ position: 'absolute', left: LEFT, right: 0, top: TOP + i * ROW, height: ROW, borderTop: `1.5px solid ${C.line}`, background: i % 2 ? '#FAFBFC' : '#fff' }} />
+            <div style={{ position: 'absolute', left: 14, top: T + i * ROW, height: ROW, display: 'flex', alignItems: 'center', fontSize: 13, fontWeight: 600 }}>{r}</div>
+            {i > 0 && <div style={{ position: 'absolute', left: 14, right: 14, top: T + i * ROW, borderTop: `1px solid ${C.line}` }} />}
           </React.Fragment>
         ))}
-        {days.map((d, i) => (
-          <div key={'v' + d} style={{ position: 'absolute', left: LEFT + i * COL, top: TOP, bottom: 0, borderLeft: `1.5px solid ${C.line}` }} />
-        ))}
-        {/* drop target hint */}
-        <div style={{ position: 'absolute', left: LEFT + 3 * COL + 4, top: TOP + 3 * ROW + 6, width: 2 * COL - 8, height: ROW - 12, borderRadius: 14, border: `2.5px dashed ${C.coral}`, opacity: grab * (1 - drop) }} />
+        <div style={{ position: 'absolute', left: L - 14 + COL, top: T + 2 * ROW + 5, width: 2 * COL - 6, height: ROW - 10, borderRadius: 9, border: `1.5px dashed ${C.coral}`, opacity: lift }} />
         {bars.map((b) => (
-          <div key={b.name} style={{ position: 'absolute', left: LEFT + b.d * COL + 6, top: TOP + b.r * ROW + 8, width: b.n * COL - 12, height: ROW - 16, borderRadius: 14, background: b.soft, borderLeft: `6px solid ${b.tone}`, display: 'flex', alignItems: 'center', paddingLeft: 16, fontSize: 21, fontWeight: 600, color: b.tone }}>{b.name}</div>
+          <div key={b.name} style={{ position: 'absolute', left: L - 14 + b.d * COL + 3, top: T + b.r * ROW + 5, width: b.n * COL - 6, height: ROW - 10, borderRadius: 9, background: b.s, color: b.c, display: 'flex', alignItems: 'center', paddingLeft: 10, fontSize: 12.5, fontWeight: 600 }}>{b.name}</div>
         ))}
-        {/* dragged booking */}
-        <div style={{ position: 'absolute', left: bx, top: by, width: 2 * COL - 12, height: ROW - 16, borderRadius: 14, background: C.coral, color: '#fff', display: 'flex', alignItems: 'center', paddingLeft: 18, fontSize: 21, fontWeight: 600, boxShadow: `0 ${8 + lift * 18}px ${16 + lift * 26}px rgba(253,65,63,${0.18 + lift * 0.22})`, scale: String(1 + lift * 0.04), zIndex: 10 }}>Rahman · 2 nights</div>
-        <Cursor x={cx} y={cy} press={grab * (1 - drop)} />
-        <Ripple x={LEFT + 3 * COL + 120} y={TOP + 3 * ROW + 40} p={interpolate(f, [98, 116], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' })} />
-        {/* toast */}
-        <div style={{ position: 'absolute', right: 30, bottom: 24, opacity: toast, translate: `0 ${(1 - toast) * 30}px`, background: C.ink, color: '#fff', borderRadius: 16, padding: '16px 22px', fontSize: 22, fontWeight: 500, display: 'flex', gap: 12, alignItems: 'center' }}>
-          <span style={{ color: '#7EE2A8' }}>✓</span> Moved to Room 201 · Thu 13 – Sat 15
-        </div>
-      </Panel>
-    </Frame>
+        <div style={{ position: 'absolute', left: bx - 14, top: by, width: 2 * COL - 6, height: ROW - 10, borderRadius: 9, background: C.coral, color: '#fff', display: 'flex', alignItems: 'center', paddingLeft: 10, fontSize: 12.5, fontWeight: 600, boxShadow: `0 ${4 + lift * 10}px ${10 + lift * 16}px rgba(253,65,63,${0.2 + lift * 0.2})`, scale: String(1 + lift * 0.03) }}>Rahman · 2 nights</div>
+        <div style={{ position: 'absolute', right: 14, bottom: 12, opacity: toast, translate: `0 ${(1 - toast) * 10}px`, background: C.ink, color: '#fff', borderRadius: 10, padding: '7px 12px', fontSize: 12, fontWeight: 500 }}>✓ Moved to Room 201</div>
+      </Card>
+      <Cursor x={cx} y={cy} press={lift} size={20} />
+    </Stage>
   );
 };
