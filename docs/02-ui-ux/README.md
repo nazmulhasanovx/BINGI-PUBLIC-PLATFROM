@@ -1,6 +1,8 @@
 # 02 — UI & UX
 
 ## Foundation (theme) — shadcn / 21st.dev format
+**Decision (Nazmul, 9 Nov 2026): the site uses the light preset — BinGi Pearl.** BinGi Bay (dark) stays in the file only as a token reference; the site does not switch to dark mode.
+
 Following the 21st.dev Theme Editor pattern (founder direction, 9 Nov 2026), all colours, type, radius and
 shadow live in ONE file: `website/src/styles/bingi-theme.css` (copy: `docs/02-ui-ux/bingi-theme.css`).
 Same structure as 21st themes — `:root` (preset **BinGi Pearl**, light) · `.dark` (preset **BinGi Bay**) · `@theme inline` — so it pastes straight into the 21st Theme Editor or any shadcn app.
