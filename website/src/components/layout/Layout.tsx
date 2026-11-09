@@ -9,6 +9,7 @@ import { Logo } from './Logo'
 import { useLang } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { prefetch } from '../../routes'
+import { notFoundSeo, seo } from '../../data/seo'
 
 const nav = [
   { to: '/products', label: { bn: 'প্রোডাক্ট', en: 'Products' } },
@@ -154,7 +155,12 @@ function useSmoothScroll() {
 export function Layout() {
   const { pathname } = useLocation()
   useSmoothScroll()
-  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const m = seo[pathname.replace(/\/+$/, '') || '/'] ?? notFoundSeo
+    document.title = m.title
+    document.querySelector('meta[name="description"]')?.setAttribute('content', m.description)
+  }, [pathname])
   return (
     <div className="min-h-dvh flex flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-brand focus:px-4 focus:py-2 focus:text-white">Skip to content</a>

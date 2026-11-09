@@ -44,9 +44,19 @@ website/
 | Help articles | `data/help.ts` (3 drafts) | shared with in-app "? Help" |
 | Demo form | builds the request and shows a "Send on WhatsApp" button | POST to lead API → NEC TEAM |
 
+## Prerender (v2, 9 Nov 2026)
+`npm run build` = client build → SSR build of `src/entry-server.tsx` → `scripts/prerender.mjs`.
+Every route in `src/data/seo.ts` is rendered at build time with React 19 `prerender` (waits for lazy pages)
+into `dist/<route>/index.html` with its own `<title>`, description, canonical and Open Graph tags,
+plus `dist/404.html`. The browser hydrates only when the HTML belongs to the current URL (`data-ssr`).
+Fonts are self-hosted (`@fontsource`), the headline + body woff2 are preloaded.
+
+Measured (Lighthouse 12, mobile, devtools throttling): performance 96–99 on all 8 pages,
+LCP 1.6–2.4 s, CLS ≤ 0.001, accessibility / best practices / SEO 100. Desktop 98–99.
+
 ## Build & deploy
 - `npm run build` → `website/dist/` (static). Host on any static host / Nginx / Cloudflare Pages.
-- SPA fallback: serve `index.html` for unknown paths.
+- Serve `dist/<path>/index.html` for each route (e.g. Nginx `try_files $uri $uri/ /404.html;`) and `404.html` with status 404 for unknown paths.
 - 301 redirects on the server (old site URLs):
   ```
   /ecosystem  → /products
@@ -67,5 +77,5 @@ website/
 3. Wire pricing + status to the API (keep the same object shape).
 4. Demo form → lead API.
 5. Meta/OG tags per page, analytics. (robots.txt + sitemap.xml done.)
-7. Prerender pages to static HTML (mobile LCP target < 2.5 s).
+7. ~~Prerender~~ done in v2.
 6. Final legal text.

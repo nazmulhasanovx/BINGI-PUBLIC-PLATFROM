@@ -23,7 +23,8 @@ export function Hero() {
     t({ bn: 'আপনার টিম হোটেল চালায়।', en: 'Your team runs the hotel.' }),
     t({ bn: 'BinGi চালায় টেকনোলজি।', en: 'BinGi runs the technology.' }),
   ]
-  const rise = (i: number) => reduce ? {} : { initial: { opacity: 0.01, y: 28 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.9, delay: 0.08 + i * 0.12, ease } }
+  // Headline rise is pure CSS so it starts with the prerendered HTML (no wait for JavaScript → fast LCP).
+  const rise = (i: number) => ({ className: 'rise', style: { animationDelay: `${80 + i * 120}ms` } })
 
   return (
     <section className="relative overflow-hidden grain">
@@ -39,9 +40,9 @@ export function Hero() {
       <div className="container-x pt-16 md:pt-24">
         <div className="grid gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
           <h1 className="display text-[44px] sm:text-[60px] lg:text-[76px] text-ink">
-            {lines.map((l, i) => <motion.span key={i} className="block" {...rise(i)}>{l}</motion.span>)}
+            {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{l}</span>)}
           </h1>
-          <motion.div {...rise(2)} className="md:pb-3">
+          <div className="md:pb-3 rise" style={rise(2).style}>
             <p className="lead max-w-[420px]">
               {t({ bn: 'ওয়েবসাইট, বুকিং, ফ্রন্ট ডেস্ক, হাউসকিপিং, রেস্টুরেন্ট, স্টাফ আর হিসাব — হোটেল ও রিসোর্টের জন্য একটা যুক্ত সিস্টেম।', en: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts — one connected system for hotels and resorts.' })}
             </p>
@@ -49,7 +50,7 @@ export function Hero() {
               <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
               <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
             </div>
-          </motion.div>
+          </div>
         </div>
 
         <div ref={stage} className="relative mx-auto mt-12 md:mt-14 max-w-[1040px] pb-10 [perspective:1600px]">

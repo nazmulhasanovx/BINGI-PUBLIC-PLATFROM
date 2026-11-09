@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react'
-import { BrowserRouter, MemoryRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { lazy, Suspense, type ReactNode } from 'react'
+import { BrowserRouter, MemoryRouter, Navigate, Route, Routes, StaticRouter } from 'react-router'
 import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
@@ -15,17 +15,22 @@ const Legal = lazy(loadLegal)
 const NotFound = lazy(loadNotFound)
 const Foundation = lazy(loadFoundation)
 
-// Single-file preview build keeps routes in memory (works inside a sandboxed preview); the real site uses clean URLs.
-const Router = import.meta.env.MODE === 'single' ? MemoryRouter : BrowserRouter
+// Prerender (build time) uses StaticRouter; the single-file review build keeps routes in memory;
+// the real site uses clean URLs.
+function Router({ ssrUrl, children }: { ssrUrl?: string; children: ReactNode }) {
+  if (ssrUrl !== undefined) return <StaticRouter location={ssrUrl}>{children}</StaticRouter>
+  if (import.meta.env.MODE === 'single') return <MemoryRouter>{children}</MemoryRouter>
+  return <BrowserRouter>{children}</BrowserRouter>
+}
 
 function Skeleton() {
   return <div className="container-x pt-14 space-y-4" aria-busy="true"><div className="h-10 w-2/3 mx-auto rounded-full bg-line/60 animate-pulse" /><div className="h-64 rounded-[16px] bg-line/40 animate-pulse" /></div>
 }
 
-export default function App() {
+export default function App({ ssrUrl }: { ssrUrl?: string }) {
   return (
     <LangProvider>
-      <Router>
+      <Router ssrUrl={ssrUrl}>
         <Suspense fallback={<Skeleton />}>
           <Routes>
             <Route element={<Layout />}>
