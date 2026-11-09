@@ -23,4 +23,4 @@ for c in bentoCalendar bentoHousekeep bentoRestaurant bentoCash bentoStaff bento
 done
 cp out/*.mp4 ../website/public/media/
 ```
-6 s seamless loops, 30 fps, ~1 MB total.
+6 s seamless loops, 30 fps, ~1 MB total. On Linux servers without Remotion's bundled browser add `--browser-executable=/usr/bin/google-chrome`.
