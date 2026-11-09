@@ -26,7 +26,7 @@ export default function Contact() {
   const { t } = useLang()
   const [f, setF] = useState<Form>(empty)
   const [err, setErr] = useState<Partial<Record<keyof Form, string>>>({})
-  const [sent, setSent] = useState(false)
+  const [sent, setSent] = useState<string | null>(null)
   const set = (k: keyof Form) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value })
 
   const submit = (e: FormEvent) => {
@@ -41,8 +41,7 @@ export default function Contact() {
     if (Object.keys(n).length) { document.getElementById(Object.keys(n)[0])?.focus(); return }
     // No backend yet: hand the request to WhatsApp. Production: POST to the lead API (NEC TEAM).
     const msg = `Demo request\nName: ${f.name}\nProperty: ${f.property} (${f.type})\nRooms: ${f.rooms || '-'}\nPhone: ${f.phone}\nPreferred time: ${f.time || '-'}`
-    window.open(`${site.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank', 'noopener')
-    setSent(true)
+    setSent(`${site.whatsapp}?text=${encodeURIComponent(msg)}`)
   }
 
   return (
@@ -66,8 +65,9 @@ export default function Contact() {
             <div className="text-center py-10" role="status">
               <CheckCircle2 className="size-12 text-ok mx-auto" aria-hidden="true" />
               <h2 className="mt-4 text-[22px] font-semibold">{t({ bn: 'অনুরোধ তৈরি হয়েছে', en: 'Request ready' })}</h2>
-              <p className="mt-2 text-muted text-[15px]">{t({ bn: 'WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম আপনার সাথে যোগাযোগ করবে।', en: 'Send the message in WhatsApp and our team will contact you.' })}</p>
-              <button onClick={() => { setSent(false); setF(empty) }} className="btn-ghost mt-6 cursor-pointer">{t({ bn: 'আরেকটা অনুরোধ', en: 'New request' })}</button>
+              <p className="mt-2 text-muted text-[15px]">{t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
+              <a href={sent} target="_blank" rel="noopener" className="btn-primary mt-6">{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
+              <button onClick={() => { setSent(null); setF(empty) }} className="btn-ghost mt-3 ml-2 cursor-pointer">{t({ bn: 'আরেকটা অনুরোধ', en: 'New request' })}</button>
             </div>
           ) : (
             <form onSubmit={submit} noValidate className="space-y-4">

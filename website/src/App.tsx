@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { BrowserRouter, HashRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { BrowserRouter, MemoryRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
@@ -12,8 +12,8 @@ const Contact = lazy(() => import('./pages/contact'))
 const Legal = lazy(() => import('./pages/legal'))
 const NotFound = lazy(() => import('./pages/not-found'))
 
-// Single-file preview build uses HashRouter; the real site uses clean URLs.
-const Router = import.meta.env.MODE === 'single' ? HashRouter : BrowserRouter
+// Single-file preview build keeps routes in memory (works inside a sandboxed preview); the real site uses clean URLs.
+const Router = import.meta.env.MODE === 'single' ? MemoryRouter : BrowserRouter
 
 function Skeleton() {
   return <div className="container-x pt-14 space-y-4" aria-busy="true"><div className="h-10 w-2/3 mx-auto rounded-full bg-line/60 animate-pulse" /><div className="h-64 rounded-[16px] bg-line/40 animate-pulse" /></div>

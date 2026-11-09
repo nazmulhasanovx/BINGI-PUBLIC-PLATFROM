@@ -6,7 +6,7 @@
 | Framework | React 19 + TypeScript | team standard, typed content files |
 | Build | Vite 8 | fast dev, small output, code-split per page |
 | Styling | Tailwind CSS v4 (`@theme` tokens in `src/index.css`) | tokens in one place |
-| Routing | react-router-dom 7 (BrowserRouter; HashRouter in single-file preview) | clean URLs |
+| Routing | react-router-dom 7 (BrowserRouter; MemoryRouter in single-file preview) | clean URLs |
 | Icons | lucide-react | same as HMS (D-C) |
 | i18n | tiny context `src/i18n/lang.tsx` — every string is `{ bn, en }` | no library, no key files to sync |
 
@@ -41,7 +41,7 @@ website/
 | Pricing catalog | `data/pricing.ts` (copied from HMS Plan List, 9 Nov 2026) | fetch from the same API as HMS Plan List (Super Admin pricing version) |
 | Module status | `data/status.ts` | Super Admin → Content & Web registry |
 | Help articles | `data/help.ts` (3 drafts) | shared with in-app "? Help" |
-| Demo form | opens WhatsApp with the request | POST to lead API → NEC TEAM |
+| Demo form | builds the request and shows a "Send on WhatsApp" button | POST to lead API → NEC TEAM |
 
 ## Build & deploy
 - `npm run build` → `website/dist/` (static). Host on any static host / Nginx / Cloudflare Pages.
