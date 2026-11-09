@@ -74,7 +74,7 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
           const on = value === o.id
           return (
             <button key={o.id} role="tab" aria-selected={on} onClick={() => onChange(o.id)}
-              className={`relative ${h} rounded-full font-medium inline-flex items-center gap-2 cursor-pointer transition-colors duration-200 ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
+              className={`relative ${h} rounded-full font-medium inline-flex items-center gap-2 whitespace-nowrap cursor-pointer transition-colors duration-200 ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
               {on && <motion.span layoutId={`pill-${id}`} className={`absolute inset-0 rounded-full ${pill}`} />}
               <span className="relative">{o.label}</span>
               {o.badge && <span className={`relative rounded-full px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}

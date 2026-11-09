@@ -38,7 +38,7 @@ export default function Pricing() {
 
         {/* Calculator controls */}
         <div className="mt-8 flex flex-col items-center gap-4">
-          <Segmented label="Billing period" value={cycle} onChange={setCycle}
+          <Segmented wrap label="Billing period" value={cycle} onChange={setCycle}
             options={cycles.map((x) => ({ id: x.id, label: t(x.label), badge: x.discount ? `${t({ bn: 'সাশ্রয়', en: 'Save' })} ${num(x.discount * 100)}%` : undefined }))} />
           <div className="card glow-border flex flex-wrap items-center justify-center gap-3 px-4 py-3">
             <label htmlFor="rooms" className="flex items-center gap-2 text-[15px] font-medium"><BedDouble className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'আপনার রুম সংখ্যা', en: 'Your rooms' })}</label>

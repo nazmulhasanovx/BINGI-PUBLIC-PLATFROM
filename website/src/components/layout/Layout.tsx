@@ -41,26 +41,26 @@ function Header() {
     <header className={`sticky top-0 z-40 transition-[background-color,box-shadow,border-color] duration-300 border-b ${scrolled || open ? 'bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-line shadow-[0_6px_24px_-12px_rgb(16_24_40/0.18)]' : 'bg-transparent border-transparent'}`}>
       <div className="container-x flex h-16 items-center justify-between gap-4">
         <Link to="/" aria-label="BinGi home"><Logo /></Link>
-        <nav className="hidden md:flex items-center gap-1" aria-label="Main">
+        <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
           {nav.map((n) => (
             <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
               {t(n.label)}
             </NavLink>
           ))}
         </nav>
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden lg:flex items-center gap-2">
           <LangToggle />
           <a href={site.hmsLogin} className="btn-ghost h-10">{t({ bn: 'লগইন', en: 'Sign in' })}</a>
           <a href={site.hmsRegister} className="btn-primary h-10">{t(ctaLabel)}</a>
         </div>
-        <button className="md:hidden grid size-11 place-items-center rounded-full border border-line bg-white cursor-pointer" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'}>
+        <button className="lg:hidden grid size-11 place-items-center rounded-full border border-line bg-white cursor-pointer" onClick={() => setOpen(!open)} aria-expanded={open} aria-label={open ? 'Close menu' : 'Open menu'}>
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
       <AnimatePresence>
         {open && (
           <motion.div key="menu" initial={reduce ? false : { opacity: 0, y: -12, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, transition: { duration: 0.16 } }}
-            transition={ios} style={{ transformOrigin: 'top right' }} className="md:hidden border-t border-line bg-white/95 backdrop-blur-xl">
+            transition={ios} style={{ transformOrigin: 'top right' }} className="lg:hidden border-t border-line bg-white/95 backdrop-blur-xl">
             <nav className="container-x flex flex-col py-3" aria-label="Mobile">
               {nav.map((n, i) => (
                 <motion.div key={n.to} initial={reduce ? false : { opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ ...ios, delay: 0.03 * i }}>
@@ -83,7 +83,7 @@ function Header() {
 function Footer() {
   const { t } = useLang()
   return (
-    <footer className="border-t border-line bg-white mt-24 pb-20 md:pb-0">
+    <footer className="border-t border-line bg-white mt-24 pb-20 lg:pb-0">
       <div className="container-x grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <Logo className="h-7" />
@@ -134,7 +134,7 @@ function MobileCta() {
     return () => window.removeEventListener('scroll', on)
   }, [])
   return (
-    <div className={`md:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-white/90 backdrop-blur-xl border-t border-line shadow-[0_-8px_24px_-12px_rgb(16_24_40/0.2)] transition-transform duration-500 ease-spring ${show ? 'translate-y-0' : 'translate-y-full'}`} aria-hidden={!show}>
+    <div className={`lg:hidden fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 bg-white/90 backdrop-blur-xl border-t border-line shadow-[0_-8px_24px_-12px_rgb(16_24_40/0.2)] transition-transform duration-500 ease-spring ${show ? 'translate-y-0' : 'translate-y-full'}`} aria-hidden={!show}>
       <div className="flex gap-2">
         <a href={site.hmsRegister} tabIndex={show ? 0 : -1} className="btn-primary flex-1 h-12">{t(ctaLabel)}</a>
         <a href={site.whatsapp} tabIndex={show ? 0 : -1} className="btn-ghost h-12 px-4">WhatsApp</a>

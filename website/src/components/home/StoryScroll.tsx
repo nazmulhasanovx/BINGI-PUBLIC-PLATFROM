@@ -33,7 +33,7 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
   return (
     <>
       {/* mobile: plain stacked list */}
-      <div className="space-y-12 md:hidden">
+      <div className="space-y-12 lg:hidden">
         {steps.map((s, i) => (
           <article key={s.media} className="space-y-4">
             <div className="flex gap-4">
@@ -48,7 +48,7 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
         ))}
       </div>
       {/* desktop: text scrolls, display stays */}
-      <div className="hidden md:grid md:grid-cols-[0.9fr_1.1fr] gap-12">
+      <div className="hidden lg:grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
         <div className="py-[28vh] space-y-[34vh]">
           {steps.map((s, i) => <Item key={s.media} step={s} index={i} active={active === i} setActive={setActive} />)}
         </div>

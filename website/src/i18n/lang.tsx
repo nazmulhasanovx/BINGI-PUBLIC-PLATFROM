@@ -3,18 +3,21 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 export type Lang = 'bn' | 'en'
 export type L = { bn: string; en: string }
 
-function detectLang(): Lang {
+// English is the site language (and what the prerendered HTML contains). A saved choice of বাংলা is
+// applied right after hydration, so server and first client render always match.
+function savedLang(): Lang | null {
   try {
     const saved = localStorage.getItem('bingi-lang')
     if (saved === 'bn' || saved === 'en') return saved
   } catch { /* storage unavailable */ }
-  return 'en' // English is the site language; বাংলা stays available from the header toggle
+  return null
 }
 
 const Ctx = createContext<{ lang: Lang; setLang: (l: Lang) => void }>({ lang: 'en', setLang: () => {} })
 
 export function LangProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(detectLang)
+  const [lang, setLangState] = useState<Lang>('en')
+  useEffect(() => { const s = savedLang(); if (s && s !== 'en') setLangState(s) }, [])
   useEffect(() => { document.documentElement.lang = lang }, [lang])
   const setLang = (l: Lang) => {
     setLangState(l)
