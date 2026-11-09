@@ -1,5 +1,7 @@
-import { useState, type ReactNode } from 'react'
+import { useId, useState, type ReactNode } from 'react'
+import { AnimatePresence, motion, MotionConfig, useReducedMotion } from 'motion/react'
 import { ChevronDown } from 'lucide-react'
+import { bouncy, ios, snappy } from '../../lib/motion'
 
 export function SectionHead({ eyebrow, title, lead, center = true }: { eyebrow?: string; title: string; lead?: string; center?: boolean }) {
   return (
@@ -11,8 +13,10 @@ export function SectionHead({ eyebrow, title, lead, center = true }: { eyebrow?:
   )
 }
 
+// Accordion — height springs open (iOS disclosure), chevron rotates with the same spring.
 export function Accordion({ items }: { items: { q: string; a: ReactNode }[] }) {
   const [open, setOpen] = useState<number | null>(0)
+  const reduce = useReducedMotion()
   return (
     <div className="card divide-y divide-line overflow-hidden">
       {items.map((it, i) => {
@@ -21,14 +25,19 @@ export function Accordion({ items }: { items: { q: string; a: ReactNode }[] }) {
           <div key={i}>
             <h3>
               <button onClick={() => setOpen(isOpen ? null : i)} aria-expanded={isOpen}
-                className="w-full min-h-14 flex items-center justify-between gap-4 px-5 py-4 text-left text-[16px] font-medium cursor-pointer hover:bg-canvas/60 transition-colors duration-150">
+                className="w-full min-h-14 flex items-center justify-between gap-4 px-5 py-4 text-left text-[16px] font-medium cursor-pointer hover:bg-pearl/70 transition-colors duration-200">
                 {it.q}
-                <ChevronDown className={`size-5 shrink-0 text-muted-foreground transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} aria-hidden="true" />
+                <motion.span animate={{ rotate: isOpen ? 180 : 0 }} transition={reduce ? { duration: 0 } : snappy} className="shrink-0 text-muted-foreground"><ChevronDown className="size-5" aria-hidden="true" /></motion.span>
               </button>
             </h3>
-            <div className={`grid transition-[grid-template-rows] duration-300 ease-out-quint ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
-              <div className="overflow-hidden"><p className="px-5 pb-5 text-[15px] text-muted-foreground leading-relaxed">{it.a}</p></div>
-            </div>
+            <AnimatePresence initial={false}>
+              {isOpen && (
+                <motion.div key="a" initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0, transition: { duration: 0.2 } }}
+                  transition={reduce ? { duration: 0 } : ios} className="overflow-hidden">
+                  <p className="px-5 pb-5 text-[15px] text-muted-foreground leading-relaxed">{it.a}</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         )
       })}
@@ -36,16 +45,68 @@ export function Accordion({ items }: { items: { q: string; a: ReactNode }[] }) {
   )
 }
 
-export function Segmented<T extends string>({ value, onChange, options, label }: { value: T; onChange: (v: T) => void; options: { id: T; label: string; badge?: string }[]; label: string }) {
+// iOS segmented control / Telegram folder tabs — the selection pill slides between options.
+export function PillTabs<T extends string>({ value, onChange, options, label, tone = 'brand', size = 'md', wrap = false }: {
+  value: T; onChange: (v: T) => void; options: { id: T; label: string; badge?: string }[]; label: string
+  tone?: 'brand' | 'ink'; size?: 'sm' | 'md'; wrap?: boolean
+}) {
+  const id = useId()
+  const reduce = useReducedMotion()
+  const h = size === 'sm' ? 'h-8 px-3 text-[13px]' : 'h-10 px-4 text-[14px]'
+  const pill = tone === 'brand' ? 'bg-brand' : 'bg-ink'
   return (
-    <div role="tablist" aria-label={label} className="inline-flex flex-wrap justify-center gap-1 rounded-[24px] border border-line bg-white p-1 shadow-soft">
-      {options.map((o) => (
-        <button key={o.id} role="tab" aria-selected={value === o.id} onClick={() => onChange(o.id)}
-          className={`h-10 rounded-full px-4 text-[14px] font-medium inline-flex items-center gap-2 cursor-pointer transition-[background-color,color,transform] duration-300 ease-spring active:scale-95 ${value === o.id ? 'bg-brand text-white' : 'text-muted-foreground hover:text-ink'}`}>
-          {o.label}
-          {o.badge && <span className={`rounded-full px-2 py-0.5 text-[12px] font-semibold ${value === o.id ? 'bg-white/20 text-white' : 'bg-brand-soft text-brand'}`}>{o.badge}</span>}
-        </button>
-      ))}
-    </div>
+    <MotionConfig transition={reduce ? { duration: 0 } : snappy}>
+      <div role="tablist" aria-label={label} className={`inline-flex ${wrap ? 'flex-wrap justify-center' : ''} gap-1 rounded-[24px] border border-line bg-white p-1 shadow-soft`}>
+        {options.map((o) => {
+          const on = value === o.id
+          return (
+            <button key={o.id} role="tab" aria-selected={on} onClick={() => onChange(o.id)}
+              className={`relative ${h} rounded-full font-medium inline-flex items-center gap-2 cursor-pointer transition-colors duration-200 ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
+              {on && <motion.span layoutId={`pill-${id}`} className={`absolute inset-0 rounded-full ${pill}`} />}
+              <span className="relative">{o.label}</span>
+              {o.badge && <span className={`relative rounded-full px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}
+            </button>
+          )
+        })}
+      </div>
+    </MotionConfig>
+  )
+}
+
+// Back-compat name used by the pricing page.
+export const Segmented = PillTabs
+
+// Telegram-style rolling digits: each digit column slides to its new value when a number changes.
+export function NumberRoll({ value, className = '' }: { value: string; className?: string }) {
+  const reduce = useReducedMotion()
+  const chars = value.split('')
+  return (
+    <span className={`inline-flex overflow-hidden tabular-nums ${className}`} aria-label={value} role="text">
+      {chars.map((c, i) => {
+        const d = '0123456789০১২৩৪৫৬৭৮৯'.indexOf(c)
+        if (d < 0) return <span key={`s${i}-${c}`} aria-hidden="true">{c}</span>
+        const digit = d % 10
+        const set = d >= 10 ? '০১২৩৪৫৬৭৮৯' : '0123456789'
+        return (
+          <span key={`d${chars.length - i}`} className="relative inline-block h-[1.1em] leading-[1.1em] overflow-hidden" aria-hidden="true">
+            <span className="invisible">0</span>
+            <motion.span className="absolute left-0 top-0 flex flex-col" initial={false} animate={{ y: `${-digit * 1.1}em` }} transition={reduce ? { duration: 0 } : bouncy}>
+              {set.split('').map((n) => <span key={n} className="h-[1.1em] leading-[1.1em]">{n}</span>)}
+            </motion.span>
+          </span>
+        )
+      })}
+    </span>
+  )
+}
+
+// Telegram message-bubble pop: scales up from its corner with a soft overshoot.
+export function Bubble({ children, className = '', origin = 'bottom left' }: { children: ReactNode; className?: string; origin?: string }) {
+  const reduce = useReducedMotion()
+  return (
+    <motion.div initial={reduce ? false : { opacity: 0, scale: 0.6, y: 12 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={bouncy}
+      style={{ transformOrigin: origin }} className={className}>
+      {children}
+    </motion.div>
   )
 }

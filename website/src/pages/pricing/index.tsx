@@ -4,7 +4,7 @@ import { BedDouble, Check, ChevronDown, Gift, Minus, Plus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { compare, cycles, MIN_BILLABLE, offers, plans, priceFor, type Cell, type Cycle } from '../../data/pricing'
-import { Accordion, SectionHead, Segmented } from '../../components/ui/Ui'
+import { Accordion, NumberRoll, SectionHead, Segmented } from '../../components/ui/Ui'
 import { Reveal } from '../../components/ui/Reveal'
 
 const faqs: { q: L; a: L }[] = [
@@ -71,7 +71,7 @@ export default function Pricing() {
                 <div className="mt-4 min-h-[104px]">
                   {pr ? (
                     <>
-                      <p className="text-[34px] font-semibold tracking-tight leading-none">{taka(pr.perRoom)}<span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted-foreground'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
+                      <p className="text-[34px] font-semibold tracking-tight leading-none"><NumberRoll value={taka(pr.perRoom)} /><span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted-foreground'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
                       {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/80' : 'text-muted-foreground'}`}>{taka(p.rate!)}</p>}
                       <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>
                         {c.months === 1

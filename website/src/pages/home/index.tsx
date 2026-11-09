@@ -1,6 +1,8 @@
 import { useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { Check } from 'lucide-react'
+import { motion } from 'motion/react'
+import { ios } from '../../lib/motion'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { plans } from '../../data/pricing'
@@ -11,7 +13,7 @@ import { StoryScroll } from '../../components/home/StoryScroll'
 import { StudioDisplay, IPhone16PM } from '../../components/media/Devices'
 import { Media } from '../../components/media/Media'
 import { StatusChip } from '../../components/ui/StatusChip'
-import { Accordion } from '../../components/ui/Ui'
+import { Accordion, PillTabs } from '../../components/ui/Ui'
 
 const story: { title: L; text: L; media: MediaId }[] = [
   { media: 'story1', title: { bn: 'বুকিং আসে', en: 'A booking comes in' }, text: { bn: 'আপনার ওয়েবসাইট, BinGi মার্কেটপ্লেস বা রিসেপশন — সব বুকিং একই তালিকায়, একই নম্বরে।', en: 'From your website, the BinGi Marketplace or the front desk — every booking lands in one list with one ID.' } },
@@ -132,14 +134,9 @@ export default function Home() {
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-start">
           <div>
             <h2 className="h2">{t({ bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' })}</h2>
-            <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })}>
-              {types.map((x) => (
-                <button key={x.id} role="tab" aria-selected={type === x.id} onClick={() => setType(x.id)}
-                  className={`h-11 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-[background-color,color,transform] duration-300 ease-spring active:scale-95 ${type === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted-foreground border-line hover:text-ink'}`}>{t(x.name)}</button>
-              ))}
-            </div>
+            <div className="mt-8"><PillTabs tone="ink" wrap label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })} value={type} onChange={setType} options={types.map((x) => ({ id: x.id, label: t(x.name) }))} /></div>
           </div>
-          <div className="card glow-border p-7 md:p-9" role="tabpanel">
+          <motion.div key={type} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={ios} className="card glow-border p-7 md:p-9" role="tabpanel">
             <ul className="space-y-4">
               {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[18px]"><Check className="size-5 text-ok shrink-0 mt-1" aria-hidden="true" />{t(p)}</li>)}
             </ul>
@@ -147,7 +144,7 @@ export default function Home() {
               <span className="text-[15px] text-muted-foreground">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
               <Link to="/pricing" className="text-link text-[15px] font-medium hover:underline underline-offset-4">{t({ bn: 'দাম দেখুন', en: 'See pricing' })}</Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 

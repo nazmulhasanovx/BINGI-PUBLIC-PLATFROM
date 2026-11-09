@@ -1,5 +1,32 @@
 # 02 — UI & UX
 
+## Motion system — Apple OS smooth + Telegram touches (9 Nov 2026)
+Founder direction: motion should feel like Apple OS; Telegram patterns allowed in some places.
+
+**Springs, not curves.** Physical springs (interruptible, keep velocity), defined once in `src/lib/motion.ts`
+and mirrored for CSS as `linear()` curves in `src/index.css`:
+
+| Token | Feel | Physics | Settles | Used for |
+|---|---|---|---|---|
+| `ios` / `--ease-spring` | iOS sheet / navigation | response 0.42 s, damping 0.82 | ~540 ms, 1% overshoot | panels, accordion, page enter, card hover, mobile menu |
+| `snappy` / `--ease-snappy` | iOS controls | response 0.30 s, damping 0.90 | ~280 ms, no bounce | buttons, segmented pills, toggles, chevrons |
+| `bouncy` / `--ease-bouncy` | Telegram pop | response 0.45 s, damping 0.68 | ~690 ms, 5% overshoot | rolling digits, message-bubble pop |
+Exits are faster than entries (180 ms fade). Buttons press to 0.96 in 100 ms and spring back.
+
+**Apple patterns**
+- Segmented control: the selected pill slides between options (shared layout) — pricing period, language, property types, product tabs.
+- Disclosure: accordion height springs open; chevron rotates on the same spring.
+- Sheet: mobile menu drops from the top-right with a spring and blur material; items cascade 30 ms apart.
+- Page change: fade + 8 px rise on the iOS spring.
+- Scroll: Lenis inertia on desktop pointers; product display tilts flat as you scroll (hero).
+
+**Telegram patterns**
+- Rolling digits: prices roll digit-by-digit when period or rooms change (`<NumberRoll>`), Bangla digits supported.
+- Bubble pop: success states scale up from their corner with a soft overshoot (`<Bubble>`), e.g. demo request ready.
+- Folder tabs: same sliding pill as the iOS segmented control.
+
+**Rules:** transform/opacity only · max 1–2 moving things per view · no motion on page load except the hero sequence · `prefers-reduced-motion` = instant, final state.
+
 ## Foundation (theme) — shadcn / 21st.dev format
 **Decision (Nazmul, 9 Nov 2026): the site uses the light preset — BinGi Pearl.** BinGi Bay (dark) stays in the file only as a token reference; the site does not switch to dark mode.
 

@@ -8,7 +8,7 @@ import { Media } from '../../components/media/Media'
 import { StatusChip } from '../../components/ui/StatusChip'
 import { Icon } from '../../components/ui/Icon'
 import { Reveal } from '../../components/ui/Reveal'
-import { SectionHead } from '../../components/ui/Ui'
+import { PillTabs, SectionHead } from '../../components/ui/Ui'
 
 type Platform = { id: 'web' | 'mobile' | 'guest'; tab: L; title: L; lead: L; device: 'display' | 'phone'; media: MediaId; features: L[] }
 
@@ -60,12 +60,7 @@ export default function Products() {
       <SectionHead eyebrow={t({ bn: 'প্রোডাক্ট', en: 'Products' })} title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and booking ID.' })} />
 
       <div className="sticky top-16 z-30 mt-8 -mx-5 px-5 py-3 bg-canvas/90 backdrop-blur-md">
-        <div role="tablist" aria-label="Products" className="flex gap-2 overflow-x-auto justify-start md:justify-center">
-          {[...platforms.map((x) => ({ id: x.id, label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }].map((x) => (
-            <button key={x.id} role="tab" aria-selected={tab === x.id} onClick={() => setTab(x.id)}
-              className={`h-11 shrink-0 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-colors duration-150 ${tab === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted-foreground border-line hover:text-ink'}`}>{x.label}</button>
-          ))}
-        </div>
+        <div className="flex justify-start md:justify-center overflow-x-auto"><PillTabs tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }]} /></div>
       </div>
 
       {p && (

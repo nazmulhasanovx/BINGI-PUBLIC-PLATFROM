@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { CheckCircle2, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
-import { SectionHead } from '../../components/ui/Ui'
+import { Bubble, SectionHead } from '../../components/ui/Ui'
 
 type Form = { name: string; property: string; type: string; rooms: string; phone: string; time: string }
 const empty: Form = { name: '', property: '', type: 'hotel', rooms: '', phone: '', time: '' }
@@ -62,13 +62,13 @@ export default function Contact() {
 
         <div className="card p-6 md:p-8">
           {sent ? (
-            <div className="text-center py-10" role="status">
+            <Bubble className="text-center py-10" origin="center"><div role="status">
               <CheckCircle2 className="size-12 text-ok mx-auto" aria-hidden="true" />
               <h2 className="mt-4 text-[22px] font-semibold">{t({ bn: 'অনুরোধ তৈরি হয়েছে', en: 'Request ready' })}</h2>
               <p className="mt-2 text-muted-foreground text-[15px]">{t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
               <a href={sent} target="_blank" rel="noopener" className="btn-primary mt-6">{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
               <button onClick={() => { setSent(null); setF(empty) }} className="btn-ghost mt-3 ml-2 cursor-pointer">{t({ bn: 'আরেকটা অনুরোধ', en: 'New request' })}</button>
-            </div>
+            </div></Bubble>
           ) : (
             <form onSubmit={submit} noValidate className="space-y-4">
               <h2 className="text-[20px] font-semibold">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</h2>

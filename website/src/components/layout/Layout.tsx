@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import Lenis from 'lenis'
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
+import { PillTabs } from '../ui/Ui'
+import { ios } from '../../lib/motion'
 import { Logo } from './Logo'
 import { useLang } from '../../i18n/lang'
 import { site } from '../../data/site'
@@ -18,21 +21,13 @@ export const ctaLabel = { bn: 'শুরু করুন', en: 'Get started' }
 
 function LangToggle() {
   const { lang, setLang } = useLang()
-  return (
-    <div className="inline-flex rounded-full border border-line bg-white p-0.5 text-[13px]" role="group" aria-label="Language">
-      {(['bn', 'en'] as const).map((l) => (
-        <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l}
-          className={`h-8 min-w-11 rounded-full px-3 font-medium cursor-pointer transition-colors duration-150 ${lang === l ? 'bg-ink text-white' : 'text-muted-foreground hover:text-ink'}`}>
-          {l === 'bn' ? 'বাংলা' : 'EN'}
-        </button>
-      ))}
-    </div>
-  )
+  return <PillTabs tone="ink" size="sm" label="Language" value={lang} onChange={setLang} options={[{ id: 'bn', label: 'বাংলা' }, { id: 'en', label: 'EN' }]} />
 }
 
 function Header() {
   const { t } = useLang()
   const [open, setOpen] = useState(false)
+  const reduce = useReducedMotion()
   const [scrolled, setScrolled] = useState(false)
   const { pathname } = useLocation()
   useEffect(() => setOpen(false), [pathname])
@@ -61,18 +56,25 @@ function Header() {
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
       </div>
-      {open && (
-        <div className="md:hidden border-t border-line bg-white">
-          <nav className="container-x flex flex-col py-3" aria-label="Mobile">
-            {nav.map((n) => <NavLink key={n.to} to={n.to} className="h-12 flex items-center text-[16px] border-b border-line last:border-0">{t(n.label)}</NavLink>)}
-            <div className="flex items-center gap-2 pt-4 pb-2">
-              <LangToggle />
-              <a href={site.hmsLogin} className="btn-ghost flex-1">{t({ bn: 'লগইন', en: 'Sign in' })}</a>
-            </div>
-            <a href={site.hmsRegister} className="btn-primary w-full mt-2">{t(ctaLabel)}</a>
-          </nav>
-        </div>
-      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div key="menu" initial={reduce ? false : { opacity: 0, y: -12, scale: 0.98 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: -8, transition: { duration: 0.16 } }}
+            transition={ios} style={{ transformOrigin: 'top right' }} className="md:hidden border-t border-line bg-white/95 backdrop-blur-xl">
+            <nav className="container-x flex flex-col py-3" aria-label="Mobile">
+              {nav.map((n, i) => (
+                <motion.div key={n.to} initial={reduce ? false : { opacity: 0, x: -8 }} animate={{ opacity: 1, x: 0 }} transition={{ ...ios, delay: 0.03 * i }}>
+                  <NavLink to={n.to} className="h-12 flex items-center text-[17px] border-b border-line">{t(n.label)}</NavLink>
+                </motion.div>
+              ))}
+              <div className="flex items-center gap-2 pt-4 pb-2">
+                <LangToggle />
+                <a href={site.hmsLogin} className="btn-ghost flex-1">{t({ bn: 'লগইন', en: 'Sign in' })}</a>
+              </div>
+              <a href={site.hmsRegister} className="btn-primary w-full mt-2">{t(ctaLabel)}</a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   )
 }
