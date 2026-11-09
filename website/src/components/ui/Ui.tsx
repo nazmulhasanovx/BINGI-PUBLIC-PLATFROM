@@ -67,20 +67,23 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
 }) {
   const id = useId()
   const reduce = useReducedMotion()
-  const h = size === 'sm' ? 'h-10 px-3 text-[13px]' : fill ? 'h-11 px-1.5 text-[13px] sm:h-10 sm:px-4 sm:text-[14px] justify-center' : 'h-11 px-4 text-[14px]'
+  const hasBadge = options.some((o) => o.badge)
+  const h = size === 'sm' ? 'h-10 px-3 text-[13px]' : fill
+    ? `${hasBadge ? 'h-14 flex-col gap-0.5 rounded-[18px] sm:flex-row sm:gap-2 sm:rounded-full' : 'h-11'} px-1 text-[13px] sm:h-10 sm:px-4 sm:text-[14px] justify-center`
+    : 'h-11 px-4 text-[14px]'
   const pill = tone === 'brand' ? 'bg-brand' : 'bg-ink'
   return (
     <MotionConfig transition={reduce ? { duration: 0 } : snappy}>
       <div role="tablist" aria-label={label} style={fill ? { gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` } : undefined}
-        className={`${fill ? 'grid w-full sm:inline-flex sm:w-auto' : 'inline-flex'} ${wrap ? 'flex-wrap justify-center' : ''} gap-1 rounded-[24px] border border-line bg-white p-1 shadow-soft`}>
+        className={`${fill ? 'grid w-full sm:inline-flex sm:w-auto' : 'inline-flex'} ${wrap ? 'flex-wrap justify-center' : ''} gap-1 ${fill && hasBadge ? 'rounded-[22px] sm:rounded-[24px]' : 'rounded-[24px]'} border border-line bg-white p-1 shadow-soft`}>
         {options.map((o) => {
           const on = value === o.id
           return (
             <button key={o.id} role="tab" aria-selected={on} onClick={() => onChange(o.id)}
               className={`relative ${h} rounded-full font-medium inline-flex items-center gap-2 whitespace-nowrap cursor-pointer transition-colors duration-200 ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
-              {on && <motion.span layoutId={`pill-${id}`} className={`absolute inset-0 rounded-full ${pill}`} />}
+              {on && <motion.span layoutId={`pill-${id}`} className={`absolute inset-0 ${fill && hasBadge ? 'rounded-[18px] sm:rounded-full' : 'rounded-full'} ${pill}`} />}
               <span className="relative">{o.label}</span>
-              {o.badge && <span className={`relative rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}
+              {o.badge && <span className={`relative rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] leading-none sm:leading-normal font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}
             </button>
           )
         })}

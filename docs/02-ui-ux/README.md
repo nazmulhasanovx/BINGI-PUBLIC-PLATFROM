@@ -1,5 +1,15 @@
 # 02 — UI & UX
 
+## Mobile density (phones < 640 px)
+Founder direction: smaller type and tighter elements on phones so one screen shows more.
+Implemented as one central layer at the end of `src/index.css` (no per-file edits): type −15–25 %
+(body 14 px, lead 14 px, section titles 25 px, hero 31–34 px), padding and gaps −25–40 %, buttons and
+controls 40 px, header 54 px. Floors: text ≥ 12 px, tap targets ≥ 40 px.
+
+## Device frames (cinematic)
+Studio Display: hairline aluminium rim, ultra-thin 1.6 % black bezel, diagonal glass glare, slim neck, foot and soft floor shadow.
+iPhone 16 Pro Max: thin titanium band, 1.6 % bezel, Dynamic Island, Action/volume/side/Camera Control buttons, same glare.
+
 ## Motion system — Apple OS smooth + Telegram touches (9 Nov 2026)
 Founder direction: motion should feel like Apple OS; Telegram patterns allowed in some places.
 

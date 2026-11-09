@@ -39,7 +39,7 @@ export function Hero() {
 
       <div className="container-x pt-8 md:pt-14">
         <div className="grid gap-5 md:gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
-          <h1 className="display text-[38px] min-[400px]:text-[42px] sm:text-[60px] lg:text-[76px] text-ink">
+          <h1 className="display text-[31px] min-[400px]:text-[34px] sm:text-[60px] lg:text-[76px] text-ink">
             {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{l}</span>)}
           </h1>
           <div className="md:pb-3 rise" style={rise(2).style}>

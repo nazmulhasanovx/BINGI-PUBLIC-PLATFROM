@@ -85,3 +85,54 @@ html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-u
 @utility display { font-family: var(--font-display); @apply tracking-[-0.035em] leading-[0.98] font-semibold; }
 @utility h2 { font-family: var(--font-display); @apply text-[34px] md:text-[48px] font-semibold tracking-[-0.03em] leading-[1.04]; }
 @utility lead { @apply text-[16px] sm:text-[17px] md:text-[19px] text-muted-foreground leading-relaxed; }
+
+/* ── Mobile density (phones < 640px) ─────────────────────────────────────
+   Founder direction (9 Nov 2026): on phones show more per screen — smaller type and tighter
+   elements. One central layer (unlayered, so it wins over Tailwind utilities) instead of edits
+   in every file. Floors: text ≥ 12px, tap targets ≥ 40px.                                  */
+@media (max-width: 639px) {
+  /* type */
+  .text-\[13px\] { font-size: 12px; }
+  .text-\[14px\] { font-size: 13px; }
+  .text-\[15px\] { font-size: 13px; }
+  .text-\[16px\] { font-size: 14px; }
+  .text-\[17px\] { font-size: 14px; }
+  .text-\[18px\] { font-size: 15px; }
+  .text-\[19px\] { font-size: 15px; }
+  .text-\[20px\] { font-size: 16px; }
+  .text-\[22px\] { font-size: 17px; }
+  .text-\[24px\] { font-size: 19px; }
+  .text-\[26px\] { font-size: 19px; }
+  .text-\[28px\] { font-size: 21px; }
+  .text-\[30px\] { font-size: 22px; }
+  .text-\[32px\] { font-size: 24px; }
+  .text-\[34px\] { font-size: 25px; }
+  .text-\[36px\] { font-size: 26px; }
+  .text-\[40px\] { font-size: 29px; }
+  .text-\[44px\] { font-size: 32px; }
+  .text-\[120px\] { font-size: 88px; }
+  .lead { font-size: 14px; line-height: 1.55; }
+  .h2 { font-size: 25px; line-height: 1.1; }
+  /* padding */
+  .p-10 { padding: 20px; } .p-8 { padding: 18px; } .p-7 { padding: 16px; } .p-6 { padding: 14px; } .p-5 { padding: 13px; } .p-4 { padding: 12px; }
+  .px-6 { padding-inline: 16px; } .px-5 { padding-inline: 14px; }
+  .py-14 { padding-block: 36px; } .py-12 { padding-block: 32px; } .py-10 { padding-block: 28px; } .py-5 { padding-block: 12px; } .py-4 { padding-block: 11px; }
+  .pt-16 { padding-top: 36px; } .pt-10 { padding-top: 24px; } .pt-8 { padding-top: 18px; }
+  .pb-6 { padding-bottom: 16px; } .pb-4 { padding-bottom: 10px; }
+  /* margins & gaps */
+  .mt-16 { margin-top: 36px; } .mt-12 { margin-top: 26px; } .mt-10 { margin-top: 22px; } .mt-8 { margin-top: 18px; }
+  .mt-7 { margin-top: 16px; } .mt-6 { margin-top: 14px; } .mt-5 { margin-top: 12px; } .mt-4 { margin-top: 10px; } .mt-3 { margin-top: 8px; }
+  .gap-12 { gap: 24px; } .gap-10 { gap: 22px; } .gap-8 { gap: 18px; } .gap-6 { gap: 14px; } .gap-5 { gap: 12px; } .gap-4 { gap: 10px; } .gap-3 { gap: 8px; }
+  .space-y-9 > :not(:last-child) { margin-block-end: 26px; }
+  .space-y-4 > :not(:last-child) { margin-block-end: 10px; }
+  .space-y-3 > :not(:last-child) { margin-block-end: 8px; }
+  /* control heights (40px floor) */
+  .h-12, .h-11, .min-h-11, .size-11 { height: 40px; min-height: 40px; }
+  .size-11 { width: 40px; }
+  .min-h-14 { min-height: 44px; } .h-14 { height: 48px; } .min-h-16 { min-height: 48px; }
+  .btn { height: 40px; padding-inline: 16px; font-size: 14px; }
+  /* header + sticky offsets */
+  header .h-16 { height: 54px; }
+  .top-16 { top: 54px; }
+  .rounded-\[24px\] { border-radius: 18px; } .rounded-\[28px\] { border-radius: 20px; } .rounded-\[18px\] { border-radius: 14px; }
+}
