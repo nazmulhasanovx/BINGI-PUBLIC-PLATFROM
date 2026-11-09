@@ -89,7 +89,7 @@ function Footer() {
           <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
         </div>
         <div>
-          <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h3>
+          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/products">{t({ bn: 'প্ল্যাটফর্ম ও মডিউল', en: 'Platforms & modules' })}</Link></li>
             <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
@@ -97,7 +97,7 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'সাপোর্ট', en: 'Support' })}</h3>
+          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'সাপোর্ট', en: 'Support' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/help">{t({ bn: 'হেল্প সেন্টার', en: 'Help center' })}</Link></li>
             <li><a className="hover:text-ink" href={site.whatsapp}>WhatsApp</a></li>
@@ -105,7 +105,7 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'কোম্পানি', en: 'Company' })}</h3>
+          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'কোম্পানি', en: 'Company' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'আমাদের সম্পর্কে', en: 'About us' })}</Link></li>
             <li><Link className="hover:text-ink" to="/legal/privacy">{t({ bn: 'প্রাইভেসি', en: 'Privacy' })}</Link></li>

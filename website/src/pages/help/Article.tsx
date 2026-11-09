@@ -15,11 +15,11 @@ export default function Article() {
   const related = articles.filter((x) => x.slug !== a.slug).slice(0, 3)
 
   return (
-    <article className="container-x pt-10 max-w-[780px]">
+    <article className="container-x pt-12 md:pt-16 max-w-[780px]">
       <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[14px] text-muted-foreground">
         <Link to="/help" className="hover:text-ink">{t({ bn: 'হেল্প', en: 'Help' })}</Link><ChevronRight className="size-4" aria-hidden="true" /><span>{cat && t(cat.name)}</span>
       </nav>
-      <h1 className="mt-4 text-[30px] md:text-[38px] font-semibold tracking-tight leading-tight">{t(a.title)}</h1>
+      <h1 className="mt-4 display text-[36px] md:text-[52px]">{t(a.title)}</h1>
       <p className="lead mt-2">{t(a.summary)}</p>
       {a.draft && <p className="mt-4 rounded-[10px] bg-soon-soft text-soon text-[13px] px-3 py-2">{t({ bn: 'খসড়া — সাপোর্ট টিম যাচাই করে প্রকাশ করবে।', en: 'Draft — support team will verify before publishing.' })}</p>}
       <ol className="mt-8 space-y-4">

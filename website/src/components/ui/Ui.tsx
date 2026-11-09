@@ -13,6 +13,19 @@ export function SectionHead({ eyebrow, title, lead, center = true }: { eyebrow?:
   )
 }
 
+// Page header used by every inner page: left-aligned display title, one-line lead, optional action.
+export function PageHeader({ title, lead, children, center = false }: { title: string; lead?: string; children?: ReactNode; center?: boolean }) {
+  return (
+    <header className={`pt-12 md:pt-20 pb-2 ${center ? 'text-center mx-auto max-w-[760px]' : 'grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-end'}`}>
+      <div>
+        <h1 className="display text-[40px] md:text-[60px] text-ink text-balance">{title}</h1>
+        {lead && <p className={`lead mt-4 max-w-[560px] text-pretty ${center ? 'mx-auto' : ''}`}>{lead}</p>}
+      </div>
+      {children && <div className={center ? 'mt-8 flex justify-center' : 'md:justify-self-end'}>{children}</div>}
+    </header>
+  )
+}
+
 // Accordion — height springs open (iOS disclosure), chevron rotates with the same spring.
 export function Accordion({ items }: { items: { q: string; a: ReactNode }[] }) {
   const [open, setOpen] = useState<number | null>(0)

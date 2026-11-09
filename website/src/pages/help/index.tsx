@@ -6,7 +6,7 @@ import { site } from '../../data/site'
 import { articles, categories, whatsNew } from '../../data/help'
 import { Icon } from '../../components/ui/Icon'
 import { Media } from '../../components/media/Media'
-import { SectionHead } from '../../components/ui/Ui'
+import { PageHeader } from '../../components/ui/Ui'
 
 export default function Help() {
   const { t } = useLang()
@@ -18,27 +18,28 @@ export default function Help() {
   }, [q, cat])
 
   return (
-    <div className="container-x pt-14">
-      <SectionHead eyebrow={t({ bn: 'হেল্প সেন্টার', en: 'Help center' })} title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} />
-      <label className="relative mt-8 block max-w-[640px] mx-auto">
-        <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" aria-hidden="true" />
-        <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ bn: 'যেমন: বুকিং, রুম যোগ, প্ল্যান', en: 'e.g. booking, add room, plan' })}
-          className="w-full h-14 rounded-full border border-line-strong bg-white pl-12 pr-5 text-[16px] shadow-soft focus:outline-2 focus:outline-link" />
-      </label>
+    <div className="container-x">
+      <PageHeader title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} lead={t({ bn: 'ধাপে ধাপে গাইড, ১ মিনিটের ভিডিও, আর দরকার হলে আমাদের টিম।', en: 'Step-by-step guides, one-minute videos and our team when you need us.' })}>
+        <label className="relative block w-full md:w-[380px]">
+          <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" aria-hidden="true" />
+          <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ bn: 'যেমন: বুকিং, রুম যোগ, প্ল্যান', en: 'e.g. booking, add room, plan' })}
+            className="w-full h-12 rounded-full border border-line-strong bg-white pl-12 pr-5 text-[16px] shadow-soft focus:outline-2 focus:outline-link" />
+        </label>
+      </PageHeader>
 
       <div className="mt-10 grid gap-3 grid-cols-2 md:grid-cols-4">
         {categories.map((c) => (
           <button key={c.id} onClick={() => setCat(cat === c.id ? null : c.id)} aria-pressed={cat === c.id}
-            className={`card card-hover p-4 flex items-center gap-3 text-left cursor-pointer min-h-16 ${cat === c.id ? 'glow-border shadow-glow' : ''}`}>
-            <span className="grid size-10 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Icon name={c.icon} /></span>
+            className={`rounded-[14px] border px-4 flex items-center gap-3 text-left cursor-pointer min-h-14 transition-[background-color,border-color] duration-200 ${cat === c.id ? 'border-ink bg-ink text-white' : 'border-line bg-white hover:border-line-strong'}`}>
+            <Icon name={c.icon} className={`size-5 shrink-0 ${cat === c.id ? 'text-white' : 'text-muted-foreground'}`} />
             <span className="text-[15px] font-medium">{t(c.name)}</span>
           </button>
         ))}
       </div>
 
       <section className="mt-10">
-        <h2 className="text-[20px] font-semibold">{t({ bn: 'আর্টিকেল', en: 'Articles' })}</h2>
+        <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: 'আর্টিকেল', en: 'Articles' })}</h2>
         {list.length ? (
           <ul className="mt-4 card divide-y divide-line">
             {list.map((a) => (
@@ -59,9 +60,9 @@ export default function Help() {
       </section>
 
       <section className="mt-14">
-        <h2 className="text-[20px] font-semibold">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
+        <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card card-hover overflow-hidden"><Media id={id} /></div>)}
+          {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
         </div>
       </section>
 

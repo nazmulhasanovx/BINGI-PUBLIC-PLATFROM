@@ -2,7 +2,7 @@ import { useState, type FormEvent } from 'react'
 import { CheckCircle2, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
-import { Bubble, SectionHead } from '../../components/ui/Ui'
+import { Bubble, PageHeader } from '../../components/ui/Ui'
 
 type Form = { name: string; property: string; type: string; rooms: string; phone: string; time: string }
 const empty: Form = { name: '', property: '', type: 'hotel', rooms: '', phone: '', time: '' }
@@ -45,9 +45,9 @@ export default function Contact() {
   }
 
   return (
-    <div className="container-x pt-14">
-      <SectionHead eyebrow={t({ bn: 'যোগাযোগ', en: 'Contact' })} title={t({ bn: 'আমাদের সম্পর্কে ও যোগাযোগ', en: 'About us & contact' })} />
-      <div className="mt-12 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
+    <div className="container-x">
+      <PageHeader title={t({ bn: 'চলুন কথা বলি', en: "Let's talk about your property" })} lead={t({ bn: 'ডেমো বুক করুন, বা সরাসরি WhatsApp-এ লিখুন। ঢাকা থেকে আমাদের টিম উত্তর দেয়।', en: 'Book a demo or write to us on WhatsApp. Our team answers from Dhaka.' })} />
+      <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-6">
           <div className="card p-6">
             <h2 className="text-[18px] font-semibold">{t({ bn: 'আমরা কারা', en: 'Who we are' })}</h2>

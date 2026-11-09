@@ -13,14 +13,14 @@ export default function Legal() {
   const { t } = useLang()
   const d = docs[doc] ?? docs.privacy
   return (
-    <div className="container-x pt-14 grid gap-8 md:grid-cols-[220px_1fr]">
+    <div className="container-x pt-12 md:pt-20 grid gap-8 md:grid-cols-[220px_1fr]">
       <nav aria-label="Legal" className="flex md:flex-col gap-2 overflow-x-auto">
         {Object.entries(docs).map(([k, v]) => (
-          <NavLink key={k} to={`/legal/${k}`} className={({ isActive }) => `h-11 shrink-0 inline-flex items-center rounded-full md:rounded-[10px] px-4 text-[15px] ${isActive ? 'bg-white border border-line font-medium' : 'text-muted-foreground hover:text-ink'}`}>{t(v.title)}</NavLink>
+          <NavLink key={k} to={`/legal/${k}`} className={({ isActive }) => `h-11 shrink-0 inline-flex items-center rounded-full px-4 text-[15px] transition-colors duration-200 ${isActive ? 'bg-ink text-white font-medium' : 'text-muted-foreground hover:text-ink'}`}>{t(v.title)}</NavLink>
         ))}
       </nav>
       <article className="card p-6 md:p-10">
-        <h1 className="text-[28px] font-semibold tracking-tight">{t(d.title)}</h1>
+        <h1 className="display text-[36px] md:text-[48px]">{t(d.title)}</h1>
         <p className="mt-4 text-[16px] text-muted-foreground leading-relaxed">{t(d.body)}</p>
       </article>
     </div>

@@ -4,7 +4,7 @@ import { BedDouble, Check, ChevronDown, Gift, Minus, Plus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { compare, cycles, MIN_BILLABLE, offers, plans, priceFor, type Cell, type Cycle } from '../../data/pricing'
-import { Accordion, NumberRoll, SectionHead, Segmented } from '../../components/ui/Ui'
+import { Accordion, NumberRoll, PageHeader, SectionHead, Segmented } from '../../components/ui/Ui'
 import { Reveal } from '../../components/ui/Reveal'
 
 const faqs: { q: L; a: L }[] = [
@@ -33,8 +33,8 @@ export default function Pricing() {
   return (
     <div className="relative">
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] -z-10 overflow-hidden" aria-hidden="true"><div className="absolute inset-0 bg-grid" /><div className="absolute -top-40 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-35 blur-[80px] md:animate-float will-change-transform" /></div>
-      <div className="container-x pt-14">
-        <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'যত রুম, তত দাম', en: 'Pay per room. Nothing hidden.' })} lead={t({ bn: 'প্রতি রুমের মাসিক রেট। প্রতিটা খরচ আলাদা করে দেখানো।', en: 'A simple monthly rate per room. Every charge shown separately.' })} />
+      <div className="container-x">
+        <PageHeader center title={t({ bn: 'যত রুম, তত দাম', en: 'Pay per room. Nothing hidden.' })} lead={t({ bn: 'প্রতি রুমের মাসিক রেট। প্রতিটা খরচ আলাদা করে দেখানো।', en: 'A simple monthly rate per room. Every charge shown separately.' })} />
 
         {/* Calculator controls */}
         <div className="mt-8 flex flex-col items-center gap-4">

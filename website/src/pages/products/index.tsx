@@ -8,7 +8,7 @@ import { Media } from '../../components/media/Media'
 import { StatusChip } from '../../components/ui/StatusChip'
 import { Icon } from '../../components/ui/Icon'
 import { Reveal } from '../../components/ui/Reveal'
-import { PillTabs, SectionHead } from '../../components/ui/Ui'
+import { PageHeader, PillTabs } from '../../components/ui/Ui'
 
 type Platform = { id: 'web' | 'mobile' | 'guest'; tab: L; title: L; lead: L; device: 'display' | 'phone'; media: MediaId; features: L[] }
 
@@ -56,21 +56,21 @@ export default function Products() {
   const p = platforms.find((x) => x.id === tab)
 
   return (
-    <div className="container-x pt-14">
-      <SectionHead eyebrow={t({ bn: 'প্রোডাক্ট', en: 'Products' })} title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and booking ID.' })} />
+    <div className="container-x">
+      <PageHeader title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and the same booking ID.' })} />
 
-      <div className="sticky top-16 z-30 mt-8 -mx-5 px-5 py-3 bg-canvas/90 backdrop-blur-md">
-        <div className="flex justify-start md:justify-center overflow-x-auto"><PillTabs tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }]} /></div>
+      <div className="sticky top-16 z-30 mt-8 -mx-5 px-5 py-3 bg-pearl/85 backdrop-blur-xl">
+        <div className="flex overflow-x-auto"><PillTabs tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }]} /></div>
       </div>
 
       {p && (
         <section key={p.id} className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_1fr] items-center" role="tabpanel">
-          <Reveal className="relative grid place-items-center rounded-[16px] bg-white border border-line p-6 md:p-10 shadow-lift overflow-hidden"><div className="pointer-events-none absolute inset-x-[15%] top-[20%] bottom-[10%] rounded-full bg-gradient-to-r from-brand/20 to-[#6E8EF5]/20 blur-[60px]" aria-hidden="true" />
+          <Reveal className="relative grid place-items-center rounded-[24px] bg-white border border-line p-6 md:p-10 shadow-lift overflow-hidden grain"><div className="pointer-events-none absolute inset-x-[15%] top-[20%] bottom-[10%] rounded-full bg-gradient-to-r from-brand/20 to-[#6E8EF5]/20 blur-[60px]" aria-hidden="true" />
             {p.device === 'display' ? <StudioDisplay media={p.media} className="relative w-full" /> : <IPhone16PM media={p.media} className="relative w-[48%] max-w-[300px]" />}
           </Reveal>
           <Reveal delay={80}>
             <StatusChip status={platformStatus[p.id]} />
-            <h2 className="h2 mt-3">{t(p.title)}</h2>
+            <h2 className="h2 mt-4">{t(p.title)}</h2>
             <p className="lead mt-3">{t(p.lead)}</p>
             <ul className="mt-6 space-y-3">
               {p.features.map((f, i) => <li key={i} className="flex gap-3 text-[16px]"><Check className="size-5 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(f)}</li>)}
@@ -82,8 +82,8 @@ export default function Products() {
       {tab === 'web' && (
         <section className="mt-16 grid gap-4 md:grid-cols-2">
           {bento.map((b, i) => (
-            <Reveal key={b.media} delay={i * 60} className="card card-hover overflow-hidden">
-              <div className="border-b border-line"><Media id={b.media} /></div>
+            <Reveal key={b.media} delay={i * 60} className="card overflow-hidden">
+              <div className="border-b border-line h-[220px] md:h-[260px]"><Media id={b.media} className="!aspect-auto" /></div>
               <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted-foreground">{t(b.text)}</p></div>
             </Reveal>
           ))}
@@ -93,8 +93,8 @@ export default function Products() {
       {tab === 'modules' && (
         <section id="modules" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="tabpanel">
           {modules.map((m, i) => (
-            <Reveal key={m.id} delay={(i % 6) * 40} className="card card-hover p-5 flex gap-4">
-              <span className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${m.status === 'live' ? 'bg-brand-soft text-brand' : 'bg-canvas text-muted-foreground'}`}><Icon name={m.icon} /></span>
+            <Reveal key={m.id} delay={(i % 6) * 40} className="card p-5 flex gap-4">
+              <span className="mt-0.5 shrink-0 text-muted-foreground"><Icon name={m.icon} className="size-5" /></span>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2"><h3 className="text-[16px] font-semibold">{t(m.name)}</h3><StatusChip status={m.status} /></div>
                 <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{t(m.desc)}</p>
