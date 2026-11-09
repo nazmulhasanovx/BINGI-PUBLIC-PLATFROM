@@ -1,5 +1,27 @@
 # 02 — UI & UX
 
+## Foundation (theme) — shadcn / 21st.dev format
+Following the 21st.dev Theme Editor pattern (founder direction, 9 Nov 2026), all colours, type, radius and
+shadow live in ONE file: `website/src/styles/bingi-theme.css` (copy: `docs/02-ui-ux/bingi-theme.css`).
+Same structure as 21st themes — `:root` (preset **BinGi Pearl**, light) · `.dark` (preset **BinGi Bay**) · `@theme inline` — so it pastes straight into the 21st Theme Editor or any shadcn app.
+
+| Group | Pearl (light) | Bay (dark) | Text contrast |
+|---|---|---|---|
+| primary / fg | #B11C29 / #FFF | #FF6B66 / #08131F | 6.85 · 6.72 |
+| secondary / fg (Ocean Blue, D-B) | #1D4ED8 / #FFF | #8AA8FF / #08131F | 6.70 · 8.12 |
+| accent / fg | #FCEDEE / #8E1621 | #2A1A22 / #FFB3B0 | 8.08 · 9.71 |
+| background / fg | #F4F6F8 / #0F1720 | #08131F / #EEF2F6 | 16.66 · 16.62 |
+| card / fg | #FFF / #0F1720 | #0F2236 / #EEF2F6 | 18.05 · 14.33 |
+| muted / fg | #E9EDF2 / #4D5664 | #15304A / #B4C0CD | 6.31 · 7.31 |
+| destructive / fg | #C81E1E / #FFF | #F87171 / #08131F | 5.74 · 6.76 |
+| border · input · ring | #E3E7EC · #858C97 · #1D4ED8 | #1F3A55 · #5E7C98 · #8AA8FF | input ≥3:1 |
+| chart 1–5 | red · blue · green · amber · bay | lighter set | — |
+| radius | 0.75rem | | |
+| fonts | Instrument Sans · Bricolage Grotesque · Hind Siliguri | | |
+
+Site-only aliases (brand, ink, pearl, line…) in `src/index.css` point to these variables — change the theme file and the whole site follows.
+**Live preview:** `/foundation` page — left panel = preset + token groups (Colors · Type · Radius · Shadow, "Copy theme CSS"), right = Dashboard, Forms, Team, Pricing rendered with the tokens (numbers labelled "Sample data").
+
 ## v2 (9 Nov 2026) — current
 v0.1 was rated 2/10 by the founder (placeholders, card soup, flat colour, generic type, fade-up only).
 v2 follows the plan in the BINGI HMT project (`Public_Site_UI_v2_Plan.md`), built with the frontend-design

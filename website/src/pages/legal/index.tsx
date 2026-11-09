@@ -16,12 +16,12 @@ export default function Legal() {
     <div className="container-x pt-14 grid gap-8 md:grid-cols-[220px_1fr]">
       <nav aria-label="Legal" className="flex md:flex-col gap-2 overflow-x-auto">
         {Object.entries(docs).map(([k, v]) => (
-          <NavLink key={k} to={`/legal/${k}`} className={({ isActive }) => `h-11 shrink-0 inline-flex items-center rounded-full md:rounded-[10px] px-4 text-[15px] ${isActive ? 'bg-white border border-line font-medium' : 'text-muted hover:text-ink'}`}>{t(v.title)}</NavLink>
+          <NavLink key={k} to={`/legal/${k}`} className={({ isActive }) => `h-11 shrink-0 inline-flex items-center rounded-full md:rounded-[10px] px-4 text-[15px] ${isActive ? 'bg-white border border-line font-medium' : 'text-muted-foreground hover:text-ink'}`}>{t(v.title)}</NavLink>
         ))}
       </nav>
       <article className="card p-6 md:p-10">
         <h1 className="text-[28px] font-semibold tracking-tight">{t(d.title)}</h1>
-        <p className="mt-4 text-[16px] text-muted leading-relaxed">{t(d.body)}</p>
+        <p className="mt-4 text-[16px] text-muted-foreground leading-relaxed">{t(d.body)}</p>
       </article>
     </div>
   )

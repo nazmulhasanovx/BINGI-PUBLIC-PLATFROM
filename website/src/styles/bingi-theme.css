@@ -1,0 +1,133 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   BinGi theme — shadcn / 21st.dev Theme Editor format (:root · .dark · @theme inline)
+   Presets:  "BinGi Pearl" (light, default)  ·  "BinGi Bay" (dark, .dark)
+   Import into 21st.dev Theme Editor or any shadcn app as-is.
+   Every text/background pair below is checked for WCAG AA (see docs/02-ui-ux).
+   ───────────────────────────────────────────────────────────────────────── */
+:root {
+  --background: #F4F6F8;            /* Pearl canvas */
+  --foreground: #0F1720;            /* 16.7:1 */
+  --card: #FFFFFF;
+  --card-foreground: #0F1720;       /* 18.1:1 */
+  --popover: #FFFFFF;
+  --popover-foreground: #0F1720;
+  --primary: #B11C29;               /* BinGi action red */
+  --primary-foreground: #FFFFFF;    /* 6.85:1 */
+  --secondary: #1D4ED8;             /* Ocean Blue (decision D-B) */
+  --secondary-foreground: #FFFFFF;  /* 6.7:1 */
+  --muted: #E9EDF2;
+  --muted-foreground: #4D5664;      /* 6.3:1 on muted, 7.4:1 on white */
+  --accent: #FCEDEE;                /* soft red for hover / selected */
+  --accent-foreground: #8E1621;     /* 8.1:1 */
+  --destructive: #C81E1E;
+  --destructive-foreground: #FFFFFF;/* 5.7:1 */
+  --border: #E3E7EC;                /* decorative hairline */
+  --input: #858C97;                 /* control border ≥3:1 */
+  --ring: #1D4ED8;                  /* focus ring 6.2:1 */
+  --chart-1: #B11C29;
+  --chart-2: #1D4ED8;
+  --chart-3: #0E9F6E;
+  --chart-4: #F59E0B;
+  --chart-5: #0B2235;
+  --radius: 0.75rem;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #0F1720;
+  --sidebar-primary: #B11C29;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #FCEDEE;
+  --sidebar-accent-foreground: #8E1621;
+  --sidebar-border: #E3E7EC;
+  --sidebar-ring: #1D4ED8;
+  --font-sans: "Instrument Sans", "Hind Siliguri", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-color: #0B2235;
+  --shadow-opacity: 0.08;
+  --shadow-blur: 24px;
+  --shadow-spread: -6px;
+  --shadow-offset-x: 0px;
+  --shadow-offset-y: 8px;
+  /* BinGi signature (not part of shadcn): Bay sunrise */
+  --sunrise-coral: #FD413F;
+  --sunrise-peach: #FFB38A;
+  --bay: #0B2235;
+}
+
+.dark {
+  --background: #08131F;
+  --foreground: #EEF2F6;            /* 16.6:1 */
+  --card: #0F2236;
+  --card-foreground: #EEF2F6;       /* 14.3:1 */
+  --popover: #0F2236;
+  --popover-foreground: #EEF2F6;
+  --primary: #FF6B66;
+  --primary-foreground: #08131F;    /* 6.7:1 */
+  --secondary: #8AA8FF;
+  --secondary-foreground: #08131F;  /* 8.1:1 */
+  --muted: #15304A;
+  --muted-foreground: #B4C0CD;      /* 7.3:1 */
+  --accent: #2A1A22;
+  --accent-foreground: #FFB3B0;     /* 9.7:1 */
+  --destructive: #F87171;
+  --destructive-foreground: #08131F;/* 6.8:1 */
+  --border: #1F3A55;
+  --input: #5E7C98;                 /* 4.3:1 */
+  --ring: #8AA8FF;
+  --chart-1: #FF6B66;
+  --chart-2: #8AA8FF;
+  --chart-3: #34D399;
+  --chart-4: #FBBF24;
+  --chart-5: #FFB38A;
+  --sidebar: #0B1B2C;
+  --sidebar-foreground: #EEF2F6;
+  --sidebar-primary: #FF6B66;
+  --sidebar-primary-foreground: #08131F;
+  --sidebar-accent: #2A1A22;
+  --sidebar-accent-foreground: #FFB3B0;
+  --sidebar-border: #1F3A55;
+  --sidebar-ring: #8AA8FF;
+  --shadow-color: #000000;
+  --shadow-opacity: 0.4;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+}

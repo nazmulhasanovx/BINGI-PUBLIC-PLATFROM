@@ -19,10 +19,10 @@ function Item({ step, index, active, setActive }: { step: Step; index: number; a
   useMotionValueEvent(isActive, 'change', (v) => { if (v) setActive(index) })
   return (
     <motion.article ref={ref} style={{ y }} className="flex gap-5">
-      <span className={`mt-1 grid size-9 shrink-0 place-items-center rounded-full text-[15px] font-semibold transition-colors duration-300 ${active ? 'bg-brand text-white' : 'bg-white text-muted border border-line'}`}>{index + 1}</span>
+      <span className={`mt-1 grid size-9 shrink-0 place-items-center rounded-full text-[15px] font-semibold transition-colors duration-300 ${active ? 'bg-brand text-white' : 'bg-white text-muted-foreground border border-line'}`}>{index + 1}</span>
       <div>
         <h3 className="font-[family-name:var(--font-display)] text-[26px] md:text-[30px] font-semibold tracking-[-0.02em] leading-tight">{step.title}</h3>
-        <p className="mt-2 text-[17px] text-muted leading-relaxed max-w-[420px]">{step.text}</p>
+        <p className="mt-2 text-[17px] text-muted-foreground leading-relaxed max-w-[420px]">{step.text}</p>
       </div>
     </motion.article>
   )
@@ -40,7 +40,7 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
               <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand text-white text-[14px] font-semibold">{i + 1}</span>
               <div>
                 <h3 className="font-[family-name:var(--font-display)] text-[24px] font-semibold tracking-[-0.02em]">{s.title}</h3>
-                <p className="mt-1 text-[16px] text-muted">{s.text}</p>
+                <p className="mt-1 text-[16px] text-muted-foreground">{s.text}</p>
               </div>
             </div>
             <div className="overflow-hidden rounded-[14px] border border-line shadow-soft"><Media id={s.media} /></div>

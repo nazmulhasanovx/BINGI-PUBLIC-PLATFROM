@@ -63,7 +63,7 @@ export default function Products() {
         <div role="tablist" aria-label="Products" className="flex gap-2 overflow-x-auto justify-start md:justify-center">
           {[...platforms.map((x) => ({ id: x.id, label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }].map((x) => (
             <button key={x.id} role="tab" aria-selected={tab === x.id} onClick={() => setTab(x.id)}
-              className={`h-11 shrink-0 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-colors duration-150 ${tab === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted border-line hover:text-ink'}`}>{x.label}</button>
+              className={`h-11 shrink-0 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-colors duration-150 ${tab === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted-foreground border-line hover:text-ink'}`}>{x.label}</button>
           ))}
         </div>
       </div>
@@ -89,7 +89,7 @@ export default function Products() {
           {bento.map((b, i) => (
             <Reveal key={b.media} delay={i * 60} className="card card-hover overflow-hidden">
               <div className="border-b border-line"><Media id={b.media} /></div>
-              <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted">{t(b.text)}</p></div>
+              <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted-foreground">{t(b.text)}</p></div>
             </Reveal>
           ))}
         </section>
@@ -99,10 +99,10 @@ export default function Products() {
         <section id="modules" className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3" role="tabpanel">
           {modules.map((m, i) => (
             <Reveal key={m.id} delay={(i % 6) * 40} className="card card-hover p-5 flex gap-4">
-              <span className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${m.status === 'live' ? 'bg-brand-soft text-brand' : 'bg-canvas text-muted'}`}><Icon name={m.icon} /></span>
+              <span className={`grid size-11 shrink-0 place-items-center rounded-[10px] ${m.status === 'live' ? 'bg-brand-soft text-brand' : 'bg-canvas text-muted-foreground'}`}><Icon name={m.icon} /></span>
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2"><h3 className="text-[16px] font-semibold">{t(m.name)}</h3><StatusChip status={m.status} /></div>
-                <p className="mt-1 text-[14px] text-muted leading-relaxed">{t(m.desc)}</p>
+                <p className="mt-1 text-[14px] text-muted-foreground leading-relaxed">{t(m.desc)}</p>
               </div>
             </Reveal>
           ))}

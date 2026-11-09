@@ -22,7 +22,7 @@ function LangToggle() {
     <div className="inline-flex rounded-full border border-line bg-white p-0.5 text-[13px]" role="group" aria-label="Language">
       {(['bn', 'en'] as const).map((l) => (
         <button key={l} onClick={() => setLang(l)} aria-pressed={lang === l}
-          className={`h-8 min-w-11 rounded-full px-3 font-medium cursor-pointer transition-colors duration-150 ${lang === l ? 'bg-ink text-white' : 'text-muted hover:text-ink'}`}>
+          className={`h-8 min-w-11 rounded-full px-3 font-medium cursor-pointer transition-colors duration-150 ${lang === l ? 'bg-ink text-white' : 'text-muted-foreground hover:text-ink'}`}>
           {l === 'bn' ? 'বাংলা' : 'EN'}
         </button>
       ))}
@@ -47,7 +47,7 @@ function Header() {
         <Link to="/" aria-label="BinGi home"><Logo /></Link>
         <nav className="hidden md:flex items-center gap-1" aria-label="Main">
           {nav.map((n) => (
-            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted hover:text-ink'}`}>
+            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
               {t(n.label)}
             </NavLink>
           ))}
@@ -84,11 +84,11 @@ function Footer() {
       <div className="container-x grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <Logo className="h-7" />
-          <p className="text-[14px] text-muted max-w-[320px] leading-relaxed">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
+          <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
         </div>
         <div>
           <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h3>
-          <ul className="space-y-2 text-[14px] text-muted">
+          <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/products">{t({ bn: 'প্ল্যাটফর্ম ও মডিউল', en: 'Platforms & modules' })}</Link></li>
             <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
             <li><a className="hover:text-ink" href={site.marketplace}>{t({ bn: 'BinGi মার্কেটপ্লেস', en: 'BinGi Marketplace' })}</a></li>
@@ -96,7 +96,7 @@ function Footer() {
         </div>
         <div>
           <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'সাপোর্ট', en: 'Support' })}</h3>
-          <ul className="space-y-2 text-[14px] text-muted">
+          <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/help">{t({ bn: 'হেল্প সেন্টার', en: 'Help center' })}</Link></li>
             <li><a className="hover:text-ink" href={site.whatsapp}>WhatsApp</a></li>
             <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link></li>
@@ -104,15 +104,16 @@ function Footer() {
         </div>
         <div>
           <h3 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'কোম্পানি', en: 'Company' })}</h3>
-          <ul className="space-y-2 text-[14px] text-muted">
+          <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'আমাদের সম্পর্কে', en: 'About us' })}</Link></li>
             <li><Link className="hover:text-ink" to="/legal/privacy">{t({ bn: 'প্রাইভেসি', en: 'Privacy' })}</Link></li>
             <li><Link className="hover:text-ink" to="/legal/terms">{t({ bn: 'শর্তাবলি', en: 'Terms' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/foundation">{t({ bn: 'ডিজাইন ফাউন্ডেশন', en: 'Design foundation' })}</Link></li>
           </ul>
         </div>
       </div>
       <div className="border-t border-line">
-        <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-5 text-[13px] text-muted">
+        <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-5 text-[13px] text-muted-foreground">
           <span>© 2026 {site.company} · {site.parent}</span>
           <span>{t(site.address)} · {site.phone}</span>
         </div>

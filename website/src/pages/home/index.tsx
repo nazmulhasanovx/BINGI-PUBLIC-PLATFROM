@@ -67,7 +67,7 @@ export default function Home() {
         <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
           <ul className="flex w-max gap-12 animate-marquee hover:[animation-play-state:paused]">
             {[...live, ...live].map((m, i) => (
-              <li key={i} className="whitespace-nowrap text-[17px] font-medium text-muted" aria-hidden={i >= live.length}>{t(m.name)}</li>
+              <li key={i} className="whitespace-nowrap text-[17px] font-medium text-muted-foreground" aria-hidden={i >= live.length}>{t(m.name)}</li>
             ))}
           </ul>
         </div>
@@ -93,7 +93,7 @@ export default function Home() {
             <article key={b.media} onPointerMove={spot} className={`spotlight card overflow-hidden ${b.span}`}>
               <div className="p-6 pb-4">
                 <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em]">{t(b.title)}</h3>
-                <p className="mt-1 text-[16px] text-muted">{t(b.text)}</p>
+                <p className="mt-1 text-[16px] text-muted-foreground">{t(b.text)}</p>
               </div>
               <div className={`mx-4 mb-4 overflow-hidden rounded-[12px] border border-line ${b.media === 'bentoWebsite' ? 'md:h-[340px]' : 'md:h-[260px]'}`}><Media id={b.media} className="md:!aspect-auto" /></div>
             </article>
@@ -135,7 +135,7 @@ export default function Home() {
             <div className="mt-8 flex flex-wrap gap-2" role="tablist" aria-label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })}>
               {types.map((x) => (
                 <button key={x.id} role="tab" aria-selected={type === x.id} onClick={() => setType(x.id)}
-                  className={`h-11 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-[background-color,color,transform] duration-300 ease-spring active:scale-95 ${type === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted border-line hover:text-ink'}`}>{t(x.name)}</button>
+                  className={`h-11 rounded-full px-5 text-[15px] font-medium cursor-pointer border transition-[background-color,color,transform] duration-300 ease-spring active:scale-95 ${type === x.id ? 'bg-ink text-white border-ink' : 'bg-white text-muted-foreground border-line hover:text-ink'}`}>{t(x.name)}</button>
               ))}
             </div>
           </div>
@@ -144,7 +144,7 @@ export default function Home() {
               {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[18px]"><Check className="size-5 text-ok shrink-0 mt-1" aria-hidden="true" />{t(p)}</li>)}
             </ul>
             <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
-              <span className="text-[15px] text-muted">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
+              <span className="text-[15px] text-muted-foreground">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
               <Link to="/pricing" className="text-link text-[15px] font-medium hover:underline underline-offset-4">{t({ bn: 'দাম দেখুন', en: 'See pricing' })}</Link>
             </div>
           </div>
@@ -161,7 +161,7 @@ export default function Home() {
           <div className="grid grid-cols-3 divide-x divide-line">
             {plans.filter((p) => p.rate).map((p) => (
               <Link key={p.id} to="/pricing" className="px-3 md:px-6 text-center group">
-                <p className="text-[15px] text-muted">{p.name}</p>
+                <p className="text-[15px] text-muted-foreground">{p.name}</p>
                 <p className="mt-1 font-[family-name:var(--font-display)] text-[34px] md:text-[44px] font-semibold tracking-[-0.03em] group-hover:text-brand transition-colors">{taka(p.rate!)}</p>
                 <p className="text-[14px] text-soft">{t({ bn: 'প্রতি রুম/মাস', en: 'per room / month' })}</p>
               </Link>

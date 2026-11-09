@@ -17,8 +17,8 @@ const faqs: { q: L; a: L }[] = [
 function CellView({ c }: { c: Cell }) {
   const { t } = useLang()
   if (c === true) return <Check className="size-[18px] text-ok mx-auto" aria-label="Included" />
-  if (c === false) return <span className="inline-flex items-center gap-1 text-muted"><Minus className="size-4" aria-hidden="true" /><span className="sr-only">Not included</span></span>
-  if (c === 'tailored') return <span className="rounded-full bg-canvas px-2.5 py-1 text-[12px] text-muted">{t({ bn: 'প্রয়োজন মতো', en: 'Tailored' })}</span>
+  if (c === false) return <span className="inline-flex items-center gap-1 text-muted-foreground"><Minus className="size-4" aria-hidden="true" /><span className="sr-only">Not included</span></span>
+  if (c === 'tailored') return <span className="rounded-full bg-canvas px-2.5 py-1 text-[12px] text-muted-foreground">{t({ bn: 'প্রয়োজন মতো', en: 'Tailored' })}</span>
   return <span className="text-[13px] font-medium">{t(c)}</span>
 }
 
@@ -50,7 +50,7 @@ export default function Pricing() {
             </div>
             <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => setR(+e.target.value)} aria-label="Rooms slider" className="w-44 accent-[#B11C29] cursor-pointer" />
           </div>
-          <p className="text-[13px] text-muted" aria-live="polite">
+          <p className="text-[13px] text-muted-foreground" aria-live="polite">
             {rooms < MIN_BILLABLE
               ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে দেখানো হচ্ছে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
               : t({ bn: 'ট্যাক্স প্রযোজ্য হলে আলাদা', en: 'Taxes extra where applicable' })}
@@ -66,21 +66,21 @@ export default function Pricing() {
               <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-6 border transition-[transform,box-shadow] duration-300 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
                 {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[12px] font-semibold tracking-wide text-white whitespace-nowrap">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
                 <h2 className="text-[20px] font-semibold">BinGi {p.name}</h2>
-                <p className={`mt-1 text-[14px] min-h-[42px] ${pop ? 'text-white/90' : 'text-muted'}`}>{t(p.tagline)}</p>
+                <p className={`mt-1 text-[14px] min-h-[42px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(p.tagline)}</p>
 
                 <div className="mt-4 min-h-[104px]">
                   {pr ? (
                     <>
-                      <p className="text-[34px] font-semibold tracking-tight leading-none">{taka(pr.perRoom)}<span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
-                      {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/80' : 'text-muted'}`}>{taka(p.rate!)}</p>}
-                      <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/90' : 'text-muted'}`}>
+                      <p className="text-[34px] font-semibold tracking-tight leading-none">{taka(pr.perRoom)}<span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted-foreground'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
+                      {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/80' : 'text-muted-foreground'}`}>{taka(p.rate!)}</p>}
+                      <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>
                         {c.months === 1
                           ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} rooms · ${taka(pr.total)}/month` })
                           : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)} · সাশ্রয় ${taka(pr.saved)}`, en: `${pr.q} rooms · ${taka(pr.total)} for ${c.months} months · save ${taka(pr.saved)}` })}
                       </p>
                     </>
                   ) : (
-                    <><p className="text-[30px] font-semibold tracking-tight leading-none">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-2 text-[13px] text-muted">{t({ bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after we review your needs' })}</p></>
+                    <><p className="text-[30px] font-semibold tracking-tight leading-none">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-2 text-[13px] text-muted-foreground">{t({ bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after we review your needs' })}</p></>
                   )}
                 </div>
 
@@ -101,13 +101,13 @@ export default function Pricing() {
 
                 {p.fees && (
                   <div className={`mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
-                    <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
+                    <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
                     <div className="mt-1.5 grid grid-cols-3 gap-1 text-[13px]">
                       {([['marketplace', { bn: 'মার্কেটপ্লেস', en: 'Marketplace' }], ['website', { bn: 'ওয়েবসাইট', en: 'Website' }], ['walkin', { bn: 'ওয়াক-ইন', en: 'Walk-in' }]] as const).map(([k, l]) => (
-                        <div key={k}><span className="font-semibold">{num(p.fees![k])}%</span><span className={`block text-[12px] ${pop ? 'text-white/90' : 'text-muted'}`}>{t(l)}</span></div>
+                        <div key={k}><span className="font-semibold">{num(p.fees![k])}%</span><span className={`block text-[12px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(l)}</span></div>
                       ))}
                     </div>
-                    <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/90' : 'border-line text-muted'}`}>
+                    <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/90' : 'border-line text-muted-foreground'}`}>
                       {p.activation
                         ? <>{t({ bn: 'অ্যাক্টিভেশন', en: 'Activation' })} <span className="line-through">{taka(p.activation.standard)}</span> <span className="font-semibold">{t({ bn: 'এখন', en: 'now' })} {taka(p.activation.now)}</span></>
                         : t({ bn: 'কোনো অ্যাক্টিভেশন ফি নেই', en: 'No activation fee' })}
@@ -124,7 +124,7 @@ export default function Pricing() {
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-ok-soft text-ok"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
-            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted md:grid-cols-2">{offers.map((o, i) => <li key={i} className="flex gap-2"><Check className="size-4 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(o)}</li>)}</ul>
+            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2">{offers.map((o, i) => <li key={i} className="flex gap-2"><Check className="size-4 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(o)}</li>)}</ul>
           </div>
         </div>
 
@@ -140,8 +140,8 @@ export default function Pricing() {
               <table className="w-full min-w-[640px] text-[14px]">
                 <thead>
                   <tr className="border-b border-line">
-                    <th scope="col" className="text-left p-4 font-medium text-muted">{t({ bn: 'ফিচার', en: 'Feature' })}</th>
-                    {plans.map((p) => <th key={p.id} scope="col" className={`p-4 font-semibold ${p.popular ? 'text-brand' : ''}`}>{p.name}<span className="block text-[12px] font-normal text-muted">{p.rate ? `${taka(p.rate)}/${t({ bn: 'রুম', en: 'room' })}` : t({ bn: 'কোটেশন', en: 'Quote' })}</span></th>)}
+                    <th scope="col" className="text-left p-4 font-medium text-muted-foreground">{t({ bn: 'ফিচার', en: 'Feature' })}</th>
+                    {plans.map((p) => <th key={p.id} scope="col" className={`p-4 font-semibold ${p.popular ? 'text-brand' : ''}`}>{p.name}<span className="block text-[12px] font-normal text-muted-foreground">{p.rate ? `${taka(p.rate)}/${t({ bn: 'রুম', en: 'room' })}` : t({ bn: 'কোটেশন', en: 'Quote' })}</span></th>)}
                   </tr>
                 </thead>
                 {compare.map((g) => (

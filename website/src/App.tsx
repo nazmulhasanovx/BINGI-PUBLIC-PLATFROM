@@ -4,7 +4,7 @@ import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
 
-import { loaders, loadArticle, loadLegal, loadNotFound } from './routes'
+import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation } from './routes'
 
 const Products = lazy(loaders['/products'])
 const Pricing = lazy(loaders['/pricing'])
@@ -13,6 +13,7 @@ const Article = lazy(loadArticle)
 const Contact = lazy(loaders['/contact'])
 const Legal = lazy(loadLegal)
 const NotFound = lazy(loadNotFound)
+const Foundation = lazy(loadFoundation)
 
 // Single-file preview build keeps routes in memory (works inside a sandboxed preview); the real site uses clean URLs.
 const Router = import.meta.env.MODE === 'single' ? MemoryRouter : BrowserRouter
@@ -35,6 +36,7 @@ export default function App() {
               <Route path="help/:slug" element={<Article />} />
               <Route path="contact" element={<Contact />} />
               <Route path="legal/:doc" element={<Legal />} />
+              <Route path="foundation" element={<Foundation />} />
               {/* old URLs from the current site */}
               <Route path="ecosystem" element={<Navigate to="/products" replace />} />
               <Route path="start" element={<Navigate to="/pricing" replace />} />

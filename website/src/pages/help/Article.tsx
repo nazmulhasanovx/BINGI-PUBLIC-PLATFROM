@@ -16,7 +16,7 @@ export default function Article() {
 
   return (
     <article className="container-x pt-10 max-w-[780px]">
-      <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[14px] text-muted">
+      <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[14px] text-muted-foreground">
         <Link to="/help" className="hover:text-ink">{t({ bn: 'হেল্প', en: 'Help' })}</Link><ChevronRight className="size-4" aria-hidden="true" /><span>{cat && t(cat.name)}</span>
       </nav>
       <h1 className="mt-4 text-[30px] md:text-[38px] font-semibold tracking-tight leading-tight">{t(a.title)}</h1>

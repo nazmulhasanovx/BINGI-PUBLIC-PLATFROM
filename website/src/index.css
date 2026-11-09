@@ -3,31 +3,29 @@
 /* ── BinGi public site · design system v2 ─────────────────────────────
    Signature: "Bay sunrise" — the coral horizon of Cox's Bazar, where BinGi
    started. Used in two places only: hero and closing CTA.               */
+@import "./styles/bingi-theme.css";
+
+/* Site aliases → the semantic theme above (one source of truth). */
 @theme {
-  --color-pearl: #F4F6F8;      /* page canvas (Pearl Light) */
+  --color-pearl: var(--background);
   --color-white: #FFFFFF;
-  --color-ink: #0F1720;        /* primary text 17:1 */
-  --color-muted: #4D5664;      /* secondary text 7.4:1 on white */
-  --color-soft: #616A77;       /* tertiary, ≥4.7:1 on pearl */
-  --color-line: #E3E7EC;       /* hairlines */
-  --color-line-strong: #8A919C;/* inputs 3.2:1 */
-  --color-bay: #0B2235;        /* dark section — night sea */
+  --color-ink: var(--foreground);
+  --color-soft: #616A77;
+  --color-line: var(--border);
+  --color-line-strong: var(--input);
+  --color-bay: var(--bay);
   --color-bay-2: #12324B;
-  --color-coral: #FD413F;      /* logo red — sunrise only */
-  --color-sun: #FFB38A;        /* sunrise peach */
-  --color-brand: #B11C29;      /* primary action */
+  --color-coral: var(--sunrise-coral);
+  --color-sun: var(--sunrise-peach);
+  --color-brand: var(--primary);
   --color-brand-hover: #961722;
-  --color-brand-soft: #FCEDEE;
-  --color-link: #1D4ED8;
+  --color-brand-soft: var(--accent);
+  --color-link: var(--secondary);
+  --color-canvas: var(--background);
   --color-ok: #166534;
   --color-ok-soft: #E7F4EC;
   --color-soon: #92400E;
   --color-soon-soft: #FEF2E2;
-  /* legacy alias used by inner pages */
-  --color-canvas: #F4F6F8;
-
-  --font-display: "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
-  --font-sans: "Instrument Sans", "Hind Siliguri", system-ui, sans-serif;
 
   --shadow-soft: 0 1px 2px rgb(15 23 32 / 0.05), 0 6px 18px -6px rgb(15 23 32 / 0.08);
   --shadow-lift: 0 2px 6px rgb(15 23 32 / 0.06), 0 24px 48px -20px rgb(15 23 32 / 0.25);
@@ -81,4 +79,4 @@ html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-u
 @utility eyebrow { @apply text-[15px] font-medium text-brand; }
 @utility display { font-family: var(--font-display); @apply tracking-[-0.035em] leading-[0.98] font-semibold; }
 @utility h2 { font-family: var(--font-display); @apply text-[34px] md:text-[48px] font-semibold tracking-[-0.03em] leading-[1.04]; }
-@utility lead { @apply text-[17px] md:text-[19px] text-muted leading-relaxed; }
+@utility lead { @apply text-[17px] md:text-[19px] text-muted-foreground leading-relaxed; }

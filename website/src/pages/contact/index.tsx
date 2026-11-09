@@ -51,11 +51,11 @@ export default function Contact() {
         <div className="space-y-6">
           <div className="card p-6">
             <h2 className="text-[18px] font-semibold">{t({ bn: 'আমরা কারা', en: 'Who we are' })}</h2>
-            <p className="mt-2 text-[15px] text-muted leading-relaxed">{t({ bn: 'BinGi ঢাকার NEONECY-এর তৈরি হোটেল ম্যানেজমেন্ট টেকনোলজি। আমাদের লক্ষ্য — ছোট গেস্ট হাউস থেকে বড় রিসোর্ট, সবার হাতে একই মানের যুক্ত সিস্টেম।', en: 'BinGi is hotel management technology built by NEONECY in Dhaka. Our goal: the same connected system for everyone, from a small guest house to a large resort.' })}</p>
+            <p className="mt-2 text-[15px] text-muted-foreground leading-relaxed">{t({ bn: 'BinGi ঢাকার NEONECY-এর তৈরি হোটেল ম্যানেজমেন্ট টেকনোলজি। আমাদের লক্ষ্য — ছোট গেস্ট হাউস থেকে বড় রিসোর্ট, সবার হাতে একই মানের যুক্ত সিস্টেম।', en: 'BinGi is hotel management technology built by NEONECY in Dhaka. Our goal: the same connected system for everyone, from a small guest house to a large resort.' })}</p>
           </div>
           <div className="card divide-y divide-line">
-            <a href={site.whatsapp} className="flex items-center gap-4 p-5 hover:bg-canvas/50"><MessageCircle className="size-5 text-brand" aria-hidden="true" /><span><span className="block font-medium">WhatsApp</span><span className="text-[14px] text-muted">{t({ bn: 'দ্রুত উত্তর', en: 'Fastest reply' })}</span></span></a>
-            <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-4 p-5 hover:bg-canvas/50"><Phone className="size-5 text-brand" aria-hidden="true" /><span><span className="block font-medium">{site.phone}</span><span className="text-[14px] text-muted">{t({ bn: 'ফোন', en: 'Phone' })}</span></span></a>
+            <a href={site.whatsapp} className="flex items-center gap-4 p-5 hover:bg-canvas/50"><MessageCircle className="size-5 text-brand" aria-hidden="true" /><span><span className="block font-medium">WhatsApp</span><span className="text-[14px] text-muted-foreground">{t({ bn: 'দ্রুত উত্তর', en: 'Fastest reply' })}</span></span></a>
+            <a href={`tel:${site.phoneIntl}`} className="flex items-center gap-4 p-5 hover:bg-canvas/50"><Phone className="size-5 text-brand" aria-hidden="true" /><span><span className="block font-medium">{site.phone}</span><span className="text-[14px] text-muted-foreground">{t({ bn: 'ফোন', en: 'Phone' })}</span></span></a>
             <div className="flex items-center gap-4 p-5"><MapPin className="size-5 text-brand" aria-hidden="true" /><span className="text-[15px]">{t(site.address)}</span></div>
           </div>
         </div>
@@ -65,7 +65,7 @@ export default function Contact() {
             <div className="text-center py-10" role="status">
               <CheckCircle2 className="size-12 text-ok mx-auto" aria-hidden="true" />
               <h2 className="mt-4 text-[22px] font-semibold">{t({ bn: 'অনুরোধ তৈরি হয়েছে', en: 'Request ready' })}</h2>
-              <p className="mt-2 text-muted text-[15px]">{t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
+              <p className="mt-2 text-muted-foreground text-[15px]">{t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
               <a href={sent} target="_blank" rel="noopener" className="btn-primary mt-6">{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
               <button onClick={() => { setSent(null); setF(empty) }} className="btn-ghost mt-3 ml-2 cursor-pointer">{t({ bn: 'আরেকটা অনুরোধ', en: 'New request' })}</button>
             </div>

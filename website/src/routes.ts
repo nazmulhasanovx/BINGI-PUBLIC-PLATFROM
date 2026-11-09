@@ -7,6 +7,7 @@ export const loaders = {
 } as const
 export const loadArticle = () => import('./pages/help/Article')
 export const loadLegal = () => import('./pages/legal')
+export const loadFoundation = () => import('./pages/foundation')
 export const loadNotFound = () => import('./pages/not-found')
 
 const done = new Set<string>()

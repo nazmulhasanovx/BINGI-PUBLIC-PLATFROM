@@ -9,7 +9,7 @@ const label = {
 const cls = {
   live: 'bg-ok-soft text-ok',
   soon: 'bg-soon-soft text-soon',
-  confirm: 'bg-canvas text-muted border border-line',
+  confirm: 'bg-canvas text-muted-foreground border border-line',
 }
 
 export function StatusChip({ status }: { status: Status }) {

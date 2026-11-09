@@ -22,7 +22,7 @@ export default function Help() {
       <SectionHead eyebrow={t({ bn: 'হেল্প সেন্টার', en: 'Help center' })} title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} />
       <label className="relative mt-8 block max-w-[640px] mx-auto">
         <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted" aria-hidden="true" />
+        <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" aria-hidden="true" />
         <input type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder={t({ bn: 'যেমন: বুকিং, রুম যোগ, প্ল্যান', en: 'e.g. booking, add room, plan' })}
           className="w-full h-14 rounded-full border border-line-strong bg-white pl-12 pr-5 text-[16px] shadow-soft focus:outline-2 focus:outline-link" />
       </label>
@@ -44,14 +44,14 @@ export default function Help() {
             {list.map((a) => (
               <li key={a.slug}>
                 <Link to={`/help/${a.slug}`} className="flex items-center justify-between gap-4 p-5 hover:bg-canvas/50 transition-colors duration-150">
-                  <span><span className="block text-[16px] font-medium">{t(a.title)}</span><span className="text-[14px] text-muted">{t(a.summary)}</span></span>
-                  <ArrowRight className="size-5 text-muted shrink-0" aria-hidden="true" />
+                  <span><span className="block text-[16px] font-medium">{t(a.title)}</span><span className="text-[14px] text-muted-foreground">{t(a.summary)}</span></span>
+                  <ArrowRight className="size-5 text-muted-foreground shrink-0" aria-hidden="true" />
                 </Link>
               </li>
             ))}
           </ul>
         ) : (
-          <div className="mt-4 card p-10 text-center text-muted">
+          <div className="mt-4 card p-10 text-center text-muted-foreground">
             <SearchX className="size-8 mx-auto" aria-hidden="true" />
             <p className="mt-3 text-[15px]">{t({ bn: 'কিছু পাওয়া যায়নি। অন্য শব্দে খুঁজুন বা আমাদের জিজ্ঞেস করুন।', en: 'Nothing found. Try other words or ask us.' })}</p>
           </div>
@@ -70,13 +70,13 @@ export default function Help() {
           <h2 className="text-[18px] font-semibold">{t({ bn: 'নতুন কী এসেছে', en: "What's new" })}</h2>
           <ul className="mt-4 space-y-4">
             {whatsNew.map((w, i) => (
-              <li key={i} className="flex gap-4"><span className="text-[13px] text-muted w-20 shrink-0 pt-0.5">{t(w.date)}</span><span className="text-[15px]">{t(w.title)}</span></li>
+              <li key={i} className="flex gap-4"><span className="text-[13px] text-muted-foreground w-20 shrink-0 pt-0.5">{t(w.date)}</span><span className="text-[15px]">{t(w.title)}</span></li>
             ))}
           </ul>
         </section>
         <section className="card p-6">
           <h2 className="text-[18px] font-semibold">{t({ bn: 'এখনো সাহায্য লাগবে?', en: 'Still need help?' })}</h2>
-          <p className="mt-1 text-[14px] text-muted">{t({ bn: 'আমাদের টিম আপনার সাথে কথা বলবে।', en: 'Our team will talk to you.' })}</p>
+          <p className="mt-1 text-[14px] text-muted-foreground">{t({ bn: 'আমাদের টিম আপনার সাথে কথা বলবে।', en: 'Our team will talk to you.' })}</p>
           <div className="mt-5 grid gap-2 sm:grid-cols-3">
             <a href={site.whatsapp} className="btn-primary"><MessageCircle className="size-4" aria-hidden="true" />WhatsApp</a>
             <a href={`tel:${site.phoneIntl}`} className="btn-ghost"><PhoneCall className="size-4" aria-hidden="true" />{t({ bn: 'কল করুন', en: 'Call' })}</a>
