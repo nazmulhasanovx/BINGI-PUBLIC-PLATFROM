@@ -60,7 +60,7 @@ export default function Products() {
       <PageHeader title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and the same booking ID.' })} />
 
       <div className="sticky top-16 z-30 mt-8 -mx-5 px-5 py-3 bg-pearl/85 backdrop-blur-xl">
-        <div className="flex overflow-x-auto"><PillTabs tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'All modules' }) }]} /></div>
+        <div className="flex"><PillTabs fill tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'Modules' }) }]} /></div>
       </div>
 
       {p && (

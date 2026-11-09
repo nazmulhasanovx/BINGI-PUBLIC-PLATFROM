@@ -17,7 +17,7 @@ export default function Article() {
   return (
     <article className="container-x pt-12 md:pt-16 max-w-[780px]">
       <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[14px] text-muted-foreground">
-        <Link to="/help" className="hover:text-ink">{t({ bn: 'হেল্প', en: 'Help' })}</Link><ChevronRight className="size-4" aria-hidden="true" /><span>{cat && t(cat.name)}</span>
+        <Link to="/help" className="-ml-2 inline-flex min-h-11 min-w-11 items-center px-2 hover:text-ink">{t({ bn: 'হেল্প', en: 'Help' })}</Link><ChevronRight className="size-4" aria-hidden="true" /><span>{cat && t(cat.name)}</span>
       </nav>
       <h1 className="mt-4 display text-[36px] md:text-[52px]">{t(a.title)}</h1>
       <p className="lead mt-2">{t(a.summary)}</p>
@@ -43,7 +43,7 @@ export default function Article() {
       </div>
       <section className="mt-12">
         <h2 className="text-[18px] font-semibold">{t({ bn: 'আরও পড়ুন', en: 'Related' })}</h2>
-        <ul className="mt-3 space-y-2">{related.map((r) => <li key={r.slug}><Link to={`/help/${r.slug}`} className="text-link hover:underline text-[15px]">{t(r.title)}</Link></li>)}</ul>
+        <ul className="mt-3 space-y-2">{related.map((r) => <li key={r.slug}><Link to={`/help/${r.slug}`} className="inline-flex min-h-11 items-center text-link hover:underline text-[15px]">{t(r.title)}</Link></li>)}</ul>
       </section>
     </article>
   )

@@ -38,9 +38,9 @@ export default function Pricing() {
 
         {/* Calculator controls */}
         <div className="mt-8 flex flex-col items-center gap-4">
-          <Segmented wrap label="Billing period" value={cycle} onChange={setCycle}
-            options={cycles.map((x) => ({ id: x.id, label: t(x.label), badge: x.discount ? `${t({ bn: 'সাশ্রয়', en: 'Save' })} ${num(x.discount * 100)}%` : undefined }))} />
-          <div className="card glow-border flex flex-wrap items-center justify-center gap-3 px-4 py-3">
+          <Segmented fill label="Billing period" value={cycle} onChange={setCycle}
+            options={cycles.map((x) => ({ id: x.id, label: t(x.label), badge: x.discount ? `−${num(x.discount * 100)}%` : undefined }))} />
+          <div className="card glow-border flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-3 w-full sm:w-auto">
             <label htmlFor="rooms" className="flex items-center gap-2 text-[15px] font-medium"><BedDouble className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'আপনার রুম সংখ্যা', en: 'Your rooms' })}</label>
             <div className="flex items-center gap-1">
               <button onClick={() => setR(rooms - 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="Fewer rooms"><Minus className="size-4" /></button>
@@ -48,7 +48,7 @@ export default function Pricing() {
                 className="h-11 w-20 rounded-[10px] border border-line-strong text-center text-[17px] font-semibold focus:outline-2 focus:outline-link" />
               <button onClick={() => setR(rooms + 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="More rooms"><Plus className="size-4" /></button>
             </div>
-            <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => setR(+e.target.value)} aria-label="Rooms slider" className="w-44 accent-[#B11C29] cursor-pointer" />
+            <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => setR(+e.target.value)} aria-label="Rooms slider" className="h-11 w-44 accent-[#B11C29] cursor-pointer" />
           </div>
           <p className="text-[13px] text-muted-foreground" aria-live="polite">
             {rooms < MIN_BILLABLE

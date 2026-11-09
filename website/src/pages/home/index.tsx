@@ -88,7 +88,7 @@ export default function Home() {
       <section className="container-x pt-16 md:pt-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <h2 className="h2 max-w-[560px]">{t({ bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' })}</h2>
-          <Link to="/products" className="text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
+          <Link to="/products" className="inline-flex min-h-11 items-center text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-6">
           {bento.map((b) => (
@@ -142,7 +142,7 @@ export default function Home() {
             </ul>
             <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
               <span className="text-[15px] text-muted-foreground">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
-              <Link to="/pricing" className="text-link text-[15px] font-medium hover:underline underline-offset-4">{t({ bn: 'দাম দেখুন', en: 'See pricing' })}</Link>
+              <Link to="/pricing" className="inline-flex min-h-11 items-center text-link text-[15px] font-medium hover:underline underline-offset-4">{t({ bn: 'দাম দেখুন', en: 'See pricing' })}</Link>
             </div>
           </motion.div>
         </div>

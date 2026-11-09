@@ -49,7 +49,7 @@ function Spark({ color = 'var(--chart-1)', fill = false, points }: { color?: str
   )
 }
 
-const sample = <span className="rounded-full bg-muted px-2 py-0.5 text-[11px] font-medium text-muted-foreground">Sample data</span>
+const sample = <span className="rounded-full bg-muted px-2 py-0.5 text-[12px] font-medium text-muted-foreground">Sample data</span>
 
 function Preview() {
   const [target, setTarget] = useState(80)
@@ -78,9 +78,9 @@ function Preview() {
             <p className="text-[16px] font-semibold">Occupancy target</p>
             <p className="text-[14px] text-muted-foreground">Set the monthly goal for your property.</p>
             <div className="mt-4 flex items-center justify-center gap-6">
-              <button onClick={() => setTarget(Math.max(10, target - 5))} aria-label="Lower target" className="grid size-9 place-items-center rounded-full border border-input cursor-pointer hover:bg-accent"><Minus className="size-4" /></button>
+              <button onClick={() => setTarget(Math.max(10, target - 5))} aria-label="Lower target" className="grid size-11 place-items-center rounded-full border border-input cursor-pointer hover:bg-accent"><Minus className="size-4" /></button>
               <div className="text-center"><p className="font-[family-name:var(--font-display)] text-[44px] font-semibold leading-none tabular-nums">{target}%</p><p className="text-[12px] text-muted-foreground mt-1">Occupancy</p></div>
-              <button onClick={() => setTarget(Math.min(100, target + 5))} aria-label="Raise target" className="grid size-9 place-items-center rounded-full border border-input cursor-pointer hover:bg-accent"><Plus className="size-4" /></button>
+              <button onClick={() => setTarget(Math.min(100, target + 5))} aria-label="Raise target" className="grid size-11 place-items-center rounded-full border border-input cursor-pointer hover:bg-accent"><Plus className="size-4" /></button>
             </div>
             <div className="mt-4 flex h-20 items-end gap-1.5" aria-hidden="true">
               {bars.map((b, i) => <span key={i} className="flex-1 rounded-t-[4px] bg-chart-1 transition-[height] duration-500" style={{ height: `${Math.min(100, (b / target) * 80)}%`, opacity: b >= target ? 1 : 0.45 }} />)}
@@ -133,8 +133,10 @@ function Preview() {
               {([['Booking confirmation', 'SMS when a booking is confirmed.', n1, setN1], ['Check-out reminder', 'SMS on the morning of check-out.', n2, setN2]] as const).map(([t, d, on, set]) => (
                 <div key={t} className="flex items-start justify-between gap-4">
                   <div><p className="text-[14px] font-medium">{t}</p><p className="text-[13px] text-muted-foreground">{d}</p></div>
-                  <button role="switch" aria-checked={on} aria-label={t} onClick={() => set(!on)} className={`relative h-6 w-11 shrink-0 rounded-full cursor-pointer transition-colors duration-300 ${on ? 'bg-secondary' : 'bg-muted border border-input'}`}>
-                    <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-[left] duration-300 [transition-timing-function:var(--ease-spring)] ${on ? 'left-[22px]' : 'left-0.5'}`} />
+                  <button role="switch" aria-checked={on} aria-label={t} onClick={() => set(!on)} className="grid h-11 w-14 shrink-0 place-items-center cursor-pointer">
+                    <span className={`relative h-6 w-11 rounded-full transition-colors duration-300 ${on ? 'bg-secondary' : 'bg-muted border border-input'}`}>
+                      <span className={`absolute top-0.5 size-5 rounded-full bg-white shadow transition-[left] duration-300 [transition-timing-function:var(--ease-spring)] ${on ? 'left-[22px]' : 'left-0.5'}`} />
+                    </span>
                   </button>
                 </div>
               ))}
@@ -160,7 +162,7 @@ function Preview() {
         <div className="grid gap-4 md:grid-cols-3">
           {([['Starter', '৳30', 'Rooms, bookings, website', false], ['Business', '৳50', 'Adds housekeeping, restaurant, QR orders', true], ['Ultra', '৳116', 'Adds full HRM, inventory, advanced ops', false]] as const).map(([n, p, d, pop]) => (
             <div key={n} className={`rounded-xl p-5 ${pop ? 'bg-muted' : 'border border-border bg-card'}`}>
-              <p className="text-[18px] font-semibold flex items-center gap-2">{n}{pop && <span className="rounded-full bg-primary px-2 py-0.5 text-[11px] font-medium text-primary-foreground">Most popular</span>}</p>
+              <p className="text-[18px] font-semibold flex items-center gap-2">{n}{pop && <span className="rounded-full bg-primary px-2 py-0.5 text-[12px] font-medium text-primary-foreground">Most popular</span>}</p>
               <p className="text-[14px] text-muted-foreground">{d}</p>
               <p className="mt-3 font-[family-name:var(--font-display)] text-[32px] font-semibold">{p}<span className="text-[14px] font-normal text-muted-foreground"> /room/month</span></p>
               <button className={`mt-3 w-full h-10 rounded-full text-[14px] font-medium cursor-pointer ${pop ? 'bg-primary text-primary-foreground' : 'border border-input'}`}>Choose {n}</button>
@@ -196,7 +198,7 @@ export default function Foundation() {
           </label>
           <div role="tablist" aria-label="Token groups" className="grid grid-cols-4 gap-1 rounded-lg bg-white p-1 border border-border">
             {(['colors', 'type', 'radius', 'shadow'] as Tab[]).map((x) => (
-              <button key={x} role="tab" aria-selected={tab === x} onClick={() => setTab(x)} className={`h-8 rounded-md text-[12px] font-medium capitalize cursor-pointer ${tab === x ? 'bg-foreground text-background' : 'text-muted-foreground'}`}>{x}</button>
+              <button key={x} role="tab" aria-selected={tab === x} onClick={() => setTab(x)} className={`h-10 rounded-md text-[12px] font-medium capitalize cursor-pointer ${tab === x ? 'bg-foreground text-background' : 'text-muted-foreground'}`}>{x}</button>
             ))}
           </div>
           {tab === 'colors' && groups.map((g) => (
@@ -224,7 +226,7 @@ export default function Foundation() {
           </button>
           <p className="text-[12px] text-muted-foreground">Paste into 21st.dev Theme Editor or any shadcn app.</p>
         </aside>
-        <div ref={setScope} className={`${preset === 'bay' ? 'dark' : ''} rounded-2xl border border-border bg-background p-5 md:p-8 transition-colors duration-500`}>
+        <div ref={setScope} className={`${preset === 'bay' ? 'dark' : ''} min-w-0 rounded-2xl border border-border bg-background p-5 md:p-8 transition-colors duration-500`}>
           <Preview />
         </div>
       </div>

@@ -38,22 +38,22 @@ export function Hero() {
       </div>
 
       <div className="container-x pt-8 md:pt-14">
-        <div className="grid gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
-          <h1 className="display text-[44px] sm:text-[60px] lg:text-[76px] text-ink">
+        <div className="grid gap-5 md:gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
+          <h1 className="display text-[38px] min-[400px]:text-[42px] sm:text-[60px] lg:text-[76px] text-ink">
             {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{l}</span>)}
           </h1>
           <div className="md:pb-3 rise" style={rise(2).style}>
             <p className="lead max-w-[420px]">
               {t({ bn: 'ওয়েবসাইট, বুকিং, ফ্রন্ট ডেস্ক, হাউসকিপিং, রেস্টুরেন্ট, স্টাফ আর হিসাব — হোটেল ও রিসোর্টের জন্য একটা যুক্ত সিস্টেম।', en: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts — one connected system for hotels and resorts.' })}
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
+            <div className="mt-5 md:mt-7 flex flex-wrap gap-3">
               <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
               <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
             </div>
           </div>
         </div>
 
-        <div ref={stage} className="relative mx-auto mt-10 md:mt-12 max-w-[1040px] pb-4 [perspective:1600px]">
+        <div ref={stage} className="relative mx-auto mt-8 md:mt-12 max-w-[1040px] pb-4 [perspective:1600px]">
           <motion.div style={{ rotateX, scale, y, transformOrigin: 'center bottom' }} className="will-change-transform"
             initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease }}>
             <StudioDisplay media="heroWeb" className="relative w-[90%] md:w-[88%]" />

@@ -40,7 +40,7 @@ function Header() {
   return (
     <header className={`sticky top-0 z-40 transition-[background-color,box-shadow,border-color] duration-300 border-b ${scrolled || open ? 'bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-line shadow-[0_6px_24px_-12px_rgb(16_24_40/0.18)]' : 'bg-transparent border-transparent'}`}>
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label="BinGi home"><Logo /></Link>
+        <Link to="/" aria-label="BinGi home" className="flex h-11 items-center"><Logo /></Link>
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
           {nav.map((n) => (
             <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>

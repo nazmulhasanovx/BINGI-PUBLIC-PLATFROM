@@ -59,17 +59,20 @@ export function Accordion({ items }: { items: { q: string; a: ReactNode }[] }) {
 }
 
 // iOS segmented control / Telegram folder tabs — the selection pill slides between options.
-export function PillTabs<T extends string>({ value, onChange, options, label, tone = 'brand', size = 'md', wrap = false }: {
+export function PillTabs<T extends string>({ value, onChange, options, label, tone = 'brand', size = 'md', wrap = false, fill = false }: {
   value: T; onChange: (v: T) => void; options: { id: T; label: string; badge?: string }[]; label: string
   tone?: 'brand' | 'ink'; size?: 'sm' | 'md'; wrap?: boolean
+  /** phones: equal-width full-row segments (iOS segmented control); from sm up: inline pills */
+  fill?: boolean
 }) {
   const id = useId()
   const reduce = useReducedMotion()
-  const h = size === 'sm' ? 'h-8 px-3 text-[13px]' : 'h-10 px-4 text-[14px]'
+  const h = size === 'sm' ? 'h-10 px-3 text-[13px]' : fill ? 'h-11 px-1.5 text-[13px] sm:h-10 sm:px-4 sm:text-[14px] justify-center' : 'h-11 px-4 text-[14px]'
   const pill = tone === 'brand' ? 'bg-brand' : 'bg-ink'
   return (
     <MotionConfig transition={reduce ? { duration: 0 } : snappy}>
-      <div role="tablist" aria-label={label} className={`inline-flex ${wrap ? 'flex-wrap justify-center' : ''} gap-1 rounded-[24px] border border-line bg-white p-1 shadow-soft`}>
+      <div role="tablist" aria-label={label} style={fill ? { gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` } : undefined}
+        className={`${fill ? 'grid w-full sm:inline-flex sm:w-auto' : 'inline-flex'} ${wrap ? 'flex-wrap justify-center' : ''} gap-1 rounded-[24px] border border-line bg-white p-1 shadow-soft`}>
         {options.map((o) => {
           const on = value === o.id
           return (
@@ -77,7 +80,7 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
               className={`relative ${h} rounded-full font-medium inline-flex items-center gap-2 whitespace-nowrap cursor-pointer transition-colors duration-200 ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
               {on && <motion.span layoutId={`pill-${id}`} className={`absolute inset-0 rounded-full ${pill}`} />}
               <span className="relative">{o.label}</span>
-              {o.badge && <span className={`relative rounded-full px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}
+              {o.badge && <span className={`relative rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-accent-foreground'}`}>{o.badge}</span>}
             </button>
           )
         })}
