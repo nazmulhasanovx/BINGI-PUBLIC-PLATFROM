@@ -57,7 +57,7 @@ export default function Pricing() {
           </p>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
           {plans.map((p, i) => {
             const pop = p.popular
             const pr = p.rate ? priceFor(p.rate, rooms, cycle) : null
@@ -120,7 +120,7 @@ export default function Pricing() {
         </div>
 
         {/* Offers */}
-        <div className="mt-10 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-start">
+        <div className="mt-8 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-start">
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-ok-soft text-ok"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
@@ -129,7 +129,7 @@ export default function Pricing() {
         </div>
 
         {/* Compare */}
-        <section className="mt-16">
+        <section className="mt-12">
           <div className="text-center">
             <button onClick={() => setShowCompare(!showCompare)} aria-expanded={showCompare} className="btn-ghost h-12 px-6 cursor-pointer">
               {t({ bn: 'সব ফিচার তুলনা করুন', en: 'Compare all features' })}<ChevronDown className={`size-4 transition-transform duration-200 ${showCompare ? 'rotate-180' : ''}`} aria-hidden="true" />
@@ -160,7 +160,7 @@ export default function Pricing() {
           )}
         </section>
 
-        <section className="mt-20 max-w-[820px] mx-auto">
+        <section className="mt-14 max-w-[820px] mx-auto">
           <SectionHead title={t({ bn: 'প্রাইসিং প্রশ্ন', en: 'Pricing questions' })} />
           <div className="mt-8"><Accordion items={faqs.map((f) => ({ q: t(f.q), a: t(f.a) }))} /></div>
         </section>

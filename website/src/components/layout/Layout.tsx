@@ -83,8 +83,8 @@ function Header() {
 function Footer() {
   const { t } = useLang()
   return (
-    <footer className="border-t border-line bg-white mt-24 pb-20 lg:pb-0">
-      <div className="container-x grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
+    <footer className="border-t border-line bg-white mt-16 md:mt-20 pb-20 lg:pb-0">
+      <div className="container-x grid gap-8 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <Logo className="h-7" />
           <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>

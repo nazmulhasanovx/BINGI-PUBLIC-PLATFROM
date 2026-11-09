@@ -37,7 +37,7 @@ export function Hero() {
           initial={reduce ? false : { scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 0.8 }} transition={{ duration: 1.4, delay: 0.35, ease }} />
       </div>
 
-      <div className="container-x pt-16 md:pt-24">
+      <div className="container-x pt-8 md:pt-14">
         <div className="grid gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
           <h1 className="display text-[44px] sm:text-[60px] lg:text-[76px] text-ink">
             {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{l}</span>)}
@@ -53,7 +53,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div ref={stage} className="relative mx-auto mt-12 md:mt-14 max-w-[1040px] pb-10 [perspective:1600px]">
+        <div ref={stage} className="relative mx-auto mt-10 md:mt-12 max-w-[1040px] pb-4 [perspective:1600px]">
           <motion.div style={{ rotateX, scale, y, transformOrigin: 'center bottom' }} className="will-change-transform"
             initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease }}>
             <StudioDisplay media="heroWeb" className="relative w-[90%] md:w-[88%]" />

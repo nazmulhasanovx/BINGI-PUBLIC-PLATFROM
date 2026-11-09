@@ -76,7 +76,7 @@ export default function Home() {
       </section>
 
       {/* story — one booking, five steps */}
-      <section className="container-x pt-28 md:pt-36">
+      <section className="container-x pt-16 md:pt-24">
         <div className="max-w-[640px]">
           <h2 className="h2">{t({ bn: 'একটা বুকিং, শুরু থেকে শেষ পর্যন্ত', en: 'One booking, from first click to final report' })}</h2>
           <p className="lead mt-4">{t({ bn: 'আলাদা খাতা, আলাদা অ্যাপ নয়। একই বুকিং নম্বর প্রতিটা ধাপে নিজে থেকে এগোয়।', en: 'No separate notebooks or apps. The same booking ID moves through every step on its own.' })}</p>
@@ -85,12 +85,12 @@ export default function Home() {
       </section>
 
       {/* bento — what you run every day */}
-      <section className="container-x pt-28 md:pt-36">
+      <section className="container-x pt-16 md:pt-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
           <h2 className="h2 max-w-[560px]">{t({ bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' })}</h2>
           <Link to="/products" className="text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
         </div>
-        <div className="mt-10 grid gap-4 md:grid-cols-6">
+        <div className="mt-8 grid gap-4 md:grid-cols-6">
           {bento.map((b) => (
             <article key={b.media} onPointerMove={spot} className={`spotlight card overflow-hidden ${b.span}`}>
               <div className="p-6 pb-4">
@@ -104,14 +104,14 @@ export default function Home() {
       </section>
 
       {/* dark bay — three platforms */}
-      <section className="relative mt-28 md:mt-36 overflow-hidden bg-bay text-white grain">
+      <section className="relative mt-16 md:mt-24 overflow-hidden bg-bay text-white grain">
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FD413F33,transparent)] blur-[30px]" aria-hidden="true" />
-        <div className="container-x relative py-24 md:py-32">
+        <div className="container-x relative py-14 md:py-20">
           <div className="max-w-[620px]">
             <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
             <p className="mt-4 text-[18px] text-white/80 leading-relaxed">{t({ bn: 'তিনটা অ্যাপ, একই ডেটা। এক জায়গায় বদলালে সব জায়গায় বদলায়।', en: 'Three apps, one set of data. Change it once and it changes everywhere.' })}</p>
           </div>
-          <div className="mt-14 grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
             {([
               { key: 'web', frame: <StudioDisplay media="platformWeb" className="relative w-full" />, title: { bn: 'BinGi HMS ওয়েব', en: 'BinGi HMS Web' }, text: { bn: 'রিসেপশন ও ম্যানেজমেন্ট', en: 'Reception and management' } },
               { key: 'mobile', frame: <IPhone16PM media="platformMobile" className="relative w-[62%] mx-auto" />, title: { bn: 'HMS মোবাইল', en: 'HMS Mobile' }, text: { bn: 'স্টাফের আজকের কাজ', en: "Staff's work for today" } },
@@ -130,7 +130,7 @@ export default function Home() {
       </section>
 
       {/* property types */}
-      <section className="container-x pt-28 md:pt-36">
+      <section className="container-x pt-16 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-start">
           <div>
             <h2 className="h2">{t({ bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' })}</h2>
@@ -149,7 +149,7 @@ export default function Home() {
       </section>
 
       {/* pricing — one quiet line, not another card grid */}
-      <section className="container-x pt-28 md:pt-36">
+      <section className="container-x pt-16 md:pt-24">
         <div className="rounded-[24px] bg-white border border-line px-6 py-10 md:px-12 md:py-14 grid gap-8 md:grid-cols-[1.2fr_2fr] md:items-center">
           <div>
             <h2 className="h2">{t({ bn: 'প্রতি রুমে দাম', en: 'Priced per room' })}</h2>
@@ -168,7 +168,7 @@ export default function Home() {
       </section>
 
       {/* FAQ */}
-      <section className="container-x pt-28 md:pt-36">
+      <section className="container-x pt-16 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1fr_1.6fr]">
           <div>
             <h2 className="h2">{t({ bn: 'সাধারণ প্রশ্ন', en: 'Common questions' })}</h2>
@@ -179,8 +179,8 @@ export default function Home() {
       </section>
 
       {/* closing — the sunrise again */}
-      <section className="container-x pt-28 md:pt-36">
-        <div className="relative overflow-hidden rounded-[28px] bg-bay text-white px-6 py-16 md:px-16 md:py-24 grain">
+      <section className="container-x pt-16 md:pt-24">
+        <div className="relative overflow-hidden rounded-[28px] bg-bay text-white px-6 py-12 md:px-14 md:py-16 grain">
           <div className="pointer-events-none absolute left-1/2 bottom-[-180px] h-[360px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A,#FD413F88_45%,transparent_75%)] blur-[30px] opacity-70" aria-hidden="true" />
           <div className="pointer-events-none absolute left-0 right-0 bottom-[22%] h-px bg-[linear-gradient(90deg,transparent,#FD413F_30%,#FFB38A_50%,#FD413F_70%,transparent)] opacity-70" aria-hidden="true" />
           <div className="relative max-w-[640px]">

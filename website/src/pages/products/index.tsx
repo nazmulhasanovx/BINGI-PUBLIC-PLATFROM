@@ -64,7 +64,7 @@ export default function Products() {
       </div>
 
       {p && (
-        <section key={p.id} className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_1fr] items-center" role="tabpanel">
+        <section key={p.id} className="mt-6 grid gap-10 lg:grid-cols-[1.25fr_1fr] items-center" role="tabpanel">
           <Reveal className="relative grid place-items-center rounded-[24px] bg-white border border-line p-6 md:p-10 shadow-lift overflow-hidden grain"><div className="pointer-events-none absolute inset-x-[15%] top-[20%] bottom-[10%] rounded-full bg-gradient-to-r from-brand/20 to-[#6E8EF5]/20 blur-[60px]" aria-hidden="true" />
             {p.device === 'display' ? <StudioDisplay media={p.media} className="relative w-full" /> : <IPhone16PM media={p.media} className="relative w-[48%] max-w-[300px]" />}
           </Reveal>
@@ -80,7 +80,7 @@ export default function Products() {
       )}
 
       {tab === 'web' && (
-        <section className="mt-16 grid gap-4 md:grid-cols-2">
+        <section className="mt-10 grid gap-4 md:grid-cols-2">
           {bento.map((b, i) => (
             <Reveal key={b.media} delay={i * 60} className="card overflow-hidden">
               <div className="border-b border-line h-[220px] md:h-[260px]"><Media id={b.media} className="!aspect-auto" /></div>

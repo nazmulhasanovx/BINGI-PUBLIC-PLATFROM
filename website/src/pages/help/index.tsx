@@ -59,14 +59,14 @@ export default function Help() {
         )}
       </section>
 
-      <section className="mt-14">
+      <section className="mt-10">
         <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
         </div>
       </section>
 
-      <div className="mt-14 grid gap-4 lg:grid-cols-2">
+      <div className="mt-10 grid gap-4 lg:grid-cols-2">
         <section className="card p-6">
           <h2 className="text-[18px] font-semibold">{t({ bn: 'নতুন কী এসেছে', en: "What's new" })}</h2>
           <ul className="mt-4 space-y-4">
