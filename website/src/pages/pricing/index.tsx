@@ -57,18 +57,18 @@ export default function Pricing() {
           </p>
         </div>
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-stretch">
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-start lg:items-stretch">
           {plans.map((p, i) => {
             const pop = p.popular
             const pr = p.rate ? priceFor(p.rate, rooms, cycle) : null
             const added = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id)
             return (
-              <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-6 border transition-[transform,box-shadow] duration-300 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
+              <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-5 lg:p-6 border transition-[transform,box-shadow] duration-300 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
                 {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[12px] font-semibold tracking-wide text-white whitespace-nowrap">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
                 <h2 className="text-[20px] font-semibold">BinGi {p.name}</h2>
-                <p className={`mt-1 text-[14px] min-h-[42px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(p.tagline)}</p>
+                <p className={`mt-1 text-[14px] lg:min-h-[42px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(p.tagline)}</p>
 
-                <div className="mt-4 min-h-[104px]">
+                <div className="mt-3 lg:mt-4 lg:min-h-[104px]">
                   {pr ? (
                     <>
                       <p className="text-[34px] font-semibold tracking-tight leading-none"><NumberRoll value={taka(pr.perRoom)} /><span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted-foreground'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
@@ -90,8 +90,8 @@ export default function Pricing() {
                   <Link to="/contact" className="btn-ghost w-full mt-4">{t({ bn: 'প্রয়োজন জানান', en: 'Discuss requirements' })}</Link>
                 )}
 
-                <ul className={`mt-6 space-y-2.5 text-[14px] flex-1 border-t pt-5 ${pop ? 'border-white/20' : 'border-line'}`}>
-                  {p.plus && <li className={`text-[13px] font-semibold ${pop ? 'text-white/90' : 'text-ink'}`}>{t(p.plus)}</li>}
+                <ul className={`mt-5 grid gap-x-4 gap-y-2 text-[14px] md:grid-cols-2 lg:grid-cols-1 lg:gap-y-2.5 lg:flex-1 lg:content-start border-t pt-4 lg:pt-5 ${pop ? 'border-white/20' : 'border-line'}`}>
+                  {p.plus && <li className={`md:col-span-2 lg:col-span-1 text-[13px] font-semibold ${pop ? 'text-white/90' : 'text-ink'}`}>{t(p.plus)}</li>}
                   {added.map((r, j) => <li key={j} className="flex gap-2.5"><Check className={`size-[18px] shrink-0 ${pop ? 'text-white' : 'text-ok'}`} aria-hidden="true" />{t(r.name)}</li>)}
                   {p.id === 'starter' && <li className="flex gap-2.5"><Check className="size-[18px] shrink-0 text-ok" aria-hidden="true" />{t({ bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' })}</li>}
                   {p.id === 'custom' && [{ bn: 'একাধিক প্রপার্টি', en: 'Multiple properties' }, { bn: 'আপনার মডিউল ও ওয়ার্কফ্লো', en: 'Your modules and workflow' }, { bn: 'মাইগ্রেশন ও ইন্টিগ্রেশন প্ল্যান', en: 'Migration and integration planning' }, { bn: 'ডেডিকেটেড অনবোর্ডিং', en: 'Dedicated onboarding' }].map((x, j) => (
@@ -100,7 +100,7 @@ export default function Pricing() {
                 </ul>
 
                 {p.fees && (
-                  <div className={`mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
+                  <div className={`mt-5 lg:mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
                     <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
                     <div className="mt-1.5 grid grid-cols-3 gap-1 text-[13px]">
                       {([['marketplace', { bn: 'মার্কেটপ্লেস', en: 'Marketplace' }], ['website', { bn: 'ওয়েবসাইট', en: 'Website' }], ['walkin', { bn: 'ওয়াক-ইন', en: 'Walk-in' }]] as const).map(([k, l]) => (

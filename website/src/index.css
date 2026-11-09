@@ -136,3 +136,56 @@ html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-u
   .top-16 { top: 54px; }
   .rounded-\[24px\] { border-radius: 18px; } .rounded-\[28px\] { border-radius: 20px; } .rounded-\[18px\] { border-radius: 14px; }
 }
+
+/* ── Tablet density (640–1023px) ─────────────────────────────────────────
+   Founder direction (9 Nov 2026): tablet text and elements read too large. Same idea as the
+   phone layer, gentler (~85–90%). md: values are mapped after the base sizes so they win.   */
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* type */
+  .text-\[15px\] { font-size: 14px; }
+  .text-\[16px\] { font-size: 15px; }
+  .text-\[17px\] { font-size: 15px; }
+  .text-\[18px\] { font-size: 16px; }
+  .text-\[19px\] { font-size: 16px; }
+  .text-\[20px\] { font-size: 17px; }
+  .text-\[22px\] { font-size: 19px; }
+  .text-\[24px\] { font-size: 20px; }
+  .text-\[26px\] { font-size: 22px; }
+  .text-\[28px\] { font-size: 23px; }
+  .text-\[30px\] { font-size: 25px; }
+  .text-\[32px\] { font-size: 26px; }
+  .text-\[34px\] { font-size: 28px; }
+  .text-\[36px\] { font-size: 29px; }
+  .text-\[40px\] { font-size: 32px; }
+  .text-\[44px\] { font-size: 34px; }
+  .sm\:text-\[17px\] { font-size: 15px; }
+  .sm\:text-\[60px\] { font-size: 44px; }
+  .md\:text-\[19px\] { font-size: 16px; }
+  .md\:text-\[30px\] { font-size: 25px; }
+  .md\:text-\[44px\] { font-size: 34px; }
+  .md\:text-\[48px\] { font-size: 36px; }
+  .md\:text-\[52px\] { font-size: 40px; }
+  .md\:text-\[60px\] { font-size: 44px; }
+  .md\:text-\[64px\] { font-size: 46px; }
+  .md\:text-\[160px\] { font-size: 120px; }
+  .eyebrow { font-size: 14px; }
+  .lead { font-size: 15px; line-height: 1.55; }
+  .h2 { font-size: 34px; line-height: 1.06; }
+  /* padding */
+  .p-10, .md\:p-10 { padding: 26px; } .p-8, .md\:p-8 { padding: 22px; } .md\:p-9 { padding: 24px; }
+  .p-7 { padding: 20px; } .p-6, .md\:p-6 { padding: 18px; } .p-5 { padding: 16px; }
+  .md\:px-14 { padding-inline: 32px; } .md\:px-12 { padding-inline: 28px; }
+  .py-14, .md\:py-14 { padding-block: 40px; } .md\:py-16 { padding-block: 44px; } .md\:py-20 { padding-block: 48px; }
+  .pt-16, .md\:pt-16 { padding-top: 44px; } .md\:pt-24 { padding-top: 56px; } .md\:pt-14 { padding-top: 36px; }
+  /* margins & gaps */
+  .mt-16, .md\:mt-24, .md\:mt-20 { margin-top: 48px; } .mt-12, .md\:mt-12 { margin-top: 32px; }
+  .mt-10 { margin-top: 28px; } .mt-8 { margin-top: 22px; } .mt-6 { margin-top: 18px; }
+  .gap-12 { gap: 32px; } .gap-10 { gap: 28px; } .gap-8, .md\:gap-8 { gap: 22px; } .gap-6 { gap: 18px; }
+  .space-y-9 > :not(:last-child) { margin-block-end: 32px; }
+  /* media heights */
+  .md\:h-\[260px\] { height: 210px; } .md\:h-\[340px\] { height: 270px; }
+  /* controls */
+  .btn { height: 42px; padding-inline: 18px; font-size: 14px; }
+  .h-12 { height: 44px; } .h-14 { height: 50px; }
+  .rounded-\[24px\] { border-radius: 20px; } .rounded-\[28px\] { border-radius: 22px; }
+}

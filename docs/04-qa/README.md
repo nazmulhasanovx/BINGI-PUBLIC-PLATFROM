@@ -62,3 +62,8 @@ text spilling out of buttons, overlapping tab labels, JS errors.
 
 Mobile density result (iPhone 16): home page 9,687 → 7,983 px tall (−18 %), pricing 4,810 → 4,048 px (−16 %).
 Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recommends 44 pt).
+
+## 9 Nov 2026 — spacing + tablet density
+- Pricing cards: removed reserved heights / forced equal heights below desktop; features in 2 columns on tablet. Plan grid height 768px: 1333 → 1105px; phone 393px: 2188 → 1808px. Desktop 4-column unchanged.
+- Tablet density layer (640–1023px) in `index.css`: type ~85–90%, tighter padding/gaps, smaller buttons.
+- Home "three platforms" (tablet): monitor full row capped at 640px, the two phones side by side (max 240px). Device × page regression: no issues.

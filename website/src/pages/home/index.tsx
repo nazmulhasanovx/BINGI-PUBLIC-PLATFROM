@@ -111,13 +111,13 @@ export default function Home() {
             <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
             <p className="mt-4 text-[18px] text-white/80 leading-relaxed">{t({ bn: 'তিনটা অ্যাপ, একই ডেটা। এক জায়গায় বদলালে সব জায়গায় বদলায়।', en: 'Three apps, one set of data. Change it once and it changes everywhere.' })}</p>
           </div>
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
+          <div className="mt-10 grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
             {([
-              { key: 'web', frame: <StudioDisplay media="platformWeb" className="relative w-full" />, title: { bn: 'BinGi HMS ওয়েব', en: 'BinGi HMS Web' }, text: { bn: 'রিসেপশন ও ম্যানেজমেন্ট', en: 'Reception and management' } },
-              { key: 'mobile', frame: <IPhone16PM media="platformMobile" className="relative w-[62%] mx-auto" />, title: { bn: 'HMS মোবাইল', en: 'HMS Mobile' }, text: { bn: 'স্টাফের আজকের কাজ', en: "Staff's work for today" } },
-              { key: 'guest', frame: <IPhone16PM media="platformGuest" className="relative w-[62%] mx-auto" />, title: { bn: 'গেস্ট অ্যাপ', en: 'Guest App' }, text: { bn: 'খোঁজা, বুকিং, চ্যাট', en: 'Discover, book, chat' } },
+              { key: 'web', cls: 'sm:col-span-2 lg:col-span-1', frame: <StudioDisplay media="platformWeb" className="relative w-full sm:max-w-[640px] sm:mx-auto lg:max-w-none" />, title: { bn: 'BinGi HMS ওয়েব', en: 'BinGi HMS Web' }, text: { bn: 'রিসেপশন ও ম্যানেজমেন্ট', en: 'Reception and management' } },
+              { key: 'mobile', cls: '', frame: <IPhone16PM media="platformMobile" className="relative w-[62%] max-w-[240px] lg:max-w-none mx-auto" />, title: { bn: 'HMS মোবাইল', en: 'HMS Mobile' }, text: { bn: 'স্টাফের আজকের কাজ', en: "Staff's work for today" } },
+              { key: 'guest', cls: '', frame: <IPhone16PM media="platformGuest" className="relative w-[62%] max-w-[240px] lg:max-w-none mx-auto" />, title: { bn: 'গেস্ট অ্যাপ', en: 'Guest App' }, text: { bn: 'খোঁজা, বুকিং, চ্যাট', en: 'Discover, book, chat' } },
             ] as const).map((p) => (
-              <div key={p.key}>
+              <div key={p.key} className={p.cls}>
                 {p.frame}
                 <div className="mt-6 flex items-start justify-between gap-3 border-t border-white/15 pt-4">
                   <div><h3 className="text-[18px] font-semibold">{t(p.title)}</h3><p className="text-[15px] text-white/75">{t(p.text)}</p></div>
