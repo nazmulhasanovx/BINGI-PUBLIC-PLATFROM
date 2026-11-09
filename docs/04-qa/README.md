@@ -77,3 +77,10 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Loops redesigned "one moment per card": fewer rows, larger type, designed at the size the card shows on desktop (logical px, rendered sharp at 2.5–4×). Removed the double frame around bento media.
 - New "The team behind BinGi" section after FAQ (zatiqeasy pattern): Nazmul Hasan, Md. Yeapas, Md. Abdul Hamim, Most. Shahina Akter. Roles only, no invented bios. Initials until photos arrive (`website/src/data/team.ts`, photos go in `public/team/`).
 - 1440/820/393 checked; device × page regression: no issues.
+
+## 9 Nov 2026 — responsive, spacing, soft-minimal pass
+- Fixed: mobile horizontal scroll (property-type pills now one scrollable line; `min-w-0`, `overflow-x: clip`), CTA horizon line cutting through "Talk on WhatsApp", pricing booking-fee labels colliding ("MarketplaceWebsite") — now label/value rows.
+- Spacing: story steps tighter on desktop (24vh → 14vh), platforms section 2-up phones on mobile, footer links 2 columns on mobile, products media letterbox matches the loop background.
+- Soft glow (subtle, few places): `.glow-hover` warm halo on bento + team cards, `.ambient` light behind bento grid, team and the pricing strip, gradient hairline on the pricing strip.
+- Video `preload="none"` (loads only when on screen).
+- Device × page regression: no issues. Lighthouse mobile home: 90–92 perf (LCP 3.0 s = hero section), a11y/BP/SEO 100. Same score before this pass (92) — the drop from 97 came earlier; follow-up: hero LCP.

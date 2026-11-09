@@ -14,7 +14,7 @@ function AutoVideo({ src, className, style, label }: { src: string; className: s
     io.observe(v)
     return () => io.disconnect()
   }, [])
-  return <video ref={ref} src={src} muted loop playsInline preload="metadata" className={className} style={style} aria-label={label} />
+  return <video ref={ref} src={src} muted loop playsInline preload="none" className={className} style={style} aria-label={label} />
 }
 
 export function Media({ id, className = '' }: { id: MediaId; className?: string }) {

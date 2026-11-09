@@ -83,7 +83,7 @@ export default function Products() {
         <section className="mt-10 grid gap-4 md:grid-cols-2">
           {bento.map((b, i) => (
             <Reveal key={b.media} delay={i * 60} className="card overflow-hidden">
-              <div className="border-b border-line h-[220px] md:h-[260px]"><Media id={b.media} className="!aspect-auto" /></div>
+              <div className="border-b border-line bg-[#F5F6F8] h-[220px] md:h-[260px]"><Media id={b.media} className="!aspect-auto" /></div>
               <div className="p-5"><h3 className="text-[17px] font-semibold">{t(b.title)}</h3><p className="mt-1 text-[15px] text-muted-foreground">{t(b.text)}</p></div>
             </Reveal>
           ))}

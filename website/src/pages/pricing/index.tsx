@@ -102,9 +102,9 @@ export default function Pricing() {
                 {p.fees && (
                   <div className={`mt-5 lg:mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
                     <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
-                    <div className="mt-1.5 grid grid-cols-3 gap-1 text-[13px]">
+                    <div className="mt-1.5 grid gap-1 text-[13px]">
                       {([['marketplace', { bn: 'মার্কেটপ্লেস', en: 'Marketplace' }], ['website', { bn: 'ওয়েবসাইট', en: 'Website' }], ['walkin', { bn: 'ওয়াক-ইন', en: 'Walk-in' }]] as const).map(([k, l]) => (
-                        <div key={k}><span className="font-semibold">{num(p.fees![k])}%</span><span className={`block text-[12px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(l)}</span></div>
+                        <div key={k} className="flex items-baseline justify-between gap-3"><span className={pop ? 'text-white/90' : 'text-muted-foreground'}>{t(l)}</span><span className="font-semibold tabular-nums">{num(p.fees![k])}%</span></div>
                       ))}
                     </div>
                     <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/90' : 'border-line text-muted-foreground'}`}>

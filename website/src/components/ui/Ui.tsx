@@ -75,7 +75,7 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
   return (
     <MotionConfig transition={reduce ? { duration: 0 } : snappy}>
       <div role="tablist" aria-label={label} style={fill ? { gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` } : undefined}
-        className={`${fill ? 'grid w-full sm:inline-flex sm:w-auto' : 'inline-flex'} ${wrap ? 'flex-wrap justify-center' : ''} gap-1 ${fill && hasBadge ? 'rounded-[22px] sm:rounded-[24px]' : 'rounded-[24px]'} border border-line bg-white p-1 shadow-soft`}>
+        className={`${fill ? 'grid w-full sm:inline-flex sm:w-auto' : 'inline-flex'} ${wrap ? 'max-w-full overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden' : ''} gap-1 ${fill && hasBadge ? 'rounded-[22px] sm:rounded-[24px]' : 'rounded-[24px]'} border border-line bg-white p-1 shadow-soft`}>
         {options.map((o) => {
           const on = value === o.id
           return (

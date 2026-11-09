@@ -49,7 +49,7 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
       </div>
       {/* desktop: text scrolls, display stays */}
       <div className="hidden lg:grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
-        <div className="py-[12vh] space-y-[24vh]">
+        <div className="py-[6vh] space-y-[14vh]">
           {steps.map((s, i) => <Item key={s.media} step={s} index={i} active={active === i} setActive={setActive} />)}
         </div>
         <div className="sticky top-[14vh] self-start">

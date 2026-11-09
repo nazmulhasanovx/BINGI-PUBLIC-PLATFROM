@@ -69,6 +69,14 @@ html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-u
   background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgb(253 65 63 / 0.10), transparent 60%); }
 .spotlight:hover::before { opacity: 1; }
 
+/* soft glow: a warm halo on hover (cards) and a quiet ambient light behind a few sections */
+.glow-hover { transition: box-shadow .5s var(--ease-spring), translate .5s var(--ease-spring); }
+.glow-hover:hover { box-shadow: 0 1px 2px rgb(15 23 32 / .05), 0 22px 50px -26px rgb(253 65 63 / .38), 0 0 0 1px rgb(253 65 63 / .10); translate: 0 -2px; }
+html, body { overflow-x: clip; }
+.ambient { position: absolute; pointer-events: none; border-radius: 9999px; filter: blur(60px); opacity: .55; z-index: -1;
+  background: radial-gradient(closest-side, rgb(255 179 138 / .45), rgb(253 65 63 / .14) 55%, transparent 75%); }
+@media (prefers-reduced-motion: reduce) { .glow-hover:hover { translate: none; } }
+
 /* gradient hairline for the one highlighted card per view */
 .glow-border { position: relative; }
 .glow-border::before { content: ""; position: absolute; inset: -1px; border-radius: inherit; padding: 1px; pointer-events: none;
