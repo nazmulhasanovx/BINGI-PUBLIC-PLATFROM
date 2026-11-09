@@ -26,7 +26,7 @@ npm run build:preview  # one self-contained HTML → website/dist-preview/index.
 
 | What | File |
 |---|---|
-| Prices, plans, booking fees, offers | `website/src/data/pricing.ts` |
+| Prices (per room), plans, booking fees, activation, offers | `website/src/data/pricing.ts` |
 | Live / Coming Soon status of every module | `website/src/data/status.ts` |
 | GIF / video / screenshot slots | `website/src/data/media.ts` + files in `website/public/media/` |
 | Help articles, categories, What's new | `website/src/data/help.ts` |

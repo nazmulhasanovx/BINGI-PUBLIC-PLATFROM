@@ -38,7 +38,7 @@ website/
 ## Data sources (now → production)
 | Data | Now | Production |
 |---|---|---|
-| Pricing catalog | `data/pricing.ts` (copied from HMS Plan List, 9 Nov 2026) | fetch from the same API as HMS Plan List (Super Admin pricing version) |
+| Pricing catalog | `data/pricing.ts` (onboarding v4 per-room pricing, 9 Nov 2026) — `priceFor(rate, rooms, cycle)` = max(rooms,10) × rate × months × (1 − discount) | fetch from the Super Admin pricing version (same source as HMS) |
 | Module status | `data/status.ts` | Super Admin → Content & Web registry |
 | Help articles | `data/help.ts` (3 drafts) | shared with in-app "? Help" |
 | Demo form | builds the request and shows a "Send on WhatsApp" button | POST to lead API → NEC TEAM |

@@ -36,9 +36,9 @@ const types: { id: string; name: L; points: L[]; plan: string }[] = [
   { id: 'guest', name: { bn: 'গেস্ট হাউস', en: 'Guest house' }, plan: 'Starter', points: [
     { bn: 'রুম ক্যালেন্ডার ও বুকিং', en: 'Room calendar and bookings' }, { bn: 'গেস্ট তথ্য ও চ্যাট', en: 'Guest records and chat' }, { bn: 'অনলাইন + অফলাইন বুকিং', en: 'Online + offline bookings' }] },
   { id: 'hotel', name: { bn: 'হোটেল', en: 'Hotel' }, plan: 'Business', points: [
-    { bn: 'ফ্রন্ট ডেস্ক থেকে হাউসকিপিং', en: 'Front desk to housekeeping' }, { bn: 'রেস্টুরেন্ট, স্টাফ ও খরচ', en: 'Restaurant, staff and expenses' }, { bn: 'ক্যাশবক্স ও রিপোর্ট', en: 'Cashbox and reports' }] },
+    { bn: 'ফ্রন্ট ডেস্ক থেকে হাউসকিপিং', en: 'Front desk to housekeeping' }, { bn: 'রেস্টুরেন্ট, QR অর্ডার ও খরচ', en: 'Restaurant, QR orders and expenses' }, { bn: 'অন্যান্য সার্ভিস ও রিপোর্ট', en: 'Other services and reports' }] },
   { id: 'resort', name: { bn: 'রিসোর্ট', en: 'Resort' }, plan: 'Ultra', points: [
-    { bn: 'রুম, কটেজ ও ভিলা এক সিস্টেমে', en: 'Rooms, cottages and villas in one system' }, { bn: 'রেস্টুরেন্ট, সার্ভিস ও ইনভেন্টরি', en: 'Restaurant, services and inventory' }, { bn: '২০০ রুম পর্যন্ত', en: 'Up to 200 rooms' }] },
+    { bn: 'রুম, কটেজ ও ভিলা এক সিস্টেমে', en: 'Rooms, cottages and villas in one system' }, { bn: 'রেস্টুরেন্ট, সার্ভিস ও ইনভেন্টরি', en: 'Restaurant, services and inventory' }, { bn: 'স্টাফ, HRM ও ইনভেন্টরি', en: 'Staff, HRM and inventory' }] },
   { id: 'group', name: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' }, plan: 'Custom', points: [
     { bn: 'একাধিক প্রপার্টি', en: 'Multiple properties' }, { bn: 'নিজের মতো মডিউল ও লিমিট', en: 'Your modules and limits' }, { bn: 'মাইগ্রেশন ও অনসাইট সাপোর্ট', en: 'Migration and onsite support' }] },
 ]
@@ -164,12 +164,12 @@ export default function Home() {
 
       {/* PLAN TEASER */}
       <section className="container-x mt-24">
-        <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'সহজ মাসিক প্ল্যান', en: 'Simple monthly plans' })} lead={t({ bn: '৬ মাসে ১০% আর বছরে ২৫% ছাড়।', en: '10% off for 6 months, 25% off yearly.' })} />
+        <SectionHead eyebrow={t({ bn: 'প্রাইসিং', en: 'Pricing' })} title={t({ bn: 'প্রতি রুমে সহজ মাসিক দাম', en: 'Simple pricing per room' })} lead={t({ bn: 'সর্বনিম্ন ১০ রুম। ৬ মাসে ১০% আর ১২ মাসে ২৫% ছাড়।', en: 'From 10 rooms. 10% off for 6 months, 25% off for 12 months.' })} />
         <div className="mt-10 grid gap-4 sm:grid-cols-3 max-w-[900px] mx-auto">
-          {plans.filter((p) => p.monthly).map((p) => (
+          {plans.filter((p) => p.rate).map((p) => (
             <Link key={p.id} to="/pricing" className={`card card-hover p-6 text-center ${p.popular ? 'glow-border shadow-glow' : ''}`}>
               <p className="text-[15px] font-medium text-muted">{p.name}</p>
-              <p className="mt-2 text-[30px] font-semibold">{taka(p.monthly!)}<span className="text-[14px] font-normal text-muted">/{t({ bn: 'মাস', en: 'mo' })}</span></p>
+              <p className="mt-2 text-[30px] font-semibold">{taka(p.rate!)}<span className="text-[14px] font-normal text-muted"> /{t({ bn: 'রুম/মাস', en: 'room/mo' })}</span></p>
             </Link>
           ))}
         </div>

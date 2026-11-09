@@ -24,7 +24,7 @@ technology.bingi.com.bd
 ├─ /products        tabs: Web · Mobile · Guest App · All modules (status chips)
 │   Web tab also shows 4 GIF feature cards
 ├─ /pricing         cycle toggle (monthly · 6 mo −10% · yearly −25%)
-│   4 plan cards · current offers · compare table (collapsed) · FAQ
+│   rooms calculator (min 10) · 4 plan cards (per-room rate + total) · current offers · compare table (collapsed) · FAQ
 ├─ /help            search · 8 categories · articles · 1-min videos · What's new · contact
 ├─ /help/:slug      article template
 ├─ /contact         about + phone/WhatsApp/address + demo form
@@ -49,7 +49,7 @@ Side paths: Book a demo → WhatsApp (later: lead API → NEC TEAM)
 ```
 
 ## Truth rules
-- Prices come from ONE catalog (`data/pricing.ts`) = the live HMS Plan List. Never type a price into a page.
+- Prices come from ONE catalog (`data/pricing.ts`) = onboarding v4 pricing (per room). Never type a price into a page.
 - Every module carries a status chip from ONE registry (`data/status.ts`): Live / Coming Soon / Status to confirm.
 - OTA, BinGi Payments, Developer API, BinGi AI = **Coming Soon** until verified live.
 - No invented customer logos, testimonials or usage numbers. Add them only when real and approved.
@@ -58,9 +58,10 @@ Side paths: Book a demo → WhatsApp (later: lead API → NEC TEAM)
 ## Open decisions
 | # | Decision | Current setting in the site |
 |---|---|---|
-| 1 | Final pricing: HMS room packages (৳500 / ৳1,999 / ৳3,500) vs onboarding v4 per-room (৳30 / ৳50 / ৳116) | HMS live catalog |
-| 2 | Business vs Ultra: today identical features, Ultra only adds rooms (100 → 200) | shown honestly |
-| 3 | Restaurant in Business? (HMS says yes; project rule says Ultra/custom only) | follows HMS |
+| 1 | ~~Final pricing~~ **DECIDED 9 Nov 2026:** v4 per-room — Starter ৳30 · Business ৳50 · Ultra ৳116 per room/month, min billing 10 rooms, 6 mo −10%, 12 mo −25% | live on site |
+| 2 | HMS Plan List still shows old room packages (৳500 / ৳1,999 / ৳3,500) — HMS must be updated to match | dev task |
+| 3 | Plan features follow v4 entitlements (Business = housekeeping, restaurant, QR, expenses, services; Ultra = + full HRM, inventory, advanced ops, unlimited themes). Bar scope and menu limits still open → not shown | v4 matrix |
+| 3b | "Min 10" = minimum *billing* (fewer real rooms allowed) — v4 marks this interpretation as recommended, not yet locked | FAQ says "billing starts at 10 rooms" |
 | 4 | Free trial — length and whether to advertise | not mentioned; CTA = "Get started" |
 | 5 | HMS Mobile + Guest App store status | "Status to confirm" chip |
 | 6 | Official logo SVG | temporary wordmark |
