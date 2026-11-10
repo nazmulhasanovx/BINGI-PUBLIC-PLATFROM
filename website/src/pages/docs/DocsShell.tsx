@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { Bot, Check, Copy, Search } from 'lucide-react'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'motion/react'
+import { Bot, Check, ChevronDown, Copy, Search } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { docs, fullMarkdown, pageToMarkdown, type DocPage } from '@/data/docs'
 import { asset } from '@/lib/utils'
@@ -37,39 +38,95 @@ export const copyPage = (d: DocPage) => () => pageToMarkdown(d)
 export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
 function DocsNav({ q, onPick }: { q: string; onPick: () => void }) {
+  const pathname = useLocation().pathname.replace(/\/+$/, '')
+  const reduce = useReducedMotion()
+  const activeGroup = docs.find((d) => pathname === `/docs/${d.slug}`)?.group
+  const [openG, setOpenG] = useState<Set<string>>(() => new Set(activeGroup ? [activeGroup] : groups.slice(0, 1)))
+  useEffect(() => { if (activeGroup) setOpenG((s) => (s.has(activeGroup) ? s : new Set([...s, activeGroup]))) }, [activeGroup])
   const hit = (d: DocPage) => !q || (d.title + ' ' + pageToMarkdown(d)).toLowerCase().includes(q.toLowerCase())
+  const toggle = (g: string) => setOpenG((s) => { const n = new Set(s); if (n.has(g)) n.delete(g); else n.add(g); return n })
   return (
-    <nav aria-label="Documentation" className="space-y-5">
-      {groups.map((g) => {
-        const items = docs.filter((d) => d.group === g && hit(d))
-        if (!items.length) return null
-        return (
-          <div key={g}>
-            <p className="px-3 text-[12px] font-medium text-muted-foreground">{g}</p>
-            <ul className="mt-1">
-              {items.map((d) => (
-                <li key={d.slug}>
-                  <NavLink to={`/docs/${d.slug}`} onClick={onPick}
-                    className={({ isActive }) => `relative flex min-h-10 items-center rounded-[8px] px-3 text-[14px] transition-colors ${isActive ? 'font-medium text-ink before:absolute before:left-0 before:top-2.5 before:bottom-2.5 before:w-[2px] before:rounded-full before:bg-brand' : 'text-muted-foreground hover:text-ink'}`}>
-                    {d.title}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )
-      })}
+    <nav aria-label="Documentation" className="space-y-1">
+      <LayoutGroup id="docs-nav">
+        {groups.map((g) => {
+          const items = docs.filter((d) => d.group === g && hit(d))
+          if (!items.length) return null
+          const isOpen = !!q || openG.has(g)
+          return (
+            <div key={g}>
+              <button type="button" onClick={() => toggle(g)} aria-expanded={isOpen}
+                className={`flex min-h-10 w-full items-center justify-between rounded-[8px] px-3 text-[13px] font-medium transition-colors ${g === activeGroup ? 'text-ink' : 'text-muted-foreground hover:text-ink'}`}>
+                {g}<ChevronDown className={`size-3.5 transition-transform duration-300 ${isOpen ? 'rotate-0' : '-rotate-90'}`} aria-hidden="true" />
+              </button>
+              <AnimatePresence initial={false}>
+                {isOpen && (
+                  <motion.ul key="list" initial={reduce ? false : { height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.28, ease: [0.32, 0.72, 0, 1] }} className="overflow-hidden pb-1">
+                    {items.map((d) => {
+                      const active = pathname === `/docs/${d.slug}`
+                      return (
+                        <li key={d.slug} className="relative">
+                          {active && <motion.span layoutId="docs-pill" transition={{ type: 'spring', stiffness: 520, damping: 40 }}
+                            className="absolute inset-0 rounded-[10px] bg-[#FFE7E4] ring-1 ring-brand/15" aria-hidden="true" />}
+                          <NavLink to={`/docs/${d.slug}`} onClick={onPick} aria-current={active ? 'page' : undefined}
+                            className={`relative flex min-h-10 items-center rounded-[10px] px-3 text-[14px] transition-colors duration-200 ${active ? 'font-medium text-brand' : 'text-muted-foreground hover:bg-ink/[0.035] hover:text-ink'}`}>
+                            {d.title}
+                          </NavLink>
+                        </li>
+                      )
+                    })}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
+            </div>
+          )
+        })}
+      </LayoutGroup>
     </nav>
   )
 }
 
+// Thin red bar on every docs navigation.
+function RouteBar() {
+  const { pathname } = useLocation()
+  const reduce = useReducedMotion()
+  if (reduce) return null
+  return (
+    <motion.div key={pathname} aria-hidden="true" initial={{ scaleX: 0, opacity: 1 }} animate={{ scaleX: [0, 0.75, 1], opacity: [1, 1, 0] }}
+      transition={{ duration: 0.7, times: [0, 0.6, 1], ease: 'easeOut' }}
+      className="fixed inset-x-0 top-0 z-[70] h-[2px] origin-left bg-linear-to-r from-brand to-brand-2" />
+  )
+}
+
+function useActiveToc(ids: string[]) {
+  const [active, setActive] = useState(ids[0])
+  const key = ids.join('|')
+  useEffect(() => {
+    setActive(ids[0])
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean) as HTMLElement[]
+    if (!els.length || typeof IntersectionObserver === 'undefined') return
+    const io = new IntersectionObserver((es) => {
+      const vis = es.filter((e) => e.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top)
+      if (vis[0]) setActive(vis[0].target.id)
+    }, { rootMargin: '-96px 0px -60% 0px' })
+    els.forEach((e) => io.observe(e))
+    return () => io.disconnect()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key])
+  return active
+}
+
 export function DocsShell({ children, toc }: { children: ReactNode; toc?: { id: string; label: string }[] }) {
   const { t } = useLang()
+  const { pathname } = useLocation()
+  const reduce = useReducedMotion()
   const [q, setQ] = useState('')
   const [open, setOpen] = useState(false)
+  const activeToc = useActiveToc(toc?.map((x) => x.id) ?? [])
   return (
     <div className="container-x pt-8 md:pt-12">
-      <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_190px] lg:gap-12">
+      <RouteBar />
+      <div className="grid gap-8 lg:grid-cols-[230px_minmax(0,1fr)] xl:grid-cols-[230px_minmax(0,1fr)_190px] lg:gap-12">
         <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           <Link to="/docs" className="flex min-h-10 items-center px-3 text-[15px] font-semibold">{t({ bn: 'ডকুমেন্টেশন', en: 'Documentation' })}</Link>
           <label className="relative mt-2 block">
@@ -81,7 +138,7 @@ export function DocsShell({ children, toc }: { children: ReactNode; toc?: { id: 
           <button onClick={() => setOpen(!open)} aria-expanded={open} className="btn-ghost mt-3 h-10 w-full justify-between px-4 text-[14px] lg:hidden">
             {t({ bn: 'সব পাতা', en: 'All pages' })}<span aria-hidden="true">{open ? '−' : '+'}</span>
           </button>
-          <div className={`mt-5 ${open ? 'block' : 'hidden'} lg:block`}><DocsNav q={q} onPick={() => setOpen(false)} /></div>
+          <div className={`mt-4 ${open ? 'block' : 'hidden'} lg:block`}><DocsNav q={q} onPick={() => setOpen(false)} /></div>
           <div className="mt-6 hidden rounded-[14px] bg-white p-3.5 ring-1 ring-line lg:block">
             <p className="flex items-center gap-1.5 text-[13px] font-semibold"><Bot className="size-4 text-brand" aria-hidden="true" />{t({ bn: 'AI দিয়ে ব্যবহার', en: 'Use with AI' })}</p>
             <CopyButton text={copyAll} label={t({ bn: 'সব ডক কপি', en: 'Copy all docs' })} variant="link" />
@@ -89,14 +146,19 @@ export function DocsShell({ children, toc }: { children: ReactNode; toc?: { id: 
           </div>
         </aside>
 
-        <div className="min-w-0">{children}</div>
+        <motion.div key={pathname} className="min-w-0" initial={reduce ? false : { opacity: 0, y: 10, filter: 'blur(4px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 0.38, ease: [0.32, 0.72, 0, 1] }}>{children}</motion.div>
 
         {toc && toc.length > 1 && (
           <nav aria-label="On this page" className="hidden xl:block">
             <div className="sticky top-24">
               <p className="text-[12px] font-medium text-muted-foreground">{t({ bn: 'এই পাতায়', en: 'On this page' })}</p>
               <ul className="mt-2 border-l border-line">
-                {toc.map((x) => <li key={x.id}><a href={`#${x.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-3 text-[13px] text-muted-foreground hover:border-brand hover:text-ink">{x.label}</a></li>)}
+                {toc.map((x) => {
+                  const on = activeToc === x.id
+                  return <li key={x.id}><a href={`#${x.id}`} aria-current={on ? 'location' : undefined}
+                    className={`-ml-px block border-l py-1.5 pl-3 text-[13px] transition-colors duration-200 ${on ? 'border-brand font-medium text-brand' : 'border-transparent text-muted-foreground hover:border-line hover:text-ink'}`}>{x.label}</a></li>
+                })}
               </ul>
             </div>
           </nav>

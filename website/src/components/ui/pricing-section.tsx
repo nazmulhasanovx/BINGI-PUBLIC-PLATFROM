@@ -2,12 +2,12 @@ import { useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import NumberFlow from '@number-flow/react'
 import { AnimatePresence, motion, type Variants } from 'motion/react'
-import { BedDouble, Building2, Home as HomeIcon, Hotel, TreePalm, CheckCheck, Headset, Minus, Percent, Plus, Sparkles, Workflow } from 'lucide-react'
+import { BedDouble, Building2, Calculator, Home as HomeIcon, Hotel, TreePalm, CheckCheck, Headset, Minus, Percent, Plus, Sparkles, Workflow } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { useLang, type L } from '@/i18n/lang'
 import { site } from '@/data/site'
-import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PropertyType } from '@/data/pricing'
+import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType } from '@/data/pricing'
 import { ios } from '@/lib/motion'
 
 // Pricing section — structure and motion from the 21st.dev "pricing-section" component
@@ -65,7 +65,7 @@ function RoomStepper({ rooms, setRooms }: { rooms: number; setRooms: (n: number)
   )
 }
 
-type Feature = { icon: ReactNode; text: string }
+type Feature = { icon: ReactNode; text: ReactNode }
 
 const typeIcon: Record<PropertyType, ReactNode> = {
   home: <HomeIcon className="size-5" />, guest: <BedDouble className="size-5" />, hotel: <Hotel className="size-5" />,
@@ -128,12 +128,116 @@ function PlanFinder({ prop, setProp, rooms, cycle, reasons }: {
   )
 }
 
+
+// Activation: regular price struck through when it is known (Business). Ultra regular price not confirmed → plain.
+export function ActivationLine({ plan: p }: { plan: Plan }) {
+  const { t, taka, num } = useLang()
+  if (!p.activation) return <>{t({ bn: 'কোনো অ্যাক্টিভেশন ফি নেই', en: 'No activation fee' })}</>
+  const a = p.activation
+  const off = a.standard ? Math.round((1 - a.now / a.standard) * 100) : 0
+  return (
+    <span className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5">
+      {t({ bn: 'অ্যাক্টিভেশন', en: 'Activation' })}
+      {a.standard && <s className="text-muted-foreground decoration-brand/60">{taka(a.standard)}</s>}
+      <span className="font-semibold text-ink">{taka(a.now)}</span>
+      {off > 0 && <span className="rounded-full bg-brand-soft px-1.5 py-px text-[12px] font-semibold text-brand">−{num(off)}%</span>}
+    </span>
+  )
+}
+
+function Row({ label, sub, value, strong, minus, children }: { label: ReactNode; sub?: ReactNode; value?: number; strong?: boolean; minus?: boolean; children?: ReactNode }) {
+  const { lang } = useLang()
+  return (
+    <div className={`flex items-start justify-between gap-4 py-3 ${strong ? 'text-ink' : ''}`}>
+      <div className="min-w-0">
+        <p className={strong ? 'text-[16px] font-semibold' : 'text-[15px] text-ink'}>{label}</p>
+        {sub && <p className="mt-0.5 text-[13px] text-muted-foreground tabular-nums">{sub}</p>}
+      </div>
+      <div className={`shrink-0 text-right tabular-nums ${strong ? 'text-[24px] font-semibold tracking-tight' : 'text-[15px] font-medium'} ${minus ? 'text-ok' : ''}`}>
+        {children ?? (value !== undefined && <>{minus ? '−' : ''}৳<NumberFlow value={value} locales={lang === 'bn' ? 'bn-BD' : 'en-US'} format={{ maximumFractionDigits: 2 }} /></>)}
+      </div>
+    </div>
+  )
+}
+
+// "What will I actually pay?" — full first-bill breakdown for the selected plan.
+function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick: (p: PlanId) => void; rooms: number; cycle: Cycle }) {
+  const { t, taka, num, lang } = useLang()
+  const paid = plans.filter((p) => p.rate)
+  const p = paid.find((x) => x.id === pick) ?? paid[1]
+  const c = cycles.find((x) => x.id === cycle)!
+  const pr = priceFor(p.rate!, rooms, cycle)
+  const list = pr.q * p.rate! * c.months
+  const act = p.activation?.now ?? 0
+  const first = Math.round((pr.total + act) * 100) / 100
+  const [web, setWeb] = useState(0)
+  const [mkt, setMkt] = useState(0)
+  const fees = Math.round(((web * p.fees!.website) + (mkt * p.fees!.marketplace)) / 100)
+  const every = c.months === 1 ? t({ bn: 'প্রতি মাসে', en: 'every month' }) : t({ bn: `প্রতি ${num(c.months)} মাসে`, en: `every ${c.months} months` })
+  const money = (n: number) => <>৳<NumberFlow value={n} locales={lang === 'bn' ? 'bn-BD' : 'en-US'} format={{ maximumFractionDigits: 2 }} /></>
+  return (
+    <section id="cost" aria-labelledby="cost-h" className="mx-auto mt-4 max-w-5xl scroll-mt-28 rounded-[24px] border border-line bg-white/90 p-4 shadow-soft backdrop-blur sm:p-6">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 id="cost-h" className="flex items-center gap-2 text-[17px] font-semibold tracking-tight sm:text-[19px]"><Calculator className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'আপনার মোট খরচ', en: 'Your total cost' })}</h2>
+        <div role="radiogroup" aria-label="Plan" className="flex w-fit rounded-full border border-line bg-canvas p-1">
+          {paid.map((x) => {
+            const on = x.id === p.id
+            return (
+              <button key={x.id} role="radio" aria-checked={on} onClick={() => setPick(x.id)}
+                className={`relative h-11 sm:h-10 cursor-pointer rounded-full px-4 text-[14px] font-medium transition-colors ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
+                {on && <motion.span layoutId="cost-pill" transition={ios} className="absolute inset-0 rounded-full bg-linear-to-t from-brand to-brand-2 shadow-[0_6px_16px_-6px_rgb(177_28_41/0.6)]" />}
+                <span className="relative">{x.name}</span>
+              </button>
+            )
+          })}
+        </div>
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
+        <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
+          <Row label={t({ bn: 'সাবস্ক্রিপশন', en: 'Subscription' })} value={list}
+            sub={t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })} />
+          {c.discount > 0 && <Row label={t({ bn: `ছাড় (${num(c.discount * 100)}%)`, en: `Discount (${c.discount * 100}%)` })} value={pr.saved} minus />}
+          <Row label={t({ bn: 'অ্যাক্টিভেশন (একবার)', en: 'Activation (one-time)' })}
+            sub={p.activation?.standard ? <ActivationLine plan={p} /> : undefined}>
+            {p.activation ? money(act) : <span className="text-muted-foreground">{t({ bn: 'নেই', en: 'None' })}</span>}
+          </Row>
+          <Row strong label={t({ bn: 'প্রথম বিল', en: 'First bill' })} sub={t({ bn: 'ট্যাক্স প্রযোজ্য হলে আলাদা', en: 'Taxes separate where applicable' })} value={first} />
+          <Row label={t({ bn: 'এরপর', en: 'After that' })} sub={every}>{money(pr.total)}</Row>
+        </div>
+
+        <div className="rounded-2xl border border-dashed border-line p-4 sm:p-5">
+          <p className="text-[15px] font-semibold">{t({ bn: 'বুকিং ফি (আনুমানিক)', en: 'Booking fees (estimate)' })}</p>
+          <p className="mt-1 text-[13px] text-muted-foreground">{t({ bn: 'অনলাইন বুকিং হলে শুধু তখনই। ওয়াক-ইনে ফি নেই।', en: 'Only when online bookings come in. Walk-ins are free.' })}</p>
+          <div className="mt-3 grid grid-cols-2 gap-3">
+            {([['web', web, setWeb, { bn: `ওয়েবসাইট · ${num(p.fees!.website)}%`, en: `Website · ${p.fees!.website}%` }], ['mkt', mkt, setMkt, { bn: `মার্কেটপ্লেস · ${num(p.fees!.marketplace)}%`, en: `Marketplace · ${p.fees!.marketplace}%` }]] as const).map(([id, v, set, l]) => (
+              <label key={id} className="block text-[12px] text-muted-foreground">
+                {t(l)}
+                <span className="relative mt-1 block">
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[14px] text-muted-foreground">৳</span>
+                  <input type="number" inputMode="numeric" min={0} step={1000} value={v || ''} placeholder="0" onChange={(e) => set(Math.max(0, +e.target.value || 0))}
+                    aria-label={t({ bn: 'মাসিক বুকিং মূল্য', en: 'Monthly booking value' })}
+                    className="h-11 w-full rounded-[10px] border border-line bg-white pl-7 pr-2 text-[15px] tabular-nums text-ink focus:outline-2 focus:outline-link" />
+                </span>
+              </label>
+            ))}
+          </div>
+          <p className="mt-3 flex items-baseline justify-between gap-3 text-[14px] text-muted-foreground">{t({ bn: 'মাসে আনুমানিক', en: 'About per month' })}<span className="text-[18px] font-semibold text-ink tabular-nums">{money(fees)}</span></p>
+          <a href={site.hmsRegister} className="btn-primary mt-4 h-11 w-full whitespace-nowrap px-4 text-[15px]">{t({ bn: `${p.name} শুরু করুন`, en: `Start with ${p.name}` })}</a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 export default function PricingSection() {
   const { t, taka, num, lang } = useLang()
   const ref = useRef<HTMLDivElement>(null)
   const [cycle, setCycle] = useState<Cycle>('monthly')
   const [rooms, setRooms] = useState(20)
-  const [prop, setProp] = useState<PropertyType | null>(null)
+  const [prop, setPropRaw] = useState<PropertyType | null>(null)
+  const setProp = (x: PropertyType | null) => { setPropRaw(x); const pl = x && propertyTypes.find((y) => y.id === x)!.plan; if (pl && pl !== 'custom') setPick(pl) }
+  const [pick, setPick] = useState<PlanId>('business')
   const rec = prop ? propertyTypes.find((x) => x.id === prop)!.plan : null
   const c = cycles.find((x) => x.id === cycle)!
   const locale = lang === 'bn' ? 'bn-BD' : 'en-US'
@@ -151,11 +255,7 @@ export default function PricingSection() {
         ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} rooms · ${taka(pr.total)}/month` })
         : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)}`, en: `${pr.q} rooms · ${taka(pr.total)} for ${c.months} months` }) },
       { icon: <Percent size={18} />, text: t({ bn: `বুকিং ফি: মার্কেটপ্লেস ${num(f.marketplace)}% · ওয়েব ${num(f.website)}% · ওয়াক-ইন ${num(f.walkin)}%`, en: `Booking fees: Marketplace ${f.marketplace}% · Web ${f.website}% · Walk-in ${f.walkin}%` }) },
-      { icon: <Sparkles size={18} />, text: !p.activation
-        ? t({ bn: 'কোনো অ্যাক্টিভেশন ফি নেই', en: 'No activation fee' })
-        : p.activation.standard
-          ? t({ bn: `অ্যাক্টিভেশন ${taka(p.activation.standard)} — এখন ${taka(p.activation.now)}`, en: `Activation ${taka(p.activation.standard)} — now ${taka(p.activation.now)}` })
-          : t({ bn: `অ্যাক্টিভেশন এখন ${taka(p.activation.now)}`, en: `Activation currently ${taka(p.activation.now)}` }) },
+      { icon: <Sparkles size={18} />, text: <ActivationLine plan={p} /> },
     ]
   }
 
@@ -216,18 +316,18 @@ export default function PricingSection() {
             return (
               <TimelineContent key={p.id} animationNum={5 + i} timelineRef={ref} customVariants={reveal} className="h-full">
                 <Card id={`plan-${p.id}`} className={`relative flex h-full scroll-mt-28 flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'card-highlight lg:-translate-y-2' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
-                  <CardHeader className="p-5 lg:p-6 text-left">
+                  <CardHeader className="space-y-1 p-5 pb-2 text-left lg:p-6 lg:pb-2">
                     <div className="flex items-start justify-between gap-2">
                       <h2 className="text-[22px] lg:text-[24px] font-semibold tracking-tight text-ink">{p.name}</h2>
                       {recd
                         ? <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'আপনার জন্য', en: 'Best fit' })}</span>
                         : !rec && p.popular && <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
                     </div>
-                    <p className="text-[14px] text-muted-foreground lg:min-h-[42px]">{t(p.tagline)}</p>
+                    <p className="text-[14px] leading-snug text-muted-foreground lg:min-h-[40px]">{t(p.tagline)}</p>
                     <p className="flex flex-wrap items-center gap-1.5 pt-1 text-[12px]" aria-label={t({ bn: 'যাদের জন্য', en: 'Best for' })}>
                       {fits.map((x) => <span key={x.id} className={`chip px-2 ${prop === x.id ? '!bg-brand !text-white' : pop ? '!bg-white ring-1 ring-brand/15' : ''}`}>{t(x.name)}</span>)}
                     </p>
-                    <div className="pt-4">
+                    <div className="pt-2 lg:min-h-[68px]">
                       {pr ? (
                         <>
                           <div className="flex items-baseline gap-1 text-ink">
@@ -245,16 +345,17 @@ export default function PricingSection() {
                   <CardContent className="flex flex-1 flex-col p-5 pt-0 lg:p-6 lg:pt-0">
                     {p.rate ? (
                       <a href={site.hmsRegister}
-                        className={`${pop ? 'btn-primary' : 'btn-ghost'} mb-5 h-11 w-full text-[15px]`}>
-                        {t({ bn: `${p.name} শুরু করুন`, en: `Get started with ${p.name}` })}
+                        className={`${pop ? 'btn-primary' : 'btn-ghost'} mb-4 h-11 w-full whitespace-nowrap px-4 text-[15px]`}>
+                        <span className="sm:hidden xl:inline">{t({ bn: `${p.name} শুরু করুন`, en: `Get started with ${p.name}` })}</span>
+                        <span className="hidden sm:inline xl:hidden">{t({ bn: 'শুরু করুন', en: 'Get started' })}</span>
                       </a>
                     ) : (
-                      <Link to="/contact" className="btn-ghost mb-5 h-11 w-full text-[15px]">
+                      <Link to="/contact" className="btn-ghost mb-4 h-11 w-full whitespace-nowrap px-4 text-[15px]">
                         {t({ bn: 'প্রয়োজন জানান', en: 'Discuss requirements' })}
                       </Link>
                     )}
 
-                    <ul className="space-y-2.5 py-1">
+                    <ul className="space-y-2.5">
                       {featuresFor(p).map((f, j) => (
                         <li key={j} className="flex items-start gap-3 text-[14px] text-ink/80">
                           <span className="mt-0.5 grid shrink-0 place-content-center text-brand">{f.icon}</span>
@@ -263,7 +364,7 @@ export default function PricingSection() {
                       ))}
                     </ul>
 
-                    <div className="mt-5 space-y-2.5 border-t border-line pt-4">
+                    <div className="mt-4 space-y-2.5 border-t border-line pt-4">
                       <h3 className="text-[14px] font-semibold text-ink">{t(inc[0])}</h3>
                       <ul className="space-y-2">
                         {inc.slice(1).map((x, j) => (
@@ -276,12 +377,20 @@ export default function PricingSection() {
                         ))}
                       </ul>
                     </div>
+                    {p.rate && (
+                      <button type="button" onClick={() => { setPick(p.id); document.getElementById('cost')?.scrollIntoView({ behavior: 'smooth', block: 'center' }) }}
+                        className="mt-auto inline-flex min-h-11 cursor-pointer items-center gap-1.5 pt-3 text-[14px] font-medium text-brand hover:underline underline-offset-4">
+                        <Calculator className="size-4" aria-hidden="true" />{t({ bn: 'মোট খরচ দেখুন', en: 'See total cost' })}
+                      </button>
+                    )}
                   </CardContent>
                 </Card>
               </TimelineContent>
             )
           })}
         </div>
+
+        <CostBreakdown pick={pick} setPick={setPick} rooms={rooms} cycle={cycle} />
       </div>
     </div>
   )

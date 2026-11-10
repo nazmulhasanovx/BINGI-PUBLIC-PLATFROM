@@ -146,3 +146,14 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Tried a dark navy stage behind the hero devices for contrast; Nazmul preferred the previous light hero → reverted. Hero monitor now shows only the Ultra dashboard (`dashUltra`) instead of cycling 3 plans.
 - `card-highlight`: light red gradient (#FFE4E1 → #FFF8F7) + soft red glow, popular pricing card lifted 8px on desktop; chips inside it turn white so they stay visible.
 - Device × page regression: no issues.
+
+## 2026-11-10 — 8 fixes (themes, solutions, footer, docs nav, activation, total cost, tablet buttons, card gaps)
+- Themes: intro/perks/count/footnote removed; 3 cards per row; small "Demo" tag on each preview.
+- Solutions: real property photos (public/media/property/*.webp, Unsplash demo photos from the theme repo) on cards + detail header.
+- Footer: own line-art SVG skyline (home → guest house → hotel → resort palms → high-rise), 12% brand, soft peach glow.
+- Docs: sliding light-red active pill (layoutId), collapsible groups (active open), content fade/slide per page, thin red top bar on navigation, sidebar no longer remounts (scroll kept), active "On this page". Fixed trailing-slash active match (hydration #418).
+- Activation: ~~৳14,500~~ ৳4,999 −66% in card, Offers and cost panel. Ultra ৳8,999 plain (regular price not confirmed).
+- New "Your total cost" panel: subscription, discount, activation, first bill, then per cycle; booking-fee estimate (optional, labelled estimate); taxes separate. "See total cost" link on each paid card.
+- Tablet (640–1279): buttons show "Get started"; full label on phone and ≥1280.
+- Card gaps reduced; price block fixed height on desktop so 4 cards align.
+- devtest (8 devices × 14 routes): NO ISSUES.

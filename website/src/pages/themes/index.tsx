@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { CheckCheck } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { PageHeader, PillTabs } from '@/components/ui/Ui'
 import { Reveal } from '@/components/ui/Reveal'
@@ -9,12 +8,6 @@ import { storeThemes, themes, themesFor } from '@/data/themes'
 import { asset } from '@/lib/utils'
 import type { PlanId } from '@/data/pricing'
 
-const perks = [
-  { bn: 'প্রতিটা থিমে বুকিং ইঞ্জিন', en: 'Booking engine in every theme' },
-  { bn: '১০টা রং, দুই ধরনের হেডিং ফন্ট', en: '10 colours, two heading styles' },
-  { bn: 'লেখা, ছবি ও রুম HMS থেকে', en: 'Text, photos and rooms from your HMS' },
-  { bn: 'ফোন থেকে ডেস্কটপ — সব স্ক্রিনে', en: 'Phone to desktop — every screen' },
-]
 
 export default function Themes() {
   const { t } = useLang()
@@ -23,25 +16,17 @@ export default function Themes() {
   return (
     <div className="container-x">
       <PageHeader mark={t({ bn: 'ওয়েবসাইট', en: 'website' })} title={t({ bn: 'আপনার হোটেলের নিজের ওয়েবসাইট', en: 'Your hotel’s own website' })}
-        lead={t({ bn: 'একটা থিম বাছুন, রং ঠিক করুন, প্রকাশ করুন। বুকিং সরাসরি আপনার HMS-এ আসে।', en: 'Pick a theme, set your colour, publish. Bookings land straight in your HMS.' })} />
+        lead={t({ bn: 'থিম বাছুন, রং দিন, প্রকাশ করুন।', en: 'Pick a theme, set your colour, publish.' })} />
 
-      <ul className="mt-6 flex flex-wrap gap-x-6 gap-y-2 text-[14px]">
-        {perks.map((p, i) => <li key={i} className="flex items-center gap-2"><span className="check-dot size-5"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(p)}</li>)}
-      </ul>
-
-      <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+      <div className="mt-10">
         <PillTabs size="sm" label="Plan" value={plan} onChange={setPlan}
           options={[{ id: 'all', label: t({ bn: 'সব', en: 'All' }) }, { id: 'starter', label: 'Starter' }, { id: 'business', label: 'Business' }, { id: 'ultra', label: 'Ultra' }]} />
-        <p className="text-[13px] text-muted-foreground">{t({ bn: `${list.length}টা থিম · ডেমো হোটেলের ছবি`, en: `${list.length} themes · demo hotels shown` })}</p>
       </div>
 
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {list.map((th, i) => <Reveal key={th.id} delay={(i % 4) * 50}><ThemeCard theme={th} /></Reveal>)}
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+        {list.map((th, i) => <Reveal key={th.id} delay={(i % 3) * 50}><ThemeCard theme={th} /></Reveal>)}
       </div>
 
-      <p className="mt-4 text-[13px] text-muted-foreground">
-        {t({ bn: 'নতুন থিম কালেকশন শেষ পর্যায়ের টেস্টিংয়ে আছে। ছবিগুলো কাল্পনিক ডেমো হোটেলের।', en: 'The new theme collection is in final testing. Screens show fictional demo hotels.' })}
-      </p>
 
       {/* Theme Store — Coming soon */}
       <section className="mt-16 md:mt-24 rounded-[24px] bg-bay p-6 text-white md:p-10 grain relative overflow-hidden">

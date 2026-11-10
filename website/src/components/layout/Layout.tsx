@@ -1,3 +1,4 @@
+import { FooterSkyline } from './FooterSkyline'
 import { useRef, useEffect, useState } from 'react'
 import { markHydrated } from '../ui/timeline-animation'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
@@ -87,7 +88,8 @@ function Header() {
 function Footer() {
   const { t } = useLang()
   return (
-    <footer className="border-t border-line bg-white mt-16 md:mt-20 pb-20 lg:pb-0">
+    <footer className="relative isolate overflow-hidden border-t border-line bg-white mt-16 md:mt-20 pb-20 lg:pb-0">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[260px] bg-[radial-gradient(60%_80%_at_50%_100%,#FFE7E4_0%,rgb(255_241_239/.6)_45%,transparent_75%)]" />
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1 space-y-4">
           <Logo className="h-7" />
@@ -126,7 +128,10 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div className="border-t border-line">
+      <div aria-hidden="true" className="container-x">
+        <FooterSkyline className="block h-auto w-full text-brand opacity-[0.12]" />
+      </div>
+      <div>
         <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-5 text-[13px] text-muted-foreground">
           <span>© 2026 {site.company} · {site.parent}</span>
           <span>{t(site.address)} · {site.phone}</span>
@@ -180,7 +185,7 @@ export function Layout() {
     <div className="min-h-dvh flex flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-brand focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
       <Header />
-      <main id="main" className="flex-1"><div key={pathname} className="animate-page-in"><Outlet /></div></main>
+      <main id="main" className="flex-1"><div key={pathname.startsWith('/docs/') ? '/docs/*' : pathname} className="animate-page-in"><Outlet /></div></main>
       <Footer />
       <MobileCta />
     </div>

@@ -9,6 +9,7 @@ import { themes } from '@/data/themes'
 import { Icon } from '@/components/ui/Icon'
 import { StatusChip } from '@/components/ui/StatusChip'
 import { ThemeCard } from '@/components/ui/ThemeCard'
+import { asset } from '@/lib/utils'
 import NotFound from '../not-found'
 
 export default function SolutionDetail() {
@@ -37,6 +38,10 @@ export default function SolutionDetail() {
           <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
         </div>
       </header>
+
+      <figure className="mt-10 overflow-hidden rounded-[24px] bg-canvas">
+        <img src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} width={960} height={600} className="aspect-[16/9] w-full object-cover md:aspect-[21/8]" />
+      </figure>
 
       <section className="mt-14 grid gap-4 md:grid-cols-[1fr_1.4fr]">
         <div className="card-highlight rounded-[20px] p-6">

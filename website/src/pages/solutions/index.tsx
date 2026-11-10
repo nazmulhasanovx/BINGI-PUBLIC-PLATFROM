@@ -18,12 +18,12 @@ export default function Solutions() {
           const type = propertyTypes.find((x) => x.id === s.type)!
           const plan = plans.find((p) => p.id === type.plan)!
           return (
-            <Reveal key={s.slug} delay={(i % 3) * 60}>
-              <Link to={`/solutions/${s.slug}`} className="group card glow-hover block overflow-hidden">
+            <Reveal key={s.slug} delay={(i % 3) * 60} className="h-full">
+              <Link to={`/solutions/${s.slug}`} className="group card glow-hover flex h-full flex-col overflow-hidden">
                 <div className="aspect-[16/9] overflow-hidden bg-canvas">
-                  <img src={asset(`/media/themes/${s.themes[0]}.webp`)} alt="" loading="lazy" width={960} height={600} className="size-full object-cover object-top transition-transform duration-700 ease-spring group-hover:scale-[1.03]" />
+                  <img src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} loading="lazy" width={960} height={600} className="size-full object-cover transition-transform duration-700 ease-spring group-hover:scale-[1.03]" />
                 </div>
-                <div className="flex items-end justify-between gap-3 p-5">
+                <div className="flex flex-1 items-end justify-between gap-3 p-5">
                   <div>
                     <h2 className="text-[20px] font-semibold tracking-tight">{t(type.name)}</h2>
                     <p className="mt-1 text-[14px] text-muted-foreground">{t(type.need)}</p>
