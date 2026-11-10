@@ -123,3 +123,10 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - One source `website/src/data/docs.ts` → pages + `/docs/<slug>.md` + `/llms.txt` + `/llms-full.txt` (rules for AI assistants: answer only from the docs, check plan/role/property, never suggest Coming-soon features, never ask for passwords/OTP). "Copy for AI" per page and "Copy all docs for AI".
 - DRAFT v0.1: support must verify every fix against the live HMS (written from Sidebar v6, module rules, pricing data and the 9 Nov staging check).
 - Checked: copy buttons (page 1.7 KB, all 23.7 KB), search, titles, 1024 header fits 6 nav items; device × page regression: no issues.
+
+## 10 Nov 2026 — readiness pass (no empty slots)
+- Audit: 14 visible "slot:" placeholders (home 10, products 1, help 3), legal pages without text, help articles marked draft.
+- Filled hero, platform and story slots with Remotion loops (motion/src/Screens.tsx + resized Calendar/Restaurant/Housekeeping): heroWeb dashboard, heroPhone / platformGuest Guest App, platformWeb calendar, platformMobile HMS Mobile Today, story1 bookings from 3 sources, story2 calendar, story3 check-in (guest + ID + advance), story4 restaurant → room bill, story5 check-out → cleaning task. Sample data, designed illustrations — replace with real recordings when available. ~1 MB total.
+- Help "1-minute videos" section hidden until real videos are added to the slots.
+- Result: 0 placeholder labels on any page; device × page regression: no issues.
+- Still needs the owner: legal text (privacy, terms, refund) after legal review; lead API for the contact form (now hands off to WhatsApp); team photos; real HMS recordings to replace the illustrations.

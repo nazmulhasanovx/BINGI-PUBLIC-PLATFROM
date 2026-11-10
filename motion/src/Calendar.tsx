@@ -12,7 +12,7 @@ const bars = [
   { r: 3, d: 1, n: 2, name: 'Hossain', c: C.amber, s: C.amberSoft },
 ];
 
-export const Calendar: React.FC = () => {
+export const Calendar: React.FC<{ w?: number; h?: number; lw?: number }> = ({ w = 1600, h = 700, lw = 600 }) => {
   const s = useStep();
   const come = s(6, 36), grab = s(38, 46), drag = s(48, 92), drop = s(94, 102), toast = s(100, 116);
   const bx = L + mix(drag, 0, 1) * COL + 3;
@@ -22,7 +22,7 @@ export const Calendar: React.FC = () => {
   const cx = drag > 0 ? bx + 37 : mix(come, 560, hx);
   const cy = drag > 0 ? by + 13 : mix(come, 270, hy);
   return (
-    <Stage w={1600} h={700} lw={600}>
+    <Stage w={w} h={h} lw={lw}>
       <Card style={{ position: 'absolute', inset: 14 }}>
         {days.map((d, i) => (
           <div key={d} style={{ position: 'absolute', left: L - 14 + i * COL, top: 12, width: COL, textAlign: 'center', fontSize: 12, fontWeight: 500, color: C.muted }}>{d}</div>

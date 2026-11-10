@@ -2,14 +2,14 @@ import React from 'react';
 import { C, Stage, Card, useStep, taka } from './kit';
 
 // Clean version: a table order is posted to Room 305 and the room bill grows.
-export const Restaurant: React.FC = () => {
+export const Restaurant: React.FC<{ w?: number; h?: number; lw?: number }> = ({ w = 1200, h = 750, lw = 300 }) => {
   const s = useStep();
   const items = [['Biryani', 450, 8], ['Bhuna', 380, 20], ['Soda ×2', 240, 32]] as const;
   const shown = items.map(([, , at]) => s(at, at + 12));
   const total = items.reduce((a, [, p], i) => a + p * shown[i], 0);
   const fly = s(60, 86), line = s(84, 100), bal = s(90, 110);
   return (
-    <Stage w={1200} h={750} lw={300}>
+    <Stage w={w} h={h} lw={lw}>
       <div style={{ position: 'absolute', inset: 10, display: 'flex', gap: 8, alignItems: 'center' }}>
         <Card style={{ width: 128, padding: 10, translate: `${fly * 20}px 0`, opacity: 1 - fly * 0.35, scale: String(1 - fly * 0.08) }}>
           <div style={{ fontSize: 12, color: C.muted }}>Table 4</div>

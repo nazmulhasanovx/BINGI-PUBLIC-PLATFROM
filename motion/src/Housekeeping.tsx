@@ -3,11 +3,11 @@ import { C, Stage, Card, Chip, Cursor, useStep, mix } from './kit';
 
 // Clean version: Check out → room "Needs cleaning" → one cleaning task appears and is assigned.
 // Booking status and room readiness are separate chips on purpose.
-export const Housekeeping: React.FC = () => {
+export const Housekeeping: React.FC<{ w?: number; h?: number; lw?: number }> = ({ w = 800, h = 700, lw = 300 }) => {
   const s = useStep();
   const come = s(8, 38), press = s(40, 46) * (1 - s(46, 52)), done = s(48, 56), task = s(64, 88), assign = s(104, 118);
   return (
-    <Stage w={800} h={700} lw={300}>
+    <Stage w={w} h={h} lw={lw}>
       <div style={{ position: 'absolute', inset: 12 }}>
         <Card style={{ padding: 14 }}>
           <div style={{ fontSize: 17, fontWeight: 600 }}>Room 204</div>

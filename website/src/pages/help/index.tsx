@@ -1,3 +1,4 @@
+import { media } from '../../data/media'
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight, MessageCircle, PhoneCall, Search, SearchX } from 'lucide-react'
@@ -7,6 +8,9 @@ import { articles, categories, whatsNew } from '../../data/help'
 import { Icon } from '../../components/ui/Icon'
 import { Media } from '../../components/media/Media'
 import { PageHeader } from '../../components/ui/Ui'
+
+// Help videos show only once a real recording is added to the slot (data/media.ts).
+const helpVideos = (['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).filter((id) => (media[id] as { src?: string }).src)
 
 export default function Help() {
   const { t } = useLang()
@@ -59,12 +63,14 @@ export default function Help() {
         )}
       </section>
 
+      {helpVideos.length > 0 && (
       <section className="mt-10">
         <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
-          {(['helpVideo1', 'helpVideo2', 'helpVideo3'] as const).map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
+          {helpVideos.map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
         </div>
       </section>
+      )}
 
       <div className="mt-10 grid gap-4 lg:grid-cols-2">
         <section className="card p-6">
