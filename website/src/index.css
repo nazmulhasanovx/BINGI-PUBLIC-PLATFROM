@@ -107,7 +107,7 @@ html, body { overflow-x: clip; }
 /* round check bullet */
 @utility check-dot { @apply grid size-6 shrink-0 place-content-center rounded-full border border-brand/40 bg-accent-line text-brand; }
 /* highlighted card: popular / best fit / recommended */
-@utility card-highlight { @apply border-transparent bg-accent-tint ring-2 ring-brand shadow-highlight; }
+@utility card-highlight { @apply border-transparent ring-2 ring-brand shadow-highlight; background: linear-gradient(180deg, #FFE4E1 0%, #FFF1EF 45%, #FFF8F7 100%); box-shadow: 0 28px 60px -28px rgb(177 28 41 / .55), 0 0 0 6px rgb(253 65 63 / .07); }
 /* soft coral light behind a page header (use on an absolutely positioned, aria-hidden div) */
 @utility glow-radial { background-image: radial-gradient(closest-side at 50% 40%, rgb(var(--glow) / .20) 0%, rgb(255 179 138 / .12) 45%, transparent 100%); }
 @utility display { font-family: var(--font-display); @apply tracking-[-0.035em] leading-[0.98] font-semibold; }

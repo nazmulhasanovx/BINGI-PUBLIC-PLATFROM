@@ -215,7 +215,7 @@ export default function PricingSection() {
             const inc = includesFor(p)
             return (
               <TimelineContent key={p.id} animationNum={5 + i} timelineRef={ref} customVariants={reveal} className="h-full">
-                <Card id={`plan-${p.id}`} className={`relative flex h-full scroll-mt-28 flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'card-highlight' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
+                <Card id={`plan-${p.id}`} className={`relative flex h-full scroll-mt-28 flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'card-highlight lg:-translate-y-2' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
                   <CardHeader className="p-5 lg:p-6 text-left">
                     <div className="flex items-start justify-between gap-2">
                       <h2 className="text-[22px] lg:text-[24px] font-semibold tracking-tight text-ink">{p.name}</h2>
@@ -225,7 +225,7 @@ export default function PricingSection() {
                     </div>
                     <p className="text-[14px] text-muted-foreground lg:min-h-[42px]">{t(p.tagline)}</p>
                     <p className="flex flex-wrap items-center gap-1.5 pt-1 text-[12px]" aria-label={t({ bn: 'যাদের জন্য', en: 'Best for' })}>
-                      {fits.map((x) => <span key={x.id} className={`chip px-2 ${prop === x.id ? '!bg-brand !text-white' : ''}`}>{t(x.name)}</span>)}
+                      {fits.map((x) => <span key={x.id} className={`chip px-2 ${prop === x.id ? '!bg-brand !text-white' : pop ? '!bg-white ring-1 ring-brand/15' : ''}`}>{t(x.name)}</span>)}
                     </p>
                     <div className="pt-4">
                       {pr ? (

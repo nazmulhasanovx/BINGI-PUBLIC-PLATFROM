@@ -141,3 +141,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - `motion/src/PlanDashboard.tsx`: the Starter / Business / Ultra HMS dashboards rebuilt 1:1 from Nazmul's 3 designs (836×471 logical, Roboto, sample data from the design). Sidebar items grow/shrink and lock per plan, upsell card only on Starter, hero card / right panels cross-fade, progress bars fill.
 - `heroWeb` (home hero monitor): 15 s loop Starter → Business → Ultra. `dashStarter / dashBusiness / dashUltra` (5 s each): new "Your dashboard on each plan" section on /pricing with a plan switch.
 - Compared side by side with the design PNGs; device × page regression: no issues.
+
+## 10 Nov 2026 — hero + highlight card
+- Tried a dark navy stage behind the hero devices for contrast; Nazmul preferred the previous light hero → reverted. Hero monitor now shows only the Ultra dashboard (`dashUltra`) instead of cycling 3 plans.
+- `card-highlight`: light red gradient (#FFE4E1 → #FFF8F7) + soft red glow, popular pricing card lifted 8px on desktop; chips inside it turn white so they stay visible.
+- Device × page regression: no issues.

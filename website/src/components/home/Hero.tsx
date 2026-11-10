@@ -63,7 +63,7 @@ export function Hero() {
         <div ref={stage} className="relative mx-auto mt-8 md:mt-12 max-w-[1040px] pb-4 [perspective:1600px]">
           <motion.div style={{ rotateX, scale, y, transformOrigin: 'center bottom' }} className="will-change-transform"
             initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5, ease }}>
-            <StudioDisplay media="heroWeb" className="relative w-[90%] md:w-[88%]" />
+            <StudioDisplay media="dashUltra" className="relative w-[90%] md:w-[88%]" />
           </motion.div>
           <motion.div style={{ y: phoneY }} className="absolute right-0 bottom-6 w-[25%] md:w-[19%] will-change-transform"
             initial={reduce ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.7, ease }}>
