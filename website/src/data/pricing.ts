@@ -15,6 +15,16 @@ export const cycles: { id: Cycle; months: number; discount: number; label: L }[]
 ]
 
 export type PlanId = 'starter' | 'business' | 'ultra' | 'custom'
+
+// Which plan fits which property — same mapping as the home page "From a small home to a large resort" picker.
+export type PropertyType = 'home' | 'guest' | 'hotel' | 'resort' | 'group'
+export const propertyTypes: { id: PropertyType; name: L; plan: PlanId }[] = [
+  { id: 'home', name: { bn: 'হোম / ফ্ল্যাট', en: 'Home / flat' }, plan: 'starter' },
+  { id: 'guest', name: { bn: 'গেস্ট হাউস', en: 'Guest house' }, plan: 'starter' },
+  { id: 'hotel', name: { bn: 'হোটেল', en: 'Hotel' }, plan: 'business' },
+  { id: 'resort', name: { bn: 'রিসোর্ট', en: 'Resort' }, plan: 'ultra' },
+  { id: 'group', name: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' }, plan: 'custom' },
+]
 export type Plan = {
   id: PlanId
   name: string

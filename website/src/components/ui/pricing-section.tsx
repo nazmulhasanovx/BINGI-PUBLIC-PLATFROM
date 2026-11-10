@@ -2,12 +2,12 @@ import { useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import NumberFlow from '@number-flow/react'
 import { motion, type Variants } from 'motion/react'
-import { BedDouble, Building2, CheckCheck, Headset, Minus, Percent, Plus, Sparkles, Workflow } from 'lucide-react'
+import { BedDouble, Building2, Home as HomeIcon, CheckCheck, Headset, Minus, Percent, Plus, Sparkles, Workflow } from 'lucide-react'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { useLang, type L } from '@/i18n/lang'
 import { site } from '@/data/site'
-import { compare, cycles, MIN_BILLABLE, plans, priceFor, type Cycle, type Plan } from '@/data/pricing'
+import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PropertyType } from '@/data/pricing'
 import { ios } from '@/lib/motion'
 
 // Pricing section — structure and motion from the 21st.dev "pricing-section" component
@@ -28,13 +28,14 @@ function PricingSwitch({ value, onChange }: { value: Cycle; onChange: (c: Cycle)
           const on = value === c.id
           return (
             <button key={c.id} role="radio" aria-checked={on} onClick={() => onChange(c.id)}
-              className={`relative h-10 sm:h-12 shrink-0 cursor-pointer rounded-full px-3 sm:px-6 text-[14px] sm:text-[15px] font-medium transition-colors ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
+              className={`relative h-10 sm:h-12 shrink-0 cursor-pointer rounded-full px-2.5 sm:px-6 text-[14px] sm:text-[15px] font-medium transition-colors ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
               {on && (
                 <motion.span layoutId="cycle-pill" transition={ios}
                   className="absolute inset-0 rounded-full border-4 border-brand bg-gradient-to-t from-brand via-[#D42F3C] to-[#E8404A] shadow-[0_6px_18px_-6px_rgb(177_28_41/0.6)]" />
               )}
               <span className="relative flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
-                {t(c.label)}
+                <span className="hidden sm:inline">{t(c.label)}</span>
+                <span className="sm:hidden">{c.months === 1 ? t(c.label) : t({ bn: `${num(c.months)} মাস`, en: `${c.months} mo` })}</span>
                 {c.discount > 0 && (
                   <span className={`rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-[#FFE7E4] text-brand'}`}>−{num(c.discount * 100)}%</span>
                 )}
@@ -71,6 +72,8 @@ export default function PricingSection() {
   const ref = useRef<HTMLDivElement>(null)
   const [cycle, setCycle] = useState<Cycle>('monthly')
   const [rooms, setRooms] = useState(20)
+  const [prop, setProp] = useState<PropertyType | null>(null)
+  const rec = prop ? propertyTypes.find((x) => x.id === prop)!.plan : null
   const c = cycles.find((x) => x.id === cycle)!
   const locale = lang === 'bn' ? 'bn-BD' : 'en-US'
 
@@ -130,6 +133,18 @@ export default function PricingSection() {
         <TimelineContent animationNum={3} timelineRef={ref} customVariants={reveal} className="space-y-3">
           <PricingSwitch value={cycle} onChange={setCycle} />
           <RoomStepper rooms={rooms} setRooms={setRooms} />
+          <div className="mx-auto flex max-w-full flex-wrap items-center justify-center gap-1.5 sm:gap-2 px-1 py-1">
+            <span className="flex w-full sm:w-auto justify-center shrink-0 items-center gap-1.5 text-[13px] font-medium text-muted-foreground"><HomeIcon className="size-4" aria-hidden="true" />{t({ bn: 'আপনার প্রপার্টি:', en: 'Your property:' })}</span>
+            {propertyTypes.map((x) => {
+              const on = prop === x.id
+              return (
+                <button key={x.id} onClick={() => setProp(on ? null : x.id)} aria-pressed={on}
+                  className={`h-10 shrink-0 cursor-pointer rounded-full border px-3.5 text-[13px] font-medium transition-colors ${on ? 'border-brand bg-brand text-white' : 'border-line bg-white/80 text-ink hover:border-brand/40'}`}>
+                  {t(x.name)}
+                </button>
+              )
+            })}
+          </div>
           <p className="text-center text-[13px] text-muted-foreground" aria-live="polite">
             {rooms < MIN_BILLABLE
               ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
@@ -139,18 +154,26 @@ export default function PricingSection() {
 
         <div className="mx-auto grid max-w-7xl gap-4 py-6 sm:grid-cols-2 lg:grid-cols-4">
           {plans.map((p, i) => {
-            const pop = !!p.popular
+            const recd = rec === p.id
+            const pop = rec ? recd : !!p.popular
+            const fits = propertyTypes.filter((x) => x.plan === p.id)
             const pr = p.rate ? priceFor(p.rate, rooms, cycle) : null
             const inc = includesFor(p)
             return (
               <TimelineContent key={p.id} animationNum={4 + i} timelineRef={ref} customVariants={reveal} className="h-full">
-                <Card className={`relative flex h-full flex-col ${pop ? 'border-transparent bg-[#FFF6F5] ring-2 ring-brand shadow-[0_24px_60px_-28px_rgb(177_28_41/0.45)]' : 'bg-white glow-hover'}`}>
+                <Card className={`relative flex h-full flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'border-transparent bg-[#FFF6F5] ring-2 ring-brand shadow-[0_24px_60px_-28px_rgb(177_28_41/0.45)]' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
                   <CardHeader className="p-5 lg:p-6 text-left">
                     <div className="flex items-start justify-between gap-2">
                       <h2 className="text-[22px] lg:text-[24px] font-semibold tracking-tight text-ink">{p.name}</h2>
-                      {pop && <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
+                      {recd
+                        ? <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'আপনার জন্য', en: 'Best fit' })}</span>
+                        : !rec && p.popular && <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
                     </div>
                     <p className="text-[14px] text-muted-foreground lg:min-h-[42px]">{t(p.tagline)}</p>
+                    <p className="flex flex-wrap content-start items-center gap-1.5 pt-1 text-[12px] lg:min-h-[56px]">
+                      <span className="font-semibold text-ink">{t({ bn: 'যাদের জন্য:', en: 'Best for:' })}</span>
+                      {fits.map((x) => <span key={x.id} className={`rounded-full px-2 py-0.5 font-medium ${prop === x.id ? 'bg-brand text-white' : 'bg-[#FFE7E4] text-brand'}`}>{t(x.name)}</span>)}
+                    </p>
                     <div className="pt-2 lg:min-h-[64px]">
                       {pr ? (
                         <>
