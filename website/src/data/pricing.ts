@@ -18,18 +18,18 @@ export type PlanId = 'starter' | 'business' | 'ultra' | 'custom'
 
 // Which plan fits which property — same mapping as the home page "From a small home to a large resort" picker.
 export type PropertyType = 'home' | 'guest' | 'hotel' | 'resort' | 'group'
-export const propertyTypes: { id: PropertyType; name: L; plan: PlanId }[] = [
-  { id: 'home', name: { bn: 'হোম / ফ্ল্যাট', en: 'Home / flat' }, plan: 'starter' },
-  { id: 'guest', name: { bn: 'গেস্ট হাউস', en: 'Guest house' }, plan: 'starter' },
-  { id: 'hotel', name: { bn: 'হোটেল', en: 'Hotel' }, plan: 'business' },
-  { id: 'resort', name: { bn: 'রিসোর্ট', en: 'Resort' }, plan: 'ultra' },
-  { id: 'group', name: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' }, plan: 'custom' },
+export const propertyTypes: { id: PropertyType; name: L; plan: PlanId; need: L }[] = [
+  { id: 'home', name: { bn: 'হোম / ফ্ল্যাট', en: 'Home / flat' }, plan: 'starter', need: { bn: 'কয়েকটা রুম অনলাইনে দিন, বুকিং নিন', en: 'List a few rooms online and take bookings' } },
+  { id: 'guest', name: { bn: 'গেস্ট হাউস', en: 'Guest house' }, plan: 'starter', need: { bn: 'বুকিং, গেস্ট তথ্য আর নিজের ওয়েবসাইট', en: 'Bookings, guest records and your own website' } },
+  { id: 'hotel', name: { bn: 'হোটেল', en: 'Hotel' }, plan: 'business', need: { bn: 'প্রতিদিনের অপারেশন: হাউসকিপিং, রেস্টুরেন্ট, খরচ', en: 'Daily operations: housekeeping, restaurant, expenses' } },
+  { id: 'resort', name: { bn: 'রিসোর্ট', en: 'Resort' }, plan: 'ultra', need: { bn: 'বড় টিম, স্টক আর অনেক চলমান কাজ', en: 'A bigger team, stock and more moving parts' } },
+  { id: 'group', name: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' }, plan: 'custom', need: { bn: 'একাধিক প্রপার্টি এক অ্যাকাউন্টে', en: 'Several properties under one account' } },
 ]
 export type Plan = {
   id: PlanId
   name: string
   rate: number | null // BDT per room per month; null = quotation
-  activation: { standard: number; now: number } | null
+  activation: { standard?: number; now: number } | null // standard = regular price (shown struck through) when known
   fees: { marketplace: number; website: number; walkin: number } | null
   popular?: boolean
   tagline: L
@@ -39,9 +39,9 @@ export type Plan = {
 export const plans: Plan[] = [
   { id: 'starter', name: 'Starter', rate: 30, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
-  { id: 'business', name: 'Business', rate: 50, activation: { standard: 29500, now: 0 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
+  { id: 'business', name: 'Business', rate: 50, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
-  { id: 'ultra', name: 'Ultra', rate: 116, activation: { standard: 29500, now: 0 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
+  { id: 'ultra', name: 'Ultra', rate: 116, activation: { now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
     tagline: { bn: 'স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন', en: 'Staff, inventory and advanced operations' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
   { id: 'custom', name: 'Custom', rate: null, activation: null, fees: null,
     tagline: { bn: 'হোটেল গ্রুপ ও বিশেষ প্রয়োজন', en: 'Hotel groups and special needs' } },
@@ -81,7 +81,8 @@ export const compare: Group[] = [
 
 // Current offers & services (v4 D-08…D-11). Never say "free forever".
 export const offers: L[] = [
-  { bn: 'Business ও Ultra অ্যাক্টিভেশন ফি ৳২৯,৫০০ — এখন ৳০', en: 'Business & Ultra activation ৳29,500 — now ৳0' },
+  { bn: 'Business অ্যাক্টিভেশন ৳১৪,৫০০ — এখন ৳৪,৯৯৯', en: 'Business activation ৳14,500 — now ৳4,999' },
+  { bn: 'Ultra অ্যাক্টিভেশন এখন ৳৮,৯৯৯', en: 'Ultra activation currently ৳8,999' },
   { bn: 'রিমোট টিম ট্রেনিং ৳৫০০/শিফট — এখন ফ্রি', en: 'Remote team training ৳500/shift — now free' },
   { bn: 'অনসাইট ট্রেনিং ৳১২,৫০০ — টিমের থাকা-খাওয়া প্রপার্টি দেবে', en: 'Onsite training ৳12,500 — property provides team meals & stay' },
   { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳০', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },

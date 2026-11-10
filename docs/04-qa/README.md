@@ -106,3 +106,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Story (desktop): only the active step shows its one-line description (smooth reveal); others are titles only.
 - Bento: titles only (no sub-lines). Platforms section: no intro line, no sub-lines, no "Status to confirm" chips — device + name only (status stays on the Products page). Final CTA: no paragraph, centred, larger headline.
 - Device × page regression: no issues.
+
+## 10 Nov 2026 — activation fees + plan finder
+- Activation (Nazmul): Business ৳14,500 → now ৳4,999 · Ultra currently ৳8,999 (regular price not given, so no strike-through) · Starter none. Cards + offers updated; `activation.standard` is now optional in `data/pricing.ts`.
+- "Which plan fits your property?" finder above the plan cards: 5 property tiles → plan name, one-line need, 3 reasons (from the plan's entitlements), cost for the entered rooms + cycle, "See <plan>" jumps to the card. Best-fit ring/badge on the matching card stays.
+- 1440 + 393 checked; device × page regression: no issues.
