@@ -89,11 +89,12 @@ function Footer() {
   const { t } = useLang()
   return (
     <footer className="relative isolate overflow-hidden border-t border-line bg-white mt-16 md:mt-20 pb-20 lg:pb-0">
-      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[260px] bg-[radial-gradient(60%_80%_at_50%_100%,#FFE7E4_0%,rgb(255_241_239/.6)_45%,transparent_75%)]" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[180px] bg-[radial-gradient(60%_80%_at_50%_100%,#FFE7E4_0%,rgb(255_241_239/.6)_45%,transparent_75%)]" />
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1 space-y-4">
           <Logo className="h-7" />
           <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed hidden md:block">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
+          <FooterSkyline className="hidden h-auto w-full max-w-[360px] text-brand opacity-[0.24] md:block md:pt-6" />
         </div>
         <div>
           <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h2>
@@ -128,11 +129,8 @@ function Footer() {
           </ul>
         </div>
       </div>
-      <div aria-hidden="true" className="container-x">
-        <FooterSkyline className="block h-auto w-full text-brand opacity-[0.12]" />
-      </div>
       <div>
-        <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-5 text-[13px] text-muted-foreground">
+        <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-4 text-[13px] text-muted-foreground">
           <span>© 2026 {site.company} · {site.parent}</span>
           <span>{t(site.address)} · {site.phone}</span>
         </div>

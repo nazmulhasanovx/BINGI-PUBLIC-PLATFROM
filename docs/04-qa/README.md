@@ -157,3 +157,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Tablet (640–1279): buttons show "Get started"; full label on phone and ≥1280.
 - Card gaps reduced; price block fixed height on desktop so 4 cards align.
 - devtest (8 devices × 14 routes): NO ISSUES.
+- 2026-11-10: Footer shortened — skyline moved into the empty brand column (no extra row); footer 391→359px desktop.
