@@ -70,7 +70,7 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
   const id = useId()
   const reduce = useReducedMotion()
   const hasBadge = options.some((o) => o.badge)
-  const h = size === 'sm' ? 'h-10 px-3 text-[13px]' : fill
+  const h = size === 'sm' ? 'h-10 min-w-11 shrink-0 justify-center px-3 text-[13px]' : fill
     ? `${hasBadge ? 'h-14 flex-col gap-0.5 rounded-[18px] sm:flex-row sm:gap-2 sm:rounded-full' : 'h-11'} px-1 text-[13px] sm:h-10 sm:px-4 sm:text-[14px] justify-center`
     : 'h-11 px-4 text-[14px]'
   const pill = tone === 'brand' ? 'bg-linear-to-t from-brand via-[#D42F3C] to-[#E8404A] shadow-[0_6px_18px_-6px_rgb(177_28_41/0.6)]' : 'bg-ink'

@@ -14,9 +14,11 @@ import { notFoundSeo, seo } from '../../data/seo'
 
 const nav = [
   { to: '/products', label: { bn: 'প্রোডাক্ট', en: 'Products' } },
+  { to: '/solutions', label: { bn: 'সলিউশন', en: 'Solutions' } },
+  { to: '/themes', label: { bn: 'থিম', en: 'Themes' } },
   { to: '/pricing', label: { bn: 'প্রাইসিং', en: 'Pricing' } },
   { to: '/help', label: { bn: 'হেল্প', en: 'Help' } },
-  { to: '/contact', label: { bn: 'যোগাযোগ', en: 'Contact' } },
+  { to: '/contact', label: { bn: 'যোগাযোগ', en: 'Contact' }, phoneOnly: true },
 ]
 
 export const ctaLabel = { bn: 'শুরু করুন', en: 'Get started' }
@@ -43,7 +45,7 @@ function Header() {
       <div className="container-x flex h-16 items-center justify-between gap-4">
         <Link to="/" aria-label="BinGi home" className="flex h-11 items-center"><Logo /></Link>
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
-          {nav.map((n) => (
+          {nav.filter((n) => !n.phoneOnly).map((n) => (
             <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
               {t(n.label)}
             </NavLink>
@@ -94,14 +96,19 @@ function Footer() {
           <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/products">{t({ bn: 'প্ল্যাটফর্ম ও মডিউল', en: 'Platforms & modules' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/solutions">{t({ bn: 'সলিউশন', en: 'Solutions' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/themes">{t({ bn: 'ওয়েবসাইট থিম', en: 'Website themes' })}</Link></li>
             <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
-            <li><a className="hover:text-ink" href={site.marketplace}>{t({ bn: 'BinGi মার্কেটপ্লেস', en: 'BinGi Marketplace' })}</a></li>
+            <li><Link className="hover:text-ink" to="/partners">{t({ bn: 'মার্কেটপ্লেস ও পার্টনার', en: 'Marketplace & partners' })}</Link></li>
           </ul>
         </div>
         <div>
-          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'সাপোর্ট', en: 'Support' })}</h2>
+          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'রিসোর্স', en: 'Resources' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/help">{t({ bn: 'হেল্প সেন্টার', en: 'Help center' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/blog">{t({ bn: 'গাইড', en: 'Guides' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/changelog">{t({ bn: 'নতুন কী', en: 'What’s new' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/customers">{t({ bn: 'গ্রাহকের গল্প', en: 'Customer stories' })}</Link></li>
             <li><a className="hover:text-ink" href={site.whatsapp}>WhatsApp</a></li>
             <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link></li>
           </ul>
@@ -110,6 +117,7 @@ function Footer() {
           <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'কোম্পানি', en: 'Company' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
             <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'আমাদের সম্পর্কে', en: 'About us' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/careers">{t({ bn: 'ক্যারিয়ার', en: 'Careers' })}</Link></li>
             <li><Link className="hover:text-ink" to="/legal/privacy">{t({ bn: 'প্রাইভেসি', en: 'Privacy' })}</Link></li>
             <li><Link className="hover:text-ink" to="/legal/terms">{t({ bn: 'শর্তাবলি', en: 'Terms' })}</Link></li>
             <li><Link className="hover:text-ink" to="/foundation">{t({ bn: 'ডিজাইন ফাউন্ডেশন', en: 'Design foundation' })}</Link></li>

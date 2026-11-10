@@ -4,7 +4,16 @@ export const loaders = {
   '/pricing': () => import('./pages/pricing'),
   '/help': () => import('./pages/help'),
   '/contact': () => import('./pages/contact'),
+  '/solutions': () => import('./pages/solutions'),
+  '/themes': () => import('./pages/themes'),
+  '/blog': () => import('./pages/blog'),
+  '/customers': () => import('./pages/customers'),
+  '/changelog': () => import('./pages/changelog'),
+  '/partners': () => import('./pages/partners'),
+  '/careers': () => import('./pages/careers'),
 } as const
+export const loadSolution = () => import('./pages/solutions/Detail')
+export const loadPost = () => import('./pages/blog/Post')
 export const loadArticle = () => import('./pages/help/Article')
 export const loadLegal = () => import('./pages/legal')
 export const loadFoundation = () => import('./pages/foundation')

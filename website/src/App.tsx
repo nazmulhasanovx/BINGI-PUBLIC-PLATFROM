@@ -4,7 +4,7 @@ import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
 
-import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation } from './routes'
+import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation, loadSolution, loadPost } from './routes'
 
 const Products = lazy(loaders['/products'])
 const Pricing = lazy(loaders['/pricing'])
@@ -14,6 +14,15 @@ const Contact = lazy(loaders['/contact'])
 const Legal = lazy(loadLegal)
 const NotFound = lazy(loadNotFound)
 const Foundation = lazy(loadFoundation)
+const Solutions = lazy(loaders['/solutions'])
+const SolutionDetail = lazy(loadSolution)
+const Themes = lazy(loaders['/themes'])
+const Blog = lazy(loaders['/blog'])
+const Post = lazy(loadPost)
+const Customers = lazy(loaders['/customers'])
+const Changelog = lazy(loaders['/changelog'])
+const Partners = lazy(loaders['/partners'])
+const Careers = lazy(loaders['/careers'])
 
 // Prerender (build time) uses StaticRouter; the single-file review build keeps routes in memory;
 // the real site uses clean URLs.
@@ -42,6 +51,15 @@ export default function App({ ssrUrl }: { ssrUrl?: string }) {
               <Route path="contact" element={<Contact />} />
               <Route path="legal/:doc" element={<Legal />} />
               <Route path="foundation" element={<Foundation />} />
+              <Route path="solutions" element={<Solutions />} />
+              <Route path="solutions/:slug" element={<SolutionDetail />} />
+              <Route path="themes" element={<Themes />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="blog/:slug" element={<Post />} />
+              <Route path="customers" element={<Customers />} />
+              <Route path="changelog" element={<Changelog />} />
+              <Route path="partners" element={<Partners />} />
+              <Route path="careers" element={<Careers />} />
               {/* old URLs from the current site */}
               <Route path="ecosystem" element={<Navigate to="/products" replace />} />
               <Route path="start" element={<Navigate to="/pricing" replace />} />

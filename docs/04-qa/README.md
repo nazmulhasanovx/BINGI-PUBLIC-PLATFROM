@@ -111,3 +111,9 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Activation (Nazmul): Business ৳14,500 → now ৳4,999 · Ultra currently ৳8,999 (regular price not given, so no strike-through) · Starter none. Cards + offers updated; `activation.standard` is now optional in `data/pricing.ts`.
 - "Which plan fits your property?" finder above the plan cards: 5 property tiles → plan name, one-line need, 3 reasons (from the plan's entitlements), cost for the entered rooms + cycle, "See <plan>" jumps to the card. Best-fit ring/badge on the matching card stays.
 - 1440 + 393 checked; device × page regression: no issues.
+
+## 10 Nov 2026 — 7 new pages
+- /solutions (+ /hotel, /resort, /guest-house, /home-stay, /hotel-group), /themes, /blog (+ 3 guides), /customers, /changelog, /partners, /careers. Header nav: Products · Solutions · Themes · Pricing · Help (Contact in the phone menu); footer: Product / Resources / Company.
+- Theme screens = the themes repo's own preview images (fictional demo hotels, Unsplash demo photos), converted to WebP (34–109 KB). CITY demo shows a real hotel brand name → logo/name area blurred.
+- Truth notes: themes "in final testing" (HMS API wiring next); Theme Store, OTA, payments = Coming soon; Customers = no stories until a hotel gives written permission; Changelog marks each entry Live / In testing / Coming soon; Careers lists roles we hire for, not confirmed openings.
+- Device × page regression now 8 devices × 17 pages: no issues. No console errors.
