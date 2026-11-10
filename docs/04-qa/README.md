@@ -158,3 +158,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Card gaps reduced; price block fixed height on desktop so 4 cards align.
 - devtest (8 devices × 14 routes): NO ISSUES.
 - 2026-11-10: Footer shortened — skyline moved into the empty brand column (no extra row); footer 391→359px desktop.
+- 2026-11-10: Bangla prices were blank (NumberFlow can't draw Bangla digits) → Bangla now shows Bangla digits with a soft swap; English keeps NumberFlow.

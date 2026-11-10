@@ -129,6 +129,17 @@ function PlanFinder({ prop, setProp, rooms, cycle, reasons }: {
 }
 
 
+// NumberFlow only draws Latin digits, so Bangla shows Bangla digits with a soft swap instead.
+function Num({ value, max = 2 }: { value: number; max?: number }) {
+  const { lang, num } = useLang()
+  if (lang !== 'bn') return <NumberFlow value={value} locales="en-US" format={{ maximumFractionDigits: max }} />
+  return (
+    <motion.span key={value} initial={{ opacity: 0, y: '0.25em' }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className="inline-block tabular-nums">
+      {num(value, { maximumFractionDigits: max })}
+    </motion.span>
+  )
+}
+
 // Activation: regular price struck through when it is known (Business). Ultra regular price not confirmed → plain.
 export function ActivationLine({ plan: p }: { plan: Plan }) {
   const { t, taka, num } = useLang()
@@ -146,7 +157,6 @@ export function ActivationLine({ plan: p }: { plan: Plan }) {
 }
 
 function Row({ label, sub, value, strong, minus, children }: { label: ReactNode; sub?: ReactNode; value?: number; strong?: boolean; minus?: boolean; children?: ReactNode }) {
-  const { lang } = useLang()
   return (
     <div className={`flex items-start justify-between gap-4 py-3 ${strong ? 'text-ink' : ''}`}>
       <div className="min-w-0">
@@ -154,7 +164,7 @@ function Row({ label, sub, value, strong, minus, children }: { label: ReactNode;
         {sub && <p className="mt-0.5 text-[13px] text-muted-foreground tabular-nums">{sub}</p>}
       </div>
       <div className={`shrink-0 text-right tabular-nums ${strong ? 'text-[24px] font-semibold tracking-tight' : 'text-[15px] font-medium'} ${minus ? 'text-ok' : ''}`}>
-        {children ?? (value !== undefined && <>{minus ? '−' : ''}৳<NumberFlow value={value} locales={lang === 'bn' ? 'bn-BD' : 'en-US'} format={{ maximumFractionDigits: 2 }} /></>)}
+        {children ?? (value !== undefined && <>{minus ? '−' : ''}৳<Num value={value} max={2} /></>)}
       </div>
     </div>
   )
@@ -162,7 +172,7 @@ function Row({ label, sub, value, strong, minus, children }: { label: ReactNode;
 
 // "What will I actually pay?" — full first-bill breakdown for the selected plan.
 function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick: (p: PlanId) => void; rooms: number; cycle: Cycle }) {
-  const { t, taka, num, lang } = useLang()
+  const { t, taka, num } = useLang()
   const paid = plans.filter((p) => p.rate)
   const p = paid.find((x) => x.id === pick) ?? paid[1]
   const c = cycles.find((x) => x.id === cycle)!
@@ -174,7 +184,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
   const [mkt, setMkt] = useState(0)
   const fees = Math.round(((web * p.fees!.website) + (mkt * p.fees!.marketplace)) / 100)
   const every = c.months === 1 ? t({ bn: 'প্রতি মাসে', en: 'every month' }) : t({ bn: `প্রতি ${num(c.months)} মাসে`, en: `every ${c.months} months` })
-  const money = (n: number) => <>৳<NumberFlow value={n} locales={lang === 'bn' ? 'bn-BD' : 'en-US'} format={{ maximumFractionDigits: 2 }} /></>
+  const money = (n: number) => <>৳<Num value={n} max={2} /></>
   return (
     <section id="cost" aria-labelledby="cost-h" className="mx-auto mt-4 max-w-5xl scroll-mt-28 rounded-[24px] border border-line bg-white/90 p-4 shadow-soft backdrop-blur sm:p-6">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -231,7 +241,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
 }
 
 export default function PricingSection() {
-  const { t, taka, num, lang } = useLang()
+  const { t, taka, num } = useLang()
   const ref = useRef<HTMLDivElement>(null)
   const [cycle, setCycle] = useState<Cycle>('monthly')
   const [rooms, setRooms] = useState(20)
@@ -240,7 +250,6 @@ export default function PricingSection() {
   const [pick, setPick] = useState<PlanId>('business')
   const rec = prop ? propertyTypes.find((x) => x.id === prop)!.plan : null
   const c = cycles.find((x) => x.id === cycle)!
-  const locale = lang === 'bn' ? 'bn-BD' : 'en-US'
 
   const featuresFor = (p: Plan): Feature[] => {
     if (!p.rate) return [
@@ -331,7 +340,7 @@ export default function PricingSection() {
                       {pr ? (
                         <>
                           <div className="flex items-baseline gap-1 text-ink">
-                            <span className="text-[36px] font-semibold leading-none tracking-tight">৳<NumberFlow value={pr.perRoom} locales={locale} format={{ maximumFractionDigits: 1 }} /></span>
+                            <span className="text-[36px] font-semibold leading-none tracking-tight">৳<Num value={pr.perRoom} max={1} /></span>
                             <span className="text-[14px] text-muted-foreground">/{t({ bn: 'রুম/মাস', en: 'room/month' })}</span>
                           </div>
                           {c.discount > 0 && <p className="mt-1.5 text-[13px] text-muted-foreground"><span className="line-through">{taka(p.rate!)}</span> · {t({ bn: `সাশ্রয় ${taka(pr.saved)}`, en: `save ${taka(pr.saved)}` })}</p>}
