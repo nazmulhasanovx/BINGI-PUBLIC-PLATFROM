@@ -117,3 +117,9 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Theme screens = the themes repo's own preview images (fictional demo hotels, Unsplash demo photos), converted to WebP (34–109 KB). CITY demo shows a real hotel brand name → logo/name area blurred.
 - Truth notes: themes "in final testing" (HMS API wiring next); Theme Store, OTA, payments = Coming soon; Customers = no stories until a hotel gives written permission; Changelog marks each entry Live / In testing / Coming soon; Careers lists roles we hire for, not confirmed openings.
 - Device × page regression now 8 devices × 17 pages: no issues. No console errors.
+
+## 10 Nov 2026 — public documentation (/docs) + LLM files
+- `/docs` (23 pages: Start here · Platform · 15 modules · Plans & billing · Troubleshooting · Glossary · Support). Each module page: where in the sidebar (Sidebar v6 names = live HMS), plan, status, how-to steps, "Common issues" (symptom → likely causes → fix).
+- One source `website/src/data/docs.ts` → pages + `/docs/<slug>.md` + `/llms.txt` + `/llms-full.txt` (rules for AI assistants: answer only from the docs, check plan/role/property, never suggest Coming-soon features, never ask for passwords/OTP). "Copy for AI" per page and "Copy all docs for AI".
+- DRAFT v0.1: support must verify every fix against the live HMS (written from Sidebar v6, module rules, pricing data and the 9 Nov staging check).
+- Checked: copy buttons (page 1.7 KB, all 23.7 KB), search, titles, 1024 header fits 6 nav items; device × page regression: no issues.
