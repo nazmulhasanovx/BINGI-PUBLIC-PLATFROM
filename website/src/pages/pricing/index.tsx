@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { CheckCheck, ChevronDown, Gift, Minus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { compare, offers, plans, type Cell } from '../../data/pricing'
-import { Accordion, SectionHead } from '../../components/ui/Ui'
+import { Accordion, PillTabs, SectionHead } from '../../components/ui/Ui'
+import { StudioDisplay } from '../../components/media/Devices'
 import PricingSection from '@/components/ui/pricing-section'
 
 const faqs: { q: L; a: L }[] = [
@@ -20,6 +21,24 @@ function CellView({ c }: { c: Cell }) {
   return <span className="text-[13px] font-medium">{t(c)}</span>
 }
 
+// Same HMS, three plans: the dashboard each plan opens on (design 1:1, sample data).
+function PlanDashboards() {
+  const { t } = useLang()
+  const [plan, setPlan] = useState<'dashStarter' | 'dashBusiness' | 'dashUltra'>('dashBusiness')
+  return (
+    <section className="mt-16 md:mt-24">
+      <SectionHead title={t({ bn: 'প্রতিটা প্ল্যানে আপনার ড্যাশবোর্ড', en: 'Your dashboard on each plan' })} />
+      <div className="mt-6 flex justify-center">
+        <PillTabs label="Plan" value={plan} onChange={setPlan}
+          options={[{ id: 'dashStarter', label: 'Starter' }, { id: 'dashBusiness', label: 'Business' }, { id: 'dashUltra', label: 'Ultra' }]} />
+      </div>
+      <div className="mx-auto mt-8 max-w-[960px]">
+        <StudioDisplay key={plan} media={plan} className="relative w-full" />
+      </div>
+    </section>
+  )
+}
+
 export default function Pricing() {
   const { t, taka } = useLang()
   const [showCompare, setShowCompare] = useState(false)
@@ -28,6 +47,8 @@ export default function Pricing() {
     <div className="relative">
       <PricingSection />
       <div className="container-x">
+        <PlanDashboards />
+
         {/* Offers */}
         <div className="mt-8 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-start">
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Gift className="size-5" aria-hidden="true" /></span>

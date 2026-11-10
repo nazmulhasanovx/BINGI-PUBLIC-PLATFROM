@@ -136,3 +136,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Pricing cards: removed reserved empty heights under the price, dropped the "Best for:" label (chips stay), buttons calm white for all plans and red only on the highlighted plan.
 - "At the desk…" platforms: one composed scene — display in the centre, the two phones in front of it — with one label row; phone loops re-rendered with larger UI so text is readable.
 - Device × page regression: no issues.
+
+## 10 Nov 2026 — plan dashboards (Nazmul's design, 1:1)
+- `motion/src/PlanDashboard.tsx`: the Starter / Business / Ultra HMS dashboards rebuilt 1:1 from Nazmul's 3 designs (836×471 logical, Roboto, sample data from the design). Sidebar items grow/shrink and lock per plan, upsell card only on Starter, hero card / right panels cross-fade, progress bars fill.
+- `heroWeb` (home hero monitor): 15 s loop Starter → Business → Ultra. `dashStarter / dashBusiness / dashUltra` (5 s each): new "Your dashboard on each plan" section on /pricing with a plan switch.
+- Compared side by side with the design PNGs; device × page regression: no issues.
