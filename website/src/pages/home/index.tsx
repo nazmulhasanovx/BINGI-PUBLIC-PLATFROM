@@ -111,17 +111,16 @@ export default function Home() {
           <div className="max-w-[620px]">
             <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
           </div>
-          <div className="mt-10 grid gap-x-4 gap-y-10 sm:gap-10 grid-cols-2 lg:grid-cols-[1.6fr_1fr_1fr] items-end">
-            {([
-              { key: 'web', cls: 'col-span-2 lg:col-span-1', frame: <StudioDisplay media="platformWeb" className="relative w-full sm:max-w-[640px] sm:mx-auto lg:max-w-none" />, title: { bn: 'BinGi HMS ওয়েব', en: 'BinGi HMS Web' }, text: { bn: 'রিসেপশন ও ম্যানেজমেন্ট', en: 'Reception and management' } },
-              { key: 'mobile', cls: '', frame: <IPhone16PM media="platformMobile" className="relative w-[78%] sm:w-[62%] max-w-[240px] lg:max-w-none mx-auto" />, title: { bn: 'HMS মোবাইল', en: 'HMS Mobile' }, text: { bn: 'স্টাফের আজকের কাজ', en: "Staff's work for today" } },
-              { key: 'guest', cls: '', frame: <IPhone16PM media="platformGuest" className="relative w-[78%] sm:w-[62%] max-w-[240px] lg:max-w-none mx-auto" />, title: { bn: 'গেস্ট অ্যাপ', en: 'Guest App' }, text: { bn: 'খোঁজা, বুকিং, চ্যাট', en: 'Discover, book, chat' } },
-            ] as const).map((p) => (
-              <div key={p.key} className={p.cls}>
-                {p.frame}
-                <h3 className="mt-6 text-center text-[17px] font-medium tracking-[-0.01em] text-white/90">{t(p.title)}</h3>
-              </div>
-            ))}
+          {/* one composed scene: display in the centre, the two phones resting in front of it */}
+          <div className="relative mx-auto mt-12 max-w-[1080px] pb-[3%]">
+            <StudioDisplay media="platformWeb" className="relative mx-auto w-[78%] sm:w-[70%]" />
+            <IPhone16PM media="platformMobile" className="absolute bottom-0 left-0 w-[24%] sm:w-[18%]" />
+            <IPhone16PM media="platformGuest" className="absolute bottom-0 right-0 w-[24%] sm:w-[18%]" />
+          </div>
+          <div className="mx-auto mt-8 grid max-w-[1080px] grid-cols-3 text-center text-[14px] font-medium text-white/85 sm:text-[17px]">
+            <h3>{t({ bn: 'HMS মোবাইল', en: 'HMS Mobile' })}</h3>
+            <h3>{t({ bn: 'BinGi HMS ওয়েব', en: 'BinGi HMS Web' })}</h3>
+            <h3>{t({ bn: 'গেস্ট অ্যাপ', en: 'Guest App' })}</h3>
           </div>
         </div>
       </section>

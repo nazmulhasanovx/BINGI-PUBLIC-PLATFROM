@@ -152,7 +152,7 @@ export const CheckIn: React.FC = () => {
 
 // ── Phone shell (portrait). lw 390 ≈ an iPhone screen width.
 const Phone: React.FC<{ children: React.ReactNode; tabs?: string[]; active?: number }> = ({ children, tabs, active = 0 }) => (
-  <Stage w={660} h={1434} lw={390}>
+  <Stage w={660} h={1434} lw={300}>
     <div style={{ position: 'absolute', inset: 0, background: '#F5F6F8' }}>
       <div style={{ height: 54 }} />
       <div style={{ padding: '0 16px' }}>{children}</div>

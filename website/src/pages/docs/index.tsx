@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowRight, Bot } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
-import { docs, DOCS_VERSION } from '@/data/docs'
+import { docs } from '@/data/docs'
 import { asset } from '@/lib/utils'
 import { CopyButton, DocsShell, copyAll, useDocTitle } from './DocsShell'
 
@@ -13,9 +13,8 @@ export default function DocsHome() {
     <DocsShell>
       <header className="relative isolate">
         <div aria-hidden="true" className="glow-radial pointer-events-none absolute -left-20 -top-24 -z-10 h-[360px] w-[680px]" />
-        <h1 className="display text-[38px] md:text-[56px] text-balance">{t({ bn: 'BinGi-র সব কিছু, ', en: 'Everything about BinGi, ' })}<span className="mark px-1.5 py-0">{t({ bn: 'এক জায়গায়', en: 'in one place' })}</span></h1>
+        <h1 className="display text-[36px] md:text-[52px] text-balance">{t({ bn: 'BinGi-র সব কিছু, ', en: 'Everything about BinGi, ' })}<span className="mark px-1.5 py-0">{t({ bn: 'এক জায়গায়', en: 'in one place' })}</span></h1>
         <p className="lead mt-4 max-w-[640px]">{t({ bn: 'মডিউল, ইকোসিস্টেম, প্ল্যান আর সমস্যার সমাধান। এমনভাবে লেখা যাতে আপনি — বা যেকোনো AI — দ্রুত সমস্যা ঠিক করতে পারে।', en: 'Modules, ecosystem, plans and fixes — written so you, or any AI assistant, can solve an issue fast.' })}</p>
-        <p className="mt-3 text-[13px] text-muted-foreground">{DOCS_VERSION} · {t({ bn: 'সাপোর্ট টিম প্রতিটা সমাধান যাচাই করছে।', en: 'The support team is verifying each fix.' })}</p>
       </header>
 
       {/* AI card */}

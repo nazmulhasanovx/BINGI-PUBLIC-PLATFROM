@@ -130,3 +130,9 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Help "1-minute videos" section hidden until real videos are added to the slots.
 - Result: 0 placeholder labels on any page; device × page regression: no issues.
 - Still needs the owner: legal text (privacy, terms, refund) after legal review; lead API for the contact form (now hands off to WhatsApp); team photos; real HMS recordings to replace the illustrations.
+
+## 10 Nov 2026 — redesign of 3 sections Nazmul did not like
+- Docs: removed the second header bar (title + version chip + big red button); one quiet sidebar (title, search, thin red active marker, "Use with AI" box at the bottom), "On this page" column on wide screens, metadata as one chip row, draft note moved to the page foot.
+- Pricing cards: removed reserved empty heights under the price, dropped the "Best for:" label (chips stay), buttons calm white for all plans and red only on the highlighted plan.
+- "At the desk…" platforms: one composed scene — display in the centre, the two phones in front of it — with one label row; phone loops re-rendered with larger UI so text is readable.
+- Device × page regression: no issues.

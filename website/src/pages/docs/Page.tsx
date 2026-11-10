@@ -3,7 +3,7 @@ import { ArrowLeft, ArrowRight, ChevronRight, MapPin } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { docs } from '@/data/docs'
 import NotFound from '../not-found'
-import { CopyButton, DocsShell, copyPage, useDocTitle } from './DocsShell'
+import { CopyButton, DocsShell, copyPage, slugify, useDocTitle } from './DocsShell'
 
 const statusCls = { 'Live': 'bg-ok-soft text-ok', 'Coming soon': 'bg-soon-soft text-soon', 'Rolling out': 'bg-brand-soft text-brand' } as const
 
@@ -15,31 +15,32 @@ export default function DocPage() {
   useDocTitle(d ? `${d.title} — BinGi docs` : 'Page not found — BinGi', d?.summary ?? '')
   if (!d) return <NotFound />
   const prev = docs[i - 1], next = docs[i + 1]
+  const toc = [...d.sections.map((s) => ({ id: slugify(s.heading), label: s.heading })), ...(d.fixes?.length ? [{ id: 'common-issues', label: t({ bn: 'সাধারণ সমস্যা', en: 'Common issues' }) }] : [])]
 
   return (
-    <DocsShell>
+    <DocsShell toc={toc}>
       <article className="max-w-[780px]">
-        <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[13px] text-muted-foreground">
-          <Link to="/docs" className="-ml-2 inline-flex min-h-10 items-center px-2 hover:text-ink">Docs</Link><ChevronRight className="size-3.5" aria-hidden="true" /><span>{d.group}</span>
-        </nav>
-        <div className="mt-2 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <h1 className="font-[family-name:var(--font-display)] text-[32px] md:text-[44px] font-semibold leading-[1.05] tracking-[-0.03em]">{d.title}</h1>
+        <div className="flex items-center justify-between gap-3">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[13px] text-muted-foreground">
+            <Link to="/docs" className="-ml-2 inline-flex min-h-10 items-center px-2 hover:text-ink">Docs</Link><ChevronRight className="size-3.5" aria-hidden="true" /><span>{d.group}</span>
+          </nav>
           <CopyButton text={copyPage(d)} label={t({ bn: 'AI-এর জন্য কপি', en: 'Copy for AI' })} />
         </div>
+        <h1 className="mt-2 font-[family-name:var(--font-display)] text-[34px] md:text-[46px] font-semibold leading-[1.05] tracking-[-0.03em]">{d.title}</h1>
         <p className="lead mt-3">{d.summary}</p>
 
         {(d.where || d.plan || d.status) && (
-          <dl className="mt-5 grid gap-2 rounded-[16px] border border-line bg-white p-4 text-[14px] sm:grid-cols-[auto_1fr] sm:gap-x-4">
-            {d.where && <><dt className="flex items-center gap-1.5 font-medium text-muted-foreground"><MapPin className="size-4" aria-hidden="true" />Where</dt><dd>{d.where}</dd></>}
-            {d.plan && <><dt className="font-medium text-muted-foreground">Plan</dt><dd><span className="chip">{d.plan}</span></dd></>}
-            {d.status && <><dt className="font-medium text-muted-foreground">Status</dt><dd><span className={`rounded-full px-2.5 py-0.5 text-[12px] font-semibold ${statusCls[d.status]}`}>{d.status}</span></dd></>}
-          </dl>
+          <div className="mt-5 flex flex-wrap items-center gap-2 text-[13px]">
+            {d.status && <span className={`rounded-full px-2.5 py-1 font-semibold ${statusCls[d.status]}`}>{d.status}</span>}
+            {d.plan && <span className="chip py-1">{d.plan}</span>}
+            {d.where && <span className="inline-flex items-center gap-1.5 text-muted-foreground"><MapPin className="size-3.5" aria-hidden="true" />{d.where}</span>}
+          </div>
         )}
 
-        <div className="mt-8 space-y-9">
+        <div className="mt-10 space-y-10 border-t border-line pt-8">
           {d.sections.map((s) => (
-            <section key={s.heading}>
-              <h2 className="text-[22px] font-semibold tracking-tight">{s.heading}</h2>
+            <section key={s.heading} id={slugify(s.heading)} className="scroll-mt-28">
+              <h2 className="text-[21px] font-semibold tracking-tight">{s.heading}</h2>
               {s.text && <p className="mt-2 text-[16px] leading-relaxed text-ink/85">{s.text}</p>}
               {s.list && <ul className="mt-3 space-y-2">{s.list.map((x) => <li key={x} className="flex gap-3 text-[16px] leading-relaxed"><span className="mt-[10px] size-1.5 shrink-0 rounded-full bg-brand" aria-hidden="true" />{x}</li>)}</ul>}
               {s.steps && (
@@ -63,8 +64,8 @@ export default function DocPage() {
           ))}
 
           {d.fixes && d.fixes.length > 0 && (
-            <section>
-              <h2 className="text-[22px] font-semibold tracking-tight">{t({ bn: 'সাধারণ সমস্যা', en: 'Common issues' })}</h2>
+            <section id="common-issues" className="scroll-mt-28">
+              <h2 className="text-[21px] font-semibold tracking-tight">{t({ bn: 'সাধারণ সমস্যা', en: 'Common issues' })}</h2>
               <div className="mt-3 space-y-3">
                 {d.fixes.map((f) => (
                   <details key={f.symptom} className="group card p-0 open:shadow-lift">
@@ -82,7 +83,8 @@ export default function DocPage() {
           )}
         </div>
 
-        <nav className="mt-14 grid gap-3 border-t border-line pt-6 sm:grid-cols-2" aria-label="Previous and next">
+        <p className="mt-12 text-[12px] text-muted-foreground">{t({ bn: 'খসড়া v0.1 — সাপোর্ট টিম যাচাই করছে।', en: 'Draft v0.1 — being verified by the support team.' })}</p>
+        <nav className="mt-4 grid gap-3 border-t border-line pt-6 sm:grid-cols-2" aria-label="Previous and next">
           {prev ? <Link to={`/docs/${prev.slug}`} className="card glow-hover flex items-center gap-3 p-4 text-[15px]"><ArrowLeft className="size-4 text-brand" aria-hidden="true" /><span><span className="block text-[12px] text-muted-foreground">Previous</span>{prev.title}</span></Link> : <span />}
           {next && <Link to={`/docs/${next.slug}`} className="card glow-hover flex items-center justify-end gap-3 p-4 text-right text-[15px]"><span><span className="block text-[12px] text-muted-foreground">Next</span>{next.title}</span><ArrowRight className="size-4 text-brand" aria-hidden="true" /></Link>}
         </nav>

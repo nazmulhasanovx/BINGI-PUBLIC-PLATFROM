@@ -224,23 +224,20 @@ export default function PricingSection() {
                         : !rec && p.popular && <span className="shrink-0 rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
                     </div>
                     <p className="text-[14px] text-muted-foreground lg:min-h-[42px]">{t(p.tagline)}</p>
-                    <p className="flex flex-wrap content-start items-center gap-1.5 pt-1 text-[12px] lg:min-h-[56px]">
-                      <span className="font-semibold text-ink">{t({ bn: 'যাদের জন্য:', en: 'Best for:' })}</span>
+                    <p className="flex flex-wrap items-center gap-1.5 pt-1 text-[12px]" aria-label={t({ bn: 'যাদের জন্য', en: 'Best for' })}>
                       {fits.map((x) => <span key={x.id} className={`chip px-2 ${prop === x.id ? '!bg-brand !text-white' : ''}`}>{t(x.name)}</span>)}
                     </p>
-                    <div className="pt-2 lg:min-h-[64px]">
+                    <div className="pt-4">
                       {pr ? (
                         <>
                           <div className="flex items-baseline gap-1 text-ink">
                             <span className="text-[36px] font-semibold leading-none tracking-tight">৳<NumberFlow value={pr.perRoom} locales={locale} format={{ maximumFractionDigits: 1 }} /></span>
                             <span className="text-[14px] text-muted-foreground">/{t({ bn: 'রুম/মাস', en: 'room/month' })}</span>
                           </div>
-                          <p className="mt-1 lg:h-5 text-[13px] text-muted-foreground">
-                            {c.discount > 0 && <><span className="line-through">{taka(p.rate!)}</span> · {t({ bn: `সাশ্রয় ${taka(pr.saved)}`, en: `save ${taka(pr.saved)}` })}</>}
-                          </p>
+                          {c.discount > 0 && <p className="mt-1.5 text-[13px] text-muted-foreground"><span className="line-through">{taka(p.rate!)}</span> · {t({ bn: `সাশ্রয় ${taka(pr.saved)}`, en: `save ${taka(pr.saved)}` })}</p>}
                         </>
                       ) : (
-                        <><p className="text-[32px] font-semibold leading-none tracking-tight text-ink">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-1 lg:h-5 text-[13px] text-muted-foreground">{t({ bn: 'হোটেল গ্রুপ ও চেইন', en: 'For groups and chains' })}</p></>
+                        <><p className="text-[32px] font-semibold leading-none tracking-tight text-ink">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-1.5 text-[13px] text-muted-foreground">{t({ bn: 'হোটেল গ্রুপ ও চেইন', en: 'For groups and chains' })}</p></>
                       )}
                     </div>
                   </CardHeader>
@@ -248,11 +245,11 @@ export default function PricingSection() {
                   <CardContent className="flex flex-1 flex-col p-5 pt-0 lg:p-6 lg:pt-0">
                     {p.rate ? (
                       <a href={site.hmsRegister}
-                        className={`${pop ? 'btn-primary' : 'btn-dark'} mb-5 h-12 w-full rounded-xl text-[16px]`}>
+                        className={`${pop ? 'btn-primary' : 'btn-ghost'} mb-5 h-11 w-full text-[15px]`}>
                         {t({ bn: `${p.name} শুরু করুন`, en: `Get started with ${p.name}` })}
                       </a>
                     ) : (
-                      <Link to="/contact" className="mb-5 flex h-12 w-full items-center justify-center rounded-xl border border-line-strong bg-white text-[16px] font-medium text-ink transition-colors hover:bg-canvas">
+                      <Link to="/contact" className="btn-ghost mb-5 h-11 w-full text-[15px]">
                         {t({ bn: 'প্রয়োজন জানান', en: 'Discuss requirements' })}
                       </Link>
                     )}

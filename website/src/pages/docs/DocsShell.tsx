@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Link, NavLink } from 'react-router-dom'
-import { Bot, Check, Copy, FileText, Search } from 'lucide-react'
+import { Bot, Check, Copy, Search } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
-import { docs, DOCS_VERSION, fullMarkdown, pageToMarkdown, type DocPage } from '@/data/docs'
+import { docs, fullMarkdown, pageToMarkdown, type DocPage } from '@/data/docs'
 import { asset } from '@/lib/utils'
 
 const groups = [...new Set(docs.map((d) => d.group))]
@@ -15,15 +15,18 @@ export function useDocTitle(title: string, description: string) {
 }
 
 // Copy text with a short "Copied" confirmation.
-export function CopyButton({ text, label, variant = 'ghost' }: { text: () => string; label: string; variant?: 'ghost' | 'primary' }) {
+export function CopyButton({ text, label, variant = 'ghost', className = '' }: { text: () => string; label: string; variant?: 'ghost' | 'primary' | 'link'; className?: string }) {
   const { t } = useLang()
   const [done, setDone] = useState(false)
   const copy = async () => {
     try { await navigator.clipboard.writeText(text()); setDone(true); setTimeout(() => setDone(false), 1800) } catch { /* clipboard blocked */ }
   }
+  const cls = variant === 'primary' ? 'btn-primary h-10 px-4 text-[14px]'
+    : variant === 'link' ? 'inline-flex min-h-10 items-center gap-1.5 text-[13px] font-medium text-brand hover:underline underline-offset-4 cursor-pointer'
+    : 'btn-ghost h-10 px-3.5 text-[13px]'
   return (
-    <button onClick={copy} className={`${variant === 'primary' ? 'btn-primary' : 'btn-ghost'} h-10 px-4 text-[14px]`} aria-live="polite">
-      {done ? <Check className="size-4" aria-hidden="true" /> : <Copy className="size-4" aria-hidden="true" />}
+    <button onClick={copy} className={`${cls} ${className}`} aria-live="polite">
+      {done ? <Check className="size-3.5" aria-hidden="true" /> : <Copy className="size-3.5" aria-hidden="true" />}
       {done ? t({ bn: 'কপি হয়েছে', en: 'Copied' }) : label}
     </button>
   )
@@ -31,21 +34,23 @@ export function CopyButton({ text, label, variant = 'ghost' }: { text: () => str
 
 export const copyAll = () => fullMarkdown()
 export const copyPage = (d: DocPage) => () => pageToMarkdown(d)
+export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
-function DocsNav({ q }: { q: string }) {
-  const hit = (d: DocPage) => !q || (d.title + ' ' + d.summary + ' ' + pageToMarkdown(d)).toLowerCase().includes(q.toLowerCase())
+function DocsNav({ q, onPick }: { q: string; onPick: () => void }) {
+  const hit = (d: DocPage) => !q || (d.title + ' ' + pageToMarkdown(d)).toLowerCase().includes(q.toLowerCase())
   return (
-    <nav aria-label="Documentation" className="space-y-6">
+    <nav aria-label="Documentation" className="space-y-5">
       {groups.map((g) => {
         const items = docs.filter((d) => d.group === g && hit(d))
         if (!items.length) return null
         return (
           <div key={g}>
-            <p className="px-3 text-[12px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{g}</p>
-            <ul className="mt-1.5 space-y-0.5">
+            <p className="px-3 text-[12px] font-medium text-muted-foreground">{g}</p>
+            <ul className="mt-1">
               {items.map((d) => (
                 <li key={d.slug}>
-                  <NavLink to={`/docs/${d.slug}`} className={({ isActive }) => `flex min-h-10 items-center rounded-[10px] px-3 text-[14px] transition-colors ${isActive ? 'bg-brand-soft font-semibold text-brand' : 'text-ink/80 hover:bg-white hover:text-ink'}`}>
+                  <NavLink to={`/docs/${d.slug}`} onClick={onPick}
+                    className={({ isActive }) => `relative flex min-h-10 items-center rounded-[8px] px-3 text-[14px] transition-colors ${isActive ? 'font-medium text-ink before:absolute before:left-0 before:top-2.5 before:bottom-2.5 before:w-[2px] before:rounded-full before:bg-brand' : 'text-muted-foreground hover:text-ink'}`}>
                     {d.title}
                   </NavLink>
                 </li>
@@ -58,35 +63,44 @@ function DocsNav({ q }: { q: string }) {
   )
 }
 
-export function DocsShell({ children }: { children: ReactNode }) {
+export function DocsShell({ children, toc }: { children: ReactNode; toc?: { id: string; label: string }[] }) {
   const { t } = useLang()
   const [q, setQ] = useState('')
   const [open, setOpen] = useState(false)
-  const count = useMemo(() => docs.length, [])
   return (
-    <div className="container-x pt-6 md:pt-10">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line pb-4">
-        <Link to="/docs" className="flex min-h-11 items-center gap-2 text-[15px] font-semibold"><FileText className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'BinGi ডকুমেন্টেশন', en: 'BinGi docs' })}<span className="chip ml-1">{DOCS_VERSION.split(' · ')[0]}</span></Link>
-        <div className="flex flex-wrap items-center gap-2">
-          <a href={asset('/llms-full.txt')} className="btn-ghost h-10 px-4 text-[14px]"><Bot className="size-4" aria-hidden="true" />llms-full.txt</a>
-          <CopyButton text={copyAll} label={t({ bn: 'সব ডক AI-এর জন্য কপি', en: 'Copy all docs for AI' })} variant="primary" />
-        </div>
-      </div>
-
-      <div className="mt-6 grid gap-8 lg:grid-cols-[260px_1fr]">
-        <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto lg:pr-2">
-          <label className="relative block">
+    <div className="container-x pt-8 md:pt-12">
+      <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)] xl:grid-cols-[220px_minmax(0,1fr)_190px] lg:gap-12">
+        <aside className="lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7rem)] lg:overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <Link to="/docs" className="flex min-h-10 items-center px-3 text-[15px] font-semibold">{t({ bn: 'ডকুমেন্টেশন', en: 'Documentation' })}</Link>
+          <label className="relative mt-2 block">
             <span className="sr-only">Search docs</span>
             <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
-            <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true) }} placeholder={t({ bn: `${count}টা পাতায় খুঁজুন`, en: `Search ${count} pages` })}
-              className="h-11 w-full rounded-[12px] border border-line bg-white pl-9 pr-3 text-[14px] focus:outline-2 focus:outline-link" />
+            <input value={q} onChange={(e) => { setQ(e.target.value); setOpen(true) }} placeholder={t({ bn: 'খুঁজুন', en: 'Search' })}
+              className="h-10 w-full rounded-[10px] border border-line bg-white pl-9 pr-3 text-[14px] focus:outline-2 focus:outline-link" />
           </label>
           <button onClick={() => setOpen(!open)} aria-expanded={open} className="btn-ghost mt-3 h-10 w-full justify-between px-4 text-[14px] lg:hidden">
             {t({ bn: 'সব পাতা', en: 'All pages' })}<span aria-hidden="true">{open ? '−' : '+'}</span>
           </button>
-          <div className={`mt-4 ${open ? 'block' : 'hidden'} lg:block`}><DocsNav q={q} /></div>
+          <div className={`mt-5 ${open ? 'block' : 'hidden'} lg:block`}><DocsNav q={q} onPick={() => setOpen(false)} /></div>
+          <div className="mt-6 hidden rounded-[14px] bg-white p-3.5 ring-1 ring-line lg:block">
+            <p className="flex items-center gap-1.5 text-[13px] font-semibold"><Bot className="size-4 text-brand" aria-hidden="true" />{t({ bn: 'AI দিয়ে ব্যবহার', en: 'Use with AI' })}</p>
+            <CopyButton text={copyAll} label={t({ bn: 'সব ডক কপি', en: 'Copy all docs' })} variant="link" />
+            <a href={asset('/llms-full.txt')} className="flex min-h-10 items-center text-[13px] text-muted-foreground hover:text-ink">llms-full.txt</a>
+          </div>
         </aside>
+
         <div className="min-w-0">{children}</div>
+
+        {toc && toc.length > 1 && (
+          <nav aria-label="On this page" className="hidden xl:block">
+            <div className="sticky top-24">
+              <p className="text-[12px] font-medium text-muted-foreground">{t({ bn: 'এই পাতায়', en: 'On this page' })}</p>
+              <ul className="mt-2 border-l border-line">
+                {toc.map((x) => <li key={x.id}><a href={`#${x.id}`} className="-ml-px block border-l border-transparent py-1.5 pl-3 text-[13px] text-muted-foreground hover:border-brand hover:text-ink">{x.label}</a></li>)}
+              </ul>
+            </div>
+          </nav>
+        )}
       </div>
     </div>
   )
