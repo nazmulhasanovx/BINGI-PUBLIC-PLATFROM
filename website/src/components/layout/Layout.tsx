@@ -17,6 +17,7 @@ const nav = [
   { to: '/solutions', label: { bn: 'সলিউশন', en: 'Solutions' } },
   { to: '/themes', label: { bn: 'থিম', en: 'Themes' } },
   { to: '/pricing', label: { bn: 'প্রাইসিং', en: 'Pricing' } },
+  { to: '/docs', label: { bn: 'ডকস', en: 'Docs' } },
   { to: '/help', label: { bn: 'হেল্প', en: 'Help' } },
   { to: '/contact', label: { bn: 'যোগাযোগ', en: 'Contact' }, phoneOnly: true },
 ]
@@ -105,6 +106,7 @@ function Footer() {
         <div>
           <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'রিসোর্স', en: 'Resources' })}</h2>
           <ul className="space-y-2 text-[14px] text-muted-foreground">
+            <li><Link className="hover:text-ink" to="/docs">{t({ bn: 'ডকুমেন্টেশন', en: 'Documentation' })}</Link></li>
             <li><Link className="hover:text-ink" to="/help">{t({ bn: 'হেল্প সেন্টার', en: 'Help center' })}</Link></li>
             <li><Link className="hover:text-ink" to="/blog">{t({ bn: 'গাইড', en: 'Guides' })}</Link></li>
             <li><Link className="hover:text-ink" to="/changelog">{t({ bn: 'নতুন কী', en: 'What’s new' })}</Link></li>
@@ -168,7 +170,9 @@ export function Layout() {
   if (pathname !== firstPath.current) markHydrated() // during render, before the new page's effects: reveals play on client-side navigation only
   useEffect(() => {
     window.scrollTo(0, 0)
-    const m = seo[pathname.replace(/\/+$/, '') || '/'] ?? notFoundSeo
+    const key = pathname.replace(/\/+$/, '') || '/'
+    if (key.startsWith('/docs')) return // docs pages set their own title
+    const m = seo[key] ?? notFoundSeo
     document.title = m.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', m.description)
   }, [pathname])

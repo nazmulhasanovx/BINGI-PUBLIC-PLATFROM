@@ -4,7 +4,7 @@ import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
 
-import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation, loadSolution, loadPost } from './routes'
+import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation, loadSolution, loadPost, loadDoc } from './routes'
 
 const Products = lazy(loaders['/products'])
 const Pricing = lazy(loaders['/pricing'])
@@ -23,6 +23,8 @@ const Customers = lazy(loaders['/customers'])
 const Changelog = lazy(loaders['/changelog'])
 const Partners = lazy(loaders['/partners'])
 const Careers = lazy(loaders['/careers'])
+const Docs = lazy(loaders['/docs'])
+const Doc = lazy(loadDoc)
 
 // Prerender (build time) uses StaticRouter; the single-file review build keeps routes in memory;
 // the real site uses clean URLs.
@@ -60,6 +62,8 @@ export default function App({ ssrUrl }: { ssrUrl?: string }) {
               <Route path="changelog" element={<Changelog />} />
               <Route path="partners" element={<Partners />} />
               <Route path="careers" element={<Careers />} />
+              <Route path="docs" element={<Docs />} />
+              <Route path="docs/:slug" element={<Doc />} />
               {/* old URLs from the current site */}
               <Route path="ecosystem" element={<Navigate to="/products" replace />} />
               <Route path="start" element={<Navigate to="/pricing" replace />} />

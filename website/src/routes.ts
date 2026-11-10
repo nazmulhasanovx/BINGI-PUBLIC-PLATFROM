@@ -11,9 +11,11 @@ export const loaders = {
   '/changelog': () => import('./pages/changelog'),
   '/partners': () => import('./pages/partners'),
   '/careers': () => import('./pages/careers'),
+  '/docs': () => import('./pages/docs'),
 } as const
 export const loadSolution = () => import('./pages/solutions/Detail')
 export const loadPost = () => import('./pages/blog/Post')
+export const loadDoc = () => import('./pages/docs/Page')
 export const loadArticle = () => import('./pages/help/Article')
 export const loadLegal = () => import('./pages/legal')
 export const loadFoundation = () => import('./pages/foundation')

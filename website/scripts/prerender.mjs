@@ -8,6 +8,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const dist = path.join(root, 'dist')
 const { render } = await import(pathToFileURL(path.join(root, 'dist-ssr/entry-server.js')).href)
 const { seo, notFoundSeo } = await import(pathToFileURL(path.join(root, 'dist-ssr/seo.js')).href)
+const { docs, pageToMarkdown, fullMarkdown, llmsIndex } = await import(pathToFileURL(path.join(root, 'dist-ssr/docs.js')).href)
 const template = fs.readFileSync(path.join(dist, 'index.html'), 'utf8')
 const SITE = 'https://technology.bingi.com.bd'
 
@@ -35,6 +36,15 @@ function page(url, html, meta) {
     .replace(/<meta name="description"[^>]*>\n?/, '')
     .replace('<div id="root"></div>', `<div id="root" data-ssr="${url === '/404' ? '*' : url}">${html}</div>`)
 }
+
+// Docs: one page per doc + LLM-ready files (/llms.txt, /llms-full.txt, /docs/<slug>.md)
+seo['/docs'] = { title: 'BinGi documentation — modules, ecosystem and troubleshooting', description: 'Everything about BinGi in one place, written so you — or any AI assistant — can fix an issue fast.' }
+for (const d of docs) seo[`/docs/${d.slug}`] = { title: `${d.title} — BinGi docs`, description: d.summary }
+fs.mkdirSync(path.join(dist, 'docs'), { recursive: true })
+for (const d of docs) fs.writeFileSync(path.join(dist, 'docs', `${d.slug}.md`), pageToMarkdown(d))
+fs.writeFileSync(path.join(dist, 'llms.txt'), llmsIndex(SITE))
+fs.writeFileSync(path.join(dist, 'llms-full.txt'), fullMarkdown(SITE))
+console.log('wrote llms.txt, llms-full.txt and', docs.length, 'docs/*.md')
 
 const routes = Object.keys(seo)
 for (const url of routes) {
