@@ -89,3 +89,10 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Phones (<640px) hide supporting lines that repeat the heading: story intro, bento card sub-lines, platforms intro + sub-lines, team intro, CTA paragraph, footer tagline, products module/feature descriptions.
 - Story steps on phones: numbered list only (no 5 placeholder images). Bento on phones: Booking calendar keeps its loop, the other five become compact 2-up title cards.
 - Home on a 393px phone: 8,564 → 5,055 px tall (−41%). Desktop layout unchanged. Device × page regression: no issues.
+
+## 10 Nov 2026 — pricing section (21st.dev "pricing-section" pattern)
+- New `src/components/ui/pricing-section.tsx` (+ shadcn `card.tsx`, `timeline-animation.tsx`, `lib/utils.ts` `cn`, `@/` alias). Deps: `@number-flow/react`, `clsx`, `tailwind-merge` (motion, lucide-react already installed).
+- Kept from the component: blur timeline reveal, NumberFlow animated prices, gradient sliding switch, icon features + "includes" list with double-check bullets, radial glow, popular ring card.
+- Changed to BinGi: coral/brand-red gradients instead of blue, dark ink buttons, Pearl surfaces; real per-room catalogue (Monthly / 6 mo −10% / 12 mo −25%, room stepper, min billing 10, booking fees, activation offer, 4 plans incl. Custom). Offers, compare table and FAQ unchanged.
+- Reveal plays on client-side navigation and below the fold; on a direct load the prerendered content stays visible (no LCP/SEO hit).
+- Checked 1440/820/393: price switches (৳30 → ৳22.5 on 12 months), min-billing note, no h-scroll, no console errors. Lighthouse mobile /pricing/ 83–84 perf — same as before this change (LCP 3.5 s), a11y/BP/SEO 100.

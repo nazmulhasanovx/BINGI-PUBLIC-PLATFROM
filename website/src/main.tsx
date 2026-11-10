@@ -11,6 +11,7 @@ import '@fontsource/hind-siliguri/600.css'
 import './index.css'
 import App from './App'
 import { seo } from './data/seo'
+import { markHydrated } from './components/ui/timeline-animation'
 
 const root = document.getElementById('root')!
 const app = <StrictMode><App /></StrictMode>
@@ -20,4 +21,4 @@ const ssr = root.dataset.ssr
 // otherwise (dev, single-file preview, host fallback to another page) render fresh.
 const matches = ssr !== undefined && (ssr === '*' ? !(path in seo) : ssr === path)
 if (matches && root.firstElementChild) hydrateRoot(root, app)
-else { root.textContent = ''; createRoot(root).render(app) }
+else { markHydrated(); root.textContent = ''; createRoot(root).render(app) }

@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { markHydrated } from '../ui/timeline-animation'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import Lenis from 'lenis'
@@ -155,6 +156,8 @@ function useSmoothScroll() {
 export function Layout() {
   const { pathname } = useLocation()
   useSmoothScroll()
+  const firstPath = useRef(pathname)
+  if (pathname !== firstPath.current) markHydrated() // during render, before the new page's effects: reveals play on client-side navigation only
   useEffect(() => {
     window.scrollTo(0, 0)
     const m = seo[pathname.replace(/\/+$/, '') || '/'] ?? notFoundSeo

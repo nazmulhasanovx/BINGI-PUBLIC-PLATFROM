@@ -1,11 +1,9 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { BedDouble, Check, ChevronDown, Gift, Minus, Plus } from 'lucide-react'
+import { Check, ChevronDown, Gift, Minus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
-import { site } from '../../data/site'
-import { compare, cycles, MIN_BILLABLE, offers, plans, priceFor, type Cell, type Cycle } from '../../data/pricing'
-import { Accordion, NumberRoll, PageHeader, SectionHead, Segmented } from '../../components/ui/Ui'
-import { Reveal } from '../../components/ui/Reveal'
+import { compare, offers, plans, type Cell } from '../../data/pricing'
+import { Accordion, SectionHead } from '../../components/ui/Ui'
+import PricingSection from '@/components/ui/pricing-section'
 
 const faqs: { q: L; a: L }[] = [
   { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। ৬ মাসে সাবস্ক্রিপশনে ১০% আর ১২ মাসে ২৫% ছাড়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
@@ -23,102 +21,13 @@ function CellView({ c }: { c: Cell }) {
 }
 
 export default function Pricing() {
-  const { t, taka, num } = useLang()
-  const [cycle, setCycle] = useState<Cycle>('monthly')
-  const [rooms, setRooms] = useState(20)
+  const { t, taka } = useLang()
   const [showCompare, setShowCompare] = useState(false)
-  const c = cycles.find((x) => x.id === cycle)!
-  const setR = (n: number) => setRooms(Math.max(1, Math.min(10000, Math.round(n) || 1)))
 
   return (
     <div className="relative">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-[700px] -z-10 overflow-hidden" aria-hidden="true"><div className="absolute inset-0 bg-grid" /><div className="absolute -top-40 left-1/2 h-[480px] w-[720px] -translate-x-1/2 rounded-full bg-[#F7C9CD] opacity-35 blur-[80px] md:animate-float will-change-transform" /></div>
+      <PricingSection />
       <div className="container-x">
-        <PageHeader center title={t({ bn: 'যত রুম, তত দাম', en: 'Pay per room. Nothing hidden.' })} lead={t({ bn: 'প্রতি রুমের মাসিক রেট। প্রতিটা খরচ আলাদা করে দেখানো।', en: 'A simple monthly rate per room. Every charge shown separately.' })} />
-
-        {/* Calculator controls */}
-        <div className="mt-8 flex flex-col items-center gap-4">
-          <Segmented fill label="Billing period" value={cycle} onChange={setCycle}
-            options={cycles.map((x) => ({ id: x.id, label: t(x.label), badge: x.discount ? `−${num(x.discount * 100)}%` : undefined }))} />
-          <div className="card glow-border flex flex-wrap items-center justify-center gap-x-3 gap-y-1 px-4 py-3 w-full sm:w-auto">
-            <label htmlFor="rooms" className="flex items-center gap-2 text-[15px] font-medium"><BedDouble className="size-5 text-brand" aria-hidden="true" />{t({ bn: 'আপনার রুম সংখ্যা', en: 'Your rooms' })}</label>
-            <div className="flex items-center gap-1">
-              <button onClick={() => setR(rooms - 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="Fewer rooms"><Minus className="size-4" /></button>
-              <input id="rooms" type="number" inputMode="numeric" min={1} value={rooms} onChange={(e) => setR(+e.target.value)}
-                className="h-11 w-20 rounded-[10px] border border-line-strong text-center text-[17px] font-semibold focus:outline-2 focus:outline-link" />
-              <button onClick={() => setR(rooms + 1)} className="grid size-11 place-items-center rounded-full border border-line-strong bg-white cursor-pointer hover:bg-canvas" aria-label="More rooms"><Plus className="size-4" /></button>
-            </div>
-            <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => setR(+e.target.value)} aria-label="Rooms slider" className="h-11 w-44 accent-[#B11C29] cursor-pointer" />
-          </div>
-          <p className="text-[13px] text-muted-foreground" aria-live="polite">
-            {rooms < MIN_BILLABLE
-              ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে দেখানো হচ্ছে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
-              : t({ bn: 'ট্যাক্স প্রযোজ্য হলে আলাদা', en: 'Taxes extra where applicable' })}
-          </p>
-        </div>
-
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4 items-start lg:items-stretch">
-          {plans.map((p, i) => {
-            const pop = p.popular
-            const pr = p.rate ? priceFor(p.rate, rooms, cycle) : null
-            const added = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id)
-            return (
-              <Reveal key={p.id} delay={i * 60} className={`relative flex flex-col rounded-[16px] p-5 lg:p-6 border transition-[transform,box-shadow] duration-300 ${pop ? 'bg-gradient-to-b from-[#C42433] to-brand text-white border-brand shadow-[0_30px_60px_-16px_rgb(177_28_41/0.55)] lg:-translate-y-3' : 'bg-white border-line shadow-soft hover:-translate-y-1 hover:shadow-lift'}`}>
-                {pop && <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-ink px-3 py-1 text-[12px] font-semibold tracking-wide text-white whitespace-nowrap">{t({ bn: 'সবচেয়ে জনপ্রিয়', en: 'MOST POPULAR' })}</span>}
-                <h2 className="text-[20px] font-semibold">BinGi {p.name}</h2>
-                <p className={`mt-1 text-[14px] lg:min-h-[42px] ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t(p.tagline)}</p>
-
-                <div className="mt-3 lg:mt-4 lg:min-h-[104px]">
-                  {pr ? (
-                    <>
-                      <p className="text-[34px] font-semibold tracking-tight leading-none"><NumberRoll value={taka(pr.perRoom)} /><span className={`text-[14px] font-normal ${pop ? 'text-white/90' : 'text-muted-foreground'}`}> /{t({ bn: 'রুম/মাস', en: 'room/month' })}</span></p>
-                      {c.discount > 0 && <p className={`mt-1 text-[13px] line-through ${pop ? 'text-white/80' : 'text-muted-foreground'}`}>{taka(p.rate!)}</p>}
-                      <p className={`mt-2 text-[13px] leading-snug ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>
-                        {c.months === 1
-                          ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} rooms · ${taka(pr.total)}/month` })
-                          : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)} · সাশ্রয় ${taka(pr.saved)}`, en: `${pr.q} rooms · ${taka(pr.total)} for ${c.months} months · save ${taka(pr.saved)}` })}
-                      </p>
-                    </>
-                  ) : (
-                    <><p className="text-[30px] font-semibold tracking-tight leading-none">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-2 text-[13px] text-muted-foreground">{t({ bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after we review your needs' })}</p></>
-                  )}
-                </div>
-
-                {p.rate ? (
-                  <a href={site.hmsRegister} className={`btn w-full mt-4 ${pop ? 'bg-white text-brand hover:bg-white/90 shadow-lift' : 'btn-primary'}`}>{t({ bn: `${p.name} বেছে নিন`, en: `Choose ${p.name}` })}</a>
-                ) : (
-                  <Link to="/contact" className="btn-ghost w-full mt-4">{t({ bn: 'প্রয়োজন জানান', en: 'Discuss requirements' })}</Link>
-                )}
-
-                <ul className={`mt-5 grid gap-x-4 gap-y-2 text-[14px] md:grid-cols-2 lg:grid-cols-1 lg:gap-y-2.5 lg:flex-1 lg:content-start border-t pt-4 lg:pt-5 ${pop ? 'border-white/20' : 'border-line'}`}>
-                  {p.plus && <li className={`md:col-span-2 lg:col-span-1 text-[13px] font-semibold ${pop ? 'text-white/90' : 'text-ink'}`}>{t(p.plus)}</li>}
-                  {added.map((r, j) => <li key={j} className="flex gap-2.5"><Check className={`size-[18px] shrink-0 ${pop ? 'text-white' : 'text-ok'}`} aria-hidden="true" />{t(r.name)}</li>)}
-                  {p.id === 'starter' && <li className="flex gap-2.5"><Check className="size-[18px] shrink-0 text-ok" aria-hidden="true" />{t({ bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' })}</li>}
-                  {p.id === 'custom' && [{ bn: 'একাধিক প্রপার্টি', en: 'Multiple properties' }, { bn: 'আপনার মডিউল ও ওয়ার্কফ্লো', en: 'Your modules and workflow' }, { bn: 'মাইগ্রেশন ও ইন্টিগ্রেশন প্ল্যান', en: 'Migration and integration planning' }, { bn: 'ডেডিকেটেড অনবোর্ডিং', en: 'Dedicated onboarding' }].map((x, j) => (
-                    <li key={j} className="flex gap-2.5"><Check className="size-[18px] shrink-0 text-ok" aria-hidden="true" />{t(x)}</li>
-                  ))}
-                </ul>
-
-                {p.fees && (
-                  <div className={`mt-5 lg:mt-6 rounded-[10px] p-3.5 ${pop ? 'bg-white/12' : 'bg-canvas'}`}>
-                    <p className={`text-[12px] font-semibold tracking-wide uppercase ${pop ? 'text-white/90' : 'text-muted-foreground'}`}>{t({ bn: 'বুকিং ফি', en: 'Booking fees' })}</p>
-                    <div className="mt-1.5 grid gap-1 text-[13px]">
-                      {([['marketplace', { bn: 'মার্কেটপ্লেস', en: 'Marketplace' }], ['website', { bn: 'ওয়েবসাইট', en: 'Website' }], ['walkin', { bn: 'ওয়াক-ইন', en: 'Walk-in' }]] as const).map(([k, l]) => (
-                        <div key={k} className="flex items-baseline justify-between gap-3"><span className={pop ? 'text-white/90' : 'text-muted-foreground'}>{t(l)}</span><span className="font-semibold tabular-nums">{num(p.fees![k])}%</span></div>
-                      ))}
-                    </div>
-                    <p className={`mt-2 border-t pt-2 text-[12px] ${pop ? 'border-white/20 text-white/90' : 'border-line text-muted-foreground'}`}>
-                      {p.activation
-                        ? <>{t({ bn: 'অ্যাক্টিভেশন', en: 'Activation' })} <span className="line-through">{taka(p.activation.standard)}</span> <span className="font-semibold">{t({ bn: 'এখন', en: 'now' })} {taka(p.activation.now)}</span></>
-                        : t({ bn: 'কোনো অ্যাক্টিভেশন ফি নেই', en: 'No activation fee' })}
-                    </p>
-                  </div>
-                )}
-              </Reveal>
-            )
-          })}
-        </div>
-
         {/* Offers */}
         <div className="mt-8 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-start">
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-ok-soft text-ok"><Gift className="size-5" aria-hidden="true" /></span>
