@@ -21,7 +21,9 @@ function Item({ step, index, active, setActive }: { step: Step; index: number; a
       <span className={`mt-1 grid size-9 shrink-0 place-items-center rounded-full text-[15px] font-semibold transition-colors duration-300 ${active ? 'bg-linear-to-t from-brand to-brand-2 text-white' : 'bg-white text-muted-foreground border border-line'}`}>{index + 1}</span>
       <div>
         <h3 className="font-[family-name:var(--font-display)] text-[26px] md:text-[30px] font-semibold tracking-[-0.02em] leading-tight">{step.title}</h3>
-        <p className="mt-2 text-[17px] text-muted-foreground leading-relaxed max-w-[420px]">{step.text}</p>
+        <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-spring ${active ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>
+          <p className="overflow-hidden pt-2 text-[17px] text-muted-foreground leading-relaxed max-w-[420px]">{step.text}</p>
+        </div>
       </div>
     </motion.article>
   )

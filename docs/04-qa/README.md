@@ -101,3 +101,8 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 ## 10 Nov 2026 — Coral Glow across the system
 - Theme + utilities updated (see docs/02-ui-ux "Coral Glow"). Applied: all primary buttons (header, hero, CTA, forms), segmented controls (home property picker, products tabs, pricing switch), headline marks (hero "technology", products "three platforms", help "help", contact "property"), coral light behind every page header, check-dot bullets on home/products/pricing, story step numbers, pricing section now uses the shared utilities.
 - Device × page regression: no issues. No console errors.
+
+## 10 Nov 2026 — less text, cleaner (home)
+- Story (desktop): only the active step shows its one-line description (smooth reveal); others are titles only.
+- Bento: titles only (no sub-lines). Platforms section: no intro line, no sub-lines, no "Status to confirm" chips — device + name only (status stays on the Products page). Final CTA: no paragraph, centred, larger headline.
+- Device × page regression: no issues.
