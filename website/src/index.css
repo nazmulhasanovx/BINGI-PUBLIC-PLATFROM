@@ -20,6 +20,12 @@
   --color-brand: var(--primary);
   --color-brand-hover: #961722;
   --color-brand-soft: var(--accent);
+  --color-brand-2: var(--primary-2);
+  --color-brand-edge: var(--primary-edge);
+  --color-accent-tint: var(--accent-tint);
+  --color-accent-line: var(--accent-line);
+  --color-ink-2: var(--ink-2);
+  --color-ink-edge: var(--ink-edge);
   --color-link: var(--secondary);
   --color-canvas: var(--background);
   --color-ok: #166534;
@@ -29,7 +35,9 @@
 
   --shadow-soft: 0 1px 2px rgb(15 23 32 / 0.05), 0 6px 18px -6px rgb(15 23 32 / 0.08);
   --shadow-lift: 0 2px 6px rgb(15 23 32 / 0.06), 0 24px 48px -20px rgb(15 23 32 / 0.25);
-  --shadow-glow: 0 10px 28px -10px rgb(177 28 41 / 0.6);
+  --shadow-glow: 0 10px 24px -10px rgb(177 28 41 / 0.75);
+  --shadow-ink: 0 10px 24px -12px rgb(15 23 32 / 0.6);
+  --shadow-highlight: 0 24px 60px -28px rgb(177 28 41 / 0.45);
   --shadow-device: 0 50px 100px -30px rgb(11 34 53 / 0.45), 0 20px 40px -20px rgb(11 34 53 / 0.3);
 
   /* Apple-style spring curves (CSS linear()) — same physics as lib/motion.ts */
@@ -87,9 +95,21 @@ html, body { overflow-x: clip; }
 @utility card { @apply rounded-[18px] bg-white border border-line shadow-soft; }
 @utility card-hover { @apply transition-[transform,box-shadow] duration-[540ms] ease-spring hover:-translate-y-0.5 hover:shadow-lift; }
 @utility btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 h-11 text-[15px] font-medium whitespace-nowrap transition-[transform,box-shadow,background-color] duration-[280ms] ease-snappy active:scale-[0.96] active:duration-100 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-link cursor-pointer; }
-@utility btn-primary { @apply btn bg-brand text-white shadow-glow hover:bg-brand-hover hover:-translate-y-px; }
+/* Coral Glow buttons: red gradient (primary), ink gradient (dark), white (ghost) */
+@utility btn-primary { @apply btn text-white border border-brand-edge bg-linear-to-t from-brand to-brand-2 shadow-glow hover:brightness-110 hover:-translate-y-px; }
+@utility btn-dark { @apply btn text-white border border-ink-edge bg-linear-to-t from-ink to-ink-2 shadow-ink hover:brightness-110 hover:-translate-y-px; }
 @utility btn-ghost { @apply btn bg-white text-ink border border-line shadow-soft hover:-translate-y-px hover:shadow-lift; }
 @utility eyebrow { @apply text-[15px] font-medium text-brand; }
+/* dashed highlight on one key word in a headline */
+@utility mark { @apply inline-block rounded-xl border border-dashed border-brand/50 bg-brand-soft px-2 py-0.5 text-brand; }
+/* small coral chip ("Best for", tags) */
+@utility chip { @apply inline-flex items-center rounded-full bg-brand-soft px-2.5 py-0.5 text-[12px] font-semibold text-brand; }
+/* round check bullet */
+@utility check-dot { @apply grid size-6 shrink-0 place-content-center rounded-full border border-brand/40 bg-accent-line text-brand; }
+/* highlighted card: popular / best fit / recommended */
+@utility card-highlight { @apply border-transparent bg-accent-tint ring-2 ring-brand shadow-highlight; }
+/* soft coral light behind a page header (use on an absolutely positioned, aria-hidden div) */
+@utility glow-radial { background-image: radial-gradient(closest-side at 50% 40%, rgb(var(--glow) / .20) 0%, rgb(255 179 138 / .12) 45%, transparent 100%); }
 @utility display { font-family: var(--font-display); @apply tracking-[-0.035em] leading-[0.98] font-semibold; }
 @utility h2 { font-family: var(--font-display); @apply text-[34px] md:text-[48px] font-semibold tracking-[-0.03em] leading-[1.04]; }
 @utility lead { @apply text-[16px] sm:text-[17px] md:text-[19px] text-muted-foreground leading-relaxed; }

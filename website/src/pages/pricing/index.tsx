@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Check, ChevronDown, Gift, Minus } from 'lucide-react'
+import { CheckCheck, ChevronDown, Gift, Minus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { compare, offers, plans, type Cell } from '../../data/pricing'
 import { Accordion, SectionHead } from '../../components/ui/Ui'
@@ -14,7 +14,7 @@ const faqs: { q: L; a: L }[] = [
 
 function CellView({ c }: { c: Cell }) {
   const { t } = useLang()
-  if (c === true) return <Check className="size-[18px] text-ok mx-auto" aria-label="Included" />
+  if (c === true) return <span className="check-dot mx-auto"><CheckCheck className="size-3.5" aria-label="Included" /></span>
   if (c === false) return <span className="inline-flex items-center gap-1 text-muted-foreground"><Minus className="size-4" aria-hidden="true" /><span className="sr-only">Not included</span></span>
   if (c === 'tailored') return <span className="rounded-full bg-canvas px-2.5 py-1 text-[12px] text-muted-foreground">{t({ bn: 'প্রয়োজন মতো', en: 'Tailored' })}</span>
   return <span className="text-[13px] font-medium">{t(c)}</span>
@@ -30,10 +30,10 @@ export default function Pricing() {
       <div className="container-x">
         {/* Offers */}
         <div className="mt-8 card glow-border p-5 md:p-6 flex flex-col md:flex-row gap-4 md:items-start">
-          <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-ok-soft text-ok"><Gift className="size-5" aria-hidden="true" /></span>
+          <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
-            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2">{offers.map((o, i) => <li key={i} className="flex gap-2"><Check className="size-4 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(o)}</li>)}</ul>
+            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2">{offers.map((o, i) => <li key={i} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}</ul>
           </div>
         </div>
 

@@ -14,11 +14,13 @@ export function SectionHead({ eyebrow, title, lead, center = true }: { eyebrow?:
 }
 
 // Page header used by every inner page: left-aligned display title, one-line lead, optional action.
-export function PageHeader({ title, lead, children, center = false }: { title: string; lead?: string; children?: ReactNode; center?: boolean }) {
+export function PageHeader({ title, lead, children, center = false, mark }: { title: string; lead?: string; children?: ReactNode; center?: boolean; mark?: string }) {
+  const at = mark ? title.indexOf(mark) : -1
   return (
-    <header className={`pt-8 md:pt-14 pb-2 ${center ? 'text-center mx-auto max-w-[760px]' : 'grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-end'}`}>
+    <header className={`relative isolate pt-8 md:pt-14 pb-2 ${center ? 'text-center mx-auto max-w-[760px]' : 'grid gap-6 md:grid-cols-[1.4fr_1fr] md:items-end'}`}>
+      <div aria-hidden="true" className="glow-radial pointer-events-none absolute left-1/2 -top-28 h-[460px] w-[min(980px,140%)] -translate-x-1/2 -z-10" />
       <div>
-        <h1 className="display text-[40px] md:text-[60px] text-ink text-balance">{title}</h1>
+        <h1 className="display text-[40px] md:text-[60px] text-ink text-balance">{at < 0 ? title : <>{title.slice(0, at)}<span className="mark px-1.5 py-0">{mark}</span>{title.slice(at + mark!.length)}</>}</h1>
         {lead && <p className={`lead mt-4 max-w-[560px] text-pretty ${center ? 'mx-auto' : ''}`}>{lead}</p>}
       </div>
       {children && <div className={center ? 'mt-8 flex justify-center' : 'md:justify-self-end'}>{children}</div>}
@@ -71,7 +73,7 @@ export function PillTabs<T extends string>({ value, onChange, options, label, to
   const h = size === 'sm' ? 'h-10 px-3 text-[13px]' : fill
     ? `${hasBadge ? 'h-14 flex-col gap-0.5 rounded-[18px] sm:flex-row sm:gap-2 sm:rounded-full' : 'h-11'} px-1 text-[13px] sm:h-10 sm:px-4 sm:text-[14px] justify-center`
     : 'h-11 px-4 text-[14px]'
-  const pill = tone === 'brand' ? 'bg-brand' : 'bg-ink'
+  const pill = tone === 'brand' ? 'bg-linear-to-t from-brand via-[#D42F3C] to-[#E8404A] shadow-[0_6px_18px_-6px_rgb(177_28_41/0.6)]' : 'bg-ink'
   return (
     <MotionConfig transition={reduce ? { duration: 0 } : snappy}>
       <div role="tablist" aria-label={label} style={fill ? { gridTemplateColumns: `repeat(${options.length}, minmax(0, 1fr))` } : undefined}

@@ -46,7 +46,7 @@ export default function Contact() {
 
   return (
     <div className="container-x">
-      <PageHeader title={t({ bn: 'চলুন কথা বলি', en: "Let's talk about your property" })} lead={t({ bn: 'ডেমো বুক করুন, বা সরাসরি WhatsApp-এ লিখুন। ঢাকা থেকে আমাদের টিম উত্তর দেয়।', en: 'Book a demo or write to us on WhatsApp. Our team answers from Dhaka.' })} />
+      <PageHeader mark={t({ bn: 'কথা', en: 'property' })} title={t({ bn: 'চলুন কথা বলি', en: "Let's talk about your property" })} lead={t({ bn: 'ডেমো বুক করুন, বা সরাসরি WhatsApp-এ লিখুন। ঢাকা থেকে আমাদের টিম উত্তর দেয়।', en: 'Book a demo or write to us on WhatsApp. Our team answers from Dhaka.' })} />
       <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-6">
           <div className="card p-6">

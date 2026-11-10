@@ -97,3 +97,7 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - Reveal plays on client-side navigation and below the fold; on a direct load the prerendered content stays visible (no LCP/SEO hit).
 - Checked 1440/820/393: price switches (৳30 → ৳22.5 on 12 months), min-billing note, no h-scroll, no console errors. Lighthouse mobile /pricing/ 83–84 perf — same as before this change (LCP 3.5 s), a11y/BP/SEO 100.
 - Plan recommendation: every card shows "Best for" (Starter → Home/flat, Guest house · Business → Hotel · Ultra → Resort · Custom → Hotel group — same mapping as the home page picker, `propertyTypes` in `data/pricing.ts`). "Your property" picker above the cards marks the fitting plan "Best fit" and dims the others. Small phones: billing switch uses short labels (6 mo / 12 mo); picker wraps. Device × page regression: no issues.
+
+## 10 Nov 2026 — Coral Glow across the system
+- Theme + utilities updated (see docs/02-ui-ux "Coral Glow"). Applied: all primary buttons (header, hero, CTA, forms), segmented controls (home property picker, products tabs, pricing switch), headline marks (hero "technology", products "three platforms", help "help", contact "property"), coral light behind every page header, check-dot bullets on home/products/pricing, story step numbers, pricing section now uses the shared utilities.
+- Device × page regression: no issues. No console errors.

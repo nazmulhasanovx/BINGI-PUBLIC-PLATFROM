@@ -19,7 +19,7 @@ export default function Help() {
 
   return (
     <div className="container-x">
-      <PageHeader title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} lead={t({ bn: 'ধাপে ধাপে গাইড, ১ মিনিটের ভিডিও, আর দরকার হলে আমাদের টিম।', en: 'Step-by-step guides, one-minute videos and our team when you need us.' })}>
+      <PageHeader mark={t({ bn: 'সাহায্য', en: 'help' })} title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} lead={t({ bn: 'ধাপে ধাপে গাইড, ১ মিনিটের ভিডিও, আর দরকার হলে আমাদের টিম।', en: 'Step-by-step guides, one-minute videos and our team when you need us.' })}>
         <label className="relative block w-full md:w-[380px]">
           <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" aria-hidden="true" />

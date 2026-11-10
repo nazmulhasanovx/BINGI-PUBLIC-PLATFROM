@@ -201,3 +201,21 @@ Next step for mobile LCP < 2.5 s: prerender each page to static HTML at build ti
 - Tabs/segmented controls use `role="tab"` + `aria-selected`; accordion uses `aria-expanded`.
 - Form: visible labels, error under the field, focus jumps to first error, `aria-invalid`.
 - Language: **English is the site language** (founder direction 9 Nov 2026). বাংলা remains available from the header toggle (remembered per browser); in বাংলা numbers show in Bangla digits.
+
+## Coral Glow — system colour combination (10 Nov 2026)
+Set by the pricing page and approved by Nazmul as the look for the whole system. Tokens live in `bingi-theme.css`; utilities in `website/src/index.css`; live demo on `/foundation` (first block).
+
+| Token | Value | Use |
+|---|---|---|
+| `--primary` → `--primary-2` | #B11C29 → #D9343F | Red gradient (bottom → top): primary buttons, active segmented pill, step numbers |
+| `--primary-edge` | #E0485A | 1px edge on red gradient buttons |
+| `--accent` | #FFE7E4 (was #FCEDEE) | Coral blush: chips, the dashed headline mark, discount badges |
+| `--accent-tint` | #FFF6F5 | Highlighted card surface (popular / best fit) |
+| `--accent-line` | #FFF1EF | Check-dot fill |
+| `--ink` → `--ink-2` | #0F1720 → #4A5562 | Dark gradient: secondary buttons |
+| `--glow` | 253 65 63 | Coral radial light behind page headers |
+
+Utilities: `btn-primary` (red gradient + coral shadow), `btn-dark` (ink gradient), `btn-ghost` (white), `mark` (dashed coral highlight on ONE key word per headline), `chip`, `check-dot` (round check bullet, replaces green ticks in marketing lists), `card-highlight` (ring + tint — one per view), `glow-radial`.
+
+Rules: one `mark` per headline · one `card-highlight` per view · green stays only for status ("Live") and success states · language toggle keeps the ink pill.
+Contrast: white on #B11C29 6.85, on #D9343F 4.65 · #B11C29 on #FFE7E4 5.8 · #8E1621 on #FFE7E4 7.78 · white on #4A5562 7.59.

@@ -9,6 +9,13 @@ const ease = [0.22, 1, 0.36, 1] as const
 
 // The one orchestrated moment of the page: headline lines rise in sequence, the bay-sunrise
 // horizon brightens, then the product rises over the horizon and flattens as you scroll.
+// Coral Glow: one key word in the headline gets the dashed coral mark
+function withMark(line: string, word: string) {
+  const i = line.indexOf(word)
+  if (i < 0) return line
+  return <>{line.slice(0, i)}<span className="mark px-1.5 py-0 leading-[1.05]">{word}</span>{line.slice(i + word.length)}</>
+}
+
 export function Hero() {
   const { t } = useLang()
   const reduce = useReducedMotion()
@@ -40,7 +47,7 @@ export function Hero() {
       <div className="container-x pt-8 md:pt-14">
         <div className="grid gap-5 md:gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
           <h1 className="display text-[31px] min-[400px]:text-[34px] sm:text-[60px] lg:text-[76px] text-ink">
-            {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{l}</span>)}
+            {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{withMark(l, t({ bn: 'টেকনোলজি', en: 'technology' }))}</span>)}
           </h1>
           <div className="md:pb-3 rise" style={rise(2).style}>
             <p className="lead max-w-[420px]">

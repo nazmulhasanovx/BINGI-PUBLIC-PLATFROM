@@ -31,13 +31,13 @@ function PricingSwitch({ value, onChange }: { value: Cycle; onChange: (c: Cycle)
               className={`relative h-10 sm:h-12 shrink-0 cursor-pointer rounded-full px-2.5 sm:px-6 text-[14px] sm:text-[15px] font-medium transition-colors ${on ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>
               {on && (
                 <motion.span layoutId="cycle-pill" transition={ios}
-                  className="absolute inset-0 rounded-full border-4 border-brand bg-gradient-to-t from-brand via-[#D42F3C] to-[#E8404A] shadow-[0_6px_18px_-6px_rgb(177_28_41/0.6)]" />
+                  className="absolute inset-0 rounded-full border-4 border-brand bg-linear-to-t from-brand via-[#D42F3C] to-[#E8404A] shadow-[0_6px_18px_-6px_rgb(177_28_41/0.6)]" />
               )}
               <span className="relative flex items-center gap-1.5 sm:gap-2 whitespace-nowrap">
                 <span className="hidden sm:inline">{t(c.label)}</span>
                 <span className="sm:hidden">{c.months === 1 ? t(c.label) : t({ bn: `${num(c.months)} মাস`, en: `${c.months} mo` })}</span>
                 {c.discount > 0 && (
-                  <span className={`rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-[#FFE7E4] text-brand'}`}>−{num(c.discount * 100)}%</span>
+                  <span className={`rounded-full px-1.5 sm:px-2 py-0.5 text-[12px] font-semibold ${on ? 'bg-white/20 text-white' : 'bg-brand-soft text-brand'}`}>−{num(c.discount * 100)}%</span>
                 )}
               </span>
             </button>
@@ -111,8 +111,7 @@ export default function PricingSection() {
   return (
     <div ref={ref} className="relative isolate overflow-hidden pb-4 pt-12 md:pt-20">
       {/* soft coral light (component's radial glow, BinGi colours) */}
-      <div aria-hidden="true" className="pointer-events-none absolute left-[10%] right-[10%] top-0 -z-10 h-[620px]"
-        style={{ backgroundImage: 'radial-gradient(closest-side at 50% 40%, rgb(253 65 63 / .20) 0%, rgb(255 179 138 / .12) 45%, transparent 100%)' }} />
+      <div aria-hidden="true" className="glow-radial pointer-events-none absolute left-[10%] right-[10%] top-0 -z-10 h-[620px]" />
 
       <div className="container-x">
         <div className="mx-auto mb-6 max-w-3xl text-center">
@@ -120,7 +119,7 @@ export default function PricingSection() {
             className="font-[family-name:var(--font-display)] text-[34px] sm:text-[46px] md:text-[60px] font-semibold leading-[1.02] tracking-[-0.035em] text-ink">
             {t({ bn: 'যত রুম, তত দাম। কিছুই ', en: 'Pay per room. Nothing ' })}
             <TimelineContent as="span" animationNum={1} timelineRef={ref} customVariants={reveal}
-              className="inline-block rounded-xl border border-dashed border-brand/50 bg-[#FFE7E4] px-2 py-0.5 text-brand">
+              className="mark">
               {t({ bn: 'লুকানো নয়', en: 'hidden' })}
             </TimelineContent>
           </TimelineContent>
@@ -161,7 +160,7 @@ export default function PricingSection() {
             const inc = includesFor(p)
             return (
               <TimelineContent key={p.id} animationNum={4 + i} timelineRef={ref} customVariants={reveal} className="h-full">
-                <Card className={`relative flex h-full flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'border-transparent bg-[#FFF6F5] ring-2 ring-brand shadow-[0_24px_60px_-28px_rgb(177_28_41/0.45)]' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
+                <Card className={`relative flex h-full flex-col transition-[opacity,box-shadow] duration-300 ${pop ? 'card-highlight' : 'bg-white glow-hover'} ${rec && !recd ? 'opacity-70' : ''}`}>
                   <CardHeader className="p-5 lg:p-6 text-left">
                     <div className="flex items-start justify-between gap-2">
                       <h2 className="text-[22px] lg:text-[24px] font-semibold tracking-tight text-ink">{p.name}</h2>
@@ -172,7 +171,7 @@ export default function PricingSection() {
                     <p className="text-[14px] text-muted-foreground lg:min-h-[42px]">{t(p.tagline)}</p>
                     <p className="flex flex-wrap content-start items-center gap-1.5 pt-1 text-[12px] lg:min-h-[56px]">
                       <span className="font-semibold text-ink">{t({ bn: 'যাদের জন্য:', en: 'Best for:' })}</span>
-                      {fits.map((x) => <span key={x.id} className={`rounded-full px-2 py-0.5 font-medium ${prop === x.id ? 'bg-brand text-white' : 'bg-[#FFE7E4] text-brand'}`}>{t(x.name)}</span>)}
+                      {fits.map((x) => <span key={x.id} className={`chip px-2 ${prop === x.id ? '!bg-brand !text-white' : ''}`}>{t(x.name)}</span>)}
                     </p>
                     <div className="pt-2 lg:min-h-[64px]">
                       {pr ? (
@@ -194,9 +193,7 @@ export default function PricingSection() {
                   <CardContent className="flex flex-1 flex-col p-5 pt-0 lg:p-6 lg:pt-0">
                     {p.rate ? (
                       <a href={site.hmsRegister}
-                        className={`mb-5 flex h-12 w-full items-center justify-center rounded-xl text-[16px] font-medium text-white transition-[transform,filter] duration-300 hover:brightness-110 active:scale-[.98] ${pop
-                          ? 'border border-[#E0485A] bg-gradient-to-t from-brand to-[#D9343F] shadow-[0_10px_24px_-10px_rgb(177_28_41/0.75)]'
-                          : 'border border-[#3B4652] bg-gradient-to-t from-ink to-[#4A5562] shadow-[0_10px_24px_-12px_rgb(15_23_32/0.6)]'}`}>
+                        className={`${pop ? 'btn-primary' : 'btn-dark'} mb-5 h-12 w-full rounded-xl text-[16px]`}>
                         {t({ bn: `${p.name} শুরু করুন`, en: `Get started with ${p.name}` })}
                       </a>
                     ) : (
@@ -219,8 +216,8 @@ export default function PricingSection() {
                       <ul className="space-y-2">
                         {inc.slice(1).map((x, j) => (
                           <li key={j} className="flex items-center gap-3 text-[14px] text-muted-foreground">
-                            <span className={`grid size-6 shrink-0 place-content-center rounded-full border ${pop ? 'border-brand bg-white' : 'border-brand/40 bg-[#FFF1EF]'}`}>
-                              <CheckCheck className="size-3.5 text-brand" aria-hidden="true" />
+                            <span className={`check-dot ${pop ? '!border-brand !bg-white' : ''}`}>
+                              <CheckCheck className="size-3.5" aria-hidden="true" />
                             </span>
                             {t(x)}
                           </li>

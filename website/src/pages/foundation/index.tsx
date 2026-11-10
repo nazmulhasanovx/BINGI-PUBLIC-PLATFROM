@@ -2,7 +2,8 @@
 // left = preset + token groups, right = live components rendered with those tokens.
 // Numbers in the preview are SAMPLE DATA for showing the theme, not product claims.
 import { useEffect, useState } from 'react'
-import { Check, Copy, Minus, Plus } from 'lucide-react'
+import { Check, CheckCheck, Copy, Minus, Plus } from 'lucide-react'
+import { PillTabs } from '../../components/ui/Ui'
 import themeCss from '../../styles/bingi-theme.css?raw'
 
 type Preset = 'pearl' | 'bay'
@@ -12,6 +13,7 @@ const groups: { name: string; rows: [string, string?][] }[] = [
   { name: 'Primary', rows: [['primary', 'primary-foreground']] },
   { name: 'Secondary', rows: [['secondary', 'secondary-foreground']] },
   { name: 'Accent', rows: [['accent', 'accent-foreground']] },
+  { name: 'Coral Glow', rows: [['primary-2'], ['primary-edge'], ['accent-tint'], ['accent-line'], ['ink-2'], ['ink-edge']] },
   { name: 'Base', rows: [['background', 'foreground']] },
   { name: 'Card', rows: [['card', 'card-foreground']] },
   { name: 'Muted', rows: [['muted', 'muted-foreground']] },
@@ -51,6 +53,37 @@ function Spark({ color = 'var(--chart-1)', fill = false, points }: { color?: str
 
 const sample = <span className="rounded-full bg-muted px-2 py-0.5 text-[12px] font-medium text-muted-foreground">Sample data</span>
 
+// "Coral Glow" — the colour combination set by the pricing page (10 Nov 2026), now the system default.
+function CoralGlow() {
+  const [cycle, setCycle] = useState<'m' | 's' | 'y'>('m')
+  return (
+    <section className="relative isolate">
+      <div aria-hidden="true" className="glow-radial pointer-events-none absolute -inset-x-10 -top-10 h-[260px] -z-10" />
+      <h2 className="text-[13px] font-medium text-muted-foreground mb-3">Coral Glow</h2>
+      <p className="font-[family-name:var(--font-display)] text-[34px] font-semibold tracking-[-0.03em] leading-tight">Pay per room. Nothing <span className="mark">hidden</span></p>
+      <div className="mt-5 flex flex-wrap items-center gap-3">
+        <button className="btn-primary">Primary</button>
+        <button className="btn-dark">Dark</button>
+        <button className="btn-ghost">Ghost</button>
+        <span className="chip">Best for: Hotel</span>
+      </div>
+      <div className="mt-5"><PillTabs label="Billing" value={cycle} onChange={setCycle} options={[{ id: 'm', label: 'Monthly' }, { id: 's', label: '6 months', badge: '−10%' }, { id: 'y', label: '12 months', badge: '−25%' }]} /></div>
+      <div className="mt-5 grid gap-4 sm:grid-cols-2">
+        <div className="card p-5">
+          <p className="text-[15px] font-semibold">Card</p>
+          <ul className="mt-3 space-y-2 text-[14px] text-muted-foreground">
+            {['Check-dot bullets', 'Brand-red icons', 'White surface'].map((x) => <li key={x} className="flex items-center gap-3"><span className="check-dot"><CheckCheck className="size-3.5" aria-hidden="true" /></span>{x}</li>)}
+          </ul>
+        </div>
+        <div className="rounded-[20px] card-highlight p-5">
+          <div className="flex items-start justify-between"><p className="text-[15px] font-semibold">Highlight card</p><span className="rounded-full bg-brand px-3 py-1 text-[12px] font-semibold text-white">Popular</span></div>
+          <p className="mt-2 text-[14px] text-muted-foreground">Popular / best-fit / recommended. One per view.</p>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function Preview() {
   const [target, setTarget] = useState(80)
   const [plan, setPlan] = useState<'starter' | 'business'>('business')
@@ -59,6 +92,7 @@ function Preview() {
   const bars = [62, 70, 55, 74, 68, 81, 77, 85, 79, 72, 88, 92]
   return (
     <div className="space-y-10 text-foreground">
+      <CoralGlow />
       <section>
         <h2 className="text-[13px] font-medium text-muted-foreground mb-3">Dashboard</h2>
         <div className="grid gap-4 md:grid-cols-2">

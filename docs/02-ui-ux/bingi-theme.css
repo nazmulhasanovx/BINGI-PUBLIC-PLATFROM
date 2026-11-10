@@ -17,7 +17,7 @@
   --secondary-foreground: #FFFFFF;  /* 6.7:1 */
   --muted: #E9EDF2;
   --muted-foreground: #4D5664;      /* 6.3:1 on muted, 7.4:1 on white */
-  --accent: #FCEDEE;                /* soft red for hover / selected */
+  --accent: #FFE7E4;                /* coral blush — chips, highlights, selected (pricing page) */
   --accent-foreground: #8E1621;     /* 8.1:1 */
   --destructive: #C81E1E;
   --destructive-foreground: #FFFFFF;/* 5.7:1 */
@@ -34,12 +34,12 @@
   --sidebar-foreground: #0F1720;
   --sidebar-primary: #B11C29;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #FCEDEE;
+  --sidebar-accent: #FFE7E4;
   --sidebar-accent-foreground: #8E1621;
   --sidebar-border: #E3E7EC;
   --sidebar-ring: #1D4ED8;
   --font-sans: "Instrument Sans", "Hind Siliguri", system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --shadow-color: #0B2235;
   --shadow-opacity: 0.08;
@@ -47,6 +47,14 @@
   --shadow-spread: -6px;
   --shadow-offset-x: 0px;
   --shadow-offset-y: 8px;
+  /* BinGi "Coral Glow" (not part of shadcn) — set by the pricing page, 10 Nov 2026 */
+  --primary-2: #D9343F;             /* top of the red gradient (buttons, active pill) */
+  --primary-edge: #E0485A;          /* 1px edge on red gradient buttons */
+  --accent-tint: #FFF6F5;           /* highlighted card surface (popular / best fit) */
+  --accent-line: #FFF1EF;           /* check-dot fill */
+  --ink-2: #4A5562;                 /* top of the dark button gradient */
+  --ink-edge: #3B4652;
+  --glow: 253 65 63;                /* coral, used as rgb(var(--glow) / a) for radial light */
   /* BinGi signature (not part of shadcn): Bay sunrise */
   --sunrise-coral: #FD413F;
   --sunrise-peach: #FFB38A;

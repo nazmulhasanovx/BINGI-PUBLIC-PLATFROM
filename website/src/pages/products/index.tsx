@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Check } from 'lucide-react'
+import { CheckCheck } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { modules, platformStatus } from '../../data/status'
 import type { MediaId } from '../../data/media'
@@ -57,10 +57,10 @@ export default function Products() {
 
   return (
     <div className="container-x">
-      <PageHeader title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and the same booking ID.' })} />
+      <PageHeader mark={t({ bn: 'তিনটা প্ল্যাটফর্ম', en: 'three platforms' })} title={t({ bn: 'একটা ইকোসিস্টেম, তিনটা প্ল্যাটফর্ম', en: 'One ecosystem, three platforms' })} lead={t({ bn: 'সব প্ল্যাটফর্ম একই ডেটা আর একই বুকিং নম্বরে চলে।', en: 'Every platform works on the same data and the same booking ID.' })} />
 
       <div className="sticky top-16 z-30 mt-8 -mx-5 px-5 py-3 bg-pearl/85 backdrop-blur-xl">
-        <div className="flex"><PillTabs fill tone="ink" label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'Modules' }) }]} /></div>
+        <div className="flex"><PillTabs fill label="Products" value={tab} onChange={setTab} options={[...platforms.map((x) => ({ id: x.id as Platform['id'] | 'modules', label: t(x.tab) })), { id: 'modules' as const, label: t({ bn: 'সব মডিউল', en: 'Modules' }) }]} /></div>
       </div>
 
       {p && (
@@ -73,7 +73,7 @@ export default function Products() {
             <h2 className="h2 mt-4">{t(p.title)}</h2>
             <p className="lead mt-3">{t(p.lead)}</p>
             <ul className="mt-6 space-y-3">
-              {p.features.map((f, i) => <li key={i} className="flex gap-3 text-[16px]"><Check className="size-5 text-ok shrink-0 mt-0.5" aria-hidden="true" />{t(f)}</li>)}
+              {p.features.map((f, i) => <li key={i} className="flex gap-3 text-[16px]"><span className="check-dot mt-0.5"><CheckCheck className="size-3.5" aria-hidden="true" /></span>{t(f)}</li>)}
             </ul>
           </Reveal>
         </section>
