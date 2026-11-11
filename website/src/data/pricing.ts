@@ -2,7 +2,7 @@ import type { L } from '../i18n/lang'
 
 // ONE pricing catalog — source: onbording-flow-/v4/03-PRICING-COMMERCIAL.md
 // (confirmed by Nazmul as THE pricing on 9 Nov 2026; final published commercial agreement still pending).
-// Formula: billable Q × per-room rate for the cycle × months. Q = max(rooms, 10). VAT separate.
+// Formula: billable Q × per-room rate for the cycle × months. Q = max(rooms, 10). No VAT is added at present (Nazmul, 11 Nov 2026).
 // 11 Nov 2026 (Nazmul): Starter ৳25 · Business ৳70 · Ultra ৳116; 6/12-month rates rounded to whole taka (table below).
 // In production fetch this from the same pricing API the HMS uses, keeping this shape.
 
@@ -39,7 +39,7 @@ export type Plan = {
 }
 
 export const plans: Plan[] = [
-  { id: 'starter', name: 'Starter', rate: 25, regular: 63, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
+  { id: 'starter', name: 'Starter', rate: 25, regular: 62, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
   { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
@@ -68,7 +68,7 @@ export const compare: Group[] = [
   ]},
   { name: { bn: 'হোটেল অপারেশন', en: 'Hotel operations' }, rows: [
     { name: { bn: 'হাউসকিপিং', en: 'Housekeeping' }, values: v(false, true, true), highlight: 'business' },
-    { name: { bn: 'রেস্টুরেন্ট / মিল ম্যানেজমেন্ট', en: 'Restaurant / meal management' }, values: v(false, true, true), highlight: 'business' },
+    { name: { bn: 'রেস্টুরেন্ট / মিল ম্যানেজমেন্ট', en: 'Restaurant / meal management' }, values: v(false, limited, { bn: 'পূর্ণ', en: 'Full' }), highlight: 'business' },
     { name: { bn: 'QR ফুড অর্ডার', en: 'QR food ordering' }, values: v(false, true, true), highlight: 'business' },
     { name: { bn: 'খরচ ব্যবস্থাপনা', en: 'Expense management' }, values: v(false, true, true), highlight: 'business' },
     { name: { bn: 'অন্যান্য সার্ভিস', en: 'Other services' }, values: v(false, true, true), highlight: 'business' },
@@ -98,8 +98,12 @@ export const cycleRates: Record<number, Record<Cycle, number>> = {
 }
 export const rateFor = (rate: number, cycle: Cycle) => cycleRates[rate]?.[cycle] ?? Math.round(rate * (1 - cycles.find((x) => x.id === cycle)!.discount))
 
-// Launch offer (11 Nov 2026): current rates are ~60% off the regular list price. No end date set yet.
+// Launch offer (11 Nov 2026): ~60% off the regular list price. Runs 3 months, until 11 Feb 2027;
+// hotels that join during the offer keep the launch price (Nazmul, 11 Nov 2026).
 export const LAUNCH_OFF = 60
+export const LAUNCH_UNTIL = { bn: '১১ ফেব্রুয়ারি ২০২৭', en: '11 Feb 2027' }
+// Theme Store: ৳50 per theme per month, free for now (Nazmul, 11 Nov 2026).
+export const THEME_PRICE = 50
 
 export function billable(rooms: number) { return Math.max(MIN_BILLABLE, Math.floor(rooms) || MIN_BILLABLE) }
 

@@ -163,3 +163,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-11: Launch offer −60% shown: regular Starter ৳63 · Business ৳175 · Ultra ৳290 struck through on cards, cost panel, offers, docs, SEO. Starter regular ৳63 chosen (25/63 ≈ 60%); confirm.
 - 2026-11-11: Ultra activation regular ৳29,500 (Nazmul) → ~~৳29,500~~ ৳8,999 −70%.
 - 2026-11-11: Synced with HMS/theme prototype status (other chat): Theme Store 21 premium themes (Luxury 10 + Signature 10 + POD) with real screenshots, coming soon; docs truth fixes (rates calendar + inventory stores were described as live → marked in testing); Room type form details from live; ecosystem 'Being redesigned' list; changelog entries. devtest NO ISSUES.
+- 2026-11-11: Nazmul decisions — Restaurant in Business (limited), Ultra full; Theme Store ৳50/theme/month, free for now; Starter regular ৳62; no VAT for now (all VAT mentions removed/updated); launch offer until 11 Feb 2027, joiners keep price.

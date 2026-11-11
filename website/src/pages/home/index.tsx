@@ -150,7 +150,7 @@ export default function Home() {
           <div className="ambient left-1/2 -translate-x-1/2 -bottom-10 h-[200px] w-[70%] opacity-50" aria-hidden="true" />
           <div>
             <h2 className="h2">{t({ bn: 'প্রতি রুমে দাম', en: 'Priced per room' })}</h2>
-            <p className="lead mt-3">{t({ bn: 'সর্বনিম্ন ১০ রুম। ৬ ও ১২ মাসে কম রেট। VAT আলাদা।', en: 'From 10 rooms. Lower rates on 6 and 12 months. VAT extra.' })}</p>
+            <p className="lead mt-3">{t({ bn: 'সর্বনিম্ন ১০ রুম। লঞ্চ অফার −৬০%। ৬ ও ১২ মাসে আরও কম।', en: 'From 10 rooms. Launch offer −60%. Even less on 6 and 12 months.' })}</p>
           </div>
           <div className="grid grid-cols-3 divide-x divide-line">
             {plans.filter((p) => p.rate).map((p) => (

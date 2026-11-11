@@ -34,7 +34,7 @@ export default function Themes() {
           <div className="max-w-[520px]">
             <span className="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-medium">{t({ bn: 'শীঘ্রই আসছে', en: 'Coming soon' })}</span>
             <h2 className="mt-3 h2">{t({ bn: 'থিম স্টোর', en: 'Theme Store' })}</h2>
-            <p className="mt-3 text-[16px] text-white/80">{t({ bn: '২১টা প্রিমিয়াম থিম, যেকোনো প্ল্যানে মাসিক অ্যাড-অন হিসেবে।', en: '21 premium themes, a monthly add-on on any plan.' })}</p>
+            <p className="mt-3 text-[16px] text-white/80">{t({ bn: '২১টা প্রিমিয়াম থিম, যেকোনো প্ল্যানে।', en: '21 premium themes, on any plan.' })} <span className="whitespace-nowrap"><s className="text-white/50">{t({ bn: '৳৫০/মাস', en: '৳50/month' })}</s> <b>{t({ bn: 'এখন ফ্রি', en: 'Free for now' })}</b></span></p>
           </div>
           <Link to="/contact" className="btn h-11 w-fit bg-white px-5 text-ink">{t({ bn: 'আগ্রহ জানান', en: 'Get notified' })}</Link>
         </div>
@@ -51,7 +51,7 @@ export default function Themes() {
             </div>
           </div>
         ))}
-        <p className="relative mt-6 text-[13px] text-white/60">{t({ bn: 'ডেমো হোটেলগুলো কাল্পনিক। থিমগুলো টেস্টিংয়ে, দাম এখনো ঠিক হয়নি।', en: 'Demo hotels are fictional. Themes are in testing; prices not set yet.' })}</p>
+        <p className="relative mt-6 text-[13px] text-white/60">{t({ bn: 'ডেমো হোটেলগুলো কাল্পনিক। থিমগুলো টেস্টিংয়ে।', en: 'Demo hotels are fictional. Themes are in testing.' })}</p>
       </section>
 
       <div className="mt-12 flex flex-col items-center gap-3 text-center">

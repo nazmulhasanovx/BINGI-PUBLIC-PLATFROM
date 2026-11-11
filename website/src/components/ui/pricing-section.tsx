@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { useLang, type L } from '@/i18n/lang'
 import { site } from '@/data/site'
-import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType, LAUNCH_OFF } from '@/data/pricing'
+import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType, LAUNCH_OFF, LAUNCH_UNTIL } from '@/data/pricing'
 import { ios } from '@/lib/motion'
 
 // Pricing section — structure and motion from the 21st.dev "pricing-section" component
@@ -213,7 +213,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
             sub={p.activation?.standard ? <ActivationLine plan={p} /> : undefined}>
             {p.activation ? money(act) : <span className="text-muted-foreground">{t({ bn: 'নেই', en: 'None' })}</span>}
           </Row>
-          <Row strong label={t({ bn: 'প্রথম বিল', en: 'First bill' })} sub={t({ bn: 'VAT আলাদা', en: 'VAT separate' })} value={first} />
+          <Row strong label={t({ bn: 'প্রথম বিল', en: 'First bill' })} sub={t({ bn: 'এখন কোনো VAT যোগ হয় না', en: 'No VAT added for now' })} value={first} />
           <Row label={t({ bn: 'এরপর', en: 'After that' })} sub={every}>{money(pr.total)}</Row>
         </div>
 
@@ -276,7 +276,11 @@ export default function PricingSection() {
       { bn: 'প্রপার্টি অনুযায়ী মডিউল', en: 'Modules per property' },
       { bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after review' },
     ]
-    const rows = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id).map((r) => r.name)
+    const rows: L[] = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id).map((r) => {
+      const cell = r.values[p.id]
+      return typeof cell === 'object' ? { bn: `${r.name.bn} (${cell.bn})`, en: `${r.name.en} (${cell.en.toLowerCase()})` } : r.name
+    })
+    if (p.id === 'ultra') rows.unshift({ bn: 'পূর্ণ রেস্টুরেন্ট ও বার', en: 'Full restaurant & bar' })
     if (p.id === 'starter') return [{ bn: 'Starter-এ আছে:', en: 'Starter includes:' }, ...rows, { bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' }]
     return [p.plus!, ...rows]
   }
@@ -308,7 +312,7 @@ export default function PricingSection() {
           <p className="text-center text-[13px] text-muted-foreground" aria-live="polite">
             {rooms < MIN_BILLABLE
               ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
-              : t({ bn: 'VAT আলাদা · SMS/ইমেইল নিজের প্রোভাইডার দিয়ে', en: 'VAT extra · SMS/email via your own provider' })}
+              : t({ bn: `লঞ্চ অফার ${LAUNCH_UNTIL.bn} পর্যন্ত · SMS/ইমেইল নিজের প্রোভাইডার দিয়ে`, en: `Launch offer until ${LAUNCH_UNTIL.en} · SMS/email via your own provider` })}
           </p>
         </TimelineContent>
 

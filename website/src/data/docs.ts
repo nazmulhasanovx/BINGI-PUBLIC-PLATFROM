@@ -115,7 +115,7 @@ export const docs: DocPage[] = [
         'Each user has a role (for example owner, manager, receptionist, housekeeping, waiter, accountant). The role decides which pages and buttons they see.',
         'Staff join with an invite and their own BinGi ID; one person keeps one BinGi account.',
       ] },
-      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store: 21 premium themes (Luxury and Signature collections), prices not set'] },
+      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store: 21 premium themes (Luxury and Signature collections), ৳50/month each, free for now'] },
       { heading: 'Being redesigned (in testing, not live)', list: ['Dashboard that changes by plan', 'Room / Accommodation page (live Rooms layout, out-of-order per room)', 'Discounts & Rates with a rates calendar', 'Guests and Reviews together, guest status from bookings', 'Staff: an Easy view for small teams', 'Inventory: stores, purchase orders, stock count, recipes', 'Other Services: a Today board with assignment', 'Owner onboarding in 6 parts'] },
     ],
   },
@@ -199,7 +199,7 @@ export const docs: DocPage[] = [
     ],
   },
   {
-    slug: 'meals', group: 'Modules', title: 'Meals — Restaurant & Bar', where: 'Daily operations › Meals', plan: 'Business and above (per current pricing)', status: 'Live',
+    slug: 'meals', group: 'Modules', title: 'Meals — Restaurant & Bar', where: 'Daily operations › Meals', plan: 'Business (limited) · Ultra (full)', status: 'Live',
     summary: 'Menu, POS orders, kitchen and QR ordering. Orders can be posted to a guest’s room bill.',
     sections: [
       { heading: 'Outlets', text: 'Each restaurant, bar or café is an outlet with its own menu, prices, tables and staff. Switch outlets at the top.' },
@@ -268,7 +268,7 @@ export const docs: DocPage[] = [
       { heading: 'Themes by plan', table: { head: ['Plan', 'Themes'], rows: [['Starter', 'NEST · COTTAGE · BUNK'], ['Business', '+ CITY · VILLA · FLAT · ESCAPE'], ['Ultra / Custom', 'All, including GRAND']] } },
       { heading: 'Publish', steps: ['Choose a theme and colour.', 'Edit text and photos.', 'Publish in Publishing & Ordering Channels. Changes stay a draft until you publish.'] },
       { heading: 'Domain', text: 'Connect your own domain from Website Management; until then the site uses a BinGi address.' },
-      { heading: 'Theme Store (coming soon)', text: '21 premium themes as a monthly add-on on any plan. In testing; prices are not set yet.' },
+      { heading: 'Theme Store (coming soon)', text: '21 premium themes as an add-on on any plan: ৳50 per theme per month, free for now. In testing.' },
     ],
     fixes: [
       { symptom: 'My changes do not show on the website', causes: ['Changes saved as draft, not published', 'Browser shows an old copy'], steps: ['Click Publish.', 'Reload the website (or open it in a private window).'] },
@@ -296,16 +296,16 @@ export const docs: DocPage[] = [
     summary: 'You pay per room per month. Every charge is shown separately.',
     sections: [
       { heading: 'Prices (per room, per month)', table: { head: ['Plan', 'Price', 'Activation', 'Booking fee: Marketplace / Website / Walk-in'], rows: [
-        ['Starter', '৳25 (regular ৳63) · 6 mo ৳23 · 12 mo ৳19', 'None', '12% / 1.5% / 0%'],
+        ['Starter', '৳25 (regular ৳62) · 6 mo ৳23 · 12 mo ৳19', 'None', '12% / 1.5% / 0%'],
         ['Business', '৳70 (regular ৳175) · 6 mo ৳63 · 12 mo ৳53', '৳14,500 — currently ৳4,999', '8% / 1% / 0%'],
         ['Ultra', '৳116 (regular ৳290) · 6 mo ৳105 · 12 mo ৳87', '৳29,500 — currently ৳8,999', '4% / 0.5% / 0%'],
         ['Custom', 'Quotation', '—', '—'],
       ] } },
-      { heading: 'Rules', list: ['Current prices are a launch offer, about 60% off the regular price (Starter ৳63 · Business ৳175 · Ultra ৳290). Regular prices may apply later; you will be told in advance.', 'Minimum billing is 10 rooms.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. VAT is a separate line.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
+      { heading: 'Rules', list: ['Current prices are a launch offer, about 60% off the regular price (Starter ৳62 · Business ৳175 · Ultra ৳290). The offer runs until 11 Feb 2027; hotels that join by then keep the launch price.', 'Minimum billing is 10 rooms.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. No VAT is added at present.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
       { heading: 'What each plan adds', table: { head: ['Plan', 'Adds'], rows: [
         ['Starter', 'Room/accommodation management · online & offline bookings · website management · domain management · limited website themes'],
-        ['Business', 'Everything in Starter + housekeeping · restaurant/meal management · QR food ordering · expense management · other services'],
-        ['Ultra', 'Everything in Business + full HRM · inventory · advanced operations · all website themes'],
+        ['Business', 'Everything in Starter + housekeeping · restaurant/meal management (limited) · QR food ordering · expense management · other services'],
+        ['Ultra', 'Everything in Business + full restaurant & bar · full HRM · inventory · advanced operations · all website themes'],
         ['Custom', 'Several properties, your modules and workflow, migration and dedicated onboarding'],
       ] } },
       { heading: 'Which plan for which property', table: { head: ['Property', 'Suggested plan'], rows: [['Home / flat', 'Starter'], ['Guest house', 'Starter'], ['Hotel', 'Business'], ['Resort', 'Ultra'], ['Hotel group', 'Custom']] } },

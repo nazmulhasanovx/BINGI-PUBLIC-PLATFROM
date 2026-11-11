@@ -33,7 +33,7 @@ export const changes: Change[] = [
     title: { bn: 'থিম স্টোর: ২১টা প্রিমিয়াম থিম', en: 'Theme Store: 21 premium themes' },
     items: [
       { bn: 'লাক্সারি কালেকশন (১০) ও সিগনেচার কালেকশন (১০), সাথে POD', en: 'Luxury Collection (10) and Signature Collection (10), plus POD' },
-      { bn: 'দাম এখনো ঠিক হয়নি', en: 'Prices not set yet' },
+      { bn: 'প্রতি থিম ৳৫০/মাস — এখন ফ্রি', en: '৳50 per theme a month — free for now' },
     ] },
   { month: { bn: 'চলমান', en: 'Running' }, status: 'live',
     title: { bn: 'প্রোডাকশনে চালু', en: 'Live in production' },
