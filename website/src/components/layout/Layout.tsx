@@ -45,7 +45,7 @@ function Header() {
   return (
     <header className={`sticky top-0 z-40 transition-[background-color,box-shadow,border-color] duration-300 border-b ${scrolled || open ? 'bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-line shadow-[0_6px_24px_-12px_rgb(16_24_40/0.18)]' : 'bg-transparent border-transparent'}`}>
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label="BinGi home" className="flex h-11 items-center"><Logo /></Link>
+        <Link to="/" aria-label="BinGi home" className="flex h-11 items-center"><Logo className="h-9" /></Link>
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
           {nav.filter((n) => !n.phoneOnly).map((n) => (
             <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
@@ -92,7 +92,7 @@ function Footer() {
       <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-[180px] bg-[radial-gradient(60%_80%_at_50%_100%,#FFE7E4_0%,rgb(255_241_239/.6)_45%,transparent_75%)]" />
       <div className="container-x grid grid-cols-2 gap-x-6 gap-y-8 py-10 md:grid-cols-[1.4fr_1fr_1fr_1fr]">
         <div className="col-span-2 md:col-span-1 space-y-4">
-          <Logo className="h-7" />
+          <Logo className="h-9" />
           <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed hidden md:block">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
           <FooterSkyline className="hidden h-auto w-full max-w-[360px] text-brand opacity-[0.24] md:block md:pt-6" />
         </div>

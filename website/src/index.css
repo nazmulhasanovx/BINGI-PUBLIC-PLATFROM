@@ -10,15 +10,15 @@
   --color-pearl: var(--background);
   --color-white: #FFFFFF;
   --color-ink: var(--foreground);
-  --color-soft: #616A77;
+  --color-soft: #635361;
   --color-line: var(--border);
   --color-line-strong: var(--input);
   --color-bay: var(--bay);
-  --color-bay-2: #12324B;
+  --color-bay-2: #3A283B;
   --color-coral: var(--sunrise-coral);
   --color-sun: var(--sunrise-peach);
   --color-brand: var(--primary);
-  --color-brand-hover: #961722;
+  --color-brand-hover: #961B21;
   --color-brand-soft: var(--accent);
   --color-brand-2: var(--primary-2);
   --color-brand-edge: var(--primary-edge);
@@ -28,9 +28,9 @@
   --color-ink-edge: var(--ink-edge);
   --color-link: var(--secondary);
   --color-canvas: var(--background);
-  --color-ok: #166534;
+  --color-ok: #287457;
   --color-ok-soft: #E7F4EC;
-  --color-soon: #92400E;
+  --color-soon: #8B560E;
   --color-soon-soft: #FEF2E2;
 
   --shadow-soft: 0 1px 2px rgb(15 23 32 / 0.05), 0 6px 18px -6px rgb(15 23 32 / 0.08);
@@ -60,8 +60,8 @@ html { -webkit-text-size-adjust: 100%; }
 html.lenis, html.lenis body { height: auto; }
 .lenis.lenis-smooth { scroll-behavior: auto !important; }
 body { @apply bg-pearl text-ink antialiased; font-feature-settings: "ss01", "cv11"; }
-html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-ui, sans-serif; line-height: 1.7; }
-::selection { background: #FFD9C6; color: #0F1720; }
+html[lang="bn"] body { font-family: "Noto Sans Bengali", "Open Sans", system-ui, sans-serif; line-height: 1.7; }
+::selection { background: #FDE5DF; color: #29192A; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -110,8 +110,8 @@ html, body { overflow-x: clip; }
 @utility card-highlight { @apply border-transparent ring-2 ring-brand shadow-highlight; background: linear-gradient(180deg, #FFE4E1 0%, #FFF1EF 45%, #FFF8F7 100%); box-shadow: 0 28px 60px -28px rgb(177 28 41 / .55), 0 0 0 6px rgb(253 65 63 / .07); }
 /* soft coral light behind a page header (use on an absolutely positioned, aria-hidden div) */
 @utility glow-radial { background-image: radial-gradient(closest-side at 50% 40%, rgb(var(--glow) / .20) 0%, rgb(255 179 138 / .12) 45%, transparent 100%); }
-@utility display { font-family: var(--font-display); @apply tracking-[-0.035em] leading-[0.98] font-semibold; }
-@utility h2 { font-family: var(--font-display); @apply text-[34px] md:text-[48px] font-semibold tracking-[-0.03em] leading-[1.04]; }
+@utility display { font-family: var(--font-display); @apply tracking-[-0.025em] leading-[1.02] font-bold; }
+@utility h2 { font-family: var(--font-display); @apply text-[32px] md:text-[44px] font-bold tracking-[-0.02em] leading-[1.08]; }
 @utility lead { @apply text-[16px] sm:text-[17px] md:text-[19px] text-muted-foreground leading-relaxed; }
 
 /* ── Mobile density (phones < 640px) ─────────────────────────────────────

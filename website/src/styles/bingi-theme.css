@@ -5,60 +5,60 @@
    Every text/background pair below is checked for WCAG AA (see docs/02-ui-ux).
    ───────────────────────────────────────────────────────────────────────── */
 :root {
-  --background: #F4F6F8;            /* Pearl canvas */
-  --foreground: #0F1720;            /* 16.7:1 */
+  --background: #FAF7F2;            /* Brand Kit V1 Pearl (paper) */
+  --foreground: #29192A;            /* Brand Kit V1 Ink, 15.5:1 */
   --card: #FFFFFF;
-  --card-foreground: #0F1720;       /* 18.1:1 */
+  --card-foreground: #29192A;
   --popover: #FFFFFF;
-  --popover-foreground: #0F1720;
-  --primary: #B11C29;               /* BinGi action red */
+  --popover-foreground: #29192A;
+  --primary: #B82128;               /* Brand Kit V1 action, white text 6.4:1 */
   --primary-foreground: #FFFFFF;    /* 6.85:1 */
-  --secondary: #1D4ED8;             /* Ocean Blue (decision D-B) */
+  --secondary: #2C6082;             /* Brand Kit V1 information, 6.8:1 */
   --secondary-foreground: #FFFFFF;  /* 6.7:1 */
-  --muted: #E9EDF2;
-  --muted-foreground: #4D5664;      /* 6.3:1 on muted, 7.4:1 on white */
-  --accent: #FFE7E4;                /* coral blush — chips, highlights, selected (pricing page) */
+  --muted: #F1EBE6;
+  --muted-foreground: #635361;      /* Brand Kit V1 muted, 6.7:1 on pearl, 7.1:1 on white */
+  --accent: #FDE5DF;                /* Brand Kit V1 blush */
   --accent-foreground: #8E1621;     /* 8.1:1 */
-  --destructive: #C81E1E;
+  --destructive: #B82128;
   --destructive-foreground: #FFFFFF;/* 5.7:1 */
-  --border: #E3E7EC;                /* decorative hairline */
-  --input: #858C97;                 /* control border ≥3:1 */
-  --ring: #1D4ED8;                  /* focus ring 6.2:1 */
-  --chart-1: #B11C29;
-  --chart-2: #1D4ED8;
-  --chart-3: #0E9F6E;
-  --chart-4: #F59E0B;
-  --chart-5: #0B2235;
+  --border: #E6DAD8;                /* Brand Kit V1 line */
+  --input: #8C7E86;                 /* control border 3.9:1 */
+  --ring: #2C6082;                  /* focus ring 6.8:1 */
+  --chart-1: #B82128;
+  --chart-2: #2C6082;
+  --chart-3: #287457;
+  --chart-4: #8B560E;
+  --chart-5: #29192A;
   --radius: 0.75rem;
   --sidebar: #FFFFFF;
-  --sidebar-foreground: #0F1720;
-  --sidebar-primary: #B11C29;
+  --sidebar-foreground: #29192A;
+  --sidebar-primary: #B82128;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #FFE7E4;
+  --sidebar-accent: #FDE5DF;
   --sidebar-accent-foreground: #8E1621;
-  --sidebar-border: #E3E7EC;
-  --sidebar-ring: #1D4ED8;
-  --font-sans: "Instrument Sans", "Hind Siliguri", system-ui, sans-serif;
-  --font-display: "Bricolage Grotesque Variable", "Bricolage Grotesque", "Hind Siliguri", system-ui, sans-serif;
+  --sidebar-border: #E6DAD8;
+  --sidebar-ring: #2C6082;
+  --font-sans: "Open Sans", "Noto Sans Bengali", system-ui, sans-serif;   /* Brand Kit V1 */
+  --font-display: "Open Sans", "Noto Sans Bengali", system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
-  --shadow-color: #0B2235;
+  --shadow-color: #29192A;
   --shadow-opacity: 0.08;
   --shadow-blur: 24px;
   --shadow-spread: -6px;
   --shadow-offset-x: 0px;
   --shadow-offset-y: 8px;
   /* BinGi "Coral Glow" (not part of shadcn) — set by the pricing page, 10 Nov 2026 */
-  --primary-2: #D9343F;             /* top of the red gradient (buttons, active pill) */
-  --primary-edge: #E0485A;          /* 1px edge on red gradient buttons */
-  --accent-tint: #FFF6F5;           /* highlighted card surface (popular / best fit) */
-  --accent-line: #FFF1EF;           /* check-dot fill */
-  --ink-2: #4A5562;                 /* top of the dark button gradient */
-  --ink-edge: #3B4652;
-  --glow: 253 65 63;                /* coral, used as rgb(var(--glow) / a) for radial light */
+  --primary-2: #D63A36;             /* top of the red gradient (buttons, active pill) */
+  --primary-edge: #E8524E;          /* 1px edge on red gradient buttons */
+  --accent-tint: #FEF3EF;           /* highlighted card surface (popular / best fit) */
+  --accent-line: #FDEDE8;           /* check-dot fill */
+  --ink-2: #4A3A4B;                 /* top of the dark button gradient */
+  --ink-edge: #3C2C3D;
+  --glow: 250 64 61;                /* coral, used as rgb(var(--glow) / a) for radial light */
   /* BinGi signature (not part of shadcn): Bay sunrise */
-  --sunrise-coral: #FD413F;
+  --sunrise-coral: #FA403D;
   --sunrise-peach: #FFB38A;
-  --bay: #0B2235;
+  --bay: #29192A;                    /* Brand Kit V1 Ink for dark sections */
 }
 
 .dark {

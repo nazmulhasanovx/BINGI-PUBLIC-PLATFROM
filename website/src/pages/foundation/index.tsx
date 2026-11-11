@@ -243,9 +243,9 @@ export default function Foundation() {
           ))}
           {tab === 'type' && (
             <div className="space-y-3 text-[14px]">
-              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">Display — Bricolage Grotesque</p><p className="font-[family-name:var(--font-display)] text-[28px] font-semibold tracking-[-0.03em]">Your team runs the hotel.</p></div>
-              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">Text — Instrument Sans</p><p>Website, bookings and accounts in one connected system.</p></div>
-              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">বাংলা — Hind Siliguri</p><p lang="bn">আপনার টিম হোটেল চালায়।</p></div>
+              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">Display — Open Sans Bold (Brand Kit V1)</p><p className="font-[family-name:var(--font-display)] text-[28px] font-bold tracking-[-0.02em]">Your team runs the hotel.</p></div>
+              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">Text — Open Sans</p><p>Website, bookings and accounts in one connected system.</p></div>
+              <div className="rounded-lg bg-white border border-border p-3"><p className="text-[12px] text-muted-foreground">বাংলা — Noto Sans Bengali</p><p lang="bn">আপনার টিম হোটেল চালায়।</p></div>
               <p className="text-[12px] text-muted-foreground">Scale: 76 · 48 · 30 · 22 · 19 · 17 · 15 · 13 px</p>
             </div>
           )}
