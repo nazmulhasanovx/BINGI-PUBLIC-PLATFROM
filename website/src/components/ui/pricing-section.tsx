@@ -206,7 +206,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
       <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
         <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
           <Row label={t({ bn: 'সাবস্ক্রিপশন', en: 'Subscription' })} value={list}
-            sub={<>{t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })}{p.regular && <> · <s>{taka(p.regular)}</s> {t({ bn: `লঞ্চ অফার −${num(LAUNCH_OFF)}%`, en: `launch offer −${LAUNCH_OFF}%` })}</>}</>} />
+            sub={<>{t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })}</>} />
           {c.discount > 0 && <Row label={t({ bn: `${num(c.months)} মাসের ছাড়`, en: `${c.months}-month discount` })}
             sub={t({ bn: `রুম প্রতি ${taka(p.rate!)} → ${taka(pr.perRoom)}`, en: `${taka(p.rate!)} → ${taka(pr.perRoom)} per room` })} value={pr.saved} minus />}
           <Row label={t({ bn: 'অ্যাক্টিভেশন (একবার)', en: 'Activation (one-time)' })}
@@ -349,8 +349,8 @@ export default function PricingSection() {
                             <span className="text-[14px] text-muted-foreground">/{t({ bn: 'রুম/মাস', en: 'room/month' })}</span>
                           </div>
                           <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-muted-foreground">
-                            {p.regular && <s className="decoration-brand/60">{taka(p.regular)}</s>}
-                            {p.regular && <span className="rounded-full bg-brand-soft px-1.5 py-px text-[12px] font-semibold text-brand">{t({ bn: `লঞ্চ অফার −${num(LAUNCH_OFF)}%`, en: `Launch offer −${LAUNCH_OFF}%` })}</span>}
+                            {p.regular ? <span className="text-[12px] text-muted-foreground/75"><s>{taka(p.regular)}</s> {t({ bn: `লঞ্চ দাম −${num(LAUNCH_OFF)}%`, en: `launch price −${LAUNCH_OFF}%` })}</span>
+                              : <span className="text-[12px] text-muted-foreground/75">{t({ bn: 'সবসময় এই দাম', en: 'always this price' })}</span>}
                             {c.discount > 0 && <span>{t({ bn: `+ বাড়তি সাশ্রয় ${taka(pr.saved)}`, en: `+ extra ${taka(pr.saved)} off` })}</span>}
                           </p>
                         </>

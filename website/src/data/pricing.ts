@@ -39,7 +39,8 @@ export type Plan = {
 }
 
 export const plans: Plan[] = [
-  { id: 'starter', name: 'Starter', rate: 25, regular: 62, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
+  { id: 'starter', name: 'Starter', rate: 25, // Starter ৳25 always (Nazmul 11 Nov 13:32) — no launch label
+    activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
   { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
