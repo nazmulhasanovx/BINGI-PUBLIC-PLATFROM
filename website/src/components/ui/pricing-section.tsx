@@ -207,12 +207,13 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
         <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
           <Row label={t({ bn: 'সাবস্ক্রিপশন', en: 'Subscription' })} value={list}
             sub={t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })} />
-          {c.discount > 0 && <Row label={t({ bn: `ছাড় (${num(c.discount * 100)}%)`, en: `Discount (${c.discount * 100}%)` })} value={pr.saved} minus />}
+          {c.discount > 0 && <Row label={t({ bn: `${num(c.months)} মাসের ছাড়`, en: `${c.months}-month discount` })}
+            sub={t({ bn: `রুম প্রতি ${taka(p.rate!)} → ${taka(pr.perRoom)}`, en: `${taka(p.rate!)} → ${taka(pr.perRoom)} per room` })} value={pr.saved} minus />}
           <Row label={t({ bn: 'অ্যাক্টিভেশন (একবার)', en: 'Activation (one-time)' })}
             sub={p.activation?.standard ? <ActivationLine plan={p} /> : undefined}>
             {p.activation ? money(act) : <span className="text-muted-foreground">{t({ bn: 'নেই', en: 'None' })}</span>}
           </Row>
-          <Row strong label={t({ bn: 'প্রথম বিল', en: 'First bill' })} sub={t({ bn: 'ট্যাক্স প্রযোজ্য হলে আলাদা', en: 'Taxes separate where applicable' })} value={first} />
+          <Row strong label={t({ bn: 'প্রথম বিল', en: 'First bill' })} sub={t({ bn: 'VAT আলাদা', en: 'VAT separate' })} value={first} />
           <Row label={t({ bn: 'এরপর', en: 'After that' })} sub={every}>{money(pr.total)}</Row>
         </div>
 
@@ -307,7 +308,7 @@ export default function PricingSection() {
           <p className="text-center text-[13px] text-muted-foreground" aria-live="polite">
             {rooms < MIN_BILLABLE
               ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
-              : t({ bn: 'ট্যাক্স প্রযোজ্য হলে আলাদা', en: 'Taxes extra where applicable' })}
+              : t({ bn: 'VAT আলাদা · SMS/ইমেইল নিজের প্রোভাইডার দিয়ে', en: 'VAT extra · SMS/email via your own provider' })}
           </p>
         </TimelineContent>
 

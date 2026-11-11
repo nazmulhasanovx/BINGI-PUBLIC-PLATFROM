@@ -2,7 +2,8 @@ import type { L } from '../i18n/lang'
 
 // ONE pricing catalog — source: onbording-flow-/v4/03-PRICING-COMMERCIAL.md
 // (confirmed by Nazmul as THE pricing on 9 Nov 2026; final published commercial agreement still pending).
-// Formula: billable Q × rate × months × (1 − discount). Q = max(rooms, 10). Taxes separate.
+// Formula: billable Q × per-room rate for the cycle × months. Q = max(rooms, 10). VAT separate.
+// 11 Nov 2026 (Nazmul): Starter ৳25 · Business ৳70 · Ultra ৳116; 6/12-month rates rounded to whole taka (table below).
 // In production fetch this from the same pricing API the HMS uses, keeping this shape.
 
 export const MIN_BILLABLE = 10
@@ -37,9 +38,9 @@ export type Plan = {
 }
 
 export const plans: Plan[] = [
-  { id: 'starter', name: 'Starter', rate: 30, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
+  { id: 'starter', name: 'Starter', rate: 25, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
-  { id: 'business', name: 'Business', rate: 50, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
+  { id: 'business', name: 'Business', rate: 70, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
   { id: 'ultra', name: 'Ultra', rate: 116, activation: { now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
     tagline: { bn: 'স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন', en: 'Staff, inventory and advanced operations' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
@@ -88,12 +89,21 @@ export const offers: L[] = [
   { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳০', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },
 ]
 
+// Per-room rate per cycle, rounded to whole taka (approved 11 Nov 2026). Keyed by monthly rate.
+export const cycleRates: Record<number, Record<Cycle, number>> = {
+  25: { monthly: 25, six: 23, yearly: 19 },
+  70: { monthly: 70, six: 63, yearly: 53 },
+  116: { monthly: 116, six: 105, yearly: 87 },
+}
+export const rateFor = (rate: number, cycle: Cycle) => cycleRates[rate]?.[cycle] ?? Math.round(rate * (1 - cycles.find((x) => x.id === cycle)!.discount))
+
 export function billable(rooms: number) { return Math.max(MIN_BILLABLE, Math.floor(rooms) || MIN_BILLABLE) }
 
 export function priceFor(rate: number, rooms: number, cycle: Cycle) {
   const c = cycles.find((x) => x.id === cycle)!
   const q = billable(rooms)
+  const perRoom = rateFor(rate, cycle)
   const list = q * rate * c.months
-  const total = Math.round(list * (1 - c.discount) * 100) / 100
-  return { q, months: c.months, total, perMonth: Math.round((total / c.months) * 100) / 100, perRoom: Math.round(rate * (1 - c.discount) * 100) / 100, saved: Math.round((list - total) * 100) / 100 }
+  const total = q * perRoom * c.months
+  return { q, months: c.months, total, perMonth: Math.round(total / c.months), perRoom, saved: list - total }
 }

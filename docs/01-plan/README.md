@@ -59,7 +59,7 @@ Side paths: Book a demo → WhatsApp (later: lead API → NEC TEAM)
 ## Open decisions
 | # | Decision | Current setting in the site |
 |---|---|---|
-| 1 | ~~Final pricing~~ **DECIDED 9 Nov 2026:** v4 per-room — Starter ৳30 · Business ৳50 · Ultra ৳116 per room/month, min billing 10 rooms, 6 mo −10%, 12 mo −25% | live on site |
+| 1 | ~~Final pricing~~ **UPDATED 11 Nov 2026:** Starter ৳25 · Business ৳70 · Ultra ৳116 per room/month (6 mo ৳23/৳63/৳105 · 12 mo ৳19/৳53/৳87, whole taka); VAT extra; SMS/email via hotel's own provider. Earlier (9 Nov): v4 per-room — Starter ৳30 · Business ৳50 · Ultra ৳116 per room/month, min billing 10 rooms, 6 mo −10%, 12 mo −25% | live on site |
 | 2 | HMS Plan List still shows old room packages (৳500 / ৳1,999 / ৳3,500) — HMS must be updated to match | dev task |
 | 3 | Plan features follow v4 entitlements (Business = housekeeping, restaurant, QR, expenses, services; Ultra = + full HRM, inventory, advanced ops, unlimited themes). Bar scope and menu limits still open → not shown | v4 matrix |
 | 3b | "Min 10" = minimum *billing* (fewer real rooms allowed) — v4 marks this interpretation as recommended, not yet locked | FAQ says "billing starts at 10 rooms" |

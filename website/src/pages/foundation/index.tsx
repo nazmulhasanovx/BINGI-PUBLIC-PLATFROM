@@ -142,7 +142,7 @@ function Preview() {
             </div>
             <fieldset><legend className="text-[13px] font-medium">Plan</legend>
               <div className="mt-2 grid grid-cols-2 gap-3">
-                {([['starter', 'Starter', '৳30 per room'], ['business', 'Business', '৳50 per room']] as const).map(([id, name, price]) => (
+                {([['starter', 'Starter', '৳25 per room'], ['business', 'Business', '৳70 per room']] as const).map(([id, name, price]) => (
                   <label key={id} className={`flex gap-2 rounded-lg border p-3 cursor-pointer ${plan === id ? 'border-primary bg-accent' : 'border-input'}`}>
                     <input type="radio" name="plan" checked={plan === id} onChange={() => setPlan(id)} className="mt-1 accent-[var(--primary)]" />
                     <span><span className="block text-[14px] font-medium">{name}</span><span className="text-[12px] text-muted-foreground">{price} / month</span></span>
@@ -194,7 +194,7 @@ function Preview() {
       <section>
         <h2 className="text-[13px] font-medium text-muted-foreground mb-3">Pricing</h2>
         <div className="grid gap-4 md:grid-cols-3">
-          {([['Starter', '৳30', 'Rooms, bookings, website', false], ['Business', '৳50', 'Adds housekeeping, restaurant, QR orders', true], ['Ultra', '৳116', 'Adds full HRM, inventory, advanced ops', false]] as const).map(([n, p, d, pop]) => (
+          {([['Starter', '৳25', 'Rooms, bookings, website', false], ['Business', '৳70', 'Adds housekeeping, restaurant, QR orders', true], ['Ultra', '৳116', 'Adds full HRM, inventory, advanced ops', false]] as const).map(([n, p, d, pop]) => (
             <div key={n} className={`rounded-xl p-5 ${pop ? 'bg-muted' : 'border border-border bg-card'}`}>
               <p className="text-[18px] font-semibold flex items-center gap-2">{n}{pop && <span className="rounded-full bg-primary px-2 py-0.5 text-[12px] font-medium text-primary-foreground">Most popular</span>}</p>
               <p className="text-[14px] text-muted-foreground">{d}</p>

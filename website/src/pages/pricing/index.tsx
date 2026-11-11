@@ -7,10 +7,10 @@ import { StudioDisplay } from '../../components/media/Devices'
 import PricingSection, { ActivationLine } from '@/components/ui/pricing-section'
 
 const faqs: { q: L; a: L }[] = [
-  { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। ৬ মাসে সাবস্ক্রিপশনে ১০% আর ১২ মাসে ২৫% ছাড়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
+  { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। ৬ মাসে প্রায় ১০% আর ১২ মাসে প্রায় ২৫% ছাড়, রুমের রেট পূর্ণ টাকায়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
   { q: { bn: '১০টার কম রুম থাকলে?', en: 'What if I have fewer than 10 rooms?' }, a: { bn: 'সর্বনিম্ন বিলিং ১০ রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।', en: 'Billing starts at 10 rooms. You only add the rooms you really have.' } },
   { q: { bn: 'বুকিং ফি কী?', en: 'What are booking fees?' }, a: { bn: 'BinGi মার্কেটপ্লেস বা আপনার ওয়েবসাইট থেকে আসা বুকিংয়ে ছোট একটা শতাংশ। রিসেপশনে নেওয়া ওয়াক-ইন বুকিংয়ে কোনো ফি নেই।', en: 'A small percentage on bookings from the BinGi Marketplace or your website. Walk-in bookings at reception have no fee.' } },
-  { q: { bn: 'আর কোনো খরচ আছে?', en: 'Any other costs?' }, a: { bn: 'কেনা ডোমেইন রিনিউ, পেমেন্ট গেটওয়ে/প্রোভাইডার ফি আর কাস্টম কাজ থাকলে তা আলাদা করে দেখানো হয় — আপনি রাজি হলে তবেই।', en: 'Domain renewal, payment gateway/provider fees and any custom work are shown separately — only if you agree to them.' } },
+  { q: { bn: 'আর কোনো খরচ আছে?', en: 'Any other costs?' }, a: { bn: 'VAT আলাদা। SMS ও ইমেইল যায় আপনার নিজের প্রোভাইডার দিয়ে — তাদের চার্জ সরাসরি তাদের দেবেন; কানেক্ট না করলে OTP/SMS যাবে না। কেনা ডোমেইন রিনিউ, পেমেন্ট গেটওয়ে ফি আর কাস্টম কাজ আলাদা দেখানো হয় — আপনি রাজি হলে তবেই।', en: 'VAT is extra. SMS and email go through your own provider — you pay them directly; without one connected, OTP and SMS are not sent. Domain renewal, payment gateway fees and custom work are shown separately — only if you agree.' } },
 ]
 
 function CellView({ c }: { c: Cell }) {

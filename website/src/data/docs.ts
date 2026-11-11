@@ -293,12 +293,12 @@ export const docs: DocPage[] = [
     summary: 'You pay per room per month. Every charge is shown separately.',
     sections: [
       { heading: 'Prices (per room, per month)', table: { head: ['Plan', 'Price', 'Activation', 'Booking fee: Marketplace / Website / Walk-in'], rows: [
-        ['Starter', '৳30', 'None', '12% / 1.5% / 0%'],
-        ['Business', '৳50', '৳14,500 — currently ৳4,999', '8% / 1% / 0%'],
-        ['Ultra', '৳116', 'Currently ৳8,999', '4% / 0.5% / 0%'],
+        ['Starter', '৳25 (6 mo ৳23 · 12 mo ৳19)', 'None', '12% / 1.5% / 0%'],
+        ['Business', '৳70 (6 mo ৳63 · 12 mo ৳53)', '৳14,500 — currently ৳4,999', '8% / 1% / 0%'],
+        ['Ultra', '৳116 (6 mo ৳105 · 12 mo ৳87)', 'Currently ৳8,999', '4% / 0.5% / 0%'],
         ['Custom', 'Quotation', '—', '—'],
       ] } },
-      { heading: 'Rules', list: ['Minimum billing is 10 rooms.', 'Pay 6 months: 10% off. Pay 12 months: 25% off.', 'Price = rooms × rate × months × (1 − discount). Taxes are a separate line.', 'Walk-in bookings at reception have no booking fee.'] },
+      { heading: 'Rules', list: ['Minimum billing is 10 rooms.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. VAT is a separate line.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
       { heading: 'What each plan adds', table: { head: ['Plan', 'Adds'], rows: [
         ['Starter', 'Room/accommodation management · online & offline bookings · website management · domain management · limited website themes'],
         ['Business', 'Everything in Starter + housekeeping · restaurant/meal management · QR food ordering · expense management · other services'],
