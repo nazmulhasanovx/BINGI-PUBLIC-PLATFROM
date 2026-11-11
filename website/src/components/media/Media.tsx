@@ -26,7 +26,7 @@ export function Media({ id, className = '' }: { id: MediaId; className?: string 
     return <AutoVideo src={src} className={`w-full h-full object-contain bg-[#F5F6F8] ${className}`} style={style} label={m.note} />
   if (src) return <img src={src} alt={m.note} loading="lazy" className={`w-full h-full object-cover ${className}`} style={style} />
   return (
-    <div className={`relative w-full h-full flex flex-col items-center justify-center gap-2 text-center p-4 overflow-hidden bg-[radial-gradient(120%_80%_at_50%_120%,#FFB38A33,transparent_60%),linear-gradient(160deg,#12324B,#29192A)] text-white/80 ${className}`} style={style}>
+    <div className={`relative w-full h-full flex flex-col items-center justify-center gap-2 text-center p-4 overflow-hidden bg-[radial-gradient(120%_80%_at_50%_120%,#FFB38A33,transparent_60%),linear-gradient(160deg,#12324B,#0B2235)] text-white/80 ${className}`} style={style}>
       <ImageIcon className="size-6 opacity-70" aria-hidden="true" />
       <span className="text-[12px] font-medium leading-snug max-w-[240px] line-clamp-3">{m.note}</span>
       <span className="text-[12px] opacity-80 hidden sm:block">slot: {id} · {m.w}×{m.h}</span>

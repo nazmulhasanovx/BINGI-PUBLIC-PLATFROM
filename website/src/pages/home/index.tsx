@@ -106,7 +106,7 @@ export default function Home() {
 
       {/* dark bay — three platforms */}
       <section className="relative mt-16 md:mt-24 overflow-hidden bg-bay text-white grain">
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FA403D33,transparent)] blur-[30px]" aria-hidden="true" />
+        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FD413F33,transparent)] blur-[30px]" aria-hidden="true" />
         <div className="container-x relative py-14 md:py-20">
           <div className="max-w-[620px]">
             <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
@@ -185,7 +185,7 @@ export default function Home() {
           <li className="ambient left-1/2 -translate-x-1/2 top-1/3 h-[300px] w-[70%] opacity-45" aria-hidden="true" />
           {team.map((m) => (
             <li key={m.name} onPointerMove={spot} className="spotlight card glow-hover overflow-hidden">
-              <div className="relative aspect-[5/4] overflow-hidden bg-[radial-gradient(120%_80%_at_50%_115%,#FFB38A40,transparent_60%),linear-gradient(160deg,#16405F,#29192A)]">
+              <div className="relative aspect-[5/4] overflow-hidden bg-[radial-gradient(120%_80%_at_50%_115%,#FFB38A40,transparent_60%),linear-gradient(160deg,#16405F,#0B2235)]">
                 {m.photo
                   ? <img src={m.photo} alt={m.name} loading="lazy" className="size-full object-cover" />
                   : <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[44px] sm:text-[56px] font-semibold tracking-[-0.03em] text-white/85">{m.name.replace(/^(Md\.|Most\.)\s*/, '').split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>}
@@ -203,8 +203,8 @@ export default function Home() {
       {/* closing — the sunrise again */}
       <section className="container-x pt-16 md:pt-24">
         <div className="relative overflow-hidden rounded-[28px] bg-bay text-white px-6 py-14 md:px-14 md:py-24 grain">
-          <div className="pointer-events-none absolute left-1/2 bottom-[-180px] h-[360px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A,#FA403D88_45%,transparent_75%)] blur-[30px] opacity-70" aria-hidden="true" />
-          <div className="pointer-events-none absolute left-0 right-0 bottom-[7%] h-px bg-[linear-gradient(90deg,transparent,#FA403D_30%,#FFB38A_50%,#FA403D_70%,transparent)] opacity-70" aria-hidden="true" />
+          <div className="pointer-events-none absolute left-1/2 bottom-[-180px] h-[360px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A,#FD413F88_45%,transparent_75%)] blur-[30px] opacity-70" aria-hidden="true" />
+          <div className="pointer-events-none absolute left-0 right-0 bottom-[7%] h-px bg-[linear-gradient(90deg,transparent,#FD413F_30%,#FFB38A_50%,#FD413F_70%,transparent)] opacity-70" aria-hidden="true" />
           <div className="relative mx-auto max-w-[760px] text-center">
             <h2 className="display text-[40px] md:text-[72px] text-balance">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
             <div className="mt-10 flex flex-wrap justify-center gap-3">

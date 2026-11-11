@@ -37,10 +37,10 @@ export function Hero() {
     <section className="relative overflow-hidden grain">
       {/* bay sunrise: soft sky + horizon line */}
       <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,#FAF7F2_0%,#FBF3EF_55%,#FFE6DA_78%,#FAF7F2_100%)]" />
-        <motion.div className="absolute left-1/2 top-[58%] h-[520px] w-[1100px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A_0%,#FA403D55_45%,transparent_75%)] blur-[40px]"
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,#F4F6F8_0%,#FBF3EF_55%,#FFE6DA_78%,#F4F6F8_100%)]" />
+        <motion.div className="absolute left-1/2 top-[58%] h-[520px] w-[1100px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A_0%,#FD413F55_45%,transparent_75%)] blur-[40px]"
           initial={reduce ? false : { opacity: 0, scale: 0.8 }} animate={{ opacity: 0.55, scale: 1 }} transition={{ duration: 1.6, delay: 0.2, ease }} />
-        <motion.div className="absolute left-0 right-0 top-[71%] h-px bg-[linear-gradient(90deg,transparent,#FA403D_30%,#FFB38A_50%,#FA403D_70%,transparent)]"
+        <motion.div className="absolute left-0 right-0 top-[71%] h-px bg-[linear-gradient(90deg,transparent,#FD413F_30%,#FFB38A_50%,#FD413F_70%,transparent)]"
           initial={reduce ? false : { scaleX: 0, opacity: 0 }} animate={{ scaleX: 1, opacity: 0.8 }} transition={{ duration: 1.4, delay: 0.35, ease }} />
       </div>
 

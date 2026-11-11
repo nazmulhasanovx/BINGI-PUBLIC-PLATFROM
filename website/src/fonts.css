@@ -1,7 +1,0 @@
-/* Brand Kit V1 fonts (self-hosted, OFL — licences in /fonts/brand) */
-@font-face { font-family: "Open Sans"; src: url("./assets/fonts/OpenSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Open Sans"; src: url("./assets/fonts/OpenSans-Semibold.woff2") format("woff2"); font-weight: 500 600; font-display: swap; }
-@font-face { font-family: "Open Sans"; src: url("./assets/fonts/OpenSans-Bold.woff2") format("woff2"); font-weight: 700 800; font-display: swap; }
-@font-face { font-family: "Noto Sans Bengali"; src: url("./assets/fonts/NotoSansBengali-Regular.woff2") format("woff2"); font-weight: 400 500; font-display: swap; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
-@font-face { font-family: "Noto Sans Bengali"; src: url("./assets/fonts/NotoSansBengali-Bold.woff2") format("woff2"); font-weight: 600 800; font-display: swap; unicode-range: U+0980-09FF, U+200C-200D, U+25CC; }
-

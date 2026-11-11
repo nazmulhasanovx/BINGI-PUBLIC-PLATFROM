@@ -60,7 +60,7 @@ function RoomStepper({ rooms, setRooms }: { rooms: number; setRooms: (n: number)
           className="h-10 w-16 rounded-full bg-canvas text-center text-[16px] font-semibold tabular-nums focus:outline-2 focus:outline-link" />
         <button onClick={() => set(rooms + 1)} className="grid size-10 cursor-pointer place-items-center rounded-full hover:bg-canvas" aria-label="More rooms"><Plus className="size-4" /></button>
       </div>
-      <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => set(+e.target.value)} aria-label="Rooms slider" className="h-10 w-36 cursor-pointer accent-[#B82128] mr-2" />
+      <input type="range" min={1} max={200} value={Math.min(rooms, 200)} onChange={(e) => set(+e.target.value)} aria-label="Rooms slider" className="h-10 w-36 cursor-pointer accent-[#B11C29] mr-2" />
     </div>
   )
 }
