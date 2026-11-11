@@ -160,3 +160,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-10: Footer shortened — skyline moved into the empty brand column (no extra row); footer 391→359px desktop.
 - 2026-11-10: Bangla prices were blank (NumberFlow can't draw Bangla digits) → Bangla now shows Bangla digits with a soft swap; English keeps NumberFlow.
 - 2026-11-11: New prices — Starter ৳25 · Business ৳70 · Ultra ৳116 /room/month; 6 mo ৳23/৳63/৳105, 12 mo ৳19/৳53/৳87 (whole taka, cycleRates in data/pricing.ts). VAT extra. SMS/email via hotel's own provider (FAQ + docs). Checked 20 rooms × 3 cycles × 3 plans — totals match.
+- 2026-11-11: Launch offer −60% shown: regular Starter ৳63 · Business ৳175 · Ultra ৳290 struck through on cards, cost panel, offers, docs, SEO. Starter regular ৳63 chosen (25/63 ≈ 60%); confirm.

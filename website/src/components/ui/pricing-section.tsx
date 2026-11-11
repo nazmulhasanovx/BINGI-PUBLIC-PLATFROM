@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { useLang, type L } from '@/i18n/lang'
 import { site } from '@/data/site'
-import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType } from '@/data/pricing'
+import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType, LAUNCH_OFF } from '@/data/pricing'
 import { ios } from '@/lib/motion'
 
 // Pricing section — structure and motion from the 21st.dev "pricing-section" component
@@ -206,7 +206,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
       <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
         <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
           <Row label={t({ bn: 'সাবস্ক্রিপশন', en: 'Subscription' })} value={list}
-            sub={t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })} />
+            sub={<>{t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })}{p.regular && <> · <s>{taka(p.regular)}</s> {t({ bn: `লঞ্চ অফার −${num(LAUNCH_OFF)}%`, en: `launch offer −${LAUNCH_OFF}%` })}</>}</>} />
           {c.discount > 0 && <Row label={t({ bn: `${num(c.months)} মাসের ছাড়`, en: `${c.months}-month discount` })}
             sub={t({ bn: `রুম প্রতি ${taka(p.rate!)} → ${taka(pr.perRoom)}`, en: `${taka(p.rate!)} → ${taka(pr.perRoom)} per room` })} value={pr.saved} minus />}
           <Row label={t({ bn: 'অ্যাক্টিভেশন (একবার)', en: 'Activation (one-time)' })}
@@ -344,7 +344,11 @@ export default function PricingSection() {
                             <span className="text-[36px] font-semibold leading-none tracking-tight">৳<Num value={pr.perRoom} max={1} /></span>
                             <span className="text-[14px] text-muted-foreground">/{t({ bn: 'রুম/মাস', en: 'room/month' })}</span>
                           </div>
-                          {c.discount > 0 && <p className="mt-1.5 text-[13px] text-muted-foreground"><span className="line-through">{taka(p.rate!)}</span> · {t({ bn: `সাশ্রয় ${taka(pr.saved)}`, en: `save ${taka(pr.saved)}` })}</p>}
+                          <p className="mt-1.5 flex flex-wrap items-center gap-x-1.5 gap-y-1 text-[13px] text-muted-foreground">
+                            {p.regular && <s className="decoration-brand/60">{taka(p.regular)}</s>}
+                            {p.regular && <span className="rounded-full bg-brand-soft px-1.5 py-px text-[12px] font-semibold text-brand">{t({ bn: `লঞ্চ অফার −${num(LAUNCH_OFF)}%`, en: `Launch offer −${LAUNCH_OFF}%` })}</span>}
+                            {c.discount > 0 && <span>{t({ bn: `+ বাড়তি সাশ্রয় ${taka(pr.saved)}`, en: `+ extra ${taka(pr.saved)} off` })}</span>}
+                          </p>
                         </>
                       ) : (
                         <><p className="text-[32px] font-semibold leading-none tracking-tight text-ink">{t({ bn: 'কথা বলুন', en: "Let's talk" })}</p><p className="mt-1.5 text-[13px] text-muted-foreground">{t({ bn: 'হোটেল গ্রুপ ও চেইন', en: 'For groups and chains' })}</p></>

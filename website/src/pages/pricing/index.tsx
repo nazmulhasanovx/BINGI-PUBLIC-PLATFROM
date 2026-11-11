@@ -54,7 +54,8 @@ export default function Pricing() {
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
-            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2">{plans.filter((p) => p.activation).map((p) => <li key={p.id} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{p.name} <ActivationLine plan={p} /></span></li>)}
+            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2"><li className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{t({ bn: 'লঞ্চ অফার: রুম প্রতি দামে ৬০% ছাড় — Starter ৳৬৩ → ৳২৫ · Business ৳১৭৫ → ৳৭০ · Ultra ৳২৯০ → ৳১১৬', en: 'Launch offer: 60% off the per-room price — Starter ৳63 → ৳25 · Business ৳175 → ৳70 · Ultra ৳290 → ৳116' })}</span></li>
+              {plans.filter((p) => p.activation).map((p) => <li key={p.id} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{p.name} <ActivationLine plan={p} /></span></li>)}
               {offers.slice(2).map((o, i) => <li key={i} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}</ul>
           </div>
         </div>

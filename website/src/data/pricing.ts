@@ -30,6 +30,7 @@ export type Plan = {
   id: PlanId
   name: string
   rate: number | null // BDT per room per month; null = quotation
+  regular?: number // list price before the launch offer (shown struck through)
   activation: { standard?: number; now: number } | null // standard = regular price (shown struck through) when known
   fees: { marketplace: number; website: number; walkin: number } | null
   popular?: boolean
@@ -38,11 +39,11 @@ export type Plan = {
 }
 
 export const plans: Plan[] = [
-  { id: 'starter', name: 'Starter', rate: 25, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
+  { id: 'starter', name: 'Starter', rate: 25, regular: 63, activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
-  { id: 'business', name: 'Business', rate: 70, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
+  { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
-  { id: 'ultra', name: 'Ultra', rate: 116, activation: { now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
+  { id: 'ultra', name: 'Ultra', rate: 116, regular: 290, activation: { now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
     tagline: { bn: 'স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন', en: 'Staff, inventory and advanced operations' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
   { id: 'custom', name: 'Custom', rate: null, activation: null, fees: null,
     tagline: { bn: 'হোটেল গ্রুপ ও বিশেষ প্রয়োজন', en: 'Hotel groups and special needs' } },
@@ -96,6 +97,9 @@ export const cycleRates: Record<number, Record<Cycle, number>> = {
   116: { monthly: 116, six: 105, yearly: 87 },
 }
 export const rateFor = (rate: number, cycle: Cycle) => cycleRates[rate]?.[cycle] ?? Math.round(rate * (1 - cycles.find((x) => x.id === cycle)!.discount))
+
+// Launch offer (11 Nov 2026): current rates are ~60% off the regular list price. No end date set yet.
+export const LAUNCH_OFF = 60
 
 export function billable(rooms: number) { return Math.max(MIN_BILLABLE, Math.floor(rooms) || MIN_BILLABLE) }
 
