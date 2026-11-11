@@ -17,12 +17,31 @@ export const themes: Theme[] = [
   { id: 'grand', name: 'GRAND', plan: 'ultra', for: { bn: 'লাক্সারি রিসোর্ট ও প্রিমিয়াম হোটেল', en: 'Luxury resorts and premium hotels' } },
 ]
 
-// Theme Store (paid add-on themes): prototype only, prices not set → Coming soon.
-export const storeThemes: { id: string; name: string; for: L }[] = [
-  { id: 'drift', name: 'DRIFT', for: { bn: 'হাউসবোট', en: 'Houseboats' } },
-  { id: 'canopy', name: 'CANOPY', for: { bn: 'ট্রিহাউস', en: 'Treehouses' } },
-  { id: 'pod', name: 'POD', for: { bn: 'ক্যাপসুল হোটেল', en: 'Capsule hotels' } },
-  { id: 'orbit', name: 'ORBIT', for: { bn: 'উঁচু ভবনের হোটেল ও অ্যাপার্টমেন্ট', en: 'High-rise hotels and apartments' } },
+// Theme Store (paid add-on themes). Source: BINGI-WEB-theme- src/themes/paid.ts (11 Nov 2026).
+// Status: designed + front-end prototype with fictional demo hotels; licences/billing not built; prices NOT set → "Coming soon".
+export type StoreTheme = { id: string; name: string; collection: 'luxury' | 'signature' | 'more'; for: L }
+export const storeThemes: StoreTheme[] = [
+  { id: 'isle', name: 'ISLE', collection: 'luxury', for: { bn: 'দ্বীপ ও ওভারওয়াটার ভিলা রিসোর্ট', en: 'Island and overwater villa resorts' } },
+  { id: 'zamindar', name: 'ZAMINDAR', collection: 'luxury', for: { bn: 'হেরিটেজ প্রাসাদ ও রাজবাড়ি', en: 'Heritage palaces and rajbaris' } },
+  { id: 'maison', name: 'MAISON', collection: 'luxury', for: { bn: 'ক্লাসিক গ্র্যান্ড সিটি হোটেল', en: 'Classic grand city hotels' } },
+  { id: 'noir', name: 'NOIR', collection: 'luxury', for: { bn: 'রুফটপ ও নাইটলাইফ হোটেল', en: 'Rooftop and night-life hotels' } },
+  { id: 'orbit', name: 'ORBIT', collection: 'luxury', for: { bn: 'স্কাই টাওয়ার হোটেল', en: 'Sky-tower hotels' } },
+  { id: 'haven', name: 'HAVEN', collection: 'luxury', for: { bn: 'ওয়েলনেস ও স্পা রিট্রিট', en: 'Wellness and spa retreats' } },
+  { id: 'summit', name: 'SUMMIT', collection: 'luxury', for: { bn: 'পাহাড়ি লজ ও রিসোর্ট', en: 'Hill and mountain lodges' } },
+  { id: 'canopy', name: 'CANOPY', collection: 'luxury', for: { bn: 'ট্রিহাউস ও বনের রিট্রিট', en: 'Treehouses and forest retreats' } },
+  { id: 'drift', name: 'DRIFT', collection: 'luxury', for: { bn: 'লাক্সারি হাউসবোট', en: 'Luxury houseboats' } },
+  { id: 'estate', name: 'ESTATE', collection: 'luxury', for: { bn: 'প্রাইভেট ভিলা এস্টেট', en: 'Private villa estates' } },
+  { id: 'aurel', name: 'AUREL', collection: 'signature', for: { bn: 'আধুনিক সিটি হোটেল', en: 'Contemporary city hotels' } },
+  { id: 'courtyard', name: 'COURTYARD', collection: 'signature', for: { bn: 'বুটিক ও হেরিটেজ টাউনহাউস', en: 'Boutique and heritage townhouses' } },
+  { id: 'axis', name: 'AXIS', collection: 'signature', for: { bn: 'বিজনেস হোটেল', en: 'Business hotels' } },
+  { id: 'waypoint', name: 'WAYPOINT', collection: 'signature', for: { bn: 'হাইওয়ে ইন ও মোটেল', en: 'Highway inns and motels' } },
+  { id: 'shanti', name: 'SHANTI', collection: 'signature', for: { bn: 'গেস্ট হাউস', en: 'Guest houses' } },
+  { id: 'reside', name: 'RESIDE', collection: 'signature', for: { bn: 'সার্ভিসড অ্যাপার্টমেন্ট', en: 'Serviced apartments' } },
+  { id: 'commons', name: 'COMMONS', collection: 'signature', for: { bn: 'সোশ্যাল হোস্টেল', en: 'Social hostels' } },
+  { id: 'roots', name: 'ROOTS', collection: 'signature', for: { bn: 'হোমস্টে', en: 'Homestays' } },
+  { id: 'morning', name: 'MORNING', collection: 'signature', for: { bn: 'বেড অ্যান্ড ব্রেকফাস্ট', en: 'Bed & breakfasts' } },
+  { id: 'matir', name: 'MATIR', collection: 'signature', for: { bn: 'ফার্ম স্টে', en: 'Farm stays' } },
+  { id: 'pod', name: 'POD', collection: 'more', for: { bn: 'ক্যাপসুল হোটেল', en: 'Capsule hotels' } },
 ]
 
 // Which plan unlocks which themes (Starter = 3 · Business = 7 · Ultra / Custom = all 8).

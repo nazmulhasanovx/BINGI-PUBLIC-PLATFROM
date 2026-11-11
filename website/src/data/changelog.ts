@@ -19,6 +19,22 @@ export const changes: Change[] = [
       { bn: 'প্রতিটা থিমে বুকিং ইঞ্জিন, ১০টা রং ও দুই ধরনের ফন্ট', en: 'Booking engine in every theme, 10 colours and two heading styles' },
       { bn: 'HMS থেকে লেখা ও ছবি বদলান', en: 'Change text and photos from the HMS' },
     ] },
+  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+    title: { bn: 'নতুন করে বানানো HMS মডিউল', en: 'Redesigned HMS modules' },
+    items: [
+      { bn: 'রুম / অ্যাকোমোডেশন: লাইভ লেআউট, রুম প্রতি আউট-অফ-অর্ডার', en: 'Room / Accommodation: the live layout, out-of-order per room' },
+      { bn: 'ডিসকাউন্ট ও রেট: তারিখ অনুযায়ী দামের ক্যালেন্ডার', en: 'Discounts & Rates: a price-by-date calendar' },
+      { bn: 'গেস্ট ও রিভিউ এক জায়গায়', en: 'Guests and Reviews in one place' },
+      { bn: 'স্টাফ: ছোট টিমের জন্য Easy ভিউ', en: 'Staff: an Easy view for small teams' },
+      { bn: 'ইনভেন্টরি: স্টোর, পারচেজ অর্ডার, স্টক কাউন্ট, রেসিপি', en: 'Inventory: stores, purchase orders, stock count, recipes' },
+      { bn: 'অন্যান্য সার্ভিস: আজকের বোর্ড ও অ্যাসাইন', en: 'Other Services: Today board and assignment' },
+    ] },
+  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+    title: { bn: 'থিম স্টোর: ২১টা প্রিমিয়াম থিম', en: 'Theme Store: 21 premium themes' },
+    items: [
+      { bn: 'লাক্সারি কালেকশন (১০) ও সিগনেচার কালেকশন (১০), সাথে POD', en: 'Luxury Collection (10) and Signature Collection (10), plus POD' },
+      { bn: 'দাম এখনো ঠিক হয়নি', en: 'Prices not set yet' },
+    ] },
   { month: { bn: 'চলমান', en: 'Running' }, status: 'live',
     title: { bn: 'প্রোডাকশনে চালু', en: 'Live in production' },
     items: [
@@ -32,7 +48,6 @@ export const changes: Change[] = [
     items: [
       { bn: 'চ্যানেল ম্যানেজার (OTA)', en: 'Channel manager (OTA)' },
       { bn: 'BinGi Payments', en: 'BinGi Payments' },
-      { bn: 'থিম স্টোর', en: 'Theme Store' },
       { bn: 'ডেভেলপার API ও BinGi AI', en: 'Developer API and BinGi AI' },
     ] },
 ]

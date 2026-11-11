@@ -115,7 +115,8 @@ export const docs: DocPage[] = [
         'Each user has a role (for example owner, manager, receptionist, housekeeping, waiter, accountant). The role decides which pages and buttons they see.',
         'Staff join with an invite and their own BinGi ID; one person keeps one BinGi account.',
       ] },
-      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store (paid themes)'] },
+      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store: 21 premium themes (Luxury and Signature collections), prices not set'] },
+      { heading: 'Being redesigned (in testing, not live)', list: ['Dashboard that changes by plan', 'Room / Accommodation page (live Rooms layout, out-of-order per room)', 'Discounts & Rates with a rates calendar', 'Guests and Reviews together, guest status from bookings', 'Staff: an Easy view for small teams', 'Inventory: stores, purchase orders, stock count, recipes', 'Other Services: a Today board with assignment', 'Owner onboarding in 6 parts'] },
     ],
   },
   {
@@ -169,6 +170,7 @@ export const docs: DocPage[] = [
     slug: 'rooms', group: 'Modules', title: 'Rooms', where: 'Daily operations › Rooms (shown as “Accommodations” when you have cottages, villas or apartments)', plan: 'All plans', status: 'Live',
     summary: 'Room types (categories), individual rooms, prices, photos and status.',
     sections: [
+      { heading: 'Room type form', list: ['Category, room type, max guests, size and bed type', 'Base price, VAT % and service charge % (or keep them in sync with hotel defaults), with a price breakdown', 'Room numbers picked from the master list', 'Up to 10 photos, description and amenities', 'Breakfast / lunch / dinner: none, included or extra with a price'] },
       { heading: 'Set up', steps: ['Add a room type: name, capacity, base price, photos.', 'Add the rooms (numbers/names) of that type.', 'Send for approval if the rooms should appear online.'] },
       { heading: 'Online approval', text: 'Rooms show on the BinGi Marketplace only after BinGi approves them. Needs: at least one real photo and a sensible price.' },
     ],
@@ -223,9 +225,9 @@ export const docs: DocPage[] = [
   },
   {
     slug: 'inventory', group: 'Modules', title: 'Inventory', where: 'Property & team › Inventory', plan: 'Ultra', status: 'Live',
-    summary: 'Stock in and out, purchases and low-stock alerts, by store.',
-    sections: [{ heading: 'Stores', text: 'Stock is kept per store (for example central store, kitchen, bar, housekeeping). Purchases come into a store; items move between stores.' }],
-    fixes: [{ symptom: 'Stock count looks wrong', causes: ['Wrong store selected', 'A purchase or transfer not received', 'Usage not recorded'], steps: ['Check the store switcher.', 'Check pending purchases/transfers.', 'Do a stock count and adjust with a note.'] }],
+    summary: 'Stock in and out, purchases and low-stock alerts.',
+    sections: [{ heading: 'Next version (in testing, not live)', list: ['Several stores (main, kitchen, bar, housekeeping) with transfers', 'Purchase orders and receiving in parts', 'Stock count with manager approval', 'Recipes that use stock when food is sold', 'Store keeper / manager approvals'] }],
+    fixes: [{ symptom: 'Stock count looks wrong', causes: ['A purchase not received', 'Usage or wastage not recorded'], steps: ['Check pending purchases.', 'Record missing usage or wastage with a note.', 'Adjust the stock with a note and tell your manager.'] }],
   },
   {
     slug: 'other-services', group: 'Modules', title: 'Other Services', where: 'Property & team › Other Services', plan: 'Business and above',
@@ -237,7 +239,7 @@ export const docs: DocPage[] = [
     summary: 'Room rates and discounts, guest payments, the cash drawer, expenses and your BinGi subscription.',
     sections: [
       { heading: 'Pages', table: { head: ['Page', 'Use it for'], rows: [
-        ['Discounts & Rates', 'Rates Calendar (room rates through the year) and discounts'],
+        ['Discounts & Rates', 'Discount campaigns: coupon codes and automatic deals. Room prices are set per room type in Rooms. A rates calendar (price by date) is in testing, not live yet.'],
         ['Payments', 'Payments received from guests'],
         ['Cashbox', 'Cash in the drawer; open and close the day'],
         ['Finance', 'Finance Overview · Expenses & Accounts · Billing & Subscription (your BinGi plan and bills)'],
@@ -266,6 +268,7 @@ export const docs: DocPage[] = [
       { heading: 'Themes by plan', table: { head: ['Plan', 'Themes'], rows: [['Starter', 'NEST · COTTAGE · BUNK'], ['Business', '+ CITY · VILLA · FLAT · ESCAPE'], ['Ultra / Custom', 'All, including GRAND']] } },
       { heading: 'Publish', steps: ['Choose a theme and colour.', 'Edit text and photos.', 'Publish in Publishing & Ordering Channels. Changes stay a draft until you publish.'] },
       { heading: 'Domain', text: 'Connect your own domain from Website Management; until then the site uses a BinGi address.' },
+      { heading: 'Theme Store (coming soon)', text: '21 premium themes as a monthly add-on on any plan. In testing; prices are not set yet.' },
     ],
     fixes: [
       { symptom: 'My changes do not show on the website', causes: ['Changes saved as draft, not published', 'Browser shows an old copy'], steps: ['Click Publish.', 'Reload the website (or open it in a private window).'] },
