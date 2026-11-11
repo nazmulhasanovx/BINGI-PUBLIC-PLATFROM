@@ -43,7 +43,7 @@ export const plans: Plan[] = [
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
   { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
-  { id: 'ultra', name: 'Ultra', rate: 116, regular: 290, activation: { now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
+  { id: 'ultra', name: 'Ultra', rate: 116, regular: 290, activation: { standard: 29500, now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
     tagline: { bn: 'স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন', en: 'Staff, inventory and advanced operations' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
   { id: 'custom', name: 'Custom', rate: null, activation: null, fees: null,
     tagline: { bn: 'হোটেল গ্রুপ ও বিশেষ প্রয়োজন', en: 'Hotel groups and special needs' } },
@@ -84,7 +84,7 @@ export const compare: Group[] = [
 // Current offers & services (v4 D-08…D-11). Never say "free forever".
 export const offers: L[] = [
   { bn: 'Business অ্যাক্টিভেশন ৳১৪,৫০০ — এখন ৳৪,৯৯৯', en: 'Business activation ৳14,500 — now ৳4,999' },
-  { bn: 'Ultra অ্যাক্টিভেশন এখন ৳৮,৯৯৯', en: 'Ultra activation currently ৳8,999' },
+  { bn: 'Ultra অ্যাক্টিভেশন ৳২৯,৫০০ — এখন ৳৮,৯৯৯', en: 'Ultra activation ৳29,500 — now ৳8,999' },
   { bn: 'রিমোট টিম ট্রেনিং ৳৫০০/শিফট — এখন ফ্রি', en: 'Remote team training ৳500/shift — now free' },
   { bn: 'অনসাইট ট্রেনিং ৳১২,৫০০ — টিমের থাকা-খাওয়া প্রপার্টি দেবে', en: 'Onsite training ৳12,500 — property provides team meals & stay' },
   { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳০', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },

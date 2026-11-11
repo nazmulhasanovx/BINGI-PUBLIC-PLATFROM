@@ -295,7 +295,7 @@ export const docs: DocPage[] = [
       { heading: 'Prices (per room, per month)', table: { head: ['Plan', 'Price', 'Activation', 'Booking fee: Marketplace / Website / Walk-in'], rows: [
         ['Starter', '৳25 (regular ৳63) · 6 mo ৳23 · 12 mo ৳19', 'None', '12% / 1.5% / 0%'],
         ['Business', '৳70 (regular ৳175) · 6 mo ৳63 · 12 mo ৳53', '৳14,500 — currently ৳4,999', '8% / 1% / 0%'],
-        ['Ultra', '৳116 (regular ৳290) · 6 mo ৳105 · 12 mo ৳87', 'Currently ৳8,999', '4% / 0.5% / 0%'],
+        ['Ultra', '৳116 (regular ৳290) · 6 mo ৳105 · 12 mo ৳87', '৳29,500 — currently ৳8,999', '4% / 0.5% / 0%'],
         ['Custom', 'Quotation', '—', '—'],
       ] } },
       { heading: 'Rules', list: ['Current prices are a launch offer, about 60% off the regular price (Starter ৳63 · Business ৳175 · Ultra ৳290). Regular prices may apply later; you will be told in advance.', 'Minimum billing is 10 rooms.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. VAT is a separate line.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
