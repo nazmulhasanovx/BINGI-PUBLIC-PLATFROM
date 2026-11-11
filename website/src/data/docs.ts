@@ -1,6 +1,8 @@
 // BinGi public documentation — ONE source for the /docs pages, per-page Markdown, /llms.txt and /llms-full.txt.
 // Written so a person OR any LLM can read it and fix a user's issue.
-// Sources: Sidebar v6 (names follow the live HMS), module rules, pricing data, status registry, staging check 9 Nov 2026.
+// Sources: Sidebar v6 (names follow the live HMS), module rules, pricing data, status registry, staging check 9 Nov 2026,
+// live HMS view-only check 11 Nov 2026 (Payments, Operations, Finance, Reports, Communication Center, Chat),
+// the HMS redesign prototype (sections marked "Next version (in testing, not live)") and the BinGi AI plan repo.
 // DRAFT v0.1 — the support team must verify each "Fix" against the live HMS before we call it final.
 // English only (best for LLMs); the AI can answer the user in Bangla.
 
@@ -18,7 +20,7 @@ export type DocPage = {
   fixes?: Fix[]
 }
 
-export const DOCS_VERSION = 'v0.1 draft · 10 November 2026'
+export const DOCS_VERSION = 'v0.2 draft · 12 November 2026'
 export const SUPPORT = 'WhatsApp +880 1624-127562 (https://wa.me/8801624127562) · BinGi, Level 11, Medona Tower, 28 Mohakhali C/A, Dhaka 1213'
 const ACCESS_CHECK = 'Check the three gates every BinGi screen respects: (1) your PLAN includes the module, (2) your ROLE has permission, (3) the right PROPERTY is selected in the property switcher at the top.'
 
@@ -108,7 +110,8 @@ export const docs: DocPage[] = [
         ['HMS Mobile', 'Staff on the move (role-wise tabs)', 'Phone app', 'Status to confirm'],
         ['Guest App + BinGi Marketplace', 'Guests: find, book, chat', 'bingi.app', 'Marketplace web live; app status to confirm'],
         ['Hotel website (themes)', 'Your own website with booking engine', 'Your domain', 'Live; new theme collection rolling out'],
-        ['Super Admin', 'BinGi team (approvals, plans, support)', 'Internal', 'Internal'],
+        ['Super Admin', 'BinGi team (approvals, plans, payouts, support)', 'Internal', 'Internal'],
+        ['BinGi AI', 'An assistant inside BinGi that answers questions and drafts work', 'Inside the HMS', 'Coming soon (not live)'],
       ] } },
       { heading: 'Properties and roles', list: [
         'One login can manage one or more properties; switch with the property switcher at the top.',
@@ -116,7 +119,50 @@ export const docs: DocPage[] = [
         'Staff join with an invite and their own BinGi ID; one person keeps one BinGi account.',
       ] },
       { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store: 21 premium themes (Luxury and Signature collections), ৳50/month each, free for now'] },
-      { heading: 'Being redesigned (in testing, not live)', list: ['Dashboard that changes by plan', 'Room / Accommodation page (live Rooms layout, out-of-order per room)', 'Discounts & Rates with a rates calendar', 'Guests and Reviews together, guest status from bookings', 'Staff: an Easy view for small teams', 'Inventory: stores, purchase orders, stock count, recipes', 'Other Services: a Today board with assignment', 'Owner onboarding in 6 parts'] },
+      { heading: 'Being redesigned (in testing, not live)', list: ['Dashboard with a priorities list that reads every module (to collect, rooms to clean, QR orders, unread chat, approvals, refunds, failed messages)', 'Bookings front office: room board, group and walk-in booking, waitlist, online pre-check-in, day close', 'Payments as one ledger with “To collect” and “Refunds due” lists', 'Operations renamed “Expenses”, with approval above a limit and supplier bills from Inventory', 'Reports workspace with one date range for 12 reports', 'Communication Center: 15 automatic messages, delivery policy, credits, history', 'Chat with website enquiries, quick replies and a booking card', 'Settings: one place for each setting', 'Room / Accommodation page (live Rooms layout, out-of-order per room)', 'Discounts & Rates with a rates calendar', 'Guests and Reviews together, guest status from bookings', 'Staff: an Easy view for small teams', 'Inventory: stores, purchase orders, stock count, recipes', 'Other Services: a Today board with assignment', 'Owner onboarding in 6 parts'] },
+    ],
+  },
+  {
+    slug: 'how-it-works', group: 'Platform', title: 'How the modules connect',
+    summary: 'Every fact is recorded once, in the module that owns it, and every other screen reads it from there. That is why a number can be checked anywhere.',
+    sections: [
+      { heading: 'The money path', steps: [
+        'A guest pays on a booking, a restaurant bill or a service order.',
+        'The payment is recorded once, in that module, and shows in Payments.',
+        'Cash goes into the Cashbox drawer that is open at that moment. Card, bKash and bank are recorded only.',
+        'Money paid online through BinGi (website advance, marketplace) shows in Finance, where BinGi’s fees come off and you request a payout.',
+        'Reports read all of these. Reports never store their own copy.',
+      ] },
+      { heading: 'Restaurant and service charges on a room', text: 'An order “posted to the room” is not a payment. It is added to the guest’s room bill and is paid at check-out, so it is counted once — as the booking payment.' },
+      { heading: 'Four statuses that are always separate', table: { head: ['Status', 'Answers', 'Examples'], rows: [
+        ['Booking status', 'Where is the stay?', 'Confirmed · Checked in · Checked out · Cancelled · No-show'],
+        ['Payment status', 'Has the guest paid?', 'Paid · Partly paid · Due · Refund due'],
+        ['Room readiness', 'Can the next guest use the room?', 'Needs cleaning · Cleaning · Inspect · Ready'],
+        ['Maintenance', 'Can the room be sold at all?', 'In order · Out of order (with dates and reason)'],
+      ] } },
+      { heading: 'Three gates on every screen', text: 'Plan (does your plan include it?), Role (may this user see or change it?) and Property (is the right property selected?).' },
+      { heading: 'One home for each setting', text: 'A setting is changed in one place only. Other screens show a short summary and a link to that place.' },
+    ],
+  },
+  {
+    slug: 'bingi-ai', group: 'Platform', title: 'BinGi AI', status: 'Coming soon',
+    summary: 'An assistant inside BinGi that will answer questions about your hotel and draft routine work. It is NOT live yet — nothing here can be used today.',
+    sections: [
+      { heading: 'What it will do', table: { head: ['Kind', 'Example', 'Who starts it'], rows: [
+        ['Ask', '“How many check-outs today?” · “Which stock item cost most this month?”', 'Staff'],
+        ['Do (with approval)', '“Create a housekeeping task for room 104” · “Draft a reply to this guest”', 'Staff — a person approves before anything changes'],
+        ['Watch', 'Low-stock alert · end-of-day summary', 'Rules the owner turns on'],
+      ] } },
+      { heading: 'Rules it will follow', list: [
+        'It never has more access than the person using it: plan, role, property and permission are checked for every action.',
+        'It does not move money (no refunds, payouts or payment capture) and does not delete anything.',
+        'It shows a draft first; nothing changes in BinGi until a person approves.',
+        'Numbers in its answers come from BinGi data, not guesses.',
+        'Guest messages are treated as information, never as instructions.',
+        'Bangla, English and Banglish.',
+      ] },
+      { heading: 'Where it will appear', list: ['“Ask BinGi” panel in the Web HMS', '“AI reply” in Chat', '“Daily brief” on the Dashboard', 'Later: HMS Mobile'] },
+      { heading: 'Status', text: 'Planned and in internal testing with demo data. Public label: Coming soon. Do not tell users it is available.' },
     ],
   },
   {
@@ -126,7 +172,7 @@ export const docs: DocPage[] = [
       { heading: 'Sidebar groups', table: { head: ['Group', 'Pages'], rows: [
         ['Daily operations', 'Dashboard · Bookings · Rooms · Housekeeping · Guests · Chat · Meals'],
         ['Property & team', 'Staff · Inventory · Other Services'],
-        ['Money & pricing', 'Discounts & Rates · Payments · Cashbox · Finance'],
+        ['Money & pricing', 'Discounts & Rates · Payments · Cashbox · Finance · Operations (expenses) · Billing & Subscription'],
         ['Reports & online', 'Reports · Communication Center · Website Management'],
         ['Bottom', 'Settings'],
       ] } },
@@ -159,6 +205,7 @@ export const docs: DocPage[] = [
       { heading: 'Views', list: ['Booking List — Easy or Detailed', 'Booking Calendar — rooms × days', 'Room Board — every room’s current state'] },
       { heading: 'Create a booking', steps: ['Click “New Booking” (Dashboard or Bookings).', 'Choose check-in and check-out dates, room type and room.', 'Pick a new or existing guest and fill in details.', 'Add payment details and confirm.'] },
       { heading: 'Sources', text: 'BinGi Marketplace, your website and walk-in/phone bookings land in the same list with one booking ID. OTA bookings will join when the channel manager launches (coming soon).' },
+      { heading: 'Next version (in testing, not live)', list: ['Today screen: arrivals, in-house and departures with one-tap check-in / check-out', 'Room board with drag to move a stay; group booking; quick walk-in', 'Waitlist when the hotel is full', 'Online pre-check-in link for guests (ID and arrival time before they come)', 'Security deposit held and returned', 'Day close (night audit) with the guest register and Form-C', 'Meals and other services added to the booking'] },
     ],
     fixes: [
       { symptom: 'A room is not offered for my dates', causes: ['Already booked for at least one night', 'Room blocked for maintenance', 'Room not approved / inactive'], steps: ['Open the Booking Calendar and check every night of the stay.', 'Check the room for a maintenance block.', 'Check the room is active in Rooms.'] },
@@ -192,7 +239,9 @@ export const docs: DocPage[] = [
     slug: 'guests-chat', group: 'Modules', title: 'Guests & Chat', where: 'Daily operations › Guests (Guest Directory · Guest Reviews) and Chat', plan: 'All plans', status: 'Live',
     summary: 'Guest profiles, stay history, reviews and real-time chat with guests from the Marketplace and your website.',
     sections: [
+      { heading: 'Chat', list: ['Messages list with All and Unread, and a search box.', 'One conversation per booking: pick a booking on the left to open it.', 'Guests write from the BinGi Marketplace / Guest App or your website; enquiries without a booking are marked as enquiries.'] },
       { heading: 'Privacy', text: 'Guest ID documents and phone numbers are personal data. Only share them inside BinGi with staff who need them.' },
+      { heading: 'Next version (in testing, not live)', list: ['Enquiries filter and a “Make booking” button', 'Booking card beside the conversation (status, payment, room, dates, due)', 'Quick replies, a payment-details button (your accounts + amount due), location and the online check-in link', 'Unread count in the sidebar', 'Quick replies, payment note and location move from Settings to Chat'] },
     ],
     fixes: [
       { symptom: 'I am not getting guest messages', causes: ['Notifications off', 'Different property selected', 'Role cannot see Chat'], steps: ['Open Chat directly and check the property switcher.', 'Turn on notifications (Settings › Notification rules / your browser).', ACCESS_CHECK] },
@@ -235,31 +284,98 @@ export const docs: DocPage[] = [
     sections: [{ heading: 'Use', steps: ['Create the service with a price.', 'Add it to an in-house guest’s bill.'] }],
   },
   {
-    slug: 'money', group: 'Modules', title: 'Money: Rates, Payments, Cashbox, Finance', where: 'Money & pricing › Discounts & Rates · Payments · Cashbox · Finance', plan: 'All plans (Expenses: Business and above)', status: 'Live',
-    summary: 'Room rates and discounts, guest payments, the cash drawer, expenses and your BinGi subscription.',
+    slug: 'discounts-rates', group: 'Modules', title: 'Discounts & Rates', where: 'Money & pricing › Discounts & Rates', plan: 'All plans', status: 'Live',
+    summary: 'Discount campaigns: coupon codes and automatic deals. Room prices are set per room type in Rooms.',
     sections: [
-      { heading: 'Pages', table: { head: ['Page', 'Use it for'], rows: [
-        ['Discounts & Rates', 'Discount campaigns: coupon codes and automatic deals. Room prices are set per room type in Rooms. A rates calendar (price by date) is in testing, not live yet.'],
-        ['Payments', 'Payments received from guests'],
-        ['Cashbox', 'Cash in the drawer; open and close the day'],
-        ['Finance', 'Finance Overview · Expenses & Accounts · Billing & Subscription (your BinGi plan and bills)'],
-      ] } },
+      { heading: 'Next version (in testing, not live)', list: ['A rates calendar: price by date for each room type', 'Campaigns and rates in one place'] },
+    ],
+  },
+  {
+    slug: 'payments', group: 'Modules', title: 'Payments', where: 'Money & pricing › Payments', plan: 'All plans', status: 'Live',
+    summary: 'Every payment guests made, with totals and an export.',
+    sections: [
+      { heading: 'What you see', list: ['Total revenue, balance due, total collected and average transaction', 'Revenue trend (3 months, 6 months, 1 year, all)', 'Recent transactions: payment ID, booking ID, guest, total, paid, method, gateway / transaction, date', 'Export report'] },
+      { heading: 'Take a payment or refund', steps: ['Open the booking (Bookings › booking).', 'Use Payment / Take payment, or Refund when the guest paid more than the bill.', 'Cash payments go into the open Cashbox. Card, bKash and bank are recorded with their reference.'] },
+      { heading: 'Next version (in testing, not live)', list: ['One ledger for rooms, restaurant and other services, filtered by source, method and type', '“To collect” list: guests leaving today first, then in-house, then arrivals', '“Refunds due” list; refunds are made from the booking so bill, receipt and Cashbox stay in step', 'Receipt for any payment', 'Net received by day, and totals by method'] },
     ],
     fixes: [
-      { symptom: 'Cashbox does not match the cash in the drawer', causes: ['A cash payment recorded as another method', 'Expense paid from the drawer not recorded', 'Payment entered on the wrong day'], steps: ['Compare today’s payments list with receipts.', 'Record missing cash expenses.', 'Correct the payment method, then close the day again.'] },
-      { symptom: 'Guest bill total looks wrong', causes: ['Taxes or service charge settings', 'An order posted to the wrong room', 'Discount applied twice'], steps: ['Open the bill and check each line.', 'Check Settings › Pricing & Taxes.', 'Move a wrong charge to the correct room.'] },
+      { symptom: 'A payment is missing from Payments', causes: ['It was posted to the room bill (paid later at check-out)', 'Different property or date range', 'Recorded on a different booking'], steps: ['Check the property switcher and widen the date range.', 'Open the guest’s booking and look at Bill & payments.', 'Restaurant / service charges posted to a room show only when the booking is paid.'] },
+    ],
+  },
+  {
+    slug: 'cashbox', group: 'Modules', title: 'Cashbox', where: 'Money & pricing › Cashbox', plan: 'All plans', status: 'Live',
+    summary: 'The cash drawer: open the day with a float, every cash in and out, then count and close.',
+    sections: [
+      { heading: 'Daily routine', steps: ['Open the cashbox with the opening float.', 'Cash payments from bookings, restaurant and services post here by themselves.', 'Record cash out (bank deposit, owner withdrawal, petty expense, refund). Large amounts need the approving manager’s name.', 'At closing, count the notes, explain any difference, keep a float for tomorrow and deposit the rest.'] },
+      { heading: 'Mistakes', text: 'Cash entries are never deleted. A wrong entry is fixed with a reversal, so the history stays honest.' },
+      { heading: 'Next version (in testing, not live)', list: ['Separate restaurant & bar cashboxes that hand cash over to the main cashbox', 'Expenses paid in cash come out of the main cashbox automatically'] },
+    ],
+    fixes: [
+      { symptom: 'Cashbox does not match the cash in the drawer', causes: ['A cash payment recorded as another method', 'Expense paid from the drawer not recorded', 'Payment entered on the wrong day'], steps: ['Compare today’s cash entries with receipts.', 'Record missing cash out with a note.', 'Fix a wrong entry with a reversal, then count and close again.'] },
+      { symptom: 'I cannot take a cash payment', causes: ['The cashbox is not open'], steps: ['Open Cashbox and start the day with the opening float.', 'Or take the payment by another method.'] },
+    ],
+  },
+  {
+    slug: 'expenses', group: 'Modules', title: 'Operations (expenses)', where: 'Money & pricing › Operations', plan: 'Business and above', status: 'Live',
+    summary: 'Expenses, payroll cost, payees, categories and an audit log in one workspace.',
+    sections: [
+      { heading: 'Tabs', list: ['Overview: totals, paid and due, approvals, expense trend, revenue vs expense', 'Expenses', 'Payroll', 'Payees', 'Categories', 'Audit logs'] },
+      { heading: 'Add an expense', steps: ['Click “New expense”.', 'Enter the title, date, category, payee (optional), amount, payment method and a note.', 'Save.'] },
+      { heading: 'Next version (in testing, not live)', list: ['Sidebar name changes to “Expenses”', 'Expenses above an approval limit wait for a manager before they can be paid', 'Part payments; cash payments come out of the Cashbox', 'Supplier bills from Inventory goods received (pay a bill in one step)', 'Petty cash from Cashbox shown in the same list', 'Payroll shown as a cost only — it is run and paid in Staff', '“Left after costs”: money received minus money spent'] },
+    ],
+    fixes: [
+      { symptom: 'I cannot pay an expense', causes: ['It is waiting for approval', 'It was rejected', 'Cash: the cashbox is closed or has too little cash'], steps: ['Ask a manager to approve it.', 'Open Cashbox, or pay by bank / bKash with the reference.'] },
+    ],
+  },
+  {
+    slug: 'finance', group: 'Modules', title: 'Finance', where: 'Money & pricing › Finance', plan: 'All plans', status: 'Live',
+    summary: 'Your account with BinGi: money guests paid online through BinGi, BinGi’s deductions, and payouts to you.',
+    sections: [
+      { heading: 'Tabs', list: ['Overview', 'Statement', 'Commissions', 'Subscription invoices', 'Ledger', 'Settlements', 'Refunds'] },
+      { heading: 'The numbers', table: { head: ['Name', 'Meaning'], rows: [
+        ['Total collected', 'Money guests paid online through BinGi'],
+        ['Commission', 'BinGi booking fee for marketplace and website bookings (see your plan)'],
+        ['Gateway fees', 'Charged by the online payment gateway'],
+        ['SMS & email cost', 'Messages sent for your property'],
+        ['Refunded', 'Online refunds'],
+        ['Hotel payable', 'What BinGi owes you after deductions'],
+        ['Pending settlement', 'Payouts you requested that are not paid yet (held)'],
+        ['Available balance', 'Ready to request as a payout now'],
+      ] } },
+      { heading: 'Request a payout', steps: ['Open Finance › Settlements.', 'Pick the period and the account BinGi should send to (accounts come from Settings › Payments).', 'Submit. BinGi (Super Admin) processes it; the status changes from Requested to Paid.'] },
+      { heading: 'Cash and card at the hotel', text: 'Money taken at the hotel never passes through BinGi, so it is not in Finance. See Payments and Cashbox.' },
+      { heading: 'Next version (in testing, not live)', list: ['Four tabs: Overview, Ledger, Payouts, Statement (commissions and refunds become ledger filters)', 'Subscription invoices only in Settings › Billing & plan', 'Cancel a payout request while it is still Requested', 'Monthly statement with print'] },
+    ],
+    fixes: [
+      { symptom: 'Available balance is lower than total collected', causes: ['Deductions: commission, gateway fees, SMS & email cost, refunds', 'A payout request is pending and holds part of the balance'], steps: ['Open the Ledger to see each deduction.', 'Check Settlements for a Requested payout.'] },
+      { symptom: 'No account to choose for a payout', causes: ['No bKash or bank account saved'], steps: ['Add the account in Settings › Payments, then come back to Settlements.'] },
     ],
   },
   {
     slug: 'reports', group: 'Modules', title: 'Reports', where: 'Reports & online › Reports', plan: 'All plans', status: 'Live',
-    summary: 'Occupancy, revenue, booking sources, payments, expenses and staff reports.',
-    sections: [{ heading: 'Tip', text: 'Always check the date range and property before comparing numbers.' }],
+    summary: 'One workspace with shared filters and exports: sales, revenue, bookings, occupancy, guests, payments, expenses and meals.',
+    sections: [
+      { heading: 'Reports', list: ['Master sales', 'Daily sales', 'Sales register', 'Dashboard summary', 'Revenue report', 'Booking report', 'Occupancy report', 'Guest report', 'Payment report', 'Expense report', 'Meal report'] },
+      { heading: 'Filters and export', list: ['Shared date range: today, yesterday, last 7 / 30 days, this month, last month or custom', 'Export the active report as PDF or Excel (XLSX), or print it', 'Each table: sort by any column, and download as CSV'] },
+      { heading: 'Words used', table: { head: ['Word', 'Meaning'], rows: [
+        ['Occupancy', 'Sold room-nights ÷ room-nights open (out-of-order rooms are not open)'],
+        ['ADR', 'Average room price per sold night (before VAT & service)'],
+        ['RevPAR', 'Room revenue per room-night open'],
+        ['Net cash', 'Collections − refunds − expenses paid'],
+      ] } },
+      { heading: 'Tip', text: 'Always check the date range and property before comparing numbers.' },
+      { heading: 'Next version (in testing, not live)', list: ['Reports grouped as Sales, Rooms, Money and Departments; only reports your plan includes are shown', 'Revenue & profit (costs include payroll paid)', 'Restaurant, other services, inventory and staff cost reports', 'Bookings › Reports keeps a short front-desk view with a link to all reports'] },
+    ],
   },
   {
     slug: 'communication', group: 'Modules', title: 'Communication Center', where: 'Reports & online › Communication Center', plan: 'All plans', status: 'Live',
-    summary: 'SMS and email to guests, with templates.',
-    sections: [{ heading: 'Setup', text: 'SMS needs an SMS gateway (Settings › Connectivity › SMS Gateway). Message templates live in Settings › Guest Messaging.' }],
-    fixes: [{ symptom: 'SMS is not being sent', causes: ['SMS gateway not connected', 'SMS balance finished', 'Wrong phone format'], steps: ['Check Settings › Connectivity › SMS Gateway.', 'Check your SMS balance.', 'Use the full number with country code.'] }],
+    summary: 'Automatic emails and SMS to guests and your team, credits, delivery rules and history.',
+    sections: [
+      { heading: 'Tabs', list: ['Dashboard: email and SMS credit balance, today’s messages, monthly usage and cost', 'Delivery policy: email first, SMS only when needed (profiles: Default, Safe, Cost-aware, High-priority), fallback delay, retries, sender identity', 'Notification events: each event (booking confirmed, cancelled, check-in reminder, room ready, order received …) with email / SMS and “Edit template”', 'Communication credits and Purchase credits', 'Communication history and Delivery reports'] },
+      { heading: 'Credits', text: 'Your plan includes monthly email and SMS credits. Buy more in Purchase credits when they run low. Message cost shows in Finance as “SMS & email”.' },
+      { heading: 'Next version (in testing, not live)', list: ['Automatic messages grouped as Booking, Stay, Payments, Restaurant & services and Team alerts', 'Message text editor with a live preview and an SMS part counter (Bangla uses 70 characters per part)', 'Send a message from history; resend a failed one', 'Settings › Guest messages becomes a link here (one home)'] },
+    ],
+    fixes: [{ symptom: 'SMS is not being sent', causes: ['SMS credits finished', 'Event turned off for SMS', 'Wrong phone format', 'Delivery policy: SMS only when email fails'], steps: ['Check the SMS credit balance on the Dashboard tab.', 'Check the event is on for SMS in Notification events.', 'Check the guest’s number (with country code).', 'Check the Delivery policy.', 'Look at Communication history for the error.'] }],
   },
   {
     slug: 'website', group: 'Modules', title: 'Website Management', where: 'Reports & online › Website Management (Theme & Appearance · Pages & Content · Publishing & Ordering Channels)', plan: 'All plans (themes by plan)', status: 'Live',
@@ -269,6 +385,13 @@ export const docs: DocPage[] = [
       { heading: 'Publish', steps: ['Choose a theme and colour.', 'Edit text and photos.', 'Publish in Publishing & Ordering Channels. Changes stay a draft until you publish.'] },
       { heading: 'Domain', text: 'Connect your own domain from Website Management; until then the site uses a BinGi address.' },
       { heading: 'Theme Store (coming soon)', text: '21 premium themes as an add-on on any plan: ৳50 per theme per month, free for now. In testing.' },
+      { heading: 'Premium collections (in testing, not live)', table: { head: ['Collection', 'Themes'], rows: [
+        ['Paid', 'DRIFT · CANOPY · POD · ORBIT'],
+        ['Luxury', 'ISLE · ESTATE · SUMMIT · HAVEN · NOIR · MAISON · ZAMINDAR'],
+        ['Signature', 'AUREL · COURTYARD · AXIS · WAYPOINT · SHANTI · RESIDE · COMMONS · ROOTS · MORNING · MATIR'],
+      ] } },
+      { heading: 'Website pages', list: ['Home · Rooms (each room with photos, price and booking) · Offers · Dining (Ultra) · Experiences · Explore · Events · Policies', 'Guests book and pay the advance on your website; the booking lands in your HMS with one booking ID', 'Guests can check in online before arrival (in testing)'] },
+      { heading: 'Online On/Off', text: 'Pause website booking, marketplace, website food ordering or QR ordering at any time. Pausing stops new requests only; existing bookings stay.' },
     ],
     fixes: [
       { symptom: 'My changes do not show on the website', causes: ['Changes saved as draft, not published', 'Browser shows an old copy'], steps: ['Click Publish.', 'Reload the website (or open it in a private window).'] },
@@ -288,7 +411,8 @@ export const docs: DocPage[] = [
       ['Access', 'Users & Roles · Security & Sessions · Branch Management'],
       ['Connectivity', 'SMS Gateway · Payment Gateway · Printers · Attendance Devices'],
       ['Personal Preferences', 'Appearance & Accessibility (size, density, sidebar mode, language)'],
-    ] } }],
+    ] } },
+    { heading: 'Next version (in testing, not live)', list: ['Search inside Settings', 'One home for each setting: guest messages move to Communication Center, chat replies to Chat, booking settings to Settings › Booking policies, subscription invoices to Billing & plan', 'Ask before leaving a page with unsaved changes'] }],
   },
   // ───────────────────────── ACCOUNT
   {
@@ -309,7 +433,7 @@ export const docs: DocPage[] = [
         ['Custom', 'Several properties, your modules and workflow, migration and dedicated onboarding'],
       ] } },
       { heading: 'Which plan for which property', table: { head: ['Property', 'Suggested plan'], rows: [['Home / flat', 'Starter'], ['Guest house', 'Starter'], ['Hotel', 'Business'], ['Resort', 'Ultra'], ['Hotel group', 'Custom']] } },
-      { heading: 'See or change your plan', text: 'Finance › Billing & Subscription.' },
+      { heading: 'See or change your plan', text: 'Billing & Subscription in the sidebar (Money & pricing). In the next version it lives in Settings › Billing & plan.' },
     ],
     fixes: [{ symptom: 'My bill is higher than expected', causes: ['Minimum 10 rooms applies', 'Taxes added', 'Booking fees from marketplace/website bookings'], steps: ['Check the room count on the bill.', 'Check the tax line.', 'Check booking-fee lines by source.', 'Questions: send the bill number to support.'] }],
   },
@@ -330,6 +454,23 @@ export const docs: DocPage[] = [
     ],
   },
   {
+    slug: 'faq', group: 'Help', title: 'Frequently asked questions',
+    summary: 'Short answers to what people ask most.',
+    sections: [{ heading: 'Questions', table: { head: ['Question', 'Answer'], rows: [
+      ['What is BinGi?', 'Hotel Management Technology by NEONECY (Dhaka): website, bookings, front desk, housekeeping, restaurant, staff, money and reports in one connected system.'],
+      ['How much does it cost?', 'Per room per month: Starter ৳25, Business ৳70, Ultra ৳116 (launch offer; minimum 10 rooms). See “Plans, pricing and billing”.'],
+      ['Is there a free trial?', 'Yes — create your account, set up your property and start a seven-day free trial.'],
+      ['Does BinGi connect to Booking.com / Agoda?', 'Not yet. The channel manager (OTA connections) is coming soon.'],
+      ['Can guests pay online?', 'It depends on the payment options turned on for your property (Settings › Payments). Online payments that pass through BinGi show in Finance. BinGi Payments as a full payment service is coming soon.'],
+      ['Is BinGi AI available?', 'No. BinGi AI is coming soon.'],
+      ['Can I use my own domain?', 'Yes — connect it in Website Management › Domain. Until then the site uses a free BinGi address.'],
+      ['Can I manage several properties?', 'Yes. One login can manage several properties; switch at the top. Hotel groups use the Custom plan.'],
+      ['Is the HMS in Bangla?', 'Yes, the interface can be English or Bangla.'],
+      ['Which plan has the restaurant?', 'Business (limited) and Ultra (full restaurant & bar).'],
+      ['Where do I see what BinGi owes me?', 'Finance › Overview (available balance) and Settlements (payouts).'],
+    ] } }],
+  },
+  {
     slug: 'glossary', group: 'Help', title: 'Glossary',
     summary: 'Words used in BinGi.',
     sections: [{ heading: 'Terms', table: { head: ['Term', 'Meaning'], rows: [
@@ -346,6 +487,12 @@ export const docs: DocPage[] = [
       ['OTA', 'Online travel agency (for example Booking.com) — channel manager coming soon'],
       ['Activation', 'One-time fee when starting a plan'],
       ['Role', 'A set of permissions given to a user'],
+      ['Settlement / payout', 'Money BinGi sends you from your available balance'],
+      ['Commission / booking fee', 'BinGi’s % on marketplace and website bookings (by plan)'],
+      ['Float', 'Cash kept in the drawer to start the day'],
+      ['Reversal', 'A new entry that cancels a wrong cash entry (nothing is deleted)'],
+      ['Out of order', 'A room that cannot be sold for some dates (maintenance)'],
+      ['Credits', 'Email / SMS messages you can still send'],
     ] } }],
   },
   {
@@ -390,6 +537,8 @@ Rules for you, the AI assistant:
 - Always check the three gates first: plan, role permission, selected property.
 - Booking status, payment status, room readiness and maintenance status are separate — never mix them.
 - Features marked "Coming soon" are NOT available; never tell the user to use them.
+- Sections titled "Next version (in testing, not live)" describe a redesign that users cannot use yet. Explain the current (live) way first; mention the next version only if asked.
+- BinGi AI is not live.
 - Never ask for passwords, OTP codes or card numbers.
 - Reply in the user's language (Bangla or English).`
 
