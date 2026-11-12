@@ -174,3 +174,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-12 · From user screen recording: /ai monitor flashed black on tab switch → screens now stay loaded and cross-fade (poster + preload); image slots get a gray placeholder · devtest NO ISSUES
 - 2026-11-12 · Recording fixes: Solutions/Themes photos fade in over a gray placeholder; home property-type card no longer blanks on tab switch · devtest NO ISSUES
 - 2026-11-12 · Home/Products: hero, platform, story (5) and bento (6) now real HMS prototype screens animated with Remotion (sample hotel, demo data); pricing Starter/Business still illustrations · devtest NO ISSUES
+- 2026-11-12 · HMS Mobile slot: real iPhone screenshots (HMS-Brand-New.zip) as a 12 s app tour — splash → dashboard scroll → Staff → dark mode; property name, staff email/phone/pay blurred · devtest NO ISSUES

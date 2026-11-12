@@ -7,7 +7,7 @@ export const media = {
   heroWeb:        { src: '/media/hms/dash.mp4', poster: '/media/hms/dash.webp', w: 2560, h: 1440, note: 'HMS Web — Dashboard (screenshot or GIF)' },
   heroPhone:      { src: '/media/heroPhone.mp4', w: 1320, h: 2868, note: 'Guest App — Home (iPhone 16 Pro Max)' },
   platformWeb:    { src: '/media/hms/calendar.mp4', poster: '/media/hms/calendar.webp', w: 2560, h: 1440, note: 'HMS Web — Booking Calendar' },
-  platformMobile: { src: '/media/platformMobile.mp4', w: 1320, h: 2868, note: 'HMS Mobile — Today screen' },
+  platformMobile: { src: '/media/hms/mobile.mp4', poster: '/media/hms/mobile.webp', w: 1320, h: 2868, note: 'HMS Mobile — Today screen' },
   platformGuest:  { src: '/media/heroPhone.mp4', w: 1320, h: 2868, note: 'Guest App — Hotel page / booking' },
   chain:          { w: 1600, h: 900,  note: 'GIF: one booking flowing from website to report' },
   story1:         { src: '/media/hms/bookings.mp4', poster: '/media/hms/bookings.webp', w: 2560, h: 1440, note: 'Booking arrives — website / marketplace / walk-in (Bookings list)' },
