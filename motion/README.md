@@ -29,3 +29,10 @@ done
 cp out/*.mp4 ../website/public/media/
 ```
 6 s seamless loops, 30 fps, ~1 MB total. On Linux servers without Remotion's bundled browser add `--browser-executable=/usr/bin/google-chrome`.
+
+## Real HMS screens (`src/HmsScreens.tsx`)
+Built from real BinGi HMS prototype screenshots (sample hotel "Azure Bay Grand Resort", demo data) in `public/hms/*.webp`
+(captured 12 Nov 2026 at 1456×819, upscaled to 1600×900; the prototype-only "demo data" chip and "New property" button are painted out).
+The loops only reveal parts of the real screen, grow bars to their real length, type the value already in the field and move the booking bar that is already on the calendar.
+Compositions: hmsDash, hmsCalendar, hmsBookings, hmsCheckin, hmsPos, hmsHousekeeping (1600×900) and realBento* (slot sizes, cropped).
+Rendered to `website/public/media/hms/*.mp4` + `*.webp` posters.

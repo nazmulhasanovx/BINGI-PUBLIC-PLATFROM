@@ -17,7 +17,7 @@ function AutoVideo({ src, poster, className, style, label, active = true }: { sr
     io.observe(v)
     return () => io.disconnect()
   }, [active])
-  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload={poster ? 'auto' : 'none'} className={className} style={style} aria-label={label} />
+  return <video ref={ref} src={src} poster={poster} muted loop playsInline preload={poster ? 'metadata' : 'none'} className={className} style={style} aria-label={label} />
 }
 
 export function Media({ id, className = '', active = true }: { id: MediaId; className?: string; active?: boolean }) {

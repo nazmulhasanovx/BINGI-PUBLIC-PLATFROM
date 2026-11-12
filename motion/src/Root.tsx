@@ -8,6 +8,7 @@ import { Restaurant } from './Restaurant';
 import { Cashbox } from './Cashbox';
 import { Staff } from './Staff';
 import { Website } from './Website';
+import { HMS_LOOP, HmsDash, HmsCalendar, HmsBookings, HmsCheckin, HmsPos, HmsHousekeeping, BentoCalendarReal, BentoHousekeepReal, BentoRestaurantReal, BentoCashReal, BentoStaffReal, BentoWebsiteReal } from './HmsScreens';
 import { AiHome, AiAnswer, AiBrief, AI_LOOP, aiFontsReady } from './AiScreens';
 import { Dashboard, BookingsList, CheckIn, GuestApp, MobileToday } from './Screens';
 
@@ -41,5 +42,18 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="aiHome" component={AiHome} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
     <Composition id="aiAnswer" component={AiAnswer} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
     <Composition id="aiBrief" component={AiBrief} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
+    {/* Real HMS screens (prototype, sample hotel) */}
+    <Composition id="hmsDash" component={HmsDash} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="hmsCalendar" component={HmsCalendar} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="hmsBookings" component={HmsBookings} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="hmsCheckin" component={HmsCheckin} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="hmsPos" component={HmsPos} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="hmsHousekeeping" component={HmsHousekeeping} durationInFrames={HMS_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="realBentoCalendar" component={BentoCalendarReal} durationInFrames={HMS_LOOP} fps={30} width={1600} height={700} />
+    <Composition id="realBentoHousekeep" component={BentoHousekeepReal} durationInFrames={HMS_LOOP} fps={30} width={800} height={700} />
+    <Composition id="realBentoRestaurant" component={BentoRestaurantReal} durationInFrames={HMS_LOOP} fps={30} width={1200} height={750} />
+    <Composition id="realBentoCash" component={BentoCashReal} durationInFrames={HMS_LOOP} fps={30} width={1200} height={750} />
+    <Composition id="realBentoStaff" component={BentoStaffReal} durationInFrames={HMS_LOOP} fps={30} width={1200} height={750} />
+    <Composition id="realBentoWebsite" component={BentoWebsiteReal} durationInFrames={HMS_LOOP} fps={30} width={2400} height={800} />
   </>
 );
