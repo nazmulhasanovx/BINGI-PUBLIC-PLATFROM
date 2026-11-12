@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, BookOpenCheck, CalendarCheck2, ClipboardCheck, Cpu, FileImage, KeyRound, Laptop, Languages, Lock, MessageSquareText, ScrollText, ShieldCheck, Sparkles, UserCheck } from 'lucide-react'
+import { ArrowRight, Check, Copy, BookOpenCheck, CalendarCheck2, ClipboardCheck, Cpu, FileImage, KeyRound, Laptop, Languages, Lock, MessageSquareText, ScrollText, ShieldCheck, Sparkles, UserCheck } from 'lucide-react'
 import { useLang, type L } from '@/i18n/lang'
 import { PillTabs, Accordion } from '@/components/ui/Ui'
 import { Reveal } from '@/components/ui/Reveal'
+import AITextLoading from '@/components/ui/ai-text-loading'
+import { SendIcon, DownloadDoneIcon, CopiedIcon, PlayPauseIcon, SuccessIcon } from '@/components/ui/animated-state-icons'
 import { StudioDisplay } from '@/components/media/Devices'
 import { site } from '@/data/site'
 import { asset } from '@/lib/utils'
@@ -31,13 +33,30 @@ const safety: { icon: typeof Lock; title: L; text: L }[] = [
   { icon: ScrollText, title: { bn: 'সব কাজের log', en: 'Everything is logged' }, text: { bn: 'কে কী জিজ্ঞেস করল, কী approve হলো — audit log-এ থাকে। Owner চাইলে বন্ধ করতে পারেন।', en: 'Questions and approvals are kept in an audit log. The owner can switch AI off.' } },
 ]
 
+const stepIcons = [SendIcon, DownloadDoneIcon, CopiedIcon, PlayPauseIcon, SuccessIcon]
+
 const steps: { title: L; text: L; code?: string }[] = [
   { title: { bn: 'Beta access নিন', en: 'Get beta access' }, text: { bn: 'BinGi টিমকে WhatsApp করুন। আপনার GitHub account-কে BinGi AI repo-তে যোগ করা হবে, সাথে আপনার hotel-এর BinGi API access।', en: 'Message the BinGi team on WhatsApp. We add your GitHub account to the BinGi AI repo and give your hotel its BinGi API access.' } },
   { title: { bn: 'দরকারি জিনিস বসান', en: 'Install the basics' }, text: { bn: 'Node.js (LTS), Git আর Ollama (local model চালাতে)। তারপর model নামান:', en: 'Node.js (LTS), Git and Ollama (to run the local model). Then download the model:' }, code: 'ollama pull qwen3:4b' },
-  { title: { bn: 'Repo নামান', en: 'Get the code' }, text: { bn: 'Terminal বা PowerShell-এ:', en: 'In Terminal or PowerShell:' }, code: 'git clone -b develop https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai' },
+  { title: { bn: 'Repo নামান', en: 'Get the code' }, text: { bn: 'পাশের terminal থেকে command কপি করে Terminal বা PowerShell-এ চালান।', en: 'Copy the command from the terminal and run it in Terminal or PowerShell.' }, code: 'git clone -b develop https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai' },
   { title: { bn: 'চালু করুন', en: 'Start it' }, text: { bn: 'Mac-এ “Start BinGi AI.command”, Windows-এ “Start BinGi AI (Windows).bat” double-click। Browser-এ নিজে খুলবে:', en: 'Double-click “Start BinGi AI.command” on Mac or “Start BinGi AI (Windows).bat” on Windows. It opens in your browser:' }, code: 'http://localhost:8787' },
   { title: { bn: 'BinGi API connect করুন', en: 'Connect BinGi API' }, text: { bn: 'User menu › Connectivity › BinGi HMS API — address আর access token দিন, Test চাপুন। চাইলে cloud model-এর জন্য OpenRouter key-ও এখানে।', en: 'User menu › Connectivity › BinGi HMS API — enter the address and access token, press Test. An OpenRouter key for a cloud model also goes here (optional).' } },
 ]
+
+const commands = 'ollama pull qwen3:4b\ngit clone -b develop https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai\ncd bingi-ai && pnpm start'
+function CopyAll() {
+  const { t } = useLang()
+  const [done, setDone] = useState(false)
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(commands); setDone(true); window.setTimeout(() => setDone(false), 1600) } catch { /* clipboard blocked */ }
+  }
+  return (
+    <button type="button" onClick={copy} className="ml-auto inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full px-3 text-[12px] font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white">
+      {done ? <Check className="size-3.5 text-[#7EE2A8]" aria-hidden="true" /> : <Copy className="size-3.5" aria-hidden="true" />}
+      {done ? t({ bn: 'কপি হয়েছে', en: 'Copied' }) : t({ bn: 'সব কপি', en: 'Copy all' })}
+    </button>
+  )
+}
 
 export default function Ai() {
   const { t } = useLang()
@@ -121,6 +140,13 @@ export default function Ai() {
               </li>
             ))}
           </ol>
+          <div className="mt-12 flex justify-center">
+            <div className="inline-flex items-center gap-3 rounded-full border border-line bg-white py-2 pl-2 pr-5 shadow-soft">
+              <img src={asset('/media/ai/fennec.webp')} alt="" aria-hidden="true" className="size-8 rounded-full bg-brand-soft" />
+              <AITextLoading interval={1800} className="from-ink via-[#E0414A] to-ink text-[15px]"
+                texts={t({ bn: 'প্রশ্ন বুঝছে…|Role আর property যাচাই করছে…|কাজের card বানাচ্ছে…|আপনার Approve-এর অপেক্ষায়…', en: 'Understanding the question…|Checking role and property…|Preparing the task card…|Waiting for your Approve…' }).split('|')} />
+            </div>
+          </div>
         </section>
 
         {/* Safety + where it runs — one dark panel */}
@@ -163,24 +189,33 @@ export default function Ai() {
             <ol className="space-y-6">
               {steps.map((s, i) => (
                 <li key={i} className="flex gap-4">
-                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand-soft text-[13px] font-semibold text-brand">{i + 1}</span>
-                  <div>
-                    <p className="text-[16px] font-semibold">{t(s.title)}</p>
-                    <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{t(s.text)}</p>
+                  <span className="grid size-11 shrink-0 place-items-center rounded-[14px] bg-white text-brand shadow-soft ring-1 ring-line">
+                    {(() => { const I = stepIcons[i]; return <I size={28} /> })()}
+                  </span>
+                  <div className="pt-0.5">
+                    <p className="text-[16px] font-semibold"><span className="mr-2 text-[13px] font-medium tabular-nums text-muted-foreground">0{i + 1}</span>{t(s.title)}</p>
+                    <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{t(s.text).replace(/:$/, '.')}</p>
                   </div>
                 </li>
               ))}
             </ol>
             <div className="overflow-hidden rounded-[20px] bg-[#0B1220] shadow-[0_30px_60px_-30px_rgb(11_34_53/0.6)] ring-1 ring-black/5 lg:sticky lg:top-28">
-              <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3" aria-hidden="true">
-                <span className="size-3 rounded-full bg-[#FF5F57]" /><span className="size-3 rounded-full bg-[#FEBC2E]" /><span className="size-3 rounded-full bg-[#28C840]" />
+              <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-2.5">
+                <span aria-hidden="true" className="size-3 rounded-full bg-[#FF5F57]" /><span aria-hidden="true" className="size-3 rounded-full bg-[#FEBC2E]" /><span aria-hidden="true" className="size-3 rounded-full bg-[#28C840]" />
                 <span className="ml-3 text-[12px] text-white/45">Terminal</span>
+                <CopyAll />
               </div>
               <pre className="overflow-x-auto p-5 text-[13px] leading-[1.9] text-white/90"><code>
 <span className="text-white/40"># 2 · {t({ bn: 'model নামান', en: 'download the model' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> ollama pull qwen3:4b{'\n\n'}
 <span className="text-white/40"># 3 · {t({ bn: 'repo নামান', en: 'get the code' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> git clone -b develop \{'\n'}    https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai{'\n\n'}
 <span className="text-white/40"># 4 · {t({ bn: 'চালু — অথবা Start file double-click', en: 'start — or double-click the Start file' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> cd bingi-ai && pnpm start{'\n'}<span className="text-[#7EE2A8]">→ http://localhost:8787</span>
               </code></pre>
+              <div className="flex items-center gap-2.5 border-t border-white/10 px-5 py-3.5 text-[13px]">
+                <img src={asset('/media/ai/fennec.webp')} alt="" aria-hidden="true" className="size-6 rounded-full bg-white/10" />
+                <span className="text-white/45">BinGi AI ›</span>
+                <AITextLoading interval={1700} className="from-white/35 via-white to-white/35 font-medium"
+                  texts={t({ bn: 'আজকের booking পড়ছে…|রুমের অবস্থা দেখছে…|সকালের brief বানাচ্ছে…|আপনার Approve-এর অপেক্ষায়…', en: 'Reading today’s bookings…|Checking room status…|Writing the morning brief…|Waiting for your Approve…' }).split('|')} />
+              </div>
             </div>
           </div>
           <p className="mx-auto mt-10 flex max-w-[760px] items-start justify-center gap-2 text-center text-[14px] text-muted-foreground">

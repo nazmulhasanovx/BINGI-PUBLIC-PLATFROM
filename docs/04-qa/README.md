@@ -169,3 +169,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-11 18:08: Nazmul — colours/fonts reverted to the previous Coral Glow look; only Brand Kit V1 logos + favicons/app icons kept.
 - 2026-11-12: New /ai page — BinGi AI (Beta): Studio Display with 3 real BinGi AI screens (sample hotel), abilities, approval flow, safety, local vs cloud, 5-step local setup (private repo, BinGi API connect), FAQ, CTA; AI logo + Fennec from Brand Kit V1. Nav + footer link, status 'beta', docs/changelog updated. Header nav no-wrap at 1024. devtest (15 routes) NO ISSUES.
 - 2026-11-12 · /ai redesign (premium, calmer layout, terminal install card) + smooth language switch (pill slides, page cross-fades) · devtest 8 devices NO ISSUES
+- 2026-11-12 · /ai: animated state icons on setup steps, AI shimmer status (How it works + terminal), Copy-all button · devtest NO ISSUES
