@@ -10,6 +10,11 @@ Short looping clips for the public site's bento cards. Source of `website/public
 | bentoCash | 1200×750 | Today's payments arrive, totals by method, day closes with counted = expected |
 | bentoStaff | 1200×750 | Attendance: check-ins, late, leave, shift bars |
 | bentoWebsite | 2400×800 | Hotel website re-dressed NEST → CITY → ESCAPE → GRAND |
+| aiHome | 1600×900 | BinGi AI beta: KPI cards load, owner types "আজ কয়টা check-out আছে?" and sends |
+| aiAnswer | 1600×900 | Question sent → thinking dots → answer lines and booking cards appear |
+| aiBrief | 1600×900 | Refresh → Daily Brief sections arrive one by one |
+
+The three `ai*` loops are built from the **real BinGi AI beta screenshots** (`public/ai/*.webp`, sample hotel): parts of the screen are revealed in order, plus a pointer and typing. Render them to `website/public/media/ai/{home,answer,brief}.mp4` (7 s loops).
 
 **Truth note:** these are designed motion illustrations in BinGi style with sample data (fictional names, "Your Hotel"). They are not screen recordings of the live HMS. Replace with real recordings when available, or match them to the final HMS screens.
 

@@ -8,10 +8,11 @@ import { Restaurant } from './Restaurant';
 import { Cashbox } from './Cashbox';
 import { Staff } from './Staff';
 import { Website } from './Website';
+import { AiHome, AiAnswer, AiBrief, AI_LOOP, aiFontsReady } from './AiScreens';
 import { Dashboard, BookingsList, CheckIn, GuestApp, MobileToday } from './Screens';
 
 const h = delayRender('fonts');
-Promise.all([fontsReady, robotoReady]).then(() => continueRender(h));
+Promise.all([fontsReady, robotoReady, aiFontsReady]).then(() => continueRender(h));
 
 // Sizes match the public site's media slots (website/src/data/media.ts).
 export const RemotionRoot: React.FC = () => (
@@ -36,5 +37,9 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="story3" component={CheckIn} durationInFrames={LOOP} fps={30} width={1280} height={720} />
     <Composition id="story4" component={Restaurant} durationInFrames={LOOP} fps={30} width={1280} height={720} defaultProps={{ w: 1280, h: 720, lw: 420 }} />
     <Composition id="story5" component={Housekeeping} durationInFrames={LOOP} fps={30} width={1280} height={720} defaultProps={{ w: 1280, h: 720, lw: 470 }} />
+    {/* BinGi AI page — animated real beta screens (sample hotel) */}
+    <Composition id="aiHome" component={AiHome} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="aiAnswer" component={AiAnswer} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
+    <Composition id="aiBrief" component={AiBrief} durationInFrames={AI_LOOP} fps={30} width={1600} height={900} />
   </>
 );
