@@ -51,7 +51,7 @@ function CopyAll() {
     try { await navigator.clipboard.writeText(commands); setDone(true); window.setTimeout(() => setDone(false), 1600) } catch { /* clipboard blocked */ }
   }
   return (
-    <button type="button" onClick={copy} className="ml-auto inline-flex h-8 cursor-pointer items-center gap-1.5 rounded-full px-3 text-[12px] font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white">
+    <button type="button" onClick={copy} className="-my-1.5 ml-auto inline-flex h-11 cursor-pointer items-center gap-1.5 rounded-full px-3 text-[12px] font-medium text-white/70 transition-colors hover:bg-white/10 hover:text-white">
       {done ? <Check className="size-3.5 text-[#7EE2A8]" aria-hidden="true" /> : <Copy className="size-3.5" aria-hidden="true" />}
       {done ? t({ bn: 'কপি হয়েছে', en: 'Copied' }) : t({ bn: 'সব কপি', en: 'Copy all' })}
     </button>
