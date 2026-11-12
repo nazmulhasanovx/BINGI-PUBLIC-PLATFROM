@@ -1,3 +1,4 @@
+import { FadeImg } from '@/components/ui/FadeImg'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useLang } from '@/i18n/lang'
@@ -44,7 +45,7 @@ export default function Themes() {
             <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
               {storeThemes.filter((x) => x.collection === col).map((s) => (
                 <figure key={s.id} className="overflow-hidden rounded-[14px] bg-white/5 ring-1 ring-white/10">
-                  <img src={asset(`/media/themes/${s.id}.webp`)} alt={`${s.name} theme — demo`} loading="lazy" width={720} height={450} className="aspect-[16/10] w-full object-cover object-top opacity-90" />
+                  <FadeImg src={asset(`/media/themes/${s.id}.webp`)} alt={`${s.name} theme — demo`} loading="lazy" width={720} height={450} className="aspect-[16/10] w-full object-cover object-top" />
                   <figcaption className="p-3"><span className="text-[14px] font-semibold tracking-[0.06em]">{s.name}</span><span className="block text-[13px] text-white/70">{t(s.for)}</span></figcaption>
                 </figure>
               ))}

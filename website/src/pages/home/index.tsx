@@ -2,7 +2,6 @@ import { useState, type PointerEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { CheckCheck } from 'lucide-react'
 import { motion } from 'motion/react'
-import { ios } from '../../lib/motion'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
 import { plans } from '../../data/pricing'
@@ -132,7 +131,9 @@ export default function Home() {
             <h2 className="h2">{t({ bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' })}</h2>
             <div className="mt-8"><PillTabs size="sm" wrap label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })} value={type} onChange={setType} options={types.map((x) => ({ id: x.id, label: t(x.name) }))} /></div>
           </div>
-          <motion.div key={type} initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={ios} className="card glow-border p-7 md:p-9" role="tabpanel">
+          <div className="card glow-border p-7 md:p-9" role="tabpanel">
+            {/* the card stays put; only its content swaps, so it never goes blank */}
+            <motion.div key={type} initial={{ opacity: 0.35, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22, ease: [0.32, 0.72, 0, 1] }}>
             <ul className="space-y-4">
               {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[18px]"><span className="check-dot mt-0.5"><CheckCheck className="size-3.5" aria-hidden="true" /></span>{t(p)}</li>)}
             </ul>
@@ -140,7 +141,8 @@ export default function Home() {
               <span className="text-[15px] text-muted-foreground">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
               <Link to="/pricing" className="inline-flex min-h-11 items-center text-link text-[15px] font-medium hover:underline underline-offset-4">{t({ bn: 'দাম দেখুন', en: 'See pricing' })}</Link>
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 

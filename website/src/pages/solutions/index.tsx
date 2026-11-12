@@ -1,3 +1,4 @@
+import { FadeImg } from '@/components/ui/FadeImg'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
@@ -21,7 +22,7 @@ export default function Solutions() {
             <Reveal key={s.slug} delay={(i % 3) * 60} className="h-full">
               <Link to={`/solutions/${s.slug}`} className="group card glow-hover flex h-full flex-col overflow-hidden">
                 <div className="aspect-[16/9] overflow-hidden bg-canvas">
-                  <img src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} loading="lazy" width={960} height={600} className="size-full object-cover transition-transform duration-700 ease-spring group-hover:scale-[1.03]" />
+                  <FadeImg src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} loading="lazy" width={960} height={600} className="size-full object-cover transition-transform duration-700 ease-spring group-hover:scale-[1.03]" />
                 </div>
                 <div className="flex flex-1 items-end justify-between gap-3 p-5">
                   <div>

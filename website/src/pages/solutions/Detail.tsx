@@ -1,3 +1,4 @@
+import { FadeImg } from '@/components/ui/FadeImg'
 import { Link, useParams } from 'react-router-dom'
 import { CheckCheck, ChevronRight } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
@@ -40,7 +41,7 @@ export default function SolutionDetail() {
       </header>
 
       <figure className="mt-10 overflow-hidden rounded-[24px] bg-canvas">
-        <img src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} width={960} height={600} className="aspect-[16/9] w-full object-cover md:aspect-[21/8]" />
+        <FadeImg src={asset(`/media/property/${s.slug}.webp`)} alt={t(type.name)} width={960} height={600} className="aspect-[16/9] w-full object-cover md:aspect-[21/8]" />
       </figure>
 
       <section className="mt-14 grid gap-4 md:grid-cols-[1fr_1.4fr]">

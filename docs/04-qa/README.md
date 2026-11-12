@@ -172,3 +172,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-12 · /ai: animated state icons on setup steps, AI shimmer status (How it works + terminal), Copy-all button · devtest NO ISSUES
 - 2026-11-12 · /ai: Studio Display screens now animated loops (Remotion aiHome/aiAnswer/aiBrief from real beta screenshots, 7 s mp4) · devtest NO ISSUES
 - 2026-11-12 · From user screen recording: /ai monitor flashed black on tab switch → screens now stay loaded and cross-fade (poster + preload); image slots get a gray placeholder · devtest NO ISSUES
+- 2026-11-12 · Recording fixes: Solutions/Themes photos fade in over a gray placeholder; home property-type card no longer blanks on tab switch · devtest NO ISSUES
