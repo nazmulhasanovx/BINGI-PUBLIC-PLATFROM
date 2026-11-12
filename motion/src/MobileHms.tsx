@@ -81,3 +81,52 @@ export const MobileTour: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+/* ── BinGi Guest App — real iPhone screenshots (12 Nov 2026): search → hotel → room → Book Now ── */
+export const GUEST_LOOP = 360; // 12 s
+const GW = 1186, GH = 2576;
+const gsrc = (n: string) => staticFile(`guest/${n}.webp`);
+
+export const GuestTour: React.FC = () => {
+  const f = useCurrentFrame();
+  const { fps, width } = useVideoConfig();
+  const t = (a: number, b: number) => interpolate(f, [a * fps, b * fps], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: ease });
+  const z = width / GW;
+  const sheet = t(2.2, 2.8);
+  const hotel = t(4.4, 4.9);
+  const room = t(8.0, 8.5);
+  const back = t(11.3, 11.9);
+  const press = (at: number) => 1 - 0.04 * Math.max(0, 1 - Math.abs(f - at * fps) / 5);
+  return (
+    <AbsoluteFill style={{ background: '#fff' }}>
+      <div style={{ width: GW, height: GH, zoom: z, position: 'relative', overflow: 'hidden' }}>
+        <Img src={gsrc('home')} style={{ position: 'absolute', inset: 0, width: GW, height: GH }} />
+        <Tap x={590} y={503} at={1.7} />
+
+        {/* search sheet: dimmed home + sheet sliding up */}
+        <div style={{ position: 'absolute', inset: 0, opacity: (1 - back) * (sheet > 0 ? 1 : 0) }}>
+          <div style={{ position: 'absolute', left: 0, top: 0, width: GW, height: 660, backgroundImage: `url(${gsrc('search')})`, backgroundSize: `${GW}px ${GH}px`, opacity: sheet }} />
+          <div style={{ position: 'absolute', left: 0, top: 640, width: GW, height: GH - 640, backgroundImage: `url(${gsrc('search')})`, backgroundSize: `${GW}px ${GH}px`, backgroundPosition: '0 -640px', translate: `0 ${(1 - sheet) * (GH - 640)}px` }} />
+          <Tap x={340} y={1430} at={3.9} />
+        </div>
+
+        {/* hotel page */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 1 - back, translate: `${(1 - hotel) * GW}px 0`, boxShadow: '-30px 0 60px rgba(0,0,0,0.12)' }}>
+          {hotel > 0 && <Img src={gsrc('hotel')} style={{ position: 'absolute', inset: 0, width: GW, height: GH, scale: String(1 + 0.02 * t(5.0, 7.5)) }} />}
+          <Tap x={875} y={2200} at={7.5} />
+        </div>
+
+        {/* room detail → Book Now */}
+        <div style={{ position: 'absolute', inset: 0, opacity: 1 - back, translate: `${(1 - room) * GW}px 0`, boxShadow: '-30px 0 60px rgba(0,0,0,0.12)' }}>
+          {room > 0 && (
+            <>
+              <Img src={gsrc('room')} style={{ position: 'absolute', inset: 0, width: GW, height: GH }} />
+              <div style={{ position: 'absolute', left: 48, top: 2305, width: 1090, height: 136, borderRadius: 70, boxShadow: `0 0 0 ${16 * t(10.0, 10.4) * (1 - t(10.9, 11.3))}px rgba(209,52,56,0.18)`, scale: String(press(10.4)) }} />
+              <Tap x={592} y={2372} at={10.4} />
+            </>
+          )}
+        </div>
+      </div>
+    </AbsoluteFill>
+  );
+};

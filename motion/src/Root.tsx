@@ -9,7 +9,7 @@ import { Cashbox } from './Cashbox';
 import { Staff } from './Staff';
 import { Website } from './Website';
 import { HMS_LOOP, HmsDash, HmsCalendar, HmsBookings, HmsCheckin, HmsPos, HmsHousekeeping, BentoCalendarReal, BentoHousekeepReal, BentoRestaurantReal, BentoCashReal, BentoStaffReal, BentoWebsiteReal } from './HmsScreens';
-import { MobileTour, MOBILE_LOOP } from './MobileHms';
+import { MobileTour, MOBILE_LOOP, GuestTour, GUEST_LOOP } from './MobileHms';
 import { AiHome, AiAnswer, AiBrief, AI_LOOP, aiFontsReady } from './AiScreens';
 import { Dashboard, BookingsList, CheckIn, GuestApp, MobileToday } from './Screens';
 
@@ -56,6 +56,7 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="realBentoCash" component={BentoCashReal} durationInFrames={HMS_LOOP} fps={30} width={1200} height={750} />
     <Composition id="realBentoStaff" component={BentoStaffReal} durationInFrames={HMS_LOOP} fps={30} width={1200} height={750} />
     <Composition id="realBentoWebsite" component={BentoWebsiteReal} durationInFrames={HMS_LOOP} fps={30} width={2400} height={800} />
+    <Composition id="guestTour" component={GuestTour} durationInFrames={GUEST_LOOP} fps={30} width={593} height={1288} />
     <Composition id="mobileTour" component={MobileTour} durationInFrames={MOBILE_LOOP} fps={30} width={660} height={1434} />
   </>
 );
