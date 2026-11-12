@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { BellRing, BookOpenCheck, CalendarCheck2, Check, ClipboardCheck, Cpu, FileImage, KeyRound, Laptop, Languages, Lock, MessageSquareText, ScrollText, ShieldCheck, Sparkles, Star, UserCheck } from 'lucide-react'
+import { ArrowRight, BookOpenCheck, CalendarCheck2, ClipboardCheck, Cpu, FileImage, KeyRound, Laptop, Languages, Lock, MessageSquareText, ScrollText, ShieldCheck, Sparkles, UserCheck } from 'lucide-react'
 import { useLang, type L } from '@/i18n/lang'
-import { PillTabs, SectionHead, Accordion } from '@/components/ui/Ui'
+import { PillTabs, Accordion } from '@/components/ui/Ui'
 import { Reveal } from '@/components/ui/Reveal'
 import { StudioDisplay } from '@/components/media/Devices'
 import { site } from '@/data/site'
@@ -22,8 +22,6 @@ const abilities: { icon: typeof Sparkles; title: L; text: L }[] = [
   { icon: ClipboardCheck, title: { bn: 'কাজের draft — আপনি approve করেন', en: 'Work drafts you approve' }, text: { bn: 'Housekeeping task, maintenance ticket, room service order, expense — AI draft বানায়, Approve না চাপলে কিছুই বদলায় না।', en: 'Housekeeping tasks, maintenance tickets, room service orders, expenses — AI drafts, nothing changes until you press Approve.' } },
   { icon: FileImage, title: { bn: 'Memo বা রসিদের ছবি থেকে', en: 'From a memo or receipt photo' }, text: { bn: 'বাজারের memo-র ছবি দিলে stock-in-এর draft তৈরি হয়।', en: 'Attach a photo of a purchase memo and get a stock-in draft.' } },
   { icon: BookOpenCheck, title: { bn: 'BinGi চালানোর সাহায্য', en: 'Help with BinGi itself' }, text: { bn: '“SMS যাচ্ছে না কেন?” — BinGi docs থেকে ধাপে ধাপে সমাধান।', en: '“Why is SMS not sending?” — step-by-step fixes from the BinGi docs.' } },
-  { icon: Star, title: { bn: 'Review ও hotel knowledge', en: 'Reviews and hotel knowledge' }, text: { bn: 'নতুন review দেখায়, reply-র draft দেয়। Check-in time, policy — hotel-এর নিজের তথ্য থেকে উত্তর।', en: 'Shows new reviews and drafts replies. Answers check-in time and policy questions from your own hotel notes.' } },
-  { icon: BellRing, title: { bn: 'Alert', en: 'Alerts' }, text: { bn: 'কম stock, বাকি পেমেন্টের মতো বিষয় সময়মতো জানায়।', en: 'Flags things like low stock and unpaid balances.' } },
 ]
 
 const safety: { icon: typeof Lock; title: L; text: L }[] = [
@@ -45,163 +43,174 @@ export default function Ai() {
   const { t } = useLang()
   const [screen, setScreen] = useState<Screen>('aiHome')
   const wa = `${site.whatsapp}?text=${encodeURIComponent('BinGi AI beta access chai')}`
+  const Head = ({ eyebrow, title, lead }: { eyebrow: L; title: L; lead?: L }) => (
+    <div className="mx-auto max-w-[760px] text-center">
+      <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-brand">{t(eyebrow)}</p>
+      <h2 className="mt-3 text-balance text-[30px] font-semibold tracking-[-0.03em] text-ink md:text-[42px] md:leading-[1.08]" style={{ fontFamily: 'var(--font-display)' }}>{t(title)}</h2>
+      {lead && <p className="mx-auto mt-3 max-w-[520px] text-pretty text-[16px] text-muted-foreground md:text-[17px]">{t(lead)}</p>}
+    </div>
+  )
   return (
-    <div className="relative">
-      {/* Hero */}
-      <section className="container-x relative isolate pt-10 text-center md:pt-16">
-        <div aria-hidden="true" className="glow-radial pointer-events-none absolute left-1/2 -top-24 -z-10 h-[520px] w-[min(1100px,150%)] -translate-x-1/2" />
-        <img src={aiLogo} alt="BinGi AI" width={300} height={110} className="mx-auto h-12 w-auto md:h-14" />
-        <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-[#EAF0FF] px-3 py-1 text-[13px] font-medium text-link">
-          <span className="size-1.5 rounded-full bg-current" aria-hidden="true" />{t({ bn: 'বেটা · আপনার নিজের কম্পিউটারে চলে', en: 'Beta · runs on your own computer' })}
-        </p>
-        <h1 className="display mx-auto mt-5 max-w-[860px] text-balance text-[40px] text-ink md:text-[64px]">
-          {t({ bn: 'হোটেলকে প্রশ্ন করুন। ', en: 'Ask your hotel. ' })}<span className="mark px-1.5">{t({ bn: 'উত্তর পান।', en: 'Get the answer.' })}</span>
-        </h1>
-        <p className="lead mx-auto mt-5 max-w-[640px] text-pretty">
-          {t({ bn: 'BinGi AI আপনার BinGi data পড়ে উত্তর দেয়, সকালের brief বানায় আর রোজকার কাজের draft করে দেয় — যা আপনি দেখে approve করেন।', en: 'BinGi AI reads your BinGi data to answer questions, writes the morning brief and drafts routine work for you to approve.' })}
-        </p>
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={wa} target="_blank" rel="noreferrer" className="btn-primary h-12 px-6 text-[15px]">{t({ bn: 'Beta access চান', en: 'Request beta access' })}</a>
-          <a href="#install" className="btn-ghost h-12 px-6 text-[15px]">{t({ bn: 'কীভাবে চালাবেন', en: 'How to set it up' })}</a>
-        </div>
+    <div className="relative overflow-x-clip">
+      {/* Hero — one message, one action, the product */}
+      <section className="relative isolate pt-12 text-center md:pt-20">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 -top-24 -z-10 h-[760px] bg-[radial-gradient(50%_45%_at_50%_30%,rgb(253_65_63/0.13),transparent_70%),radial-gradient(35%_35%_at_72%_42%,rgb(140_120_255/0.10),transparent_70%)]" />
+        <div className="container-x">
+          <div className="inline-flex items-center gap-3 rounded-full border border-line bg-white/80 py-1.5 pl-2 pr-4 shadow-soft backdrop-blur">
+            <img src={aiLogo} alt="BinGi AI" width={300} height={110} className="h-7 w-auto" />
+            <span className="h-4 w-px bg-line" aria-hidden="true" />
+            <span className="text-[13px] font-medium text-link">{t({ bn: 'বেটা', en: 'Beta' })}</span>
+          </div>
+          <h1 className="mx-auto mt-7 max-w-[880px] text-balance text-[44px] font-semibold leading-[1.02] tracking-[-0.04em] text-ink md:text-[76px]" style={{ fontFamily: 'var(--font-display)' }}>
+            {t({ bn: 'হোটেলকে প্রশ্ন করুন।', en: 'Ask your hotel.' })}<br />
+            <span className="bg-linear-to-r from-brand via-[#E0414A] to-[#8C6CFF] bg-clip-text text-transparent">{t({ bn: 'উত্তর পান।', en: 'Get the answer.' })}</span>
+          </h1>
+          <p className="mx-auto mt-6 max-w-[560px] text-pretty text-[17px] leading-relaxed text-muted-foreground md:text-[19px]">
+            {t({ bn: 'আপনার BinGi data থেকে উত্তর, সকালের brief আর কাজের draft — আপনি দেখে approve করেন।', en: 'Answers from your BinGi data, a morning brief and work drafts — you review and approve.' })}
+          </p>
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+            <a href={wa} target="_blank" rel="noreferrer" className="btn-primary h-12 px-7 text-[15px]">{t({ bn: 'Beta access চান', en: 'Request beta access' })}</a>
+            <a href="#install" className="group inline-flex h-12 items-center gap-1.5 px-4 text-[15px] font-medium text-ink">
+              {t({ bn: 'কীভাবে চালাবেন', en: 'How to set it up' })}<ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
+            </a>
+          </div>
 
-        <div className="mt-12 flex justify-center">
-          <PillTabs label={t({ bn: 'স্ক্রিন', en: 'Screen' })} value={screen} onChange={setScreen}
-            options={[{ id: 'aiHome', label: 'Ask BinGi' }, { id: 'aiAnswer', label: t({ bn: 'উত্তর', en: 'Answer' }) }, { id: 'aiBrief', label: 'Daily Brief' }]} />
+          <div className="relative mx-auto mt-14 max-w-[1080px]">
+            <StudioDisplay key={screen} media={screen} className="relative w-full" />
+          </div>
+          <div className="mt-6 flex flex-col items-center gap-3">
+            <PillTabs label={t({ bn: 'স্ক্রিন', en: 'Screen' })} value={screen} onChange={setScreen} tone="ink" size="sm"
+              options={[{ id: 'aiHome', label: 'Ask BinGi' }, { id: 'aiAnswer', label: t({ bn: 'উত্তর', en: 'Answer' }) }, { id: 'aiBrief', label: 'Daily Brief' }]} />
+            <p className="text-[13px] text-muted-foreground">{t({ bn: 'আসল BinGi AI স্ক্রিন · নমুনা হোটেল', en: 'Real BinGi AI screens · sample hotel' })}</p>
+          </div>
         </div>
-        <div className="relative mx-auto mt-8 max-w-[1040px]">
-          <img src={asset('/media/ai/fennec.webp')} alt="" aria-hidden="true" width={160} height={160}
-            className="pointer-events-none absolute -right-2 -top-10 z-10 hidden w-24 drop-shadow-[0_12px_24px_rgb(177_28_41/0.25)] md:block xl:-right-10 lg:w-28 xl:w-32" />
-          <StudioDisplay key={screen} media={screen} className="relative w-full" />
-        </div>
-        <p className="mt-4 text-[13px] text-muted-foreground">{t({ bn: 'আসল BinGi AI স্ক্রিন, নমুনা হোটেলের data দিয়ে।', en: 'Real BinGi AI screens, shown with a sample hotel.' })}</p>
       </section>
 
       <div className="container-x">
-        {/* What it does */}
-        <section className="mt-20 md:mt-28">
-          <SectionHead title={t({ bn: 'BinGi AI কী করে', en: 'What BinGi AI does' })} lead={t({ bn: 'প্রশ্নের উত্তর, সারাংশ আর কাজের draft — সব আপনার hotel-এর data থেকে।', en: 'Answers, summaries and work drafts — all from your own hotel data.' })} />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/* What it does — quiet grid, no boxes */}
+        <section className="mt-28 md:mt-36">
+          <Head eyebrow={{ bn: 'কী করে', en: 'What it does' }} title={{ bn: 'রোজকার কাজের এক সহকারী', en: 'One assistant for the daily work' }} />
+          <div className="mx-auto mt-14 grid max-w-[1040px] gap-x-12 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
             {abilities.map((a, i) => (
-              <Reveal key={i} delay={(i % 4) * 50}>
-                <div className="card glow-hover h-full p-5">
-                  <span className="grid size-10 place-items-center rounded-[10px] bg-brand-soft text-brand"><a.icon className="size-5" aria-hidden="true" /></span>
-                  <h3 className="mt-4 text-[16px] font-semibold leading-snug">{t(a.title)}</h3>
-                  <p className="mt-2 text-[14px] leading-relaxed text-muted-foreground">{t(a.text)}</p>
+              <Reveal key={i} delay={(i % 3) * 60}>
+                <div>
+                  <a.icon className="size-6 text-brand" strokeWidth={1.6} aria-hidden="true" />
+                  <h3 className="mt-4 text-[17px] font-semibold tracking-[-0.01em]">{t(a.title)}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-muted-foreground">{t(a.text)}</p>
                 </div>
               </Reveal>
             ))}
           </div>
         </section>
 
-        {/* How an answer works */}
-        <section className="mt-20 md:mt-28">
-          <SectionHead title={t({ bn: 'একটা প্রশ্ন থেকে কাজ পর্যন্ত', en: 'From a question to done' })} />
-          <ol className="mx-auto mt-10 grid max-w-[1000px] gap-3 md:grid-cols-4">
+        {/* Flow — one line stepper */}
+        <section className="mt-28 md:mt-36">
+          <Head eyebrow={{ bn: 'কীভাবে', en: 'How it works' }} title={{ bn: 'প্রশ্ন থেকে কাজ — আপনার হাতে', en: 'From a question to done — on your say' }} />
+          <ol className="relative mx-auto mt-14 grid max-w-[1000px] gap-8 md:grid-cols-4 md:gap-6">
+            <div aria-hidden="true" className="absolute left-[12%] right-[12%] top-[22px] hidden h-px bg-[linear-gradient(90deg,transparent,var(--color-line)_15%,var(--color-line)_85%,transparent)] md:block" />
             {([
-              [{ bn: 'আপনি জিজ্ঞেস করেন', en: 'You ask' }, { bn: '“104-এ deep cleaning task বানাও”', en: '“Create a deep cleaning task for 104”' }],
-              [{ bn: 'BinGi AI দেখে', en: 'BinGi AI checks' }, { bn: 'আপনার role, property, plan আর রুমের অবস্থা', en: 'Your role, property, plan and the room' }],
-              [{ bn: 'Draft দেখায়', en: 'Shows a draft' }, { bn: 'কী হবে, তার কার্ড — Approve / Edit / Reject', en: 'A card of what will happen — Approve / Edit / Reject' }],
-              [{ bn: 'আপনি Approve করেন', en: 'You approve' }, { bn: 'তখনই BinGi-তে কাজটা তৈরি হয়, log-এ থাকে', en: 'Only then is it created in BinGi, and logged' }],
+              [{ bn: 'জিজ্ঞেস করুন', en: 'Ask' }, { bn: '“104-এ deep cleaning task বানাও”', en: '“Create a deep cleaning task for 104”' }],
+              [{ bn: 'যাচাই', en: 'Check' }, { bn: 'Role, property, plan আর রুম দেখে', en: 'Role, property, plan and the room' }],
+              [{ bn: 'Draft', en: 'Draft' }, { bn: 'কী হবে তার কার্ড', en: 'A card of what will happen' }],
+              [{ bn: 'Approve', en: 'Approve' }, { bn: 'তখনই BinGi-তে হয়, log-এ থাকে', en: 'Only then it happens, and it’s logged' }],
             ] as [L, L][]).map(([h, d], i) => (
-              <li key={i} className="card relative p-5">
-                <span className="text-[13px] font-semibold text-brand">0{i + 1}</span>
-                <p className="mt-1 text-[16px] font-semibold">{t(h)}</p>
-                <p className="mt-1.5 text-[14px] text-muted-foreground">{t(d)}</p>
+              <li key={i} className="relative text-center">
+                <span className={`relative mx-auto grid size-11 place-items-center rounded-full text-[15px] font-semibold ${i === 3 ? 'btn-primary p-0' : 'bg-white text-ink ring-1 ring-line shadow-soft'}`}>{i + 1}</span>
+                <p className="mt-4 text-[17px] font-semibold">{t(h)}</p>
+                <p className="mx-auto mt-1 max-w-[200px] text-[14px] text-muted-foreground">{t(d)}</p>
               </li>
             ))}
           </ol>
         </section>
 
-        {/* Safety */}
-        <section className="mt-20 md:mt-28">
-          <SectionHead title={t({ bn: 'নিরাপদ, শুরু থেকেই', en: 'Safe by design' })} />
-          <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {safety.map((s, i) => (
-              <div key={i} className="rounded-[18px] bg-white p-5 ring-1 ring-line">
-                <s.icon className="size-5 text-brand" aria-hidden="true" />
-                <h3 className="mt-3 text-[16px] font-semibold">{t(s.title)}</h3>
-                <p className="mt-1.5 text-[14px] text-muted-foreground">{t(s.text)}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Where it runs */}
-        <section className="mt-20 md:mt-28">
-          <SectionHead title={t({ bn: 'যেখানে চলে', en: 'Where it runs' })} lead={t({ bn: 'একই BinGi AI — model বাছাই আপনার।', en: 'The same BinGi AI — you choose the model.' })} />
-          <div className="mx-auto mt-10 grid max-w-[1000px] gap-4 md:grid-cols-2">
-            <div className="card-highlight rounded-[22px] p-6">
-              <Laptop className="size-6 text-brand" aria-hidden="true" />
-              <h3 className="mt-3 text-[19px] font-semibold">{t({ bn: 'Local — আপনার কম্পিউটারে', en: 'Local — on your computer' })}</h3>
-              <ul className="mt-3 space-y-2 text-[14px]">
-                {([
-                  { bn: 'Model চলে Ollama-তে (qwen3:4b)', en: 'Model runs in Ollama (qwen3:4b)' },
-                  { bn: 'প্রশ্ন আর উত্তর আপনার কম্পিউটারেই থাকে', en: 'Questions and answers stay on your computer' },
-                  { bn: 'Mac M1, 8 GB-তে পরীক্ষিত', en: 'Tested on a Mac M1 with 8 GB' },
-                  { bn: 'Windows: start script আছে (16 GB RAM প্রস্তাবিত)', en: 'Windows: start script included (16 GB RAM suggested)' },
-                ] as L[]).map((x, i) => <li key={i} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden="true" />{t(x)}</li>)}
-              </ul>
-            </div>
-            <div className="card p-6">
-              <Cpu className="size-6 text-brand" aria-hidden="true" />
-              <h3 className="mt-3 text-[19px] font-semibold">{t({ bn: 'Cloud model — ঐচ্ছিক', en: 'Cloud model — optional' })}</h3>
-              <ul className="mt-3 space-y-2 text-[14px]">
-                {([
-                  { bn: 'নিজের OpenRouter key দিলে cloud model', en: 'Add your own OpenRouter key for a cloud model' },
-                  { bn: 'Default: শুধু free model; paid model বন্ধ', en: 'Default: free models only; paid models off' },
-                  { bn: 'Guest message free model-এ যায় না', en: 'Guest messages are not sent to free models' },
-                  { bn: 'Local আর cloud — দুটো একসাথে fallback হিসেবে', en: 'Local with cloud as a fallback' },
-                ] as L[]).map((x, i) => <li key={i} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-brand" aria-hidden="true" />{t(x)}</li>)}
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* Install */}
-        <section id="install" className="mt-20 scroll-mt-28 md:mt-28">
-          <SectionHead title={t({ bn: 'Beta চালু করুন — ৫ ধাপে', en: 'Set up the beta in 5 steps' })} lead={t({ bn: 'একবার setup, তারপর double-click করলেই চালু।', en: 'Set it up once; after that, one double-click.' })} />
-          <ol className="mx-auto mt-10 max-w-[820px] space-y-3">
-            {steps.map((s, i) => (
-              <li key={i} className="card flex gap-4 p-5">
-                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-ink text-[14px] font-semibold text-white">{i + 1}</span>
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-[16px] font-semibold">{t(s.title)}</h3>
-                  <p className="mt-1 text-[14px] text-muted-foreground">{t(s.text)}</p>
-                  {s.code && <pre className="mt-3 overflow-x-auto rounded-[10px] bg-ink px-4 py-3 text-[13px] text-white"><code>{s.code}</code></pre>}
+        {/* Safety + where it runs — one dark panel */}
+        <section className="relative mt-28 overflow-hidden rounded-[32px] bg-bay px-6 py-14 text-white md:mt-36 md:px-14 md:py-20">
+          <div aria-hidden="true" className="pointer-events-none absolute -right-40 -top-40 size-[520px] rounded-full bg-[radial-gradient(closest-side,rgb(140_120_255/0.22),transparent)]" />
+          <div aria-hidden="true" className="pointer-events-none absolute -bottom-48 -left-32 size-[520px] rounded-full bg-[radial-gradient(closest-side,rgb(253_65_63/0.22),transparent)]" />
+          <div className="relative grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+            <div>
+              <p className="text-[13px] font-semibold uppercase tracking-[0.14em] text-[#FF8A85]">{t({ bn: 'নিরাপত্তা', en: 'Safe by design' })}</p>
+              <h2 className="mt-3 text-[30px] font-semibold leading-[1.1] tracking-[-0.03em] md:text-[40px]" style={{ fontFamily: 'var(--font-display)' }}>{t({ bn: 'আপনার hotel, আপনার নিয়ন্ত্রণ।', en: 'Your hotel. Your control.' })}</h2>
+              <div className="mt-8 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-[18px] bg-white/[0.06] p-5 ring-1 ring-white/10">
+                  <Laptop className="size-5 text-[#FF8A85]" aria-hidden="true" />
+                  <p className="mt-3 font-semibold">{t({ bn: 'Local', en: 'Local' })}</p>
+                  <p className="mt-1 text-[14px] text-white/70">{t({ bn: 'আপনার কম্পিউটারে Ollama-তে। প্রশ্ন-উত্তর কম্পিউটারেই থাকে।', en: 'On your computer with Ollama. Questions stay on your machine.' })}</p>
                 </div>
-              </li>
-            ))}
-          </ol>
-          <div className="mx-auto mt-6 flex max-w-[820px] gap-3 rounded-[16px] bg-soon-soft p-4 text-[14px] text-ink">
-            <KeyRound className="mt-0.5 size-5 shrink-0 text-soon" aria-hidden="true" />
-            <p>{t({ bn: 'এটা বেটা। আপনার hotel connect না হওয়া পর্যন্ত BinGi AI একটা নমুনা hotel-এর data দেখায়। Repo private, তাই access ছাড়া clone হবে না। Key ও token আপনার কম্পিউটারেই থাকে — কখনো chat-এ পাঠাবেন না।', en: 'This is a beta. Until your hotel is connected, BinGi AI shows a sample hotel. The repo is private, so cloning needs access. Keys and tokens stay on your computer — never send them in a chat.' })}</p>
+                <div className="rounded-[18px] bg-white/[0.06] p-5 ring-1 ring-white/10">
+                  <Cpu className="size-5 text-[#B9A8FF]" aria-hidden="true" />
+                  <p className="mt-3 font-semibold">{t({ bn: 'Cloud — ঐচ্ছিক', en: 'Cloud — optional' })}</p>
+                  <p className="mt-1 text-[14px] text-white/70">{t({ bn: 'নিজের OpenRouter key দিলে। Guest message free model-এ যায় না।', en: 'With your own OpenRouter key. Guest messages never go to free models.' })}</p>
+                </div>
+              </div>
+            </div>
+            <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2 lg:pt-12">
+              {safety.map((x, i) => (
+                <li key={i}>
+                  <x.icon className="size-5 text-white/80" strokeWidth={1.7} aria-hidden="true" />
+                  <p className="mt-3 text-[16px] font-semibold">{t(x.title)}</p>
+                  <p className="mt-1 text-[14px] leading-relaxed text-white/65">{t(x.text)}</p>
+                </li>
+              ))}
+            </ul>
           </div>
+        </section>
+
+        {/* Install — steps left, one terminal right */}
+        <section id="install" className="mt-28 scroll-mt-28 md:mt-36">
+          <Head eyebrow={{ bn: 'বেটা setup', en: 'Beta setup' }} title={{ bn: '৫ ধাপে চালু', en: 'Running in 5 steps' }} lead={{ bn: 'একবার setup, তারপর এক double-click।', en: 'Set it up once — then one double-click.' }} />
+          <div className="mx-auto mt-14 grid max-w-[1080px] items-start gap-8 lg:grid-cols-[1fr_1.05fr]">
+            <ol className="space-y-6">
+              {steps.map((s, i) => (
+                <li key={i} className="flex gap-4">
+                  <span className="grid size-8 shrink-0 place-items-center rounded-full bg-brand-soft text-[13px] font-semibold text-brand">{i + 1}</span>
+                  <div>
+                    <p className="text-[16px] font-semibold">{t(s.title)}</p>
+                    <p className="mt-1 text-[14px] leading-relaxed text-muted-foreground">{t(s.text)}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <div className="overflow-hidden rounded-[20px] bg-[#0B1220] shadow-[0_30px_60px_-30px_rgb(11_34_53/0.6)] ring-1 ring-black/5 lg:sticky lg:top-28">
+              <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3" aria-hidden="true">
+                <span className="size-3 rounded-full bg-[#FF5F57]" /><span className="size-3 rounded-full bg-[#FEBC2E]" /><span className="size-3 rounded-full bg-[#28C840]" />
+                <span className="ml-3 text-[12px] text-white/45">Terminal</span>
+              </div>
+              <pre className="overflow-x-auto p-5 text-[13px] leading-[1.9] text-white/90"><code>
+<span className="text-white/40"># 2 · {t({ bn: 'model নামান', en: 'download the model' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> ollama pull qwen3:4b{'\n\n'}
+<span className="text-white/40"># 3 · {t({ bn: 'repo নামান', en: 'get the code' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> git clone -b develop \{'\n'}    https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai{'\n\n'}
+<span className="text-white/40"># 4 · {t({ bn: 'চালু — অথবা Start file double-click', en: 'start — or double-click the Start file' })}</span>{'\n'}<span className="text-[#FF8A85]">$</span> cd bingi-ai && pnpm start{'\n'}<span className="text-[#7EE2A8]">→ http://localhost:8787</span>
+              </code></pre>
+            </div>
+          </div>
+          <p className="mx-auto mt-10 flex max-w-[760px] items-start justify-center gap-2 text-center text-[14px] text-muted-foreground">
+            <KeyRound className="mt-0.5 size-4 shrink-0 text-soon" aria-hidden="true" />
+            {t({ bn: 'বেটা: hotel connect না হওয়া পর্যন্ত নমুনা hotel দেখায়। Repo private — access লাগবে। Key ও token শুধু আপনার কম্পিউটারে রাখুন।', en: 'Beta: until your hotel is connected it shows a sample hotel. The repo is private — access needed. Keep keys and tokens on your computer only.' })}
+          </p>
         </section>
 
         {/* FAQ */}
-        <section className="mx-auto mt-20 max-w-[820px] md:mt-28">
-          <SectionHead title={t({ bn: 'প্রশ্ন', en: 'Questions' })} />
-          <div className="mt-8">
+        <section className="mx-auto mt-28 max-w-[760px] md:mt-36">
+          <Head eyebrow={{ bn: 'প্রশ্ন', en: 'FAQ' }} title={{ bn: 'যা জানতে চান', en: 'Good to know' }} />
+          <div className="mt-10">
             <Accordion items={[
               { q: t({ bn: 'BinGi AI কি সবার জন্য চালু?', en: 'Is BinGi AI available to everyone?' }), a: t({ bn: 'না। এখন বেটা — আমন্ত্রণে, নিজের কম্পিউটারে চালানোর জন্য। BinGi HMS-এর ভেতরে “Ask BinGi” পরে আসবে।', en: 'No. It is a beta, by invitation, to run on your own computer. “Ask BinGi” inside the BinGi HMS comes later.' }) },
               { q: t({ bn: 'দাম কত?', en: 'What does it cost?' }), a: t({ bn: 'বেটার দাম এখনো ঠিক হয়নি। BinGi টিমকে জিজ্ঞেস করুন। Cloud model ব্যবহার করলে সেই provider-এর চার্জ আলাদা।', en: 'Beta pricing is not set yet — ask the BinGi team. If you use a cloud model, that provider charges separately.' }) },
-              { q: t({ bn: 'AI ভুল করলে?', en: 'What if the AI is wrong?' }), a: t({ bn: 'সংখ্যা আসে BinGi data থেকে, আর কাজ হয় শুধু আপনার Approve-এর পর। তাই ভুল draft হলে Reject করলেই হলো।', en: 'Numbers come from BinGi data, and work happens only after you approve. If a draft is wrong, reject it.' }) },
+              { q: t({ bn: 'AI ভুল করলে?', en: 'What if the AI is wrong?' }), a: t({ bn: 'সংখ্যা আসে BinGi data থেকে, আর কাজ হয় শুধু আপনার Approve-এর পর। ভুল draft হলে Reject করলেই হলো।', en: 'Numbers come from BinGi data, and work happens only after you approve. If a draft is wrong, reject it.' }) },
               { q: t({ bn: 'কম্পিউটার কেমন লাগবে?', en: 'What computer do I need?' }), a: t({ bn: 'Mac M1 (8 GB) বা 16 GB RAM-এর Windows PC। Model নামাতে একবার internet লাগে।', en: 'A Mac M1 (8 GB) or a Windows PC with 16 GB RAM. You need internet once to download the model.' }) },
-              { q: t({ bn: 'কোন ভাষায় কথা বলে?', en: 'Which languages?' }), a: t({ bn: 'বাংলা, Banglish আর English। আপনি যে ভাষায় লেখেন, সেই ভাষায় উত্তর।', en: 'Bangla, Banglish and English. It answers in the language you write in.' }) },
+              { q: t({ bn: 'কোন ভাষায় কথা বলে?', en: 'Which languages?' }), a: t({ bn: 'বাংলা, Banglish আর English — আপনি যে ভাষায় লেখেন।', en: 'Bangla, Banglish and English — whichever you write in.' }) },
             ]} />
           </div>
         </section>
 
         {/* CTA */}
-        <section className="relative mt-20 overflow-hidden rounded-[28px] bg-bay px-6 py-12 text-center text-white md:mt-28 md:py-16">
-          <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-full h-[360px] w-[900px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(253_65_63/0.35),transparent)]" />
-          <img src={asset('/media/ai/fennec.webp')} alt="" aria-hidden="true" width={96} height={96} className="relative mx-auto size-20" />
-          <h2 className="relative mt-4 text-[28px] font-semibold tracking-tight md:text-[36px]">{t({ bn: 'আপনার hotel-এ BinGi AI চেষ্টা করুন', en: 'Try BinGi AI with your hotel' })}</h2>
-          <p className="relative mx-auto mt-3 max-w-[520px] text-[15px] text-white/75">{t({ bn: 'বেটা access-এর জন্য WhatsApp করুন। setup-এ আমরা সাহায্য করব।', en: 'Message us on WhatsApp for beta access. We help you set it up.' })}</p>
-          <div className="relative mt-7 flex flex-wrap justify-center gap-3">
-            <a href={wa} target="_blank" rel="noreferrer" className="btn-primary h-12 px-6 text-[15px]">{t({ bn: 'Beta access চান', en: 'Request beta access' })}</a>
-            <Link to="/docs/bingi-ai" className="h-12 rounded-full px-6 text-[15px] leading-[48px] text-white ring-1 ring-white/25 hover:bg-white/10">{t({ bn: 'ডকস পড়ুন', en: 'Read the docs' })}</Link>
+        <section className="relative mt-28 text-center md:mt-36">
+          <img src={asset('/media/ai/fennec.webp')} alt="" aria-hidden="true" width={96} height={96} className="mx-auto size-20 drop-shadow-[0_16px_28px_rgb(177_28_41/0.25)]" />
+          <h2 className="mx-auto mt-5 max-w-[620px] text-balance text-[32px] font-semibold tracking-[-0.03em] md:text-[44px]" style={{ fontFamily: 'var(--font-display)' }}>{t({ bn: 'আপনার hotel-এ BinGi AI চেষ্টা করুন', en: 'Try BinGi AI with your hotel' })}</h2>
+          <p className="mx-auto mt-3 max-w-[460px] text-[16px] text-muted-foreground">{t({ bn: 'WhatsApp করুন — setup-এ আমরা সাহায্য করব।', en: 'Message us on WhatsApp — we help you set it up.' })}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <a href={wa} target="_blank" rel="noreferrer" className="btn-primary h-12 px-7 text-[15px]">{t({ bn: 'Beta access চান', en: 'Request beta access' })}</a>
+            <Link to="/docs/bingi-ai" className="btn-ghost h-12 px-6 text-[15px]">{t({ bn: 'ডকস পড়ুন', en: 'Read the docs' })}</Link>
           </div>
         </section>
       </div>

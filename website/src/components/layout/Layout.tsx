@@ -1,5 +1,6 @@
 import { FooterSkyline } from './FooterSkyline'
 import { useRef, useEffect, useState } from 'react'
+import { flushSync } from 'react-dom'
 import { markHydrated } from '../ui/timeline-animation'
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
@@ -26,9 +27,25 @@ const nav = [
 
 export const ctaLabel = { bn: 'শুরু করুন', en: 'Get started' }
 
+// The pill slides first (local state), then the page text cross-fades to the new language.
 function LangToggle() {
   const { lang, setLang } = useLang()
-  return <PillTabs tone="ink" size="sm" label="Language" value={lang} onChange={setLang} options={[{ id: 'bn', label: 'বাংলা' }, { id: 'en', label: 'EN' }]} />
+  const [shown, setShown] = useState(lang)
+  useEffect(() => setShown(lang), [lang])
+  const change = (l: typeof lang) => {
+    if (l === lang) return
+    setShown(l)
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown }
+    window.setTimeout(() => {
+      if (!reduce && doc.startViewTransition) {
+        document.documentElement.classList.add('lang-vt')
+        const vt = doc.startViewTransition(() => flushSync(() => setLang(l))) as { finished?: Promise<void> }
+        vt.finished?.finally(() => document.documentElement.classList.remove('lang-vt'))
+      } else setLang(l)
+    }, reduce ? 0 : 220)
+  }
+  return <PillTabs tone="ink" size="sm" label="Language" value={shown} onChange={change} options={[{ id: 'bn', label: 'বাংলা' }, { id: 'en', label: 'EN' }]} />
 }
 
 function Header() {
