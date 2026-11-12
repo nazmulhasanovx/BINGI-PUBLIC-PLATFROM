@@ -95,7 +95,7 @@ export default function Ai() {
           </div>
 
           <div className="relative mx-auto mt-14 max-w-[1080px]">
-            <StudioDisplay key={screen} media={screen} className="relative w-full" />
+            <StudioDisplay media={['aiHome', 'aiAnswer', 'aiBrief']} active={['aiHome', 'aiAnswer', 'aiBrief'].indexOf(screen)} className="relative w-full" />
           </div>
           <div className="mt-6 flex flex-col items-center gap-3">
             <PillTabs label={t({ bn: 'স্ক্রিন', en: 'Screen' })} value={screen} onChange={setScreen} tone="ink" size="sm"

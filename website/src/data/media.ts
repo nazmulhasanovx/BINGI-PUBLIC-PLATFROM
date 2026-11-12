@@ -1,7 +1,7 @@
 // Every place a custom GIF / video / screenshot can go.
 // Drop the file into /public/media/ and put its path in `src`. Empty src = labelled placeholder.
 // Tip: prefer .mp4/.webm (autoplay muted loop) over .gif — 5–10× smaller, same look.
-export type Slot = { src?: string; w: number; h: number; note: string }
+export type Slot = { src?: string; poster?: string; w: number; h: number; note: string }
 
 export const media = {
   heroWeb:        { src: '/media/heroWeb.mp4', w: 2560, h: 1440, note: 'HMS Web — Dashboard (screenshot or GIF)' },
@@ -23,9 +23,9 @@ export const media = {
   bentoWebsite:   { src: '/media/bentoWebsite.mp4', w: 2400, h: 800,  note: 'GIF: hotel website theme switch' },
   dashStarter:    { src: '/media/dashStarter.mp4', w: 1600, h: 900, note: 'HMS dashboard — Starter plan' },
   dashBusiness:   { src: '/media/dashBusiness.mp4', w: 1600, h: 900, note: 'HMS dashboard — Business plan' },
-  aiHome:         { src: '/media/ai/home.mp4', w: 1600, h: 900, note: 'BinGi AI — Ask BinGi home (beta, sample hotel)' },
-  aiAnswer:       { src: '/media/ai/answer.mp4', w: 1600, h: 900, note: 'BinGi AI — answer with booking cards (beta, sample hotel)' },
-  aiBrief:        { src: '/media/ai/brief.mp4', w: 1600, h: 900, note: 'BinGi AI — Daily Brief (beta, sample hotel)' },
+  aiHome:         { src: '/media/ai/home.mp4', poster: '/media/ai/home.webp', w: 1600, h: 900, note: 'BinGi AI — Ask BinGi home (beta, sample hotel)' },
+  aiAnswer:       { src: '/media/ai/answer.mp4', poster: '/media/ai/answer.webp', w: 1600, h: 900, note: 'BinGi AI — answer with booking cards (beta, sample hotel)' },
+  aiBrief:        { src: '/media/ai/brief.mp4', poster: '/media/ai/brief.webp', w: 1600, h: 900, note: 'BinGi AI — Daily Brief (beta, sample hotel)' },
   dashUltra:      { src: '/media/dashUltra.mp4', w: 1600, h: 900, note: 'HMS dashboard — Ultra plan' },
   helpVideo1:     { w: 1280, h: 720,  note: 'Video: create a booking (1 min, Bangla)' },
   helpVideo2:     { w: 1280, h: 720,  note: 'Video: add rooms (1 min, Bangla)' },

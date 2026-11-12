@@ -10,13 +10,19 @@ function Glare() {
 
 // Apple Studio Display 27" — cinematic: hairline aluminium rim, ultra-thin black bezel, glass glare,
 // slim aluminium neck and foot with a soft floor shadow. Panel is 16:9 (5K 5120×2880).
-export function StudioDisplay({ media, className = '' }: { media: MediaId; className?: string }) {
+// `media` can be a list of screens: all stay loaded and cross-fade, so switching never flashes black.
+export function StudioDisplay({ media, active = 0, className = '' }: { media: MediaId | MediaId[]; active?: number; className?: string }) {
+  const list = Array.isArray(media) ? media : [media]
   return (
     <figure className={className || 'relative'} aria-label="Apple Studio Display">
       <div className="relative rounded-[12px] bg-[linear-gradient(180deg,#F1F2F4_0%,#C9CCD1_55%,#AEB2B8_100%)] p-[3px] shadow-device">
         <div className="relative rounded-[10px] bg-[#050506] p-[1.6%] shadow-[inset_0_0_0_1px_rgb(255_255_255/0.06)]">
           <div className="relative aspect-video overflow-hidden rounded-[3px] bg-black">
-            <Media id={media} className="absolute inset-0" />
+            {list.map((id, i) => (
+              <div key={id} className="absolute inset-0 bg-[#F5F6F8] transition-opacity duration-300 ease-out" style={{ opacity: i === active ? 1 : 0 }} aria-hidden={i !== active}>
+                <Media id={id} active={i === active} className="absolute inset-0" />
+              </div>
+            ))}
             <Glare />
           </div>
         </div>
