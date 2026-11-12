@@ -17,6 +17,7 @@ const nav = [
   { to: '/products', label: { bn: 'প্রোডাক্ট', en: 'Products' } },
   { to: '/solutions', label: { bn: 'সলিউশন', en: 'Solutions' } },
   { to: '/themes', label: { bn: 'থিম', en: 'Themes' } },
+  { to: '/ai', label: { bn: 'BinGi AI', en: 'BinGi AI' } },
   { to: '/pricing', label: { bn: 'প্রাইসিং', en: 'Pricing' } },
   { to: '/docs', label: { bn: 'ডকস', en: 'Docs' } },
   { to: '/help', label: { bn: 'হেল্প', en: 'Help' } },
@@ -45,15 +46,15 @@ function Header() {
   return (
     <header className={`sticky top-0 z-40 transition-[background-color,box-shadow,border-color] duration-300 border-b ${scrolled || open ? 'bg-white/90 backdrop-blur-xl backdrop-saturate-150 border-line shadow-[0_6px_24px_-12px_rgb(16_24_40/0.18)]' : 'bg-transparent border-transparent'}`}>
       <div className="container-x flex h-16 items-center justify-between gap-4">
-        <Link to="/" aria-label="BinGi home" className="flex h-11 items-center"><Logo className="h-9" /></Link>
+        <Link to="/" aria-label="BinGi home" className="flex h-11 shrink-0 items-center"><Logo className="h-9" /></Link>
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main">
           {nav.filter((n) => !n.phoneOnly).map((n) => (
-            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-4 h-10 inline-flex items-center text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
+            <NavLink key={n.to} to={n.to} onMouseEnter={() => prefetch(n.to)} onFocus={() => prefetch(n.to)} onTouchStart={() => prefetch(n.to)} className={({ isActive }) => `rounded-full px-2.5 xl:px-4 h-10 inline-flex items-center whitespace-nowrap text-[14px] xl:text-[15px] transition-colors duration-200 ${isActive ? 'text-ink font-medium' : 'text-muted-foreground hover:text-ink'}`}>
               {t(n.label)}
             </NavLink>
           ))}
         </nav>
-        <div className="hidden lg:flex items-center gap-2">
+        <div className="hidden lg:flex shrink-0 items-center gap-2">
           <LangToggle />
           <a href={site.hmsLogin} className="btn-ghost h-10">{t({ bn: 'লগইন', en: 'Sign in' })}</a>
           <a href={site.hmsRegister} className="btn-primary h-10">{t(ctaLabel)}</a>
@@ -102,6 +103,7 @@ function Footer() {
             <li><Link className="hover:text-ink" to="/products">{t({ bn: 'প্ল্যাটফর্ম ও মডিউল', en: 'Platforms & modules' })}</Link></li>
             <li><Link className="hover:text-ink" to="/solutions">{t({ bn: 'সলিউশন', en: 'Solutions' })}</Link></li>
             <li><Link className="hover:text-ink" to="/themes">{t({ bn: 'ওয়েবসাইট থিম', en: 'Website themes' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/ai">BinGi AI <span className="text-[12px] text-link">Beta</span></Link></li>
             <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
             <li><Link className="hover:text-ink" to="/partners">{t({ bn: 'মার্কেটপ্লেস ও পার্টনার', en: 'Marketplace & partners' })}</Link></li>
           </ul>

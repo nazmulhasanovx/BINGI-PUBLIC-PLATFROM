@@ -5,7 +5,7 @@ import { docs } from '@/data/docs'
 import NotFound from '../not-found'
 import { CopyButton, DocsShell, copyPage, slugify, useDocTitle } from './DocsShell'
 
-const statusCls = { 'Live': 'bg-ok-soft text-ok', 'Coming soon': 'bg-soon-soft text-soon', 'Rolling out': 'bg-brand-soft text-brand' } as const
+const statusCls = { 'Live': 'bg-ok-soft text-ok', 'Beta': 'bg-[#EAF0FF] text-link', 'Coming soon': 'bg-soon-soft text-soon', 'Rolling out': 'bg-brand-soft text-brand' } as const
 
 export default function DocPage() {
   const { slug } = useParams()

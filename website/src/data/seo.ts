@@ -20,6 +20,7 @@ Object.assign(seo, {
   '/solutions/guest-house': { title: 'Guest house booking software | BinGi', description: 'Bookings, guest records and your own website — BinGi Starter for guest houses.' },
   '/solutions/home-stay': { title: 'Booking software for homes and flats | BinGi', description: 'List a few rooms online and take bookings — set up in minutes with BinGi Starter.' },
   '/solutions/hotel-group': { title: 'Software for hotel groups | BinGi', description: 'Several properties under one account, set up around your needs — BinGi Custom.' },
+  '/ai': { title: 'BinGi AI (Beta) — ask your hotel in Bangla or English | BinGi', description: 'BinGi AI answers questions about your hotel, writes the daily brief and drafts work you approve. Beta: runs on your own computer and connects to BinGi with your API access.' },
   '/themes': { title: 'Hotel website themes — NEST, CITY, ESCAPE, GRAND and more | BinGi', description: 'Your hotel’s own website with a booking engine. 8 themes for guest houses, cottages, hostels, city hotels, villas, apartments and resorts.' },
   '/blog': { title: 'Guides for hotels — BinGi', description: 'Short, practical guides on bookings, housekeeping and direct bookings.' },
   '/blog/one-calendar-no-double-bookings': { title: 'One calendar for every booking: stop double bookings — BinGi', description: 'Phone, walk-in, website and marketplace — keep every booking in one place and mistakes drop.' },

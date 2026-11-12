@@ -15,7 +15,7 @@ export type DocPage = {
   summary: string
   where?: string // where it lives in the HMS sidebar
   plan?: string // which plans include it (from the pricing catalogue)
-  status?: 'Live' | 'Coming soon' | 'Rolling out'
+  status?: 'Live' | 'Beta' | 'Coming soon' | 'Rolling out'
   sections: DocSection[]
   fixes?: Fix[]
 }
@@ -111,14 +111,14 @@ export const docs: DocPage[] = [
         ['Guest App + BinGi Marketplace', 'Guests: find, book, chat', 'bingi.app', 'Marketplace web live; app status to confirm'],
         ['Hotel website (themes)', 'Your own website with booking engine', 'Your domain', 'Live; new theme collection rolling out'],
         ['Super Admin', 'BinGi team (approvals, plans, payouts, support)', 'Internal', 'Internal'],
-        ['BinGi AI', 'An assistant inside BinGi that answers questions and drafts work', 'Inside the HMS', 'Coming soon (not live)'],
+        ['BinGi AI', 'An assistant that answers questions and drafts work', 'Local app on your computer (beta)', 'Beta — by invitation'],
       ] } },
       { heading: 'Properties and roles', list: [
         'One login can manage one or more properties; switch with the property switcher at the top.',
         'Each user has a role (for example owner, manager, receptionist, housekeeping, waiter, accountant). The role decides which pages and buttons they see.',
         'Staff join with an invite and their own BinGi ID; one person keeps one BinGi account.',
       ] },
-      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI', 'Theme Store: 21 premium themes (Luxury and Signature collections), ৳50/month each, free for now'] },
+      { heading: 'Coming soon (not live)', list: ['Channel manager / OTA connections (Booking.com, Agoda and others)', 'BinGi Payments (online payments through BinGi)', 'Developer API', 'BinGi AI inside the HMS (a local beta exists — see the BinGi AI page)', 'Theme Store: 21 premium themes (Luxury and Signature collections), ৳50/month each, free for now'] },
       { heading: 'Being redesigned (in testing, not live)', list: ['Dashboard with a priorities list that reads every module (to collect, rooms to clean, QR orders, unread chat, approvals, refunds, failed messages)', 'Bookings front office: room board, group and walk-in booking, waitlist, online pre-check-in, day close', 'Payments as one ledger with “To collect” and “Refunds due” lists', 'Operations renamed “Expenses”, with approval above a limit and supplier bills from Inventory', 'Reports workspace with one date range for 12 reports', 'Communication Center: 15 automatic messages, delivery policy, credits, history', 'Chat with website enquiries, quick replies and a booking card', 'Settings: one place for each setting', 'Room / Accommodation page (live Rooms layout, out-of-order per room)', 'Discounts & Rates with a rates calendar', 'Guests and Reviews together, guest status from bookings', 'Staff: an Easy view for small teams', 'Inventory: stores, purchase orders, stock count, recipes', 'Other Services: a Today board with assignment', 'Owner onboarding in 6 parts'] },
     ],
   },
@@ -145,15 +145,15 @@ export const docs: DocPage[] = [
     ],
   },
   {
-    slug: 'bingi-ai', group: 'Platform', title: 'BinGi AI', status: 'Coming soon',
-    summary: 'An assistant inside BinGi that will answer questions about your hotel and draft routine work. It is NOT live yet — nothing here can be used today.',
+    slug: 'bingi-ai', group: 'Platform', title: 'BinGi AI', status: 'Beta',
+    summary: 'An assistant that answers questions about your hotel and drafts routine work for you to approve. Beta, by invitation: it runs on your own computer from the BinGi AI repo and connects to BinGi with your hotel’s API access. It is not inside the HMS yet.',
     sections: [
-      { heading: 'What it will do', table: { head: ['Kind', 'Example', 'Who starts it'], rows: [
+      { heading: 'What it does', table: { head: ['Kind', 'Example', 'Who starts it'], rows: [
         ['Ask', '“How many check-outs today?” · “Which stock item cost most this month?”', 'Staff'],
         ['Do (with approval)', '“Create a housekeeping task for room 104” · “Draft a reply to this guest”', 'Staff — a person approves before anything changes'],
         ['Watch', 'Low-stock alert · end-of-day summary', 'Rules the owner turns on'],
       ] } },
-      { heading: 'Rules it will follow', list: [
+      { heading: 'Rules it follows', list: [
         'It never has more access than the person using it: plan, role, property and permission are checked for every action.',
         'It does not move money (no refunds, payouts or payment capture) and does not delete anything.',
         'It shows a draft first; nothing changes in BinGi until a person approves.',
@@ -161,8 +161,9 @@ export const docs: DocPage[] = [
         'Guest messages are treated as information, never as instructions.',
         'Bangla, English and Banglish.',
       ] },
-      { heading: 'Where it will appear', list: ['“Ask BinGi” panel in the Web HMS', '“AI reply” in Chat', '“Daily brief” on the Dashboard', 'Later: HMS Mobile'] },
-      { heading: 'Status', text: 'Planned and in internal testing with demo data. Public label: Coming soon. Do not tell users it is available.' },
+      { heading: 'Set up the beta', list: ['Ask the BinGi team on WhatsApp for beta access (GitHub repo access + your BinGi API access).', 'Install Node.js (LTS), Git and Ollama; run `ollama pull qwen3:4b`.', 'Clone the repo: `git clone -b develop https://github.com/nazmulhasanovx/BINGI-AI-.git bingi-ai`.', 'Double-click “Start BinGi AI.command” (Mac) or “Start BinGi AI (Windows).bat”; it opens http://localhost:8787.', 'User menu › Connectivity › BinGi HMS API: enter the address and access token, then Test. Optional: an OpenRouter key for a cloud model.'] },
+      { heading: 'Where it will appear later', list: ['“Ask BinGi” panel in the Web HMS', '“AI reply” in Chat', '“Daily brief” on the Dashboard', 'HMS Mobile'] },
+      { heading: 'Status', text: 'Beta, by invitation, running locally. Until a hotel is connected it shows a sample hotel. Not inside the HMS yet.' },
     ],
   },
   {
@@ -462,7 +463,7 @@ export const docs: DocPage[] = [
       ['Is there a free trial?', 'Yes — create your account, set up your property and start a seven-day free trial.'],
       ['Does BinGi connect to Booking.com / Agoda?', 'Not yet. The channel manager (OTA connections) is coming soon.'],
       ['Can guests pay online?', 'It depends on the payment options turned on for your property (Settings › Payments). Online payments that pass through BinGi show in Finance. BinGi Payments as a full payment service is coming soon.'],
-      ['Is BinGi AI available?', 'No. BinGi AI is coming soon.'],
+      ['Is BinGi AI available?', 'As a beta, by invitation: it runs on your own computer and connects with your BinGi API access. Ask the BinGi team on WhatsApp. It is not inside the HMS yet.'],
       ['Can I use my own domain?', 'Yes — connect it in Website Management › Domain. Until then the site uses a free BinGi address.'],
       ['Can I manage several properties?', 'Yes. One login can manage several properties; switch at the top. Hotel groups use the Custom plan.'],
       ['Is the HMS in Bangla?', 'Yes, the interface can be English or Bangla.'],
@@ -538,7 +539,7 @@ Rules for you, the AI assistant:
 - Booking status, payment status, room readiness and maintenance status are separate — never mix them.
 - Features marked "Coming soon" are NOT available; never tell the user to use them.
 - Sections titled "Next version (in testing, not live)" describe a redesign that users cannot use yet. Explain the current (live) way first; mention the next version only if asked.
-- BinGi AI is not live.
+- BinGi AI is a beta for invited hotels (runs locally, connects via BinGi API access). It is not inside the HMS; do not tell users to open it there.
 - Never ask for passwords, OTP codes or card numbers.
 - Reply in the user's language (Bangla or English).`
 

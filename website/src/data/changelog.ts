@@ -20,6 +20,12 @@ export const changes: Change[] = [
       { bn: 'HMS থেকে লেখা ও ছবি বদলান', en: 'Change text and photos from the HMS' },
     ] },
   { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+    title: { bn: 'BinGi AI বেটা', en: 'BinGi AI beta' },
+    items: [
+      { bn: 'নিজের কম্পিউটারে চলে, BinGi API দিয়ে connect', en: 'Runs on your own computer, connects with BinGi API access' },
+      { bn: 'Ask BinGi, Daily Brief, guest reply draft, approve করার কাজ', en: 'Ask BinGi, Daily Brief, guest reply drafts, work you approve' },
+    ] },
+  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
     title: { bn: 'নতুন করে বানানো HMS মডিউল', en: 'Redesigned HMS modules' },
     items: [
       { bn: 'রুম / অ্যাকোমোডেশন: লাইভ লেআউট, রুম প্রতি আউট-অফ-অর্ডার', en: 'Room / Accommodation: the live layout, out-of-order per room' },
@@ -48,6 +54,7 @@ export const changes: Change[] = [
     items: [
       { bn: 'চ্যানেল ম্যানেজার (OTA)', en: 'Channel manager (OTA)' },
       { bn: 'BinGi Payments', en: 'BinGi Payments' },
-      { bn: 'ডেভেলপার API ও BinGi AI', en: 'Developer API and BinGi AI' },
+      { bn: 'ডেভেলপার API', en: 'Developer API' },
+      { bn: 'HMS-এর ভেতরে BinGi AI', en: 'BinGi AI inside the HMS' },
     ] },
 ]

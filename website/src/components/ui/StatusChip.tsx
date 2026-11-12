@@ -3,11 +3,13 @@ import { useLang } from '../../i18n/lang'
 
 const label = {
   live: { bn: 'চালু', en: 'Live' },
+  beta: { bn: 'বেটা', en: 'Beta' },
   soon: { bn: 'শীঘ্রই আসছে', en: 'Coming Soon' },
   confirm: { bn: 'স্ট্যাটাস যাচাই বাকি', en: 'Status to confirm' },
 }
 const cls = {
   live: 'bg-ok-soft text-ok',
+  beta: 'bg-[#EAF0FF] text-link',
   soon: 'bg-soon-soft text-soon',
   confirm: 'bg-canvas text-muted-foreground border border-line',
 }

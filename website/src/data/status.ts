@@ -1,8 +1,8 @@
 import type { L } from '../i18n/lang'
 
 // ONE status registry. Change a value here and every chip on the site updates.
-// live = in production · soon = Coming Soon · confirm = not verified yet (do not ship as "live")
-export type Status = 'live' | 'soon' | 'confirm'
+// live = in production · beta = limited test (BinGi AI local beta) · soon = Coming Soon · confirm = not verified yet (do not ship as "live")
+export type Status = 'live' | 'beta' | 'soon' | 'confirm'
 
 export type Module = { id: string; status: Status; icon: string; name: L; desc: L }
 
@@ -21,7 +21,7 @@ export const modules: Module[] = [
   { id: 'ota', status: 'soon', icon: 'Network', name: { bn: 'চ্যানেল ম্যানেজার (OTA)', en: 'Channel Manager (OTA)' }, desc: { bn: 'Booking.com, Agoda সহ OTA সংযোগ', en: 'Connect Booking.com, Agoda and more' } },
   { id: 'payments', status: 'soon', icon: 'CreditCard', name: { bn: 'BinGi Payments', en: 'BinGi Payments' }, desc: { bn: 'অনলাইন পেমেন্ট সরাসরি BinGi দিয়ে', en: 'Online payments through BinGi' } },
   { id: 'api', status: 'soon', icon: 'Code2', name: { bn: 'ডেভেলপার API', en: 'Developer API' }, desc: { bn: 'নিজের সিস্টেম BinGi-এর সাথে যুক্ত করুন', en: 'Connect your own systems to BinGi' } },
-  { id: 'ai', status: 'soon', icon: 'Bot', name: { bn: 'BinGi AI', en: 'BinGi AI' }, desc: { bn: 'হোটেলের জন্য AI সহকারী', en: 'An AI assistant for your hotel' } },
+  { id: 'ai', status: 'beta', icon: 'Bot', name: { bn: 'BinGi AI', en: 'BinGi AI' }, desc: { bn: 'হোটেলের জন্য AI সহকারী — বেটা, নিজের কম্পিউটারে', en: 'An AI assistant for your hotel — beta, on your own computer' } },
 ]
 
 // Platforms. Mobile app store status is NOT verified yet → 'confirm'.

@@ -12,6 +12,7 @@ export const loaders = {
   '/partners': () => import('./pages/partners'),
   '/careers': () => import('./pages/careers'),
   '/docs': () => import('./pages/docs'),
+  '/ai': () => import('./pages/ai'),
 } as const
 export const loadSolution = () => import('./pages/solutions/Detail')
 export const loadPost = () => import('./pages/blog/Post')

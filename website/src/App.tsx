@@ -25,6 +25,7 @@ const Partners = lazy(loaders['/partners'])
 const Careers = lazy(loaders['/careers'])
 const Docs = lazy(loaders['/docs'])
 const Doc = lazy(loadDoc)
+const Ai = lazy(loaders['/ai'])
 
 // Prerender (build time) uses StaticRouter; the single-file review build keeps routes in memory;
 // the real site uses clean URLs.
@@ -62,6 +63,7 @@ export default function App({ ssrUrl }: { ssrUrl?: string }) {
               <Route path="changelog" element={<Changelog />} />
               <Route path="partners" element={<Partners />} />
               <Route path="careers" element={<Careers />} />
+              <Route path="ai" element={<Ai />} />
               <Route path="docs" element={<Docs />} />
               <Route path="docs/:slug" element={<Doc />} />
               {/* old URLs from the current site */}
