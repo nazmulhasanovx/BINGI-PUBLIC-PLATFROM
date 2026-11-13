@@ -176,3 +176,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-12 · Home/Products: hero, platform, story (5) and bento (6) now real HMS prototype screens animated with Remotion (sample hotel, demo data); pricing Starter/Business still illustrations · devtest NO ISSUES
 - 2026-11-12 · HMS Mobile slot: real iPhone screenshots (HMS-Brand-New.zip) as a 12 s app tour — splash → dashboard scroll → Staff → dark mode; property name, staff email/phone/pay blurred · devtest NO ISSUES
 - 2026-11-12 · Guest App slots (hero phone + platform): real Guest App screenshots as a 12 s tour — home → search → Nenas Resort → room → Book Now · devtest NO ISSUES
+- 2026-11-14 · Team: Nazmul Hasan photo added, role 'Founder, NEONECY & BinGi · System Engineer' · devtest NO ISSUES
