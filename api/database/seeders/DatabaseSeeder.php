@@ -33,8 +33,9 @@ class DatabaseSeeder extends Seeder
             $file = "$dir/$type.json";
             if (!is_file($file)) continue;
             foreach (json_decode(file_get_contents($file), true) as $i => $item) {
-                $data = Validator::check($type, $item, true);
-                Entry::create(['type' => $type, 'data' => $data, 'visible' => true, 'sort' => $i]);
+                $visible = $item['_visible'] ?? true; // seed items can start hidden (e.g. sample stories)
+                $data = Validator::check($type, $item, $visible);
+                Entry::create(['type' => $type, 'data' => $data, 'visible' => $visible, 'sort' => $i]);
                 $n++;
             }
         }

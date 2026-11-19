@@ -931,6 +931,214 @@
    ]
   },
   {
+   "type": "customer_story",
+   "kind": "collection",
+   "key": "stories",
+   "module": "M23",
+   "label": {
+    "bn": "কাস্টমার স্টোরি",
+    "en": "Customer stories"
+   },
+   "titleField": "property",
+   "guards": [
+    "permission",
+    "result_sources",
+    "no_sample_visible"
+   ],
+   "fields": [
+    {
+     "name": "slug",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "URL: /customers/<slug>",
+      "en": "URL: /customers/<slug>"
+     }
+    },
+    {
+     "name": "property",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "হোটেলের আসল নাম",
+      "en": "The hotel's real name"
+     }
+    },
+    {
+     "name": "location",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "propertyType",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home",
+      "guest",
+      "hotel",
+      "resort",
+      "group"
+     ]
+    },
+    {
+     "name": "rooms",
+     "type": "number"
+    },
+    {
+     "name": "plan",
+     "type": "enum",
+     "options": [
+      "starter",
+      "business",
+      "ultra",
+      "custom"
+     ]
+    },
+    {
+     "name": "since",
+     "type": "date",
+     "help": {
+      "bn": "কবে থেকে BinGi ব্যবহার করছে",
+      "en": "Using BinGi since"
+     }
+    },
+    {
+     "name": "headline",
+     "type": "l",
+     "required": true,
+     "help": {
+      "bn": "এক লাইনে মূল ফল",
+      "en": "The main result in one line"
+     }
+    },
+    {
+     "name": "summary",
+     "type": "lt",
+     "required": true
+    },
+    {
+     "name": "cover",
+     "type": "object",
+     "fields": [
+      {
+       "name": "src",
+       "type": "image",
+       "required": true
+      },
+      {
+       "name": "alt",
+       "type": "l",
+       "required": true
+      }
+     ]
+    },
+    {
+     "name": "logo",
+     "type": "image"
+    },
+    {
+     "name": "challenge",
+     "type": "lt",
+     "required": true,
+     "help": {
+      "bn": "BinGi-র আগে কী সমস্যা ছিল",
+      "en": "What was hard before BinGi"
+     }
+    },
+    {
+     "name": "solution",
+     "type": "lt",
+     "required": true,
+     "help": {
+      "bn": "BinGi দিয়ে কী বদলাল",
+      "en": "What changed with BinGi"
+     }
+    },
+    {
+     "name": "results",
+     "type": "list",
+     "fields": [
+      {
+       "name": "value",
+       "type": "string",
+       "required": true,
+       "help": {
+        "bn": "যেমন 40%",
+        "en": "e.g. 40%"
+       }
+      },
+      {
+       "name": "label",
+       "type": "l",
+       "required": true
+      },
+      {
+       "name": "source",
+       "type": "string",
+       "required": true,
+       "help": {
+        "bn": "সংখ্যাটা কোথা থেকে (হোটেলের রিপোর্ট, তারিখ)",
+        "en": "Where the number comes from (hotel report, date)"
+       }
+      }
+     ]
+    },
+    {
+     "name": "quote",
+     "type": "object",
+     "fields": [
+      {
+       "name": "text",
+       "type": "lt"
+      },
+      {
+       "name": "name",
+       "type": "string"
+      },
+      {
+       "name": "role",
+       "type": "l"
+      }
+     ]
+    },
+    {
+     "name": "modules",
+     "type": "strlist",
+     "help": {
+      "bn": "ব্যবহার করা মডিউলের id, যেমন bookings, housekeeping",
+      "en": "Module ids used, e.g. bookings, housekeeping"
+     }
+    },
+    {
+     "name": "body",
+     "type": "blocks",
+     "help": {
+      "bn": "পুরো গল্প (ঐচ্ছিক)",
+      "en": "Full story (optional)"
+     }
+    },
+    {
+     "name": "sample",
+     "type": "bool",
+     "internal": true,
+     "help": {
+      "bn": "নমুনা গল্প — কখনো সাইটে দেখানো যাবে না। আসল গল্প দিয়ে বদলে এটা বন্ধ করুন।",
+      "en": "Sample story — can never be shown. Replace with a real story, then switch this off."
+     }
+    },
+    {
+     "name": "permission_file",
+     "type": "image",
+     "internal": true,
+     "help": {
+      "bn": "লিখিত অনুমতির ছবি/PDF (দেখাতে হলে লাগবেই)",
+      "en": "Written permission (required to show it)"
+     }
+    }
+   ]
+  },
+  {
    "type": "blog_post",
    "kind": "collection",
    "key": "posts",

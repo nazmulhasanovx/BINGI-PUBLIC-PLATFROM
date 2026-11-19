@@ -10,7 +10,7 @@ let id = 1
 const entries: E[] = []
 for (const t of registry.types) {
   const list = (seeds[`../../../packages/content/seed/${t.type}.json`] as Record<string, unknown>[] | undefined) ?? []
-  list.forEach((d, i) => entries.push({ id: id++, type: t.type, data: d, published: d, visible: true, pubVisible: true, sort: i, updated_at: now() }))
+  list.forEach((d, i) => { const vis = (d as { _visible?: boolean })._visible !== false; const { _visible: _, ...data } = d as Record<string, unknown>; void _; entries.push({ id: id++, type: t.type, data, published: data, visible: vis, pubVisible: vis, sort: i, updated_at: now() }) })
 }
 type Seo = { id: number; path: string; title: string; description: string; og_image?: string | null; noindex?: boolean }
 const seo: Seo[] = ((seeds['../../../packages/content/seed/_seo.json'] as Seo[]) ?? []).map((p, i) => ({ ...p, id: i + 1 }))
@@ -38,6 +38,8 @@ function guard(type: string, d: Record<string, unknown>, visible: boolean) {
   if (g.includes('ai_not_live') && d.id === 'ai' && d.status === 'live') f.status = 'BinGi AI can only be Beta or Coming Soon.'
   if (g.includes('permission') && visible && !d.permission_file) f.permission_file = 'Upload the written permission before showing this.'
   if (g.includes('source') && !d.source) f.source = 'Say where this fact comes from.'
+  if (g.includes('no_sample_visible') && visible && d.sample) f.sample = 'A sample story can never be shown. Replace it with a real story and switch "sample" off.'
+  if (g.includes('result_sources')) ((d.results as { source?: string }[]) ?? []).forEach((r, i) => { if (!r.source) f[`results.${i}.source`] = 'Say where this number comes from.' })
   if (Object.keys(f).length) throw new ApiError('validation_failed', 'Some fields need attention.', 422, f)
 }
 

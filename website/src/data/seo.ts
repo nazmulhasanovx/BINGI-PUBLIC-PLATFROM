@@ -1,4 +1,5 @@
 import { pick } from './content'
+import { stories } from './stories'
 // Per-page <title> and description (English — site language). Used by the prerender script and on navigation.
 export type SeoMeta = { title: string; description: string; ogImage?: string; noindex?: boolean }
 export const seo: Record<string, SeoMeta> = pick('seo', {
@@ -39,6 +40,12 @@ Object.assign(seo, {
 })
 export const notFoundSeo = { title: 'Page not found — BinGi', description: 'This page does not exist.' }
 
+
+// One SEO entry per published story (a story's own SEO page in the admin, if any, wins).
+for (const s of stories) {
+  const path = `/customers/${s.slug}`
+  if (!seo[path]) seo[path] = { title: `${s.property} — BinGi customer story`, description: s.summary.en.slice(0, 155), ...(s.sample ? { noindex: true } : {}), ...(s.cover ? { ogImage: s.cover.src } : {}) }
+}
 
 // 301/302 redirects managed in the admin (SEO → Redirects). The prerender writes _redirects + redirects.nginx.conf.
 export const redirects: { from: string; to: string; code: number }[] = pick('redirects', [])

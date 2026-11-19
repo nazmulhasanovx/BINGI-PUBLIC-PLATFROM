@@ -33,6 +33,9 @@ export const fieldLabels: Record<string, L> = {
   minBillable: { bn: 'সর্বনিম্ন বিলিং রুম', en: 'Minimum billed rooms' }, launchOff: { bn: 'লঞ্চ ছাড় (%)', en: 'Launch discount (%)' }, launchUntil: { bn: 'লঞ্চ অফার শেষ', en: 'Launch offer ends' },
   themePrice: { bn: 'থিম স্টোর দাম (৳/মাস)', en: 'Theme Store price (৳/month)' }, cycles: { bn: 'বিলিং সাইকেল', en: 'Billing cycles' }, months: { bn: 'মাস', en: 'Months' }, discount: { bn: 'ছাড় (0–1)', en: 'Discount (0–1)' },
   cycleRates: { bn: 'সাইকেল রেট', en: 'Rates per cycle' }, offers: { bn: 'অফার', en: 'Offers' },
+  location: { bn: 'জায়গা', en: 'Location' }, propertyType: { bn: 'প্রপার্টির ধরন', en: 'Property type' }, rooms: { bn: 'রুম সংখ্যা', en: 'Rooms' }, since: { bn: 'কবে থেকে BinGi', en: 'On BinGi since' },
+  headline: { bn: 'হেডলাইন', en: 'Headline' }, logo: { bn: 'লোগো', en: 'Logo' }, challenge: { bn: 'আগে যা কঠিন ছিল', en: 'What was hard before' }, solution: { bn: 'BinGi দিয়ে যা বদলাল', en: 'What changed with BinGi' },
+  results: { bn: 'ফলাফল (সংখ্যা)', en: 'Results (numbers)' }, text: { bn: 'লেখা', en: 'Text' }, sample: { bn: 'নমুনা গল্প', en: 'Sample story' },
 }
 const optionLabels: Record<string, L> = {
   live: { bn: 'লাইভ', en: 'Live' }, beta: { bn: 'বেটা', en: 'Beta' }, soon: { bn: 'শীঘ্রই আসছে', en: 'Coming Soon' }, confirm: { bn: 'যাচাই বাকি', en: 'Status to confirm' },

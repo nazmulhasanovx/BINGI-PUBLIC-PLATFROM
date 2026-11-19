@@ -1,0 +1,88 @@
+import type { L } from '../i18n/lang'
+import { pick } from './content'
+
+// Customer stories. Admin: Content → Customer stories.
+// Rules (enforced by the API): written permission before a story is shown, a source for every number,
+// and a `sample` story can never be shown. The three below are SAMPLES — templates for the team to copy.
+export type Story = {
+  slug: string
+  property: string
+  location: L
+  propertyType: 'home' | 'guest' | 'hotel' | 'resort' | 'group'
+  rooms?: number
+  plan?: 'starter' | 'business' | 'ultra' | 'custom'
+  since?: string
+  headline: L
+  summary: L
+  cover?: { src: string; alt: L }
+  logo?: string
+  challenge: L
+  solution: L
+  results?: { value: string; label: L; source: string }[]
+  quote?: { text?: L; name?: string; role?: L }
+  modules?: string[]
+  body?: ({ h: L } | { p: L } | { list: L[] })[]
+  /** Only in the code samples (the published snapshot never contains samples). */
+  sample?: boolean
+}
+
+export const samples: Story[] = [
+  {
+    sample: true,
+    slug: 'sample-guest-house',
+    property: 'Tea Valley Guest House (sample)',
+    location: { bn: 'শ্রীমঙ্গল, সিলেট', en: 'Sreemangal, Sylhet' },
+    propertyType: 'guest', rooms: 8, plan: 'starter',
+    headline: { bn: 'খাতা আর ফোনের বুকিং থেকে এক জায়গায় — [মূল ফলটা এখানে লিখুন]', en: 'From a notebook and phone calls to one screen — [write the main result here]' },
+    summary: { bn: 'নমুনা: একটা ছোট গেস্ট হাউস কীভাবে বুকিং, রুম আর টাকার হিসাব এক জায়গায় আনল। আসল হোটেলের কথা দিয়ে বদলান।', en: 'Sample: how a small guest house brought bookings, rooms and cash into one place. Replace with a real hotel’s words.' },
+    cover: { src: '/theme-demo/demo/tea-valley/hero.jpg', alt: { bn: 'চা-বাগানের পাশে গেস্ট হাউস (নমুনা ছবি)', en: 'Guest house beside a tea garden (sample photo)' } },
+    challenge: { bn: '[হোটেল মালিক যা বলেছেন: যেমন — বুকিং খাতায় লেখা হতো, একই রুম দুবার বুক হয়ে যেত, দিনের শেষে টাকার হিসাব মিলত না।]', en: '[What the owner told you — e.g. bookings were written in a notebook, the same room was sometimes booked twice, cash did not match at night.]' },
+    solution: { bn: '[কী বদলাল: যেমন — Starter প্ল্যানে বুকিং ক্যালেন্ডার, ওয়াক-ইন চেক-ইন আর দিনের ক্যাশ রিপোর্ট।]', en: '[What changed — e.g. on the Starter plan: the booking calendar, walk-in check-in and the daily cash report.]' },
+    results: [
+      { value: '[X]', label: { bn: 'ডাবল বুকিং প্রতি মাসে', en: 'double bookings a month' }, source: '[Hotel’s own report and date — e.g. BinGi booking report, Mar 2027]' },
+      { value: '[X] min', label: { bn: 'প্রতি চেক-ইনে সময়', en: 'per check-in' }, source: '[Who measured it, and when]' },
+    ],
+    quote: { text: { bn: '[মালিকের নিজের কথা, অনুমতি নিয়ে]', en: '[The owner’s own words, with permission]' }, name: '[Owner name]', role: { bn: 'মালিক', en: 'Owner' } },
+    modules: ['bookings', 'rooms', 'finance'],
+  },
+  {
+    sample: true,
+    slug: 'sample-city-hotel',
+    property: 'Sea Pearl City Hotel (sample)',
+    location: { bn: 'গুলশান, ঢাকা', en: 'Gulshan, Dhaka' },
+    propertyType: 'hotel', rooms: 40, plan: 'business',
+    headline: { bn: 'ফ্রন্ট ডেস্ক, হাউসকিপিং আর স্টাফ এক সিস্টেমে — [মূল ফল]', en: 'Front desk, housekeeping and staff on one system — [main result]' },
+    summary: { bn: 'নমুনা: 40 রুমের সিটি হোটেলে রুম রেডি হওয়ার খবর আর স্টাফের শিফট কীভাবে এক জায়গায় এল।', en: 'Sample: how a 40-room city hotel got room readiness and staff shifts into one place.' },
+    cover: { src: '/theme-demo/demo/sea-pearl/lobby.jpg', alt: { bn: 'হোটেলের লবি (নমুনা ছবি)', en: 'Hotel lobby (sample photo)' } },
+    challenge: { bn: '[যেমন — হাউসকিপিং ফোনে জানাত কোন রুম রেডি, রিসেপশন অপেক্ষা করত; শিফট আর হাজিরা আলাদা খাতায়।]', en: '[e.g. housekeeping called the desk to say a room was ready, guests waited; shifts and attendance lived in separate books.]' },
+    solution: { bn: '[যেমন — Business প্ল্যান: রুম বোর্ড, হাউসকিপিং টাস্ক (চেক-আউটে নিজে থেকে), HRM-এ শিফট ও হাজিরা।]', en: '[e.g. Business plan: room board, housekeeping tasks (created at check-out), shifts and attendance in HRM.]' },
+    results: [
+      { value: '[X] min', label: { bn: 'চেক-আউট থেকে রুম রেডি', en: 'from check-out to room ready' }, source: '[Housekeeping report, date]' },
+      { value: '[X]%', label: { bn: 'সরাসরি বুকিং (ওয়েবসাইট থেকে)', en: 'direct bookings (from the website)' }, source: '[BinGi booking report, period]' },
+    ],
+    quote: { text: { bn: '[GM-এর নিজের কথা, অনুমতি নিয়ে]', en: '[The GM’s own words, with permission]' }, name: '[GM name]', role: { bn: 'জেনারেল ম্যানেজার', en: 'General Manager' } },
+    modules: ['bookings', 'housekeeping', 'hrm'],
+  },
+  {
+    sample: true,
+    slug: 'sample-beach-resort',
+    property: 'Azure Bay Resort (sample)',
+    location: { bn: 'ইনানী, কক্সবাজার', en: 'Inani, Cox’s Bazar' },
+    propertyType: 'resort', rooms: 24, plan: 'ultra',
+    headline: { bn: 'রুম, রেস্টুরেন্ট আর বিল এক ফোলিওতে — [মূল ফল]', en: 'Rooms, restaurant and bills on one folio — [main result]' },
+    summary: { bn: 'নমুনা: একটা রিসোর্টে রেস্টুরেন্টের অর্ডার কীভাবে সরাসরি গেস্টের রুমের বিলে যোগ হলো।', en: 'Sample: how a resort’s restaurant orders went straight onto the guest’s room bill.' },
+    cover: { src: '/theme-demo/demo/azure-bay/hero.jpg', alt: { bn: 'সমুদ্রের পাশে রিসোর্ট (নমুনা ছবি)', en: 'Resort by the sea (sample photo)' } },
+    challenge: { bn: '[যেমন — রেস্টুরেন্টের বিল কাগজে, চেক-আউটে আলাদা করে যোগ করতে হতো, ভুল হতো।]', en: '[e.g. restaurant bills were on paper and had to be added at check-out by hand, with mistakes.]' },
+    solution: { bn: '[যেমন — Ultra প্ল্যান: রেস্টুরেন্ট ও বার POS, রুমে চার্জ, ইনভেন্টরি আর অ্যাকাউন্টস।]', en: '[e.g. Ultra plan: restaurant & bar POS, charge to room, inventory and accounts.]' },
+    results: [
+      { value: '[X]', label: { bn: 'চেক-আউটে বিলের ভুল প্রতি মাসে', en: 'bill mistakes at check-out a month' }, source: '[Accounts report, date]' },
+    ],
+    quote: { text: { bn: '[মালিক বা ম্যানেজারের কথা, অনুমতি নিয়ে]', en: '[Owner or manager’s words, with permission]' }, name: '[Name]', role: { bn: 'অপারেশনস ম্যানেজার', en: 'Operations Manager' } },
+    modules: ['restaurant', 'inventory', 'finance'],
+  },
+]
+
+/** Published stories (admin). With no published data: the samples, shown ONLY in the design preview build. */
+const all: Story[] = pick('stories', samples)
+export const stories: Story[] = all.filter((s) => !s.sample || import.meta.env.MODE === 'single')
+export const storyBySlug = (slug: string) => stories.find((s) => s.slug === slug)

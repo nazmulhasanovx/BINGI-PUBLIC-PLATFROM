@@ -4,7 +4,7 @@ import { LangProvider } from './i18n/lang'
 import { Layout } from './components/layout/Layout'
 import Home from './pages/home'
 
-import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation, loadSolution, loadPost, loadDoc } from './routes'
+import { loaders, loadArticle, loadLegal, loadNotFound, loadFoundation, loadSolution, loadPost, loadDoc, loadStory } from './routes'
 
 const Products = lazy(loaders['/products'])
 const Pricing = lazy(loaders['/pricing'])
@@ -19,6 +19,7 @@ const SolutionDetail = lazy(loadSolution)
 const Themes = lazy(loaders['/themes'])
 const Blog = lazy(loaders['/blog'])
 const Post = lazy(loadPost)
+const StoryPage = lazy(loadStory)
 const Customers = lazy(loaders['/customers'])
 const Changelog = lazy(loaders['/changelog'])
 const Partners = lazy(loaders['/partners'])
@@ -61,6 +62,7 @@ export default function App({ ssrUrl }: { ssrUrl?: string }) {
               <Route path="blog" element={<Blog />} />
               <Route path="blog/:slug" element={<Post />} />
               <Route path="customers" element={<Customers />} />
+              <Route path="customers/:slug" element={<StoryPage />} />
               <Route path="changelog" element={<Changelog />} />
               <Route path="partners" element={<Partners />} />
               <Route path="marketplace" element={<Marketplace />} />

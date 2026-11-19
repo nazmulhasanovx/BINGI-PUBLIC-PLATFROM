@@ -17,6 +17,7 @@ export const loaders = {
 } as const
 export const loadSolution = () => import('./pages/solutions/Detail')
 export const loadPost = () => import('./pages/blog/Post')
+export const loadStory = () => import('./pages/customers/Story')
 export const loadDoc = () => import('./pages/docs/Page')
 export const loadArticle = () => import('./pages/help/Article')
 export const loadLegal = () => import('./pages/legal')
