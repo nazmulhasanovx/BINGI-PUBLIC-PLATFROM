@@ -187,3 +187,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-19 · A03–A09 API: Pest 45 tests / 214 assertions pass (SQLite).
 - 2026-11-19 · A19 site ↔ API: CONTENT_API build reads snapshot v2 (copy override + redirect live), lead form saves to Leads (source page kept), sendBeacon events recorded (headless bots ignored), no-API build = identical site: devtest NO ISSUES on 8 devices, footer unchanged.
 - 2026-11-19 · A20 review: API now enforces owner-only types (site, menus, status, pricing — was UI-only), SVG uploads refused; Pest 48/221, admin e2e 13/13 (now also checks SEO shows in Publish), vitest 4/4, site devtest NO ISSUES. Not deployed (no host yet).
+- 2026-11-19 · Admin demo build (npm run build:demo, in-browser mock API from the seed, same truth guards) published as artifact https://claude.ai/artifact/AwtzUKrXmKVHpF5avnxCnA — checked in Chrome.
