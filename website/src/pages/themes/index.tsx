@@ -35,11 +35,11 @@ export default function Themes() {
           <div className="max-w-[520px]">
             <span className="inline-flex rounded-full bg-white/10 px-2.5 py-1 text-[12px] font-medium">{t({ bn: 'শীঘ্রই আসছে', en: 'Coming soon' })}</span>
             <h2 className="mt-3 h2">{t({ bn: 'থিম স্টোর', en: 'Theme Store' })}</h2>
-            <p className="mt-3 text-[16px] text-white/80">{t({ bn: '২১টা প্রিমিয়াম থিম, যেকোনো প্ল্যানে।', en: '21 premium themes, on any plan.' })} <span className="whitespace-nowrap"><s className="text-white/50">{t({ bn: '৳৫০/মাস', en: '৳50/month' })}</s> <b>{t({ bn: 'এখন ফ্রি', en: 'Free for now' })}</b></span></p>
+            <p className="mt-3 text-[16px] text-white/80">{t({ bn: '21টা প্রিমিয়াম থিম, যেকোনো প্ল্যানে।', en: '21 premium themes, on any plan.' })} <span className="whitespace-nowrap"><s className="text-white/50">{t({ bn: '৳50/মাস', en: '৳50/month' })}</s> <b>{t({ bn: 'এখন ফ্রি', en: 'Free for now' })}</b></span></p>
           </div>
           <Link to="/contact" className="btn h-11 w-fit bg-white px-5 text-ink">{t({ bn: 'আগ্রহ জানান', en: 'Get notified' })}</Link>
         </div>
-        {([['luxury', { bn: 'লাক্সারি কালেকশন · ৫★–৭★', en: 'Luxury Collection · 5★–7★' }], ['signature', { bn: 'সিগনেচার কালেকশন · প্রপার্টির ধরন অনুযায়ী', en: 'Signature Collection · by property type' }], ['more', { bn: 'আরও', en: 'More' }]] as const).map(([col, label]) => (
+        {([['luxury', { bn: 'লাক্সারি কালেকশন · 5★–7★', en: 'Luxury Collection · 5★–7★' }], ['signature', { bn: 'সিগনেচার কালেকশন · প্রপার্টির ধরন অনুযায়ী', en: 'Signature Collection · by property type' }], ['more', { bn: 'আরও', en: 'More' }]] as const).map(([col, label]) => (
           <div key={col} className="relative mt-8">
             <h3 className="text-[15px] font-semibold text-white/90">{t(label)}</h3>
             <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
@@ -57,7 +57,7 @@ export default function Themes() {
 
       <div className="mt-12 flex flex-col items-center gap-3 text-center">
         <h2 className="text-[22px] font-semibold tracking-tight">{t({ bn: 'কোন প্ল্যানে কোন থিম?', en: 'Which plan gets which themes?' })}</h2>
-        <p className="text-[15px] text-muted-foreground">{t({ bn: 'Starter ৩টা · Business ৭টা · Ultra সব ৮টা', en: 'Starter 3 · Business 7 · Ultra all 8' })}</p>
+        <p className="text-[15px] text-muted-foreground">{t({ bn: 'Starter 3টা · Business 7টা · Ultra সব 8টা', en: 'Starter 3 · Business 7 · Ultra all 8' })}</p>
         <Link to="/pricing" className="btn-primary h-11 px-5">{t({ bn: 'প্রাইসিং দেখুন', en: 'See pricing' })}</Link>
       </div>
     </div>

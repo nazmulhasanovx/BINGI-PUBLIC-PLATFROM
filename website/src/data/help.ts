@@ -31,23 +31,23 @@ export const articles: Article[] = [
     steps: [
       { bn: 'সাইডবারে "Rooms" খুলে "Add Room Type" চাপুন।', en: 'Open "Rooms" in the sidebar and click "Add Room Type".' },
       { bn: 'ক্যাটাগরি, বেড, গেস্ট সংখ্যা, সুবিধা ও প্রতি রাতের দাম দিন।', en: 'Set category, beds, guests, amenities and nightly rate.' },
-      { bn: 'রুম নম্বর যোগ করুন, যেমন ১০১, ১০২।', en: 'Add the room numbers, e.g. 101, 102.' },
+      { bn: 'রুম নম্বর যোগ করুন, যেমন 101, 102।', en: 'Add the room numbers, e.g. 101, 102.' },
       { bn: 'ছবি দিয়ে সেভ করুন। মার্কেটপ্লেসে দেখাতে BinGi-এর অনুমোদন লাগে।', en: 'Add photos and save. Marketplace listing needs BinGi approval.' },
     ] },
   { slug: 'change-plan', category: 'billing', draft: true,
     title: { bn: 'প্ল্যান দেখা ও পরিবর্তন', en: 'View and change your plan' },
-    summary: { bn: 'মাসিক, ৬ মাস বা বাৎসরিক', en: 'Monthly, 6 months or yearly' },
+    summary: { bn: 'মাসিক, 6 মাস বা বাৎসরিক', en: 'Monthly, 6 months or yearly' },
     steps: [
       { bn: 'সাইডবারে "Billing & Subscription" খুলুন।', en: 'Open "Billing & Subscription" in the sidebar.' },
       { bn: '"Plan List" ট্যাবে যান।', en: 'Go to the "Plan List" tab.' },
-      { bn: 'মাসিক, ৬ মাস (১০% ছাড়) বা বাৎসরিক (২৫% ছাড়) বেছে নিন।', en: 'Pick monthly, 6 months (10% off) or yearly (25% off).' },
+      { bn: 'মাসিক, 6 মাস (10% ছাড়) বা বাৎসরিক (25% ছাড়) বেছে নিন।', en: 'Pick monthly, 6 months (10% off) or yearly (25% off).' },
       { bn: 'প্ল্যানে "Choose" চেপে পেমেন্ট সম্পন্ন করুন।', en: 'Click "Choose" on a plan and complete payment.' },
     ] },
 ]
 
 // Only items actually seen in the HMS on 9 Nov 2026.
 export const whatsNew: { date: L; title: L }[] = [
-  { date: { bn: 'নভেম্বর ২০২৬', en: 'Nov 2026' }, title: { bn: 'নতুন ড্যাশবোর্ড: আজকের আগমন, রুম প্রস্তুতি ও ওয়েবসাইট স্ট্যাটাস', en: 'New dashboard: arrivals, room readiness and website status' } },
-  { date: { bn: 'নভেম্বর ২০২৬', en: 'Nov 2026' }, title: { bn: 'সাইডবার Flat বা Expandable — যেটা সুবিধা', en: 'Sidebar in Flat or Expandable mode' } },
-  { date: { bn: 'নভেম্বর ২০২৬', en: 'Nov 2026' }, title: { bn: 'প্ল্যান লিস্টে ৬ মাস ও বাৎসরিক ছাড়', en: '6-month and yearly discounts in Plan List' } },
+  { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'নতুন ড্যাশবোর্ড: আজকের আগমন, রুম প্রস্তুতি ও ওয়েবসাইট স্ট্যাটাস', en: 'New dashboard: arrivals, room readiness and website status' } },
+  { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'সাইডবার Flat বা Expandable — যেটা সুবিধা', en: 'Sidebar in Flat or Expandable mode' } },
+  { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'প্ল্যান লিস্টে 6 মাস ও বাৎসরিক ছাড়', en: '6-month and yearly discounts in Plan List' } },
 ]

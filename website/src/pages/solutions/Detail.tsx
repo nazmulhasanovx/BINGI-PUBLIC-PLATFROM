@@ -50,7 +50,7 @@ export default function SolutionDetail() {
           <p className="mt-1 font-[family-name:var(--font-display)] text-[32px] font-semibold tracking-[-0.02em]">BinGi {plan.name}</p>
           <p className="mt-1 text-[15px] text-muted-foreground">{t(plan.tagline)}</p>
           {pr
-            ? <p className="mt-4 text-[14px] text-muted-foreground">{t({ bn: 'প্রতি রুম', en: 'From' })} <span className="text-[22px] font-semibold text-ink">{taka(plan.rate!)}</span>{t({ bn: '/মাস থেকে', en: '/room/month' })}<br />{t({ bn: `১০ রুম · ${taka(pr.total)}/মাস`, en: `10 rooms · ${taka(pr.total)}/month` })}</p>
+            ? <p className="mt-4 text-[14px] text-muted-foreground">{t({ bn: 'প্রতি রুম', en: 'From' })} <span className="text-[22px] font-semibold text-ink">{taka(plan.rate!)}</span>{t({ bn: '/মাস থেকে', en: '/room/month' })}<br />{t({ bn: `10 রুম · ${taka(pr.total)}/মাস`, en: `10 rooms · ${taka(pr.total)}/month` })}</p>
             : <p className="mt-4 text-[15px] font-medium">{t({ bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after we review your needs' })}</p>}
           <Link to="/pricing" className="btn-primary mt-5 h-11 px-5">{t({ bn: 'প্রাইসিং দেখুন', en: 'See pricing' })}</Link>
         </div>

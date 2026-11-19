@@ -83,7 +83,7 @@ export default function Contact() {
                 </Field>
                 <Field id="rooms" label={t({ bn: 'রুম সংখ্যা', en: 'Number of rooms' })} error={err.rooms}><input id="rooms" inputMode="numeric" className={input} value={f.rooms} onChange={set('rooms')} aria-invalid={!!err.rooms} aria-describedby={err.rooms ? 'rooms-err' : undefined} /></Field>
               </div>
-              <Field id="time" label={t({ bn: 'কখন কথা বলতে সুবিধা (ঐচ্ছিক)', en: 'Best time to talk (optional)' })}><input id="time" className={input} value={f.time} onChange={set('time')} placeholder={t({ bn: 'যেমন: বিকেল ৩টা–৫টা', en: 'e.g. 3–5 pm' })} /></Field>
+              <Field id="time" label={t({ bn: 'কখন কথা বলতে সুবিধা (ঐচ্ছিক)', en: 'Best time to talk (optional)' })}><input id="time" className={input} value={f.time} onChange={set('time')} placeholder={t({ bn: 'যেমন: বিকেল 3টা–5টা', en: 'e.g. 3–5 pm' })} /></Field>
               <button type="submit" className="btn-primary w-full h-12 cursor-pointer">{t({ bn: 'অনুরোধ পাঠান', en: 'Send request' })}</button>
             </form>
           )}

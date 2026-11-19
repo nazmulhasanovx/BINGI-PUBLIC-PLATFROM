@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CheckCheck, ChevronDown, Gift, Minus } from 'lucide-react'
+import { CheckCheck, Gift, Minus } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
 import { compare, offers, plans, type Cell } from '../../data/pricing'
 import { Accordion, PillTabs, SectionHead } from '../../components/ui/Ui'
@@ -7,8 +7,8 @@ import { StudioDisplay } from '../../components/media/Devices'
 import PricingSection, { ActivationLine } from '@/components/ui/pricing-section'
 
 const faqs: { q: L; a: L }[] = [
-  { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। ৬ মাসে প্রায় ১০% আর ১২ মাসে প্রায় ২৫% ছাড়, রুমের রেট পূর্ণ টাকায়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
-  { q: { bn: '১০টার কম রুম থাকলে?', en: 'What if I have fewer than 10 rooms?' }, a: { bn: 'সর্বনিম্ন বিলিং ১০ রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।', en: 'Billing starts at 10 rooms. You only add the rooms you really have.' } },
+  { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। 6 মাসে প্রায় 10% আর 12 মাসে প্রায় 25% ছাড়, রুমের রেট পূর্ণ টাকায়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
+  { q: { bn: '10টার কম রুম থাকলে?', en: 'What if I have fewer than 10 rooms?' }, a: { bn: 'সর্বনিম্ন বিলিং 10 রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।', en: 'Billing starts at 10 rooms. You only add the rooms you really have.' } },
   { q: { bn: 'বুকিং ফি কী?', en: 'What are booking fees?' }, a: { bn: 'BinGi মার্কেটপ্লেস বা আপনার ওয়েবসাইট থেকে আসা বুকিংয়ে ছোট একটা শতাংশ। রিসেপশনে নেওয়া ওয়াক-ইন বুকিংয়ে কোনো ফি নেই।', en: 'A small percentage on bookings from the BinGi Marketplace or your website. Walk-in bookings at reception have no fee.' } },
   { q: { bn: 'আর কোনো খরচ আছে?', en: 'Any other costs?' }, a: { bn: 'এখন কোনো VAT যোগ হয় না। SMS ও ইমেইল যায় আপনার নিজের প্রোভাইডার দিয়ে — তাদের চার্জ সরাসরি তাদের দেবেন; কানেক্ট না করলে OTP/SMS যাবে না। কেনা ডোমেইন রিনিউ, পেমেন্ট গেটওয়ে ফি আর কাস্টম কাজ আলাদা দেখানো হয় — আপনি রাজি হলে তবেই।', en: 'No VAT is added for now. SMS and email go through your own provider — you pay them directly; without one connected, OTP and SMS are not sent. Domain renewal, payment gateway fees and custom work are shown separately — only if you agree.' } },
 ]
@@ -41,7 +41,7 @@ function PlanDashboards() {
 
 export default function Pricing() {
   const { t, taka } = useLang()
-  const [showCompare, setShowCompare] = useState(false)
+  const showCompare = true // the comparison table is always open
 
   return (
     <div className="relative">
@@ -54,7 +54,7 @@ export default function Pricing() {
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
-            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2"><li className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{t({ bn: 'লঞ্চ অফার (১১ ফেব্রুয়ারি ২০২৭ পর্যন্ত; এর মধ্যে যোগ দিলে এই দামই থাকবে): Business ৳১৭৫ → ৳৭০ · Ultra ৳২৯০ → ৳১১৬', en: 'Launch offer until 11 Feb 2027 — join by then and keep the price: Business ৳175 → ৳70 · Ultra ৳290 → ৳116' })}</span></li>
+            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2"><li className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{t({ bn: 'লঞ্চ অফার (11 ফেব্রুয়ারি 2027 পর্যন্ত; এর মধ্যে যোগ দিলে এই দামই থাকবে): Business ৳175 → ৳70 · Ultra ৳290 → ৳116', en: 'Launch offer until 11 Feb 2027 — join by then and keep the price: Business ৳175 → ৳70 · Ultra ৳290 → ৳116' })}</span></li>
               {plans.filter((p) => p.activation).map((p) => <li key={p.id} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{p.name} <ActivationLine plan={p} /></span></li>)}
               {offers.slice(2).map((o, i) => <li key={i} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}</ul>
           </div>
@@ -63,9 +63,7 @@ export default function Pricing() {
         {/* Compare */}
         <section className="mt-12">
           <div className="text-center">
-            <button onClick={() => setShowCompare(!showCompare)} aria-expanded={showCompare} className="btn-ghost h-12 px-6 cursor-pointer">
-              {t({ bn: 'সব ফিচার তুলনা করুন', en: 'Compare all features' })}<ChevronDown className={`size-4 transition-transform duration-200 ${showCompare ? 'rotate-180' : ''}`} aria-hidden="true" />
-            </button>
+            <h2 className="h2">{t({ bn: 'সব ফিচার তুলনা', en: 'Compare all features' })}</h2>
           </div>
           {showCompare && (
             <div className="card mt-6 overflow-x-auto">

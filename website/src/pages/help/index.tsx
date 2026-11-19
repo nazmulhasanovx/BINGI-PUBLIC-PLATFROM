@@ -23,7 +23,7 @@ export default function Help() {
 
   return (
     <div className="container-x">
-      <PageHeader mark={t({ bn: 'সাহায্য', en: 'help' })} title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} lead={t({ bn: 'ধাপে ধাপে গাইড, ১ মিনিটের ভিডিও, আর দরকার হলে আমাদের টিম।', en: 'Step-by-step guides, one-minute videos and our team when you need us.' })}>
+      <PageHeader mark={t({ bn: 'সাহায্য', en: 'help' })} title={t({ bn: 'কীভাবে সাহায্য করতে পারি?', en: 'How can we help?' })} lead={t({ bn: 'ধাপে ধাপে গাইড, 1 মিনিটের ভিডিও, আর দরকার হলে আমাদের টিম।', en: 'Step-by-step guides, one-minute videos and our team when you need us.' })}>
         <label className="relative block w-full md:w-[380px]">
           <span className="sr-only">{t({ bn: 'খুঁজুন', en: 'Search' })}</span>
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" aria-hidden="true" />
@@ -65,7 +65,7 @@ export default function Help() {
 
       {helpVideos.length > 0 && (
       <section className="mt-10">
-        <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: '১ মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
+        <h2 className="font-[family-name:var(--font-display)] text-[26px] font-semibold tracking-[-0.02em]">{t({ bn: '1 মিনিটের ভিডিও', en: '1-minute videos' })}</h2>
         <div className="mt-4 grid gap-4 md:grid-cols-3">
           {helpVideos.map((id) => <div key={id} className="card overflow-hidden"><Media id={id} /></div>)}
         </div>

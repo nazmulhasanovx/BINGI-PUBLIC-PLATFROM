@@ -177,3 +177,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-12 · HMS Mobile slot: real iPhone screenshots (HMS-Brand-New.zip) as a 12 s app tour — splash → dashboard scroll → Staff → dark mode; property name, staff email/phone/pay blurred · devtest NO ISSUES
 - 2026-11-12 · Guest App slots (hero phone + platform): real Guest App screenshots as a 12 s tour — home → search → Nenas Resort → room → Book Now · devtest NO ISSUES
 - 2026-11-14 · Team: Nazmul Hasan photo added, role 'Founder, NEONECY & BinGi · System Engineer' · devtest NO ISSUES
+- 2026-11-19 · Pricing: period + rooms controls inside 'Your total cost'; feature comparison always open; Bangla mode now shows English digits site-wide (Bangla digits hard to read) · devtest NO ISSUES

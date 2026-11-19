@@ -153,7 +153,7 @@ export default function Home() {
           <div className="ambient left-1/2 -translate-x-1/2 -bottom-10 h-[200px] w-[70%] opacity-50" aria-hidden="true" />
           <div>
             <h2 className="h2">{t({ bn: 'প্রতি রুমে দাম', en: 'Priced per room' })}</h2>
-            <p className="lead mt-3">{t({ bn: 'সর্বনিম্ন ১০ রুম। লঞ্চ অফার −৬০%। ৬ ও ১২ মাসে আরও কম।', en: 'From 10 rooms. Launch offer −60%. Even less on 6 and 12 months.' })}</p>
+            <p className="lead mt-3">{t({ bn: 'সর্বনিম্ন 10 রুম। লঞ্চ অফার −60%। 6 ও 12 মাসে আরও কম।', en: 'From 10 rooms. Launch offer −60%. Even less on 6 and 12 months.' })}</p>
           </div>
           <div className="grid grid-cols-3 divide-x divide-line">
             {plans.filter((p) => p.rate).map((p) => (
@@ -182,7 +182,7 @@ export default function Home() {
       <section className="container-x pt-16 md:pt-24" aria-labelledby="team-h">
         <div className="max-w-[620px]">
           <h2 id="team-h" className="h2">{t({ bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' })}</h2>
-          <p className="lead mt-4 hidden sm:block">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — ২০২৩ থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
+          <p className="lead mt-4 hidden sm:block">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — 2023 থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
         </div>
         <ul className="relative isolate mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <li className="ambient left-1/2 -translate-x-1/2 top-1/3 h-[300px] w-[70%] opacity-45" aria-hidden="true" />

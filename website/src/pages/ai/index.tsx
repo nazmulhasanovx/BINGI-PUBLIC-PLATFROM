@@ -184,7 +184,7 @@ export default function Ai() {
 
         {/* Install — steps left, one terminal right */}
         <section id="install" className="mt-28 scroll-mt-28 md:mt-36">
-          <Head eyebrow={{ bn: 'বেটা setup', en: 'Beta setup' }} title={{ bn: '৫ ধাপে চালু', en: 'Running in 5 steps' }} lead={{ bn: 'একবার setup, তারপর এক double-click।', en: 'Set it up once — then one double-click.' }} />
+          <Head eyebrow={{ bn: 'বেটা setup', en: 'Beta setup' }} title={{ bn: '5 ধাপে চালু', en: 'Running in 5 steps' }} lead={{ bn: 'একবার setup, তারপর এক double-click।', en: 'Set it up once — then one double-click.' }} />
           <div className="mx-auto mt-14 grid max-w-[1080px] items-start gap-8 lg:grid-cols-[1fr_1.05fr]">
             <ol className="space-y-6">
               {steps.map((s, i) => (

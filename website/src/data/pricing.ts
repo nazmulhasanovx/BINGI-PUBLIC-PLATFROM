@@ -11,8 +11,8 @@ export const MIN_BILLABLE = 10
 export type Cycle = 'monthly' | 'six' | 'yearly'
 export const cycles: { id: Cycle; months: number; discount: number; label: L }[] = [
   { id: 'monthly', months: 1, discount: 0, label: { bn: 'মাসিক', en: 'Monthly' } },
-  { id: 'six', months: 6, discount: 0.1, label: { bn: '৬ মাস', en: '6 months' } },
-  { id: 'yearly', months: 12, discount: 0.25, label: { bn: '১২ মাস', en: '12 months' } },
+  { id: 'six', months: 6, discount: 0.1, label: { bn: '6 মাস', en: '6 months' } },
+  { id: 'yearly', months: 12, discount: 0.25, label: { bn: '12 মাস', en: '12 months' } },
 ]
 
 export type PlanId = 'starter' | 'business' | 'ultra' | 'custom'
@@ -84,11 +84,11 @@ export const compare: Group[] = [
 
 // Current offers & services (v4 D-08…D-11). Never say "free forever".
 export const offers: L[] = [
-  { bn: 'Business অ্যাক্টিভেশন ৳১৪,৫০০ — এখন ৳৪,৯৯৯', en: 'Business activation ৳14,500 — now ৳4,999' },
-  { bn: 'Ultra অ্যাক্টিভেশন ৳২৯,৫০০ — এখন ৳৮,৯৯৯', en: 'Ultra activation ৳29,500 — now ৳8,999' },
-  { bn: 'রিমোট টিম ট্রেনিং ৳৫০০/শিফট — এখন ফ্রি', en: 'Remote team training ৳500/shift — now free' },
-  { bn: 'অনসাইট ট্রেনিং ৳১২,৫০০ — টিমের থাকা-খাওয়া প্রপার্টি দেবে', en: 'Onsite training ৳12,500 — property provides team meals & stay' },
-  { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳০', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },
+  { bn: 'Business অ্যাক্টিভেশন ৳14,500 — এখন ৳4,999', en: 'Business activation ৳14,500 — now ৳4,999' },
+  { bn: 'Ultra অ্যাক্টিভেশন ৳29,500 — এখন ৳8,999', en: 'Ultra activation ৳29,500 — now ৳8,999' },
+  { bn: 'রিমোট টিম ট্রেনিং ৳500/শিফট — এখন ফ্রি', en: 'Remote team training ৳500/shift — now free' },
+  { bn: 'অনসাইট ট্রেনিং ৳12,500 — টিমের থাকা-খাওয়া প্রপার্টি দেবে', en: 'Onsite training ৳12,500 — property provides team meals & stay' },
+  { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳0', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },
 ]
 
 // Per-room rate per cycle, rounded to whole taka (approved 11 Nov 2026). Keyed by monthly rate.
@@ -102,7 +102,7 @@ export const rateFor = (rate: number, cycle: Cycle) => cycleRates[rate]?.[cycle]
 // Launch offer (11 Nov 2026): ~60% off the regular list price. Runs 3 months, until 11 Feb 2027;
 // hotels that join during the offer keep the launch price (Nazmul, 11 Nov 2026).
 export const LAUNCH_OFF = 60
-export const LAUNCH_UNTIL = { bn: '১১ ফেব্রুয়ারি ২০২৭', en: '11 Feb 2027' }
+export const LAUNCH_UNTIL = { bn: '11 ফেব্রুয়ারি 2027', en: '11 Feb 2027' }
 // Theme Store: ৳50 per theme per month, free for now (Nazmul, 11 Nov 2026).
 export const THEME_PRICE = 50
 

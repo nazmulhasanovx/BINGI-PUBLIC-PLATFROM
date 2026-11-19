@@ -6,7 +6,7 @@ import { Reveal } from '@/components/ui/Reveal'
 import { posts, readMinutes } from '@/data/blog'
 
 export const fmtDate = (iso: string, lang: 'bn' | 'en') =>
-  new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
+  new Intl.DateTimeFormat(lang === 'bn' ? 'bn-BD-u-nu-latn' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(iso))
 
 export default function Blog() {
   const { t, lang, num } = useLang()

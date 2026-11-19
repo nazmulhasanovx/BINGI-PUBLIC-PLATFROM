@@ -5,27 +5,27 @@ import type { L } from '../i18n/lang'
 export type Change = { month: L; status: 'live' | 'testing' | 'soon'; title: L; items: L[] }
 
 export const changes: Change[] = [
-  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+  { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
     title: { bn: 'নতুন HMS ড্যাশবোর্ড ও সাইডবার', en: 'New HMS dashboard and sidebar' },
     items: [
       { bn: 'আজকের আগমন, অকুপেন্সি ও আয় এক নজরে', en: 'Today’s arrivals, occupancy and revenue at a glance' },
       { bn: 'কাজ অনুযায়ী সাজানো সাইডবার, Flat বা Expandable মোড', en: 'Sidebar grouped by work, with Flat or Expandable mode' },
       { bn: 'বিলিংয়ে প্ল্যান তালিকা ও তুলনা', en: 'Plan list and comparison in Billing' },
     ] },
-  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+  { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
     title: { bn: 'নতুন হোটেল ওয়েবসাইট থিম', en: 'New hotel website themes' },
     items: [
-      { bn: '৮টা থিম: NEST, COTTAGE, BUNK, CITY, VILLA, FLAT, ESCAPE, GRAND', en: '8 themes: NEST, COTTAGE, BUNK, CITY, VILLA, FLAT, ESCAPE, GRAND' },
-      { bn: 'প্রতিটা থিমে বুকিং ইঞ্জিন, ১০টা রং ও দুই ধরনের ফন্ট', en: 'Booking engine in every theme, 10 colours and two heading styles' },
+      { bn: '8টা থিম: NEST, COTTAGE, BUNK, CITY, VILLA, FLAT, ESCAPE, GRAND', en: '8 themes: NEST, COTTAGE, BUNK, CITY, VILLA, FLAT, ESCAPE, GRAND' },
+      { bn: 'প্রতিটা থিমে বুকিং ইঞ্জিন, 10টা রং ও দুই ধরনের ফন্ট', en: 'Booking engine in every theme, 10 colours and two heading styles' },
       { bn: 'HMS থেকে লেখা ও ছবি বদলান', en: 'Change text and photos from the HMS' },
     ] },
-  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+  { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
     title: { bn: 'BinGi AI বেটা', en: 'BinGi AI beta' },
     items: [
       { bn: 'নিজের কম্পিউটারে চলে, BinGi API দিয়ে connect', en: 'Runs on your own computer, connects with BinGi API access' },
       { bn: 'Ask BinGi, Daily Brief, guest reply draft, approve করার কাজ', en: 'Ask BinGi, Daily Brief, guest reply drafts, work you approve' },
     ] },
-  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
+  { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
     title: { bn: 'নতুন করে বানানো HMS মডিউল', en: 'Redesigned HMS modules' },
     items: [
       { bn: 'রুম / অ্যাকোমোডেশন: লাইভ লেআউট, রুম প্রতি আউট-অফ-অর্ডার', en: 'Room / Accommodation: the live layout, out-of-order per room' },
@@ -35,11 +35,11 @@ export const changes: Change[] = [
       { bn: 'ইনভেন্টরি: স্টোর, পারচেজ অর্ডার, স্টক কাউন্ট, রেসিপি', en: 'Inventory: stores, purchase orders, stock count, recipes' },
       { bn: 'অন্যান্য সার্ভিস: আজকের বোর্ড ও অ্যাসাইন', en: 'Other Services: Today board and assignment' },
     ] },
-  { month: { bn: 'নভেম্বর ২০২৬', en: 'November 2026' }, status: 'testing',
-    title: { bn: 'থিম স্টোর: ২১টা প্রিমিয়াম থিম', en: 'Theme Store: 21 premium themes' },
+  { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
+    title: { bn: 'থিম স্টোর: 21টা প্রিমিয়াম থিম', en: 'Theme Store: 21 premium themes' },
     items: [
-      { bn: 'লাক্সারি কালেকশন (১০) ও সিগনেচার কালেকশন (১০), সাথে POD', en: 'Luxury Collection (10) and Signature Collection (10), plus POD' },
-      { bn: 'প্রতি থিম ৳৫০/মাস — এখন ফ্রি', en: '৳50 per theme a month — free for now' },
+      { bn: 'লাক্সারি কালেকশন (10) ও সিগনেচার কালেকশন (10), সাথে POD', en: 'Luxury Collection (10) and Signature Collection (10), plus POD' },
+      { bn: 'প্রতি থিম ৳50/মাস — এখন ফ্রি', en: '৳50 per theme a month — free for now' },
     ] },
   { month: { bn: 'চলমান', en: 'Running' }, status: 'live',
     title: { bn: 'প্রোডাকশনে চালু', en: 'Live in production' },

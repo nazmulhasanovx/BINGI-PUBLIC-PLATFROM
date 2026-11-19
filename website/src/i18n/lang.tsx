@@ -29,11 +29,8 @@ export function LangProvider({ children }: { children: ReactNode }) {
 export function useLang() {
   const { lang, setLang } = useContext(Ctx)
   const t = (l: L) => l[lang]
-  const bnDigits = '০১২৩৪৫৬৭৮৯'
-  const num = (n: number, opts?: Intl.NumberFormatOptions) => {
-    const s = new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, ...opts }).format(n)
-    return lang === 'bn' ? s.replace(/\d/g, (d) => bnDigits[+d]) : s
-  }
+  // Numbers use English digits in both languages: Bangla digits (১, ৯, ৬…) were hard to read at large sizes.
+  const num = (n: number, opts?: Intl.NumberFormatOptions) => new Intl.NumberFormat('en-US', { maximumFractionDigits: 2, ...opts }).format(n)
   const taka = (n: number) => `৳${num(n)}`
   return { lang, setLang, t, num, taka }
 }

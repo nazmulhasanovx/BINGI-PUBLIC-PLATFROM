@@ -45,7 +45,7 @@ export const posts: Post[] = [
   {
     slug: 'more-direct-bookings', date: '2026-11-10',
     tag: { bn: 'গ্রোথ', en: 'Growth' },
-    title: { bn: 'সরাসরি বুকিং বাড়ানোর ৬টা সহজ উপায়', en: '6 simple ways to get more direct bookings' },
+    title: { bn: 'সরাসরি বুকিং বাড়ানোর 6টা সহজ উপায়', en: '6 simple ways to get more direct bookings' },
     summary: { bn: 'নিজের ওয়েবসাইট থেকে আসা বুকিংয়ে কমিশন কম — এই ছয়টা কাজ দিয়ে শুরু করুন।', en: 'Bookings from your own website cost less in commission — start with these six things.' },
     body: [
       { p: { bn: 'অনলাইন ট্রাভেল এজেন্সি নতুন গেস্ট আনে, কিন্তু প্রতিটা বুকিংয়ে কমিশন নেয়। পুরনো ও ফিরে আসা গেস্টদের সরাসরি বুক করাতে পারলে সেই টাকা আপনার থাকে।', en: 'Online travel agencies bring new guests but take a commission on each booking. When returning guests book you directly, that money stays with you.' } },

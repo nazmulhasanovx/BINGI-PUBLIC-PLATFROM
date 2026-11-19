@@ -131,13 +131,7 @@ function PlanFinder({ prop, setProp, rooms, cycle, reasons }: {
 
 // NumberFlow only draws Latin digits, so Bangla shows Bangla digits with a soft swap instead.
 function Num({ value, max = 2 }: { value: number; max?: number }) {
-  const { lang, num } = useLang()
-  if (lang !== 'bn') return <NumberFlow value={value} locales="en-US" format={{ maximumFractionDigits: max }} />
-  return (
-    <motion.span key={value} initial={{ opacity: 0, y: '0.25em' }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className="inline-block tabular-nums">
-      {num(value, { maximumFractionDigits: max })}
-    </motion.span>
-  )
+  return <NumberFlow value={value} locales="en-US" format={{ maximumFractionDigits: max }} />
 }
 
 // Activation: regular price struck through when it is known (Business). Ultra regular price not confirmed → plain.
@@ -171,7 +165,39 @@ function Row({ label, sub, value, strong, minus, children }: { label: ReactNode;
 }
 
 // "What will I actually pay?" — full first-bill breakdown for the selected plan.
-function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick: (p: PlanId) => void; rooms: number; cycle: Cycle }) {
+// Compact copies of the period + rooms controls, so the total can be changed without scrolling back up.
+function CostControls({ rooms, setRooms, cycle, setCycle }: { rooms: number; setRooms: (n: number) => void; cycle: Cycle; setCycle: (c: Cycle) => void }) {
+  const { t, num } = useLang()
+  const set = (n: number) => setRooms(Math.max(1, Math.min(10000, Math.round(n) || 1)))
+  return (
+    <div className="mt-4 flex flex-wrap items-center gap-2 sm:gap-3">
+      <div role="radiogroup" aria-label={t({ bn: 'বিলিং সময়', en: 'Billing period' })} className="flex w-fit rounded-full border border-line bg-canvas p-1">
+        {cycles.map((c) => {
+          const on = cycle === c.id
+          return (
+            <button key={c.id} role="radio" aria-checked={on} onClick={() => setCycle(c.id)}
+              className={`relative h-10 cursor-pointer rounded-full px-3 text-[13px] sm:text-[14px] font-medium transition-colors ${on ? 'text-ink' : 'text-muted-foreground hover:text-ink'}`}>
+              {on && <motion.span layoutId="cost-cycle" transition={ios} className="absolute inset-0 rounded-full bg-white shadow-[0_2px_8px_-2px_rgb(16_24_40/0.15)] ring-1 ring-line" />}
+              <span className="relative flex items-center gap-1.5 whitespace-nowrap">
+                {c.months === 1 ? t(c.label) : t({ bn: `${num(c.months)} মাস`, en: `${c.months} mo` })}
+                {c.discount > 0 && <span className="text-[11px] font-semibold text-brand">−{num(c.discount * 100)}%</span>}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+      <div className="flex items-center gap-1 rounded-full border border-line bg-canvas p-1 pl-3">
+        <label htmlFor="cost-rooms" className="flex items-center gap-1.5 text-[13px] sm:text-[14px] font-medium"><BedDouble className="size-4 text-brand" aria-hidden="true" />{t({ bn: 'রুম', en: 'Rooms' })}</label>
+        <button onClick={() => set(rooms - 1)} className="grid size-10 cursor-pointer place-items-center rounded-full hover:bg-white" aria-label={t({ bn: 'রুম কমান', en: 'Fewer rooms' })}><Minus className="size-4" /></button>
+        <input id="cost-rooms" type="number" inputMode="numeric" min={1} value={rooms} onChange={(e) => set(+e.target.value)}
+          className="h-10 w-14 rounded-full bg-white text-center text-[15px] font-semibold tabular-nums focus:outline-2 focus:outline-link" />
+        <button onClick={() => set(rooms + 1)} className="grid size-10 cursor-pointer place-items-center rounded-full hover:bg-white" aria-label={t({ bn: 'রুম বাড়ান', en: 'More rooms' })}><Plus className="size-4" /></button>
+      </div>
+    </div>
+  )
+}
+
+function CostBreakdown({ pick, setPick, rooms, cycle, setRooms, setCycle }: { pick: PlanId; setPick: (p: PlanId) => void; rooms: number; cycle: Cycle; setRooms: (n: number) => void; setCycle: (c: Cycle) => void }) {
   const { t, taka, num } = useLang()
   const paid = plans.filter((p) => p.rate)
   const p = paid.find((x) => x.id === pick) ?? paid[1]
@@ -202,6 +228,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle }: { pick: PlanId; setPick:
           })}
         </div>
       </div>
+      <CostControls rooms={rooms} setRooms={setRooms} cycle={cycle} setCycle={setCycle} />
 
       <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
         <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
@@ -408,7 +435,7 @@ export default function PricingSection() {
           })}
         </div>
 
-        <CostBreakdown pick={pick} setPick={setPick} rooms={rooms} cycle={cycle} />
+        <CostBreakdown pick={pick} setPick={setPick} rooms={rooms} cycle={cycle} setRooms={setRooms} setCycle={setCycle} />
       </div>
     </div>
   )
