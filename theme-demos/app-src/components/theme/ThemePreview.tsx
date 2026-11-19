@@ -67,7 +67,25 @@ export function ThemePreview({ slug, defaultTheme, defaultHeading, master: hotel
     el.dataset.heading = heading;
   }, [active, heading]);
 
-  if (process.env.NEXT_PUBLIC_THEME_SWITCHER === "off" || preview) return null;
+  // Inside the BinGi public site viewer: no bar here; the viewer shows the colour + font controls and talks to us by postMessage.
+  const framed = typeof window !== "undefined" && window.self !== window.top;
+  useEffect(() => {
+    if (!framed) return;
+    window.parent.postMessage({ type: "bingi:theme-state", themes: THEMES.map((x) => ({ id: x.id, name: x.name, brand: x.brand })), active, heading, layout: ALL_MASTERS.find((m) => m.id === master)?.name }, "*");
+  }, [framed, active, heading, master]);
+  useEffect(() => {
+    if (!framed) return;
+    const on = (e: MessageEvent) => {
+      const d = e.data;
+      if (d?.type !== "bingi:theme-set") return;
+      if (d.colour && isThemeId(d.colour)) write(KEY, d.colour);
+      if (d.heading === "sans" || d.heading === "serif") write(HKEY, d.heading);
+    };
+    window.addEventListener("message", on);
+    return () => window.removeEventListener("message", on);
+  }, [framed, KEY, HKEY]);
+
+  if (process.env.NEXT_PUBLIC_THEME_SWITCHER === "off" || preview || framed) return null;
 
   const t = themeById(active);
   return (
