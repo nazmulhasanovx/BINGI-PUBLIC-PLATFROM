@@ -8,14 +8,17 @@ export class ApiError extends Error {
 
 const KEY = 'bingi-admin-token'
 export const token = {
-  get: () => { try { return localStorage.getItem(KEY) } catch { return null } },
+  get: () => { if (import.meta.env.MODE === 'demo') return 'demo'; try { return localStorage.getItem(KEY) } catch { return null } },
   set: (t: string | null) => { try { if (t) localStorage.setItem(KEY, t); else localStorage.removeItem(KEY) } catch { /* private mode */ } },
 }
 
 let onUnauthorized: () => void = () => {}
 export const setUnauthorizedHandler = (fn: () => void) => { onUnauthorized = fn }
 
+export const DEMO = import.meta.env.MODE === 'demo'
+
 export async function api<T = unknown>(path: string, opts: { method?: string; body?: unknown; form?: FormData; raw?: boolean } = {}): Promise<T> {
+  if (DEMO) { const { mockApi } = await import('./mock'); return (await mockApi(path, opts.method ?? (opts.body || opts.form ? 'POST' : 'GET'), opts.body, opts.form)) as T }
   const headers: Record<string, string> = { Accept: 'application/json' }
   const t = token.get()
   if (t) headers.Authorization = `Bearer ${t}`

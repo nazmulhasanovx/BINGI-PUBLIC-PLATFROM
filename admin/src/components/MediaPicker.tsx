@@ -31,7 +31,7 @@ export function MediaPicker({ value, onChange }: { value: string; onChange: (v: 
     <div className="space-y-2">
       {value && (
         <div className="flex items-center gap-3 rounded-[14px] border border-line bg-white p-2">
-          {isImage(value) ? <img src={mediaSrc(value)} alt="" className="size-16 rounded-[10px] bg-canvas object-cover" /> : <span className="grid size-16 place-items-center rounded-[10px] bg-canvas"><FileText className="size-6 text-soft" /></span>}
+          {isImage(value) ? <img src={mediaSrc(value)} alt="" className="size-16 rounded-[10px] bg-canvas object-cover" onError={(e) => { e.currentTarget.style.visibility = 'hidden' }} /> : <span className="grid size-16 place-items-center rounded-[10px] bg-canvas"><FileText className="size-6 text-soft" /></span>}
           <a href={mediaSrc(value)} target="_blank" rel="noopener" className="min-w-0 flex-1 truncate text-[13px] text-link hover:underline">{value}</a>
           <IconButton label={t({ bn: 'সরান', en: 'Remove' })} onClick={() => onChange('')}><X className="size-4" /></IconButton>
         </div>

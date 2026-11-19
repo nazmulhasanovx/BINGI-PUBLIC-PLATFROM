@@ -1,5 +1,5 @@
 import { lazy, Suspense, type ReactNode } from 'react'
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
+import { BrowserRouter, HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { useAuth, type Role } from '@/lib/auth'
 import { useLang } from '@/lib/i18n'
 import { allModules } from '@/lib/modules'
@@ -28,11 +28,13 @@ function Guard({ roles, children }: { roles?: Role[]; children: ReactNode }) {
   return <Shell><Suspense fallback={<ListSkeleton />}>{children}</Suspense></Shell>
 }
 
+// Demo build runs inside an artifact frame: hash routing, no server paths
+const Router = import.meta.env.MODE === 'demo' ? HashRouter : BrowserRouter
 const mod = (id: string) => allModules.find((m) => m.id === id)!
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/forgot" element={<Forgot />} />
@@ -49,6 +51,6 @@ export default function App() {
         <Route path="/account" element={<Guard><Account /></Guard>} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   )
 }
