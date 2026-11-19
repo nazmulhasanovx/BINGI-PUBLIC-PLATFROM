@@ -1,3 +1,4 @@
+import { openTheme } from '@/components/site/ThemeViewer'
 import { ArrowUpRight } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { asset } from '@/lib/utils'
@@ -9,7 +10,7 @@ export function ThemeCard({ theme, compact = false }: { theme: Theme; compact?: 
   const { t } = useLang()
   const plan = plans.find((p) => p.id === theme.plan)!
   return (
-    <a href={asset(demoUrl(theme.demo))} target="_blank" rel="noopener" aria-label={`${theme.name} — ${t({ bn: 'লাইভ ডেমো খুলুন', en: 'open live demo' })}`} className="group card glow-hover block overflow-hidden">
+    <a href={asset(demoUrl(theme.demo))} onClick={openTheme(theme.demo, theme.name)} aria-label={`${theme.name} — ${t({ bn: 'লাইভ ডেমো খুলুন', en: 'open live demo' })}`} className="group card glow-hover block overflow-hidden">
       <div className="relative aspect-[16/10] overflow-hidden bg-canvas">
         <span className="absolute bottom-3 left-3 z-10 rounded-full bg-white/90 shadow-soft px-2 py-0.5 text-[12px] font-medium text-muted-foreground backdrop-blur">Demo</span>
         <span className="absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full bg-ink/85 px-2.5 py-1 text-[12px] font-medium text-white opacity-0 backdrop-blur transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100">{t({ bn: 'লাইভ ডেমো', en: 'Live demo' })}<ArrowUpRight className="size-3.5" aria-hidden="true" /></span>

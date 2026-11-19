@@ -88,7 +88,7 @@ function Gone() {
     <main style={{ minHeight: "100vh", display: "grid", placeItems: "center", fontFamily: "system-ui", textAlign: "center", padding: 24 }}>
       <div>
         <p style={{ fontSize: 18, fontWeight: 600 }}>Choose a theme to preview</p>
-        <a href={BACK} style={{ display: "inline-block", marginTop: 16, padding: "12px 20px", borderRadius: 999, background: "#B11C29", color: "#fff", textDecoration: "none" }}>All BinGi themes</a>
+        <a href={BACK} onClick={(e) => { if (window.self !== window.top) { e.preventDefault(); window.parent.postMessage("bingi:close-theme", "*"); } }} style={{ display: "inline-block", marginTop: 16, padding: "12px 20px", borderRadius: 999, background: "#B11C29", color: "#fff", textDecoration: "none" }}>All BinGi themes</a>
       </div>
     </main>
   );
@@ -123,10 +123,11 @@ async function resolve(route: string): Promise<ReactNode> {
 
 // Small fixed bar so a visitor always knows this is a demo and can go back.
 function DemoBar() {
+  if (window.self !== window.top) return null; // inside the site's viewer, which has its own bar
   return (
     <div style={{ position: "fixed", left: 12, bottom: 12, zIndex: 2147483000, display: "flex", alignItems: "center", gap: 8, padding: "6px 6px 6px 14px", borderRadius: 999, background: "rgba(17,24,39,.88)", color: "#fff", font: "500 13px/1 system-ui, sans-serif", boxShadow: "0 10px 30px -10px rgba(0,0,0,.5)", backdropFilter: "blur(8px)" }}>
       <span>BinGi theme demo · sample hotel</span>
-      <a href={BACK} style={{ color: "#111827", background: "#fff", borderRadius: 999, padding: "9px 14px", textDecoration: "none", fontWeight: 600 }}>← All themes</a>
+      <a href={BACK} onClick={(e) => { if (window.self !== window.top) { e.preventDefault(); window.parent.postMessage("bingi:close-theme", "*"); } }} style={{ color: "#111827", background: "#fff", borderRadius: 999, padding: "9px 14px", textDecoration: "none", fontWeight: 600 }}>← All themes</a>
     </div>
   );
 }

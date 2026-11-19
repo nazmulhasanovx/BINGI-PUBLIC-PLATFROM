@@ -1,3 +1,4 @@
+import { ThemeViewer } from '@/components/site/ThemeViewer'
 import { DemoModal, FloatingWhatsApp, openDemo } from '@/components/site/Demo'
 import { FooterSkyline } from './FooterSkyline'
 import { useRef, useEffect, useState } from 'react'
@@ -209,6 +210,7 @@ export function Layout() {
       <MobileCta />
       <FloatingWhatsApp />
       <DemoModal />
+      <ThemeViewer />
     </div>
   )
 }

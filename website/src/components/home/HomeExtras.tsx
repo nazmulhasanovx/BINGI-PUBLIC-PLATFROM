@@ -14,6 +14,7 @@ import type { MediaId } from '@/data/media'
 import { Media } from '@/components/media/Media'
 import { StatusChip } from '@/components/ui/StatusChip'
 import { openDemo } from '@/components/site/Demo'
+import { openTheme } from '@/components/site/ThemeViewer'
 
 /* ── Trust strip: only facts we can stand behind. Logos/quotes appear once real ones are added. ── */
 export function TrustStrip() {
@@ -147,7 +148,7 @@ export function ThemeAiPreview() {
               ))}
             </div>
           </div>
-          <a href={asset(demoUrl(th.demo))} target="_blank" rel="noopener" className="group relative mt-5 block overflow-hidden rounded-[14px] border border-line bg-canvas">
+          <a href={asset(demoUrl(th.demo))} onClick={openTheme(th.demo, th.name)} className="group relative mt-5 block overflow-hidden rounded-[14px] border border-line bg-canvas">
             <AnimatePresence mode="popLayout" initial={false}>
               <motion.img key={th.id} src={asset(`/media/themes/${th.id}.webp`)} alt={`${th.name} — ${t({ bn: 'ডেমো হোটেল', en: 'demo hotel' })}`} width={960} height={600}
                 initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.35 }} className="aspect-[16/10] w-full object-cover object-top" />
