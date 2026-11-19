@@ -1,12 +1,13 @@
 import type { L } from '../i18n/lang'
 import type { PlanId } from './pricing'
+import { pick } from './content'
 
 // Hotel website themes. Source: BINGI-WEB-theme- repo + claude/design/Hotel_Website_Themes_Status (10 Nov 2026).
 // Screens are the repo's own preview images (public/themes/*.jpg) of FICTIONAL demo hotels with demo photos.
 // Status: front-end built and tested; HMS API wiring is the next stage → shown as "in final testing", not live.
 export type Theme = { id: string; name: string; plan: PlanId; for: L; demo: string }
 
-export const themes: Theme[] = [
+export const themes: Theme[] = pick('themes', [
   { id: 'nest', name: 'NEST', plan: 'starter', for: { bn: 'গেস্ট হাউস, হোম ও ছোট হোটেল', en: 'Guest houses, homes and small hotels' }, demo: 'tea-valley' },
   { id: 'cottage', name: 'COTTAGE', plan: 'starter', for: { bn: 'কটেজ, ইকো-লজ, পাহাড় ও গ্রামের থাকা', en: 'Cottages, eco-lodges, hill and village stays' }, demo: 'mistwood' },
   { id: 'bunk', name: 'BUNK', plan: 'starter', for: { bn: 'হোস্টেল (প্রতি বেড দাম)', en: 'Hostels, priced per bed' }, demo: 'wave-bunk' },
@@ -15,12 +16,12 @@ export const themes: Theme[] = [
   { id: 'flat', name: 'FLAT', plan: 'business', for: { bn: 'ফ্ল্যাট, সার্ভিসড অ্যাপার্টমেন্ট, লং স্টে', en: 'Flats, serviced apartments, long stays' }, demo: 'lakeview' },
   { id: 'escape', name: 'ESCAPE', plan: 'business', for: { bn: 'সমুদ্র, দ্বীপ ও প্রকৃতির রিসোর্ট', en: 'Beach, island and nature resorts' }, demo: 'coral-cove' },
   { id: 'grand', name: 'GRAND', plan: 'ultra', for: { bn: 'লাক্সারি রিসোর্ট ও প্রিমিয়াম হোটেল', en: 'Luxury resorts and premium hotels' }, demo: 'azure-bay' },
-]
+])
 
 // Theme Store (paid add-on themes). Source: BINGI-WEB-theme- src/themes/paid.ts (11 Nov 2026).
 // Status: designed + front-end prototype with fictional demo hotels; licences/billing not built; prices NOT set → "Coming soon".
 export type StoreTheme = { id: string; name: string; collection: 'luxury' | 'signature' | 'more'; for: L; demo: string }
-export const storeThemes: StoreTheme[] = [
+export const storeThemes: StoreTheme[] = pick('storeThemes', [
   { id: 'isle', name: 'ISLE', collection: 'luxury', for: { bn: 'দ্বীপ ও ওভারওয়াটার ভিলা রিসোর্ট', en: 'Island and overwater villa resorts' }, demo: 'nila-island' },
   { id: 'zamindar', name: 'ZAMINDAR', collection: 'luxury', for: { bn: 'হেরিটেজ প্রাসাদ ও রাজবাড়ি', en: 'Heritage palaces and rajbaris' }, demo: 'shonali-rajbari' },
   { id: 'maison', name: 'MAISON', collection: 'luxury', for: { bn: 'ক্লাসিক গ্র্যান্ড সিটি হোটেল', en: 'Classic grand city hotels' }, demo: 'maison-gulshan' },
@@ -42,7 +43,7 @@ export const storeThemes: StoreTheme[] = [
   { id: 'morning', name: 'MORNING', collection: 'signature', for: { bn: 'বেড অ্যান্ড ব্রেকফাস্ট', en: 'Bed & breakfasts' }, demo: 'morning-house' },
   { id: 'matir', name: 'MATIR', collection: 'signature', for: { bn: 'ফার্ম স্টে', en: 'Farm stays' }, demo: 'matir-farm' },
   { id: 'pod', name: 'POD', collection: 'more', for: { bn: 'ক্যাপসুল হোটেল', en: 'Capsule hotels' }, demo: 'skypod' },
-]
+])
 
 // Which plan unlocks which themes (Starter = 3 · Business = 7 · Ultra / Custom = all 8).
 export const themesFor = (plan: PlanId) =>

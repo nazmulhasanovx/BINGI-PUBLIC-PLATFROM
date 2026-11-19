@@ -1,0 +1,222 @@
+[
+ {
+  "name": {
+   "bn": "প্রপার্টি ও বুকিং",
+   "en": "Property & booking"
+  },
+  "rows": [
+   {
+    "name": {
+     "bn": "রুম / অ্যাকোমোডেশন ম্যানেজমেন্ট",
+     "en": "Room / accommodation management"
+    },
+    "values": {
+     "starter": true,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "starter"
+   },
+   {
+    "name": {
+     "bn": "অনলাইন ও অফলাইন বুকিং",
+     "en": "Online & offline bookings"
+    },
+    "values": {
+     "starter": true,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "starter"
+   },
+   {
+    "name": {
+     "bn": "ওয়েবসাইট ম্যানেজমেন্ট",
+     "en": "Website management"
+    },
+    "values": {
+     "starter": true,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "starter"
+   },
+   {
+    "name": {
+     "bn": "ওয়েবসাইট থিম",
+     "en": "Website themes"
+    },
+    "values": {
+     "starter": {
+      "bn": "সীমিত",
+      "en": "Limited"
+     },
+     "business": {
+      "bn": "সীমিত",
+      "en": "Limited"
+     },
+     "ultra": {
+      "bn": "আনলিমিটেড",
+      "en": "Unlimited"
+     },
+     "custom": "tailored"
+    }
+   },
+   {
+    "name": {
+     "bn": "ডোমেইন ম্যানেজমেন্ট",
+     "en": "Domain management"
+    },
+    "values": {
+     "starter": true,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "starter"
+   }
+  ]
+ },
+ {
+  "name": {
+   "bn": "হোটেল অপারেশন",
+   "en": "Hotel operations"
+  },
+  "rows": [
+   {
+    "name": {
+     "bn": "হাউসকিপিং",
+     "en": "Housekeeping"
+    },
+    "values": {
+     "starter": false,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "business"
+   },
+   {
+    "name": {
+     "bn": "রেস্টুরেন্ট / মিল ম্যানেজমেন্ট",
+     "en": "Restaurant / meal management"
+    },
+    "values": {
+     "starter": false,
+     "business": {
+      "bn": "সীমিত",
+      "en": "Limited"
+     },
+     "ultra": {
+      "bn": "পূর্ণ",
+      "en": "Full"
+     },
+     "custom": "tailored"
+    },
+    "highlight": "business"
+   },
+   {
+    "name": {
+     "bn": "QR ফুড অর্ডার",
+     "en": "QR food ordering"
+    },
+    "values": {
+     "starter": false,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "business"
+   },
+   {
+    "name": {
+     "bn": "খরচ ব্যবস্থাপনা",
+     "en": "Expense management"
+    },
+    "values": {
+     "starter": false,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "business"
+   },
+   {
+    "name": {
+     "bn": "অন্যান্য সার্ভিস",
+     "en": "Other services"
+    },
+    "values": {
+     "starter": false,
+     "business": true,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "business"
+   }
+  ]
+ },
+ {
+  "name": {
+   "bn": "স্টাফ ও কন্ট্রোল",
+   "en": "Staff & control"
+  },
+  "rows": [
+   {
+    "name": {
+     "bn": "পূর্ণ HRM",
+     "en": "Full HRM"
+    },
+    "values": {
+     "starter": false,
+     "business": false,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "ultra"
+   },
+   {
+    "name": {
+     "bn": "ইনভেন্টরি",
+     "en": "Inventory"
+    },
+    "values": {
+     "starter": false,
+     "business": false,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "ultra"
+   },
+   {
+    "name": {
+     "bn": "অ্যাডভান্সড অপারেশন",
+     "en": "Advanced operations"
+    },
+    "values": {
+     "starter": false,
+     "business": false,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "ultra"
+   },
+   {
+    "name": {
+     "bn": "আনলিমিটেড ওয়েবসাইট থিম",
+     "en": "Unlimited website themes"
+    },
+    "values": {
+     "starter": false,
+     "business": false,
+     "ultra": true,
+     "custom": "tailored"
+    },
+    "highlight": "ultra"
+   }
+  ]
+ }
+]

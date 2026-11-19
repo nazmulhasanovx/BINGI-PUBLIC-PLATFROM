@@ -1,5 +1,6 @@
+import { pick } from './content'
 // Company facts shown on the site. Edit here only.
-export const site = {
+export const site = pick('site', {
   company: 'BinGi Technologies',
   parent: 'NEONECY',
   phone: '01624127562',
@@ -11,4 +12,4 @@ export const site = {
   marketplace: 'https://bingi.app',
   facebook: 'https://www.facebook.com/',
   youtube: 'https://www.youtube.com/',
-}
+})

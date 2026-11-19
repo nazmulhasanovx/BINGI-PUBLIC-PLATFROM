@@ -1,0 +1,82 @@
+[
+ {
+  "id": "nest",
+  "name": "NEST",
+  "plan": "starter",
+  "for": {
+   "bn": "গেস্ট হাউস, হোম ও ছোট হোটেল",
+   "en": "Guest houses, homes and small hotels"
+  },
+  "demo": "tea-valley"
+ },
+ {
+  "id": "cottage",
+  "name": "COTTAGE",
+  "plan": "starter",
+  "for": {
+   "bn": "কটেজ, ইকো-লজ, পাহাড় ও গ্রামের থাকা",
+   "en": "Cottages, eco-lodges, hill and village stays"
+  },
+  "demo": "mistwood"
+ },
+ {
+  "id": "bunk",
+  "name": "BUNK",
+  "plan": "starter",
+  "for": {
+   "bn": "হোস্টেল (প্রতি বেড দাম)",
+   "en": "Hostels, priced per bed"
+  },
+  "demo": "wave-bunk"
+ },
+ {
+  "id": "city",
+  "name": "CITY",
+  "plan": "business",
+  "for": {
+   "bn": "সিটি ও বিজনেস হোটেল",
+   "en": "City and business hotels"
+  },
+  "demo": "sea-pearl"
+ },
+ {
+  "id": "villa",
+  "name": "VILLA",
+  "plan": "business",
+  "for": {
+   "bn": "প্রাইভেট ও পুল ভিলা",
+   "en": "Private and pool villas"
+  },
+  "demo": "shalbon"
+ },
+ {
+  "id": "flat",
+  "name": "FLAT",
+  "plan": "business",
+  "for": {
+   "bn": "ফ্ল্যাট, সার্ভিসড অ্যাপার্টমেন্ট, লং স্টে",
+   "en": "Flats, serviced apartments, long stays"
+  },
+  "demo": "lakeview"
+ },
+ {
+  "id": "escape",
+  "name": "ESCAPE",
+  "plan": "business",
+  "for": {
+   "bn": "সমুদ্র, দ্বীপ ও প্রকৃতির রিসোর্ট",
+   "en": "Beach, island and nature resorts"
+  },
+  "demo": "coral-cove"
+ },
+ {
+  "id": "grand",
+  "name": "GRAND",
+  "plan": "ultra",
+  "for": {
+   "bn": "লাক্সারি রিসোর্ট ও প্রিমিয়াম হোটেল",
+   "en": "Luxury resorts and premium hotels"
+  },
+  "demo": "azure-bay"
+ }
+]

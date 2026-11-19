@@ -1,0 +1,162 @@
+[
+ {
+  "path": "/",
+  "title": "BinGi — Hotel management technology for hotels and resorts",
+  "description": "Website, bookings, front desk, housekeeping, restaurant, staff and accounts in one connected system. Your team runs the hotel; BinGi runs the technology."
+ },
+ {
+  "path": "/products",
+  "title": "Products — BinGi HMS Web, Mobile and Guest App",
+  "description": "One ecosystem, three platforms: BinGi HMS Web for reception, HMS Mobile for staff and the Guest App with the BinGi Marketplace."
+ },
+ {
+  "path": "/pricing",
+  "title": "Pricing — from ৳25 per room a month | BinGi",
+  "description": "Starter ৳25, Business ৳70, Ultra ৳116 (launch offer until 11 Feb 2027) per room a month, from 10 rooms. Save on 6 and 12 months. Every charge shown separately."
+ },
+ {
+  "path": "/help",
+  "title": "Help center — BinGi",
+  "description": "Step-by-step guides, one-minute Bangla videos and direct support on WhatsApp for BinGi HMS."
+ },
+ {
+  "path": "/contact",
+  "title": "Book a demo — BinGi",
+  "description": "Book a BinGi demo or write to us on WhatsApp. NEONECY, Level 11, Medona Tower, Mohakhali, Dhaka."
+ },
+ {
+  "path": "/legal/privacy",
+  "title": "Privacy policy — BinGi",
+  "description": "How BinGi handles your data."
+ },
+ {
+  "path": "/legal/terms",
+  "title": "Terms of service — BinGi",
+  "description": "Terms for using BinGi."
+ },
+ {
+  "path": "/legal/refund",
+  "title": "Refund policy — BinGi",
+  "description": "BinGi refund policy."
+ },
+ {
+  "path": "/foundation",
+  "title": "Design foundation — BinGi",
+  "description": "BinGi design tokens in the shadcn / 21st.dev theme format."
+ },
+ {
+  "path": "/help/create-booking",
+  "title": "How to create a new booking — BinGi help",
+  "description": "Book a guest from the BinGi dashboard in a minute."
+ },
+ {
+  "path": "/help/add-room-type",
+  "title": "Add a room type and rooms — BinGi help",
+  "description": "Set category, rate and room numbers in one go."
+ },
+ {
+  "path": "/help/change-plan",
+  "title": "View and change your plan — BinGi help",
+  "description": "Monthly, 6 months or 12 months."
+ },
+ {
+  "path": "/solutions",
+  "title": "Solutions by property — hotels, resorts, guest houses | BinGi",
+  "description": "BinGi for hotels, resorts, guest houses, homes and hotel groups — the plan, modules and website themes that fit each."
+ },
+ {
+  "path": "/solutions/hotel",
+  "title": "Hotel management software for hotels | BinGi",
+  "description": "Reception to housekeeping, restaurant to accounts — BinGi Business for hotels in Bangladesh."
+ },
+ {
+  "path": "/solutions/resort",
+  "title": "Resort management software | BinGi",
+  "description": "Staff, stock, restaurant and services in one system — BinGi Ultra for resorts."
+ },
+ {
+  "path": "/solutions/guest-house",
+  "title": "Guest house booking software | BinGi",
+  "description": "Bookings, guest records and your own website — BinGi Starter for guest houses."
+ },
+ {
+  "path": "/solutions/home-stay",
+  "title": "Booking software for homes and flats | BinGi",
+  "description": "List a few rooms online and take bookings — set up in minutes with BinGi Starter."
+ },
+ {
+  "path": "/solutions/hotel-group",
+  "title": "Software for hotel groups | BinGi",
+  "description": "Several properties under one account, set up around your needs — BinGi Custom."
+ },
+ {
+  "path": "/ai",
+  "title": "BinGi AI (Beta) — ask your hotel in Bangla or English | BinGi",
+  "description": "BinGi AI answers questions about your hotel, writes the daily brief and drafts work you approve. Beta: runs on your own computer and connects to BinGi with your API access."
+ },
+ {
+  "path": "/themes",
+  "title": "Hotel website themes — NEST, CITY, ESCAPE, GRAND and more | BinGi",
+  "description": "Your hotel’s own website with a booking engine. 8 themes for guest houses, cottages, hostels, city hotels, villas, apartments and resorts."
+ },
+ {
+  "path": "/blog",
+  "title": "Guides for hotels — BinGi",
+  "description": "Short, practical guides on bookings, housekeeping and direct bookings."
+ },
+ {
+  "path": "/blog/write-a-listing-guests-trust",
+  "title": "Write a listing guests trust — BinGi",
+  "description": "Photos, room facts, a clear price and fast replies: what guests look at before they book online."
+ },
+ {
+  "path": "/blog/close-the-day-cash-routine",
+  "title": "Closing the cash drawer: a 5-minute routine — BinGi",
+  "description": "Opening float, every cash in and out, count and close — a daily routine that keeps small mistakes small."
+ },
+ {
+  "path": "/blog/walk-in-check-in-checklist",
+  "title": "Walk-in check-in: a reception checklist — BinGi",
+  "description": "Check in a guest who just walks in, properly, in two minutes — without missing a step."
+ },
+ {
+  "path": "/blog/one-calendar-no-double-bookings",
+  "title": "One calendar for every booking: stop double bookings — BinGi",
+  "description": "Phone, walk-in, website and marketplace — keep every booking in one place and mistakes drop."
+ },
+ {
+  "path": "/blog/housekeeping-routine-small-hotels",
+  "title": "A simple housekeeping routine for small hotels — BinGi",
+  "description": "From check-out to room ready — a four-step routine any team can follow."
+ },
+ {
+  "path": "/blog/more-direct-bookings",
+  "title": "6 simple ways to get more direct bookings — BinGi",
+  "description": "Bookings from your own website cost less in commission — start with these six things."
+ },
+ {
+  "path": "/customers",
+  "title": "Customer stories — BinGi",
+  "description": "Hotels that run on BinGi, in their own words — coming soon."
+ },
+ {
+  "path": "/changelog",
+  "title": "What’s new — BinGi",
+  "description": "What shipped in BinGi, what’s in testing and what’s next."
+ },
+ {
+  "path": "/marketplace",
+  "title": "BinGi Marketplace — guests find you, bookings land in your HMS",
+  "description": "How the BinGi Marketplace works: guests search and book on bingi.app and the Guest App, you get listed in 4 steps, commission only on marketplace bookings."
+ },
+ {
+  "path": "/partners",
+  "title": "Marketplace & partners — BinGi",
+  "description": "List your property on the BinGi Marketplace. OTA and payment integrations coming soon."
+ },
+ {
+  "path": "/careers",
+  "title": "Careers at NEONECY — BinGi",
+  "description": "Join the team building BinGi hotel software in Dhaka."
+ }
+]

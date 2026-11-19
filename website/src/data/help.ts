@@ -1,7 +1,8 @@
 import type { L } from '../i18n/lang'
+import { pick } from './content'
 
 export type Category = { id: string; icon: string; name: L }
-export const categories: Category[] = [
+export const categories: Category[] = pick('categories', [
   { id: 'start', icon: 'Rocket', name: { bn: 'শুরু করা', en: 'Getting started' } },
   { id: 'bookings', icon: 'CalendarDays', name: { bn: 'বুকিং', en: 'Bookings' } },
   { id: 'rooms', icon: 'BedDouble', name: { bn: 'রুম', en: 'Rooms' } },
@@ -10,12 +11,12 @@ export const categories: Category[] = [
   { id: 'restaurant', icon: 'UtensilsCrossed', name: { bn: 'রেস্টুরেন্ট ও বার', en: 'Restaurant & Bar' } },
   { id: 'staff', icon: 'Users', name: { bn: 'স্টাফ ও HRM', en: 'Staff & HRM' } },
   { id: 'billing', icon: 'Wallet', name: { bn: 'পেমেন্ট ও বিলিং', en: 'Payments & Billing' } },
-]
+])
 
 export type Article = { slug: string; category: string; title: L; summary: L; steps: L[]; draft: boolean }
 
 // draft: true = written from the current HMS screens; support team must verify before publishing.
-export const articles: Article[] = [
+export const articles: Article[] = pick('articles', [
   { slug: 'create-booking', category: 'bookings', draft: true,
     title: { bn: 'নতুন বুকিং তৈরি করবেন যেভাবে', en: 'How to create a new booking' },
     summary: { bn: 'ড্যাশবোর্ড থেকে এক মিনিটে বুকিং', en: 'Book a guest from the dashboard in a minute' },
@@ -43,11 +44,11 @@ export const articles: Article[] = [
       { bn: 'মাসিক, 6 মাস (10% ছাড়) বা বাৎসরিক (25% ছাড়) বেছে নিন।', en: 'Pick monthly, 6 months (10% off) or yearly (25% off).' },
       { bn: 'প্ল্যানে "Choose" চেপে পেমেন্ট সম্পন্ন করুন।', en: 'Click "Choose" on a plan and complete payment.' },
     ] },
-]
+])
 
 // Only items actually seen in the HMS on 9 Nov 2026.
-export const whatsNew: { date: L; title: L }[] = [
+export const whatsNew: { date: L; title: L }[] = pick('whatsNew', [
   { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'নতুন ড্যাশবোর্ড: আজকের আগমন, রুম প্রস্তুতি ও ওয়েবসাইট স্ট্যাটাস', en: 'New dashboard: arrivals, room readiness and website status' } },
   { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'সাইডবার Flat বা Expandable — যেটা সুবিধা', en: 'Sidebar in Flat or Expandable mode' } },
   { date: { bn: 'নভেম্বর 2026', en: 'Nov 2026' }, title: { bn: 'প্ল্যান লিস্টে 6 মাস ও বাৎসরিক ছাড়', en: '6-month and yearly discounts in Plan List' } },
-]
+])

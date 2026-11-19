@@ -1,11 +1,12 @@
 import type { L } from '../i18n/lang'
 import type { PropertyType } from './pricing'
+import { pick } from './content'
 
 // "Solutions by property" pages. Plan + one-line need come from propertyTypes (data/pricing.ts) so the
 // pricing finder, the home picker and these pages always agree. Modules = ids in data/status.ts.
 export type Solution = { slug: string; type: PropertyType; title: L; intro: L; runs: L[]; modules: string[]; themes: string[] }
 
-export const solutions: Solution[] = [
+export const solutions: Solution[] = pick('solutions', [
   { slug: 'hotel', type: 'hotel',
     title: { bn: 'হোটেলের জন্য BinGi', en: 'BinGi for hotels' },
     intro: { bn: 'রিসেপশন থেকে হাউসকিপিং, রেস্টুরেন্ট থেকে হিসাব — এক সিস্টেমে।', en: 'Reception to housekeeping, restaurant to accounts — in one system.' },
@@ -31,4 +32,4 @@ export const solutions: Solution[] = [
     intro: { bn: 'একাধিক প্রপার্টি এক অ্যাকাউন্টে — প্রয়োজন দেখে সাজানো।', en: 'Several properties under one account — set up around your needs.' },
     runs: [{ bn: 'প্রপার্টি অনুযায়ী মডিউল', en: 'Modules per property' }, { bn: 'এক জায়গা থেকে রিপোর্ট', en: 'Reports from one place' }, { bn: 'মাইগ্রেশন ও অনবোর্ডিং', en: 'Migration and onboarding' }],
     modules: ['bookings', 'hrm', 'inventory', 'finance', 'reports', 'restaurant'], themes: ['grand', 'city', 'escape'] },
-]
+])
