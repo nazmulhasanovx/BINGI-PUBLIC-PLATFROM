@@ -180,7 +180,7 @@ function CostControls({ rooms, setRooms, cycle, setCycle }: { rooms: number; set
               {on && <motion.span layoutId="cost-cycle" transition={ios} className="absolute inset-0 rounded-full bg-white shadow-[0_2px_8px_-2px_rgb(16_24_40/0.15)] ring-1 ring-line" />}
               <span className="relative flex items-center gap-1.5 whitespace-nowrap">
                 {c.months === 1 ? t(c.label) : t({ bn: `${num(c.months)} মাস`, en: `${c.months} mo` })}
-                {c.discount > 0 && <span className="text-[11px] font-semibold text-brand">−{num(c.discount * 100)}%</span>}
+                {c.discount > 0 && <span className="text-[12px] font-semibold text-brand">−{num(c.discount * 100)}%</span>}
               </span>
             </button>
           )
