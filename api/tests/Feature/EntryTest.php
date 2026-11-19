@@ -46,13 +46,13 @@ describe('truth guards', function () {
     $module = fn ($over = []) => array_replace(['id' => 'ota', 'status' => 'live', 'icon' => 'Network', 'name' => ['bn' => 'ও', 'en' => 'OTA'], 'desc' => ['bn' => 'ও', 'en' => 'OTA']], $over);
 
     it('will not mark a module Live without who verified it and when', function () use ($module) {
-        actAs('editor');
+        actAs('owner');
         $this->postJson('/api/v1/entries/module', ['data' => $module()])->assertStatus(422)->assertJsonPath('fields.verified_by', 'Live needs who verified it and when.');
         $this->postJson('/api/v1/entries/module', ['data' => $module(['verified_by' => 'Nazmul', 'verified_at' => '2026-11-19'])])->assertCreated();
     });
 
     it('never lets BinGi AI be Live', function () use ($module) {
-        actAs('editor');
+        actAs('owner');
         $this->postJson('/api/v1/entries/module', ['data' => $module(['id' => 'ai', 'verified_by' => 'x', 'verified_at' => '2026-11-19'])])
             ->assertStatus(422)->assertJsonPath('fields.status', 'BinGi AI can only be Beta or Coming Soon.');
     });
@@ -77,4 +77,11 @@ it('keeps single types to one item', function () {
     $site = json_decode(file_get_contents(config('content.seed_dir') . '/site.json'), true)[0];
     $this->postJson('/api/v1/entries/site', ['data' => $site])->assertCreated();
     $this->postJson('/api/v1/entries/site', ['data' => $site])->assertStatus(409)->assertJsonPath('code', 'single_exists');
+});
+
+it('keeps site settings, menus, status and pricing to owners', function () {
+    actAs('editor');
+    $plan = json_decode(file_get_contents(config('content.seed_dir') . '/plan.json'), true)[0];
+    $this->postJson('/api/v1/entries/plan', ['data' => $plan])->assertStatus(403)->assertJsonPath('message', 'Only an owner can change this.');
+    $this->postJson('/api/v1/entries/faq', ['data' => ['page' => 'home', 'q' => ['bn' => 'প্র', 'en' => 'Q'], 'a' => ['bn' => 'উ', 'en' => 'A']]])->assertCreated();
 });

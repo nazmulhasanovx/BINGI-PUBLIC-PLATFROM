@@ -37,6 +37,7 @@ class EntryController extends Controller
 
     public function store(Request $r, string $type)
     {
+        self::ownerGate($r, $type);
         $t = Registry::get($type);
         if ($t['kind'] === 'single' && Entry::where('type', $type)->exists()) {
             throw new ApiError('single_exists', 'This type has one item only — edit it instead.', 409);
@@ -51,6 +52,7 @@ class EntryController extends Controller
 
     public function update(Request $r, string $type, Entry $entry)
     {
+        self::ownerGate($r, $type);
         abort_unless($entry->type === $type, 404);
         $visible = $r->has('visible') ? $r->boolean('visible') : $entry->visible;
         $data = $r->has('data') ? Validator::check($type, $r->input('data'), $visible) : Validator::check($type, $entry->data, $visible);
@@ -62,6 +64,7 @@ class EntryController extends Controller
 
     public function destroy(Request $r, string $type, Entry $entry)
     {
+        self::ownerGate($r, $type);
         abort_unless($entry->type === $type, 404);
         if (Registry::get($type)['kind'] === 'single') throw new ApiError('single_required', 'This item cannot be deleted, only edited.', 409);
         Audit::log('deleted', "entry:$type:{$entry->id}", $entry->data);
@@ -71,12 +74,21 @@ class EntryController extends Controller
 
     public function reorder(Request $r, string $type)
     {
+        self::ownerGate($r, $type);
         $ids = $r->validate(['ids' => 'required|array', 'ids.*' => 'integer'])['ids'];
         DB::transaction(function () use ($ids, $type) {
             foreach (array_values($ids) as $i => $id) Entry::where('type', $type)->whereKey($id)->update(['sort' => $i]);
         });
         Audit::log('reordered', "entry:$type", null, $ids);
         return ['ok' => true];
+    }
+
+    /** Site settings, menus, status and pricing are owner-only (types.json "ownerOnly"). */
+    private static function ownerGate(Request $r, string $type): void
+    {
+        if (!empty(Registry::get($type)['ownerOnly']) && !$r->user()->hasRole('owner')) {
+            throw new ApiError('forbidden', 'Only an owner can change this.', 403);
+        }
     }
 
     public static function out(Entry $e): array

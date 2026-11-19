@@ -63,3 +63,9 @@ it('shows a dashboard', function () {
     actAs('sales');
     $this->getJson('/api/v1/dashboard')->assertOk()->assertJsonPath('live.version', 1)->assertJsonPath('unpublished', 0);
 });
+
+it('refuses SVG uploads (they can carry scripts)', function () {
+    actAs('editor');
+    $svg = UploadedFile::fake()->createWithContent('x.svg', '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>');
+    $this->postJson('/api/v1/media', ['file' => $svg])->assertStatus(422);
+});

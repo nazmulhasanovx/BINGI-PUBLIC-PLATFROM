@@ -3,7 +3,7 @@ Run:  API on :8000 (freshly seeded, SEED_OWNER_PASSWORD set), admin on :5174, th
       OWNER_PASSWORD=... python3 admin/e2e/flow.py
 Needs: pip install playwright && playwright install chromium
 """
-import asyncio, json, os, urllib.request
+import asyncio, json, os, time, urllib.request
 from playwright.async_api import async_playwright
 
 ADMIN = os.environ.get('ADMIN', 'http://localhost:5174')
@@ -39,7 +39,8 @@ async def main():
         before = api_get('/public/content')['team'][0]['name']
         await pg.goto(ADMIN + '/content/team'); await pg.wait_for_timeout(800)
         await pg.locator('button[aria-label="Edit"]').first.click(); await pg.wait_for_timeout(400)
-        await pg.fill('#name', before + ' QA'); await pg.click('role=dialog >> button:has-text("Save")'); await pg.wait_for_timeout(800)
+        await pg.fill('#name', before + ' QA'); await pg.click('role=dialog >> button:has-text("Save")')
+        await pg.locator('text=Changed · not published').first.wait_for(timeout=5000)
         check(await pg.locator('text=Changed · not published').count() > 0, 'edited item shows "Changed · not published"')
         check(api_get('/public/content')['team'][0]['name'] == before, 'live site is unchanged before publish')
 
@@ -57,7 +58,7 @@ async def main():
 
         # 5 · publish
         await pg.goto(ADMIN + '/publish'); await pg.wait_for_timeout(900)
-        check(await pg.locator('text=Waiting to publish · 1').count() > 0, 'publish page lists 1 pending entry change')
+        check(await pg.locator('text=Waiting to publish · 2').count() > 0, 'publish page lists the team edit and the SEO edit')
         await pg.fill('input[aria-label="Note (optional)"]', 'QA run'); await pg.click('main >> button:has-text("Publish")')
         await pg.click('role=alertdialog >> button:has-text("Publish")'); await pg.wait_for_timeout(1200)
         c = api_get('/public/content')
@@ -71,7 +72,7 @@ async def main():
         check(api_get('/public/content')['team'][0]['name'] == before, 'rollback restores the old name')
 
         # 7 · a lead from the site appears and can be worked
-        api_post('/public/leads', {'name': 'QA Lead', 'property': 'QA Resort', 'phone': '01700000001', 'source_page': '/pricing'})
+        api_post('/public/leads', {'name': 'QA Lead', 'property': 'QA Resort', 'phone': '017' + str(int(time.time()))[-8:], 'source_page': '/pricing'})
         await pg.goto(ADMIN + '/leads'); await pg.wait_for_timeout(900)
         check(await pg.locator('text=QA Lead').count() > 0, 'lead from the site shows in Leads')
         await pg.click('text=QA Lead'); await pg.wait_for_timeout(600)
