@@ -1,6 +1,7 @@
 import { pick } from './content'
 // Per-page <title> and description (English — site language). Used by the prerender script and on navigation.
-export const seo: Record<string, { title: string; description: string }> = pick('seo', {
+export type SeoMeta = { title: string; description: string; ogImage?: string; noindex?: boolean }
+export const seo: Record<string, SeoMeta> = pick('seo', {
   '/': { title: 'BinGi — Hotel management technology for hotels and resorts', description: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts in one connected system. Your team runs the hotel; BinGi runs the technology.' },
   '/products': { title: 'Products — BinGi HMS Web, Mobile and Guest App', description: 'One ecosystem, three platforms: BinGi HMS Web for reception, HMS Mobile for staff and the Guest App with the BinGi Marketplace.' },
   '/pricing': { title: 'Pricing — from ৳25 per room a month | BinGi', description: 'Starter ৳25, Business ৳70, Ultra ৳116 (launch offer until 11 Feb 2027) per room a month, from 10 rooms. Save on 6 and 12 months. Every charge shown separately.' },
@@ -37,3 +38,7 @@ Object.assign(seo, {
   '/careers': { title: 'Careers at NEONECY — BinGi', description: 'Join the team building BinGi hotel software in Dhaka.' },
 })
 export const notFoundSeo = { title: 'Page not found — BinGi', description: 'This page does not exist.' }
+
+
+// 301/302 redirects managed in the admin (SEO → Redirects). The prerender writes _redirects + redirects.nginx.conf.
+export const redirects: { from: string; to: string; code: number }[] = pick('redirects', [])

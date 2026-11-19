@@ -54,3 +54,8 @@ it('rolls events into daily totals and prunes old raw events', function () use (
     Artisan::call('analytics:prune');
     expect(VisitEvent::count())->toBe(0);
 });
+
+it('accepts the text/plain body navigator.sendBeacon sends', function () {
+    $this->call('POST', '/api/v1/public/events', [], [], [], ['CONTENT_TYPE' => 'text/plain', 'HTTP_USER_AGENT' => 'Mozilla/5.0'], json_encode(['events' => [['type' => 'pageview', 'path' => '/beacon']]]))->assertNoContent();
+    expect(VisitEvent::where('path', '/beacon')->count())->toBe(1);
+});

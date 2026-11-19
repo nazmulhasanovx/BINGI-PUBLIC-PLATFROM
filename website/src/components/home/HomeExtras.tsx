@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion } from 'motion/react'
@@ -17,6 +17,7 @@ import { Media } from '@/components/media/Media'
 import { StatusChip } from '@/components/ui/StatusChip'
 import { openDemo } from '@/components/site/Demo'
 import { openTheme } from '@/components/site/ThemeViewer'
+import { track } from '@/lib/track'
 
 /* ── Trust strip: only facts we can stand behind. Logos/quotes appear once real ones are added. ── */
 export function TrustStrip() {
@@ -72,6 +73,7 @@ export function PriceSlider() {
   const { t, taka } = useLang()
   if (!shown('home.pricing')) return null
   const [rooms, setRooms] = useState(20)
+  const moved = useRef(false)
   const paid = plans.filter((p) => p.rate)
   const pct = ((rooms - MIN_BILLABLE) / (200 - MIN_BILLABLE)) * 100
   return (
@@ -88,7 +90,7 @@ export function PriceSlider() {
               <label htmlFor="rooms-slider" className="text-[15px] font-medium">{t({ bn: 'রুম', en: 'Rooms' })}</label>
               <output htmlFor="rooms-slider" className="font-[family-name:var(--font-display)] text-[28px] font-semibold tabular-nums">{rooms}</output>
             </div>
-            <input id="rooms-slider" type="range" min={MIN_BILLABLE} max={200} step={1} value={rooms} onChange={(e) => setRooms(+e.target.value)}
+            <input id="rooms-slider" type="range" min={MIN_BILLABLE} max={200} step={1} value={rooms} onChange={(e) => { if (!moved.current) { moved.current = true; track('price_slider') } setRooms(+e.target.value) }}
               className="range-brand mt-2 w-full" style={{ ['--p' as string]: `${pct}%` }} />
             <div className="mt-1 flex justify-between text-[13px] text-soft"><span>10</span><span>200</span></div>
           </div>
