@@ -20,6 +20,8 @@ BINGI-PUBLIC-PLATFROM/
 └── motion/               Remotion videos used on the site
 ```
 
+**Server-এ বসাতে:** [SETUP.md](SETUP.md) (ধাপে ধাপে, বাংলায়)
+
 ## Run everything (site + admin + API)
 
 ```bash

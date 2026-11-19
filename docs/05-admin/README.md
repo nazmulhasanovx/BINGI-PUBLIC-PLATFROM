@@ -9,6 +9,7 @@ Start here if you are a developer joining the admin work.
 | [API.md](API.md) | Every endpoint, auth, error format |
 | [CONTENT_TYPES.md](CONTENT_TYPES.md) | Every content type, its fields, where the site uses it |
 | [DEPLOY.md](DEPLOY.md) | Servers, env vars, the publish → build pipeline |
+| [../../SETUP.md](../../SETUP.md) | Step-by-step server setup (Bangla), checks and troubleshooting |
 | [../adr/](../adr/) | Why things are the way they are |
 
 ## Run everything locally
