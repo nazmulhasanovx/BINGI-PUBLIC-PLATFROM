@@ -1,0 +1,1293 @@
+{
+ "version": 1,
+ "fieldTypes": [
+  "string",
+  "text",
+  "l",
+  "lt",
+  "number",
+  "bool",
+  "enum",
+  "url",
+  "image",
+  "date",
+  "llist",
+  "strlist",
+  "list",
+  "object",
+  "blocks",
+  "json"
+ ],
+ "types": [
+  {
+   "type": "site",
+   "kind": "single",
+   "key": "site",
+   "module": "M08",
+   "label": {
+    "bn": "সাইট সেটিংস",
+    "en": "Site settings"
+   },
+   "fields": [
+    {
+     "name": "company",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "parent",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "phone",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "phoneIntl",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "whatsapp",
+     "type": "url",
+     "required": true
+    },
+    {
+     "name": "address",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "hmsLogin",
+     "type": "url",
+     "required": true
+    },
+    {
+     "name": "hmsRegister",
+     "type": "url",
+     "required": true
+    },
+    {
+     "name": "marketplace",
+     "type": "url",
+     "required": true
+    },
+    {
+     "name": "facebook",
+     "type": "url"
+    },
+    {
+     "name": "youtube",
+     "type": "url"
+    },
+    {
+     "name": "announcement",
+     "type": "l",
+     "help": {
+      "bn": "উপরের ঘোষণা বার (খালি = লুকানো)",
+      "en": "Announcement bar (empty = hidden)"
+     }
+    },
+    {
+     "name": "gaId",
+     "type": "string",
+     "help": {
+      "bn": "GA4 ID (দিলে consent banner চালু)",
+      "en": "GA4 ID (turns on the consent banner)"
+     }
+    },
+    {
+     "name": "pixelId",
+     "type": "string",
+     "help": {
+      "bn": "Meta Pixel ID (দিলে consent banner চালু)",
+      "en": "Meta Pixel ID (turns on the consent banner)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "nav_item",
+   "kind": "collection",
+   "key": "nav",
+   "module": "M07",
+   "label": {
+    "bn": "হেডার মেনু",
+    "en": "Header menu"
+   },
+   "titleField": "label",
+   "fields": [
+    {
+     "name": "to",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "পাথ (/pricing) বা পুরো URL",
+      "en": "Path (/pricing) or full URL"
+     }
+    },
+    {
+     "name": "label",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "phoneOnly",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "type": "footer_column",
+   "kind": "collection",
+   "key": "footer",
+   "module": "M07",
+   "label": {
+    "bn": "ফুটার কলাম",
+    "en": "Footer columns"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "links",
+     "type": "list",
+     "required": true,
+     "fields": [
+      {
+       "name": "to",
+       "type": "string"
+      },
+      {
+       "name": "label",
+       "type": "l",
+       "required": true
+      },
+      {
+       "name": "kind",
+       "type": "enum",
+       "options": [
+        "link",
+        "whatsapp",
+        "demo"
+       ]
+      },
+      {
+       "name": "badge",
+       "type": "l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "page_copy",
+   "kind": "collection",
+   "key": "copy",
+   "module": "M06",
+   "label": {
+    "bn": "পেজের লেখা",
+    "en": "Page copy"
+   },
+   "titleField": "key",
+   "shape": "map",
+   "mapKey": "key",
+   "mapValue": "value",
+   "fields": [
+    {
+     "name": "key",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home.hero.line1",
+      "home.hero.line2",
+      "home.hero.mark",
+      "home.hero.lead",
+      "home.hero.cta",
+      "home.story.title",
+      "home.bento.title",
+      "home.platforms.title",
+      "home.types.title",
+      "home.faq.title",
+      "home.team.title"
+     ]
+    },
+    {
+     "name": "value",
+     "type": "lt",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "hidden_section",
+   "kind": "collection",
+   "key": "hiddenSections",
+   "module": "M06",
+   "label": {
+    "bn": "লুকানো সেকশন",
+    "en": "Hidden sections"
+   },
+   "titleField": "key",
+   "shape": "values",
+   "valueField": "key",
+   "fields": [
+    {
+     "name": "key",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home.trust",
+      "home.story",
+      "home.bento",
+      "home.platforms",
+      "home.themes-ai",
+      "home.types",
+      "home.integrations",
+      "home.pricing",
+      "home.testimonials",
+      "home.faq",
+      "home.team"
+     ]
+    }
+   ]
+  },
+  {
+   "type": "trust_fact",
+   "kind": "collection",
+   "key": "trustFacts",
+   "module": "M06",
+   "label": {
+    "bn": "ট্রাস্ট তথ্য",
+    "en": "Trust facts"
+   },
+   "titleField": "label",
+   "guards": [
+    "source"
+   ],
+   "fields": [
+    {
+     "name": "value",
+     "type": "l",
+     "required": true,
+     "help": {
+      "bn": "{liveModules} = চালু মডিউলের সংখ্যা",
+      "en": "{liveModules} = number of live modules"
+     }
+    },
+    {
+     "name": "label",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "source",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "তথ্যটা কোথা থেকে",
+      "en": "Where this fact comes from"
+     }
+    }
+   ]
+  },
+  {
+   "type": "module",
+   "kind": "collection",
+   "key": "modules",
+   "module": "M09",
+   "label": {
+    "bn": "মডিউল স্ট্যাটাস",
+    "en": "Module status"
+   },
+   "titleField": "name",
+   "guards": [
+    "verified_live",
+    "ai_not_live"
+   ],
+   "fields": [
+    {
+     "name": "id",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "status",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "beta",
+      "soon",
+      "confirm"
+     ]
+    },
+    {
+     "name": "icon",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "lucide আইকনের নাম",
+      "en": "lucide icon name"
+     }
+    },
+    {
+     "name": "name",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "desc",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "verified_by",
+     "type": "string",
+     "internal": true,
+     "help": {
+      "bn": "কে যাচাই করেছে (Live হলে লাগবেই)",
+      "en": "Who verified it (required for Live)"
+     }
+    },
+    {
+     "name": "verified_at",
+     "type": "date",
+     "internal": true,
+     "help": {
+      "bn": "কবে যাচাই",
+      "en": "When verified"
+     }
+    }
+   ]
+  },
+  {
+   "type": "platform_status",
+   "kind": "single",
+   "key": "platformStatus",
+   "module": "M09",
+   "label": {
+    "bn": "প্ল্যাটফর্ম স্ট্যাটাস",
+    "en": "Platform status"
+   },
+   "guards": [
+    "verified_live_single"
+   ],
+   "fields": [
+    {
+     "name": "web",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "beta",
+      "soon",
+      "confirm"
+     ]
+    },
+    {
+     "name": "mobile",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "beta",
+      "soon",
+      "confirm"
+     ]
+    },
+    {
+     "name": "guest",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "beta",
+      "soon",
+      "confirm"
+     ]
+    },
+    {
+     "name": "verified_by",
+     "type": "string",
+     "internal": true,
+     "help": {
+      "bn": "কে যাচাই করেছে (Live হলে লাগবেই)",
+      "en": "Who verified it (required for Live)"
+     }
+    },
+    {
+     "name": "verified_at",
+     "type": "date",
+     "internal": true,
+     "help": {
+      "bn": "কবে যাচাই",
+      "en": "When verified"
+     }
+    }
+   ]
+  },
+  {
+   "type": "integration",
+   "kind": "collection",
+   "key": "integrations",
+   "module": "M09",
+   "label": {
+    "bn": "পেমেন্ট ও হার্ডওয়্যার",
+    "en": "Payments & hardware"
+   },
+   "titleField": "name",
+   "guards": [
+    "verified_live"
+   ],
+   "fields": [
+    {
+     "name": "id",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "kind",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "pay",
+      "hw"
+     ]
+    },
+    {
+     "name": "status",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "beta",
+      "soon",
+      "confirm"
+     ]
+    },
+    {
+     "name": "name",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "verified_by",
+     "type": "string",
+     "internal": true,
+     "help": {
+      "bn": "কে যাচাই করেছে (Live হলে লাগবেই)",
+      "en": "Who verified it (required for Live)"
+     }
+    },
+    {
+     "name": "verified_at",
+     "type": "date",
+     "internal": true,
+     "help": {
+      "bn": "কবে যাচাই",
+      "en": "When verified"
+     }
+    }
+   ]
+  },
+  {
+   "type": "pricing_config",
+   "kind": "single",
+   "key": "pricingConfig",
+   "module": "M10",
+   "label": {
+    "bn": "প্রাইসিং নিয়ম",
+    "en": "Pricing rules"
+   },
+   "spread": true,
+   "fields": [
+    {
+     "name": "minBillable",
+     "type": "number",
+     "required": true
+    },
+    {
+     "name": "launchOff",
+     "type": "number",
+     "required": true
+    },
+    {
+     "name": "launchUntil",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "themePrice",
+     "type": "number",
+     "required": true
+    },
+    {
+     "name": "cycles",
+     "type": "list",
+     "required": true,
+     "fields": [
+      {
+       "name": "id",
+       "type": "enum",
+       "required": true,
+       "options": [
+        "monthly",
+        "six",
+        "yearly"
+       ]
+      },
+      {
+       "name": "months",
+       "type": "number",
+       "required": true
+      },
+      {
+       "name": "discount",
+       "type": "number",
+       "required": true
+      },
+      {
+       "name": "label",
+       "type": "l",
+       "required": true
+      }
+     ]
+    },
+    {
+     "name": "cycleRates",
+     "type": "json",
+     "required": true,
+     "help": {
+      "bn": "মাসিক রেট → প্রতি সাইকেলের রেট",
+      "en": "Monthly rate → rate per cycle"
+     }
+    },
+    {
+     "name": "offers",
+     "type": "llist"
+    }
+   ]
+  },
+  {
+   "type": "plan",
+   "kind": "collection",
+   "key": "plans",
+   "module": "M10",
+   "label": {
+    "bn": "প্ল্যান",
+    "en": "Plans"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "id",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "starter",
+      "business",
+      "ultra",
+      "custom"
+     ]
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "rate",
+     "type": "number",
+     "help": {
+      "bn": "প্রতি রুম/মাস ৳ (খালি = কোটেশন)",
+      "en": "৳ per room/month (empty = quotation)"
+     }
+    },
+    {
+     "name": "regular",
+     "type": "number"
+    },
+    {
+     "name": "activation",
+     "type": "json"
+    },
+    {
+     "name": "fees",
+     "type": "json"
+    },
+    {
+     "name": "popular",
+     "type": "bool"
+    },
+    {
+     "name": "tagline",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "plus",
+     "type": "l"
+    }
+   ]
+  },
+  {
+   "type": "property_type",
+   "kind": "collection",
+   "key": "propertyTypes",
+   "module": "M10",
+   "label": {
+    "bn": "প্রপার্টির ধরন",
+    "en": "Property types"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "id",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home",
+      "guest",
+      "hotel",
+      "resort",
+      "group"
+     ]
+    },
+    {
+     "name": "name",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "plan",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "starter",
+      "business",
+      "ultra",
+      "custom"
+     ]
+    },
+    {
+     "name": "need",
+     "type": "l",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "compare_group",
+   "kind": "collection",
+   "key": "compare",
+   "module": "M10",
+   "label": {
+    "bn": "ফিচার তুলনা",
+    "en": "Feature comparison"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "name",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "rows",
+     "type": "json",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "theme",
+   "kind": "collection",
+   "key": "themes",
+   "module": "M11",
+   "label": {
+    "bn": "প্ল্যান থিম",
+    "en": "Plan themes"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "id",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "plan",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "starter",
+      "business",
+      "ultra"
+     ]
+    },
+    {
+     "name": "for",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "demo",
+     "type": "string",
+     "required": true,
+     "help": {
+      "bn": "ডেমো হোটেলের slug",
+      "en": "Demo hotel slug"
+     }
+    }
+   ]
+  },
+  {
+   "type": "store_theme",
+   "kind": "collection",
+   "key": "storeThemes",
+   "module": "M11",
+   "label": {
+    "bn": "থিম স্টোর",
+    "en": "Theme store"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "id",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "collection",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "luxury",
+      "signature",
+      "more"
+     ]
+    },
+    {
+     "name": "for",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "demo",
+     "type": "string",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "team_member",
+   "kind": "collection",
+   "key": "team",
+   "module": "M12",
+   "label": {
+    "bn": "টিম",
+    "en": "Team"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "role",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "group",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "photo",
+     "type": "image"
+    },
+    {
+     "name": "linkedin",
+     "type": "url",
+     "help": {
+      "bn": "ব্যক্তির নিজের পাবলিক প্রোফাইল",
+      "en": "The person's own public profile"
+     }
+    }
+   ]
+  },
+  {
+   "type": "testimonial",
+   "kind": "collection",
+   "key": "testimonials",
+   "module": "M13",
+   "label": {
+    "bn": "টেস্টিমোনিয়াল",
+    "en": "Testimonials"
+   },
+   "titleField": "name",
+   "guards": [
+    "permission"
+   ],
+   "fields": [
+    {
+     "name": "quote",
+     "type": "lt",
+     "required": true
+    },
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "role",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "property",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "photo",
+     "type": "image"
+    },
+    {
+     "name": "permission_file",
+     "type": "image",
+     "internal": true,
+     "help": {
+      "bn": "লিখিত অনুমতির ছবি/PDF (দেখাতে হলে লাগবেই)",
+      "en": "Written permission (required to show it)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "client_logo",
+   "kind": "collection",
+   "key": "clientLogos",
+   "module": "M13",
+   "label": {
+    "bn": "ক্লায়েন্ট লোগো",
+    "en": "Client logos"
+   },
+   "titleField": "name",
+   "guards": [
+    "permission"
+   ],
+   "fields": [
+    {
+     "name": "name",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "src",
+     "type": "image",
+     "required": true
+    },
+    {
+     "name": "permission_file",
+     "type": "image",
+     "internal": true,
+     "help": {
+      "bn": "লিখিত অনুমতির ছবি/PDF (দেখাতে হলে লাগবেই)",
+      "en": "Written permission (required to show it)"
+     }
+    }
+   ]
+  },
+  {
+   "type": "blog_post",
+   "kind": "collection",
+   "key": "posts",
+   "module": "M14",
+   "label": {
+    "bn": "ব্লগ",
+    "en": "Blog"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "slug",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "date",
+     "type": "date",
+     "required": true
+    },
+    {
+     "name": "tag",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "summary",
+     "type": "lt",
+     "required": true
+    },
+    {
+     "name": "cover",
+     "type": "object",
+     "required": true,
+     "fields": [
+      {
+       "name": "src",
+       "type": "image",
+       "required": true
+      },
+      {
+       "name": "alt",
+       "type": "l",
+       "required": true
+      }
+     ]
+    },
+    {
+     "name": "body",
+     "type": "blocks",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "help_category",
+   "kind": "collection",
+   "key": "categories",
+   "module": "M15",
+   "label": {
+    "bn": "হেল্প ক্যাটাগরি",
+    "en": "Help categories"
+   },
+   "titleField": "name",
+   "fields": [
+    {
+     "name": "id",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "icon",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "name",
+     "type": "l",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "help_article",
+   "kind": "collection",
+   "key": "articles",
+   "module": "M15",
+   "label": {
+    "bn": "হেল্প আর্টিকেল",
+    "en": "Help articles"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "slug",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "category",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "summary",
+     "type": "lt",
+     "required": true
+    },
+    {
+     "name": "steps",
+     "type": "llist",
+     "required": true
+    },
+    {
+     "name": "draft",
+     "type": "bool"
+    }
+   ]
+  },
+  {
+   "type": "whats_new",
+   "kind": "collection",
+   "key": "whatsNew",
+   "module": "M15",
+   "label": {
+    "bn": "হেল্পে নতুন কী",
+    "en": "What's new (help)"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "date",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "doc_page",
+   "kind": "collection",
+   "key": "docs",
+   "module": "M15",
+   "label": {
+    "bn": "ডকস পেজ",
+    "en": "Docs pages"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "slug",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "group",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "Start here",
+      "Platform",
+      "Modules",
+      "Account",
+      "Help"
+     ]
+    },
+    {
+     "name": "title",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "summary",
+     "type": "text",
+     "required": true
+    },
+    {
+     "name": "where",
+     "type": "string"
+    },
+    {
+     "name": "plan",
+     "type": "string"
+    },
+    {
+     "name": "status",
+     "type": "enum",
+     "options": [
+      "Live",
+      "Beta",
+      "Coming soon",
+      "Rolling out"
+     ]
+    },
+    {
+     "name": "sections",
+     "type": "json",
+     "required": true
+    },
+    {
+     "name": "fixes",
+     "type": "json"
+    }
+   ]
+  },
+  {
+   "type": "faq",
+   "kind": "collection",
+   "key": "faqs",
+   "module": "M16",
+   "label": {
+    "bn": "FAQ",
+    "en": "FAQ"
+   },
+   "titleField": "q",
+   "fields": [
+    {
+     "name": "page",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home",
+      "pricing",
+      "marketplace"
+     ]
+    },
+    {
+     "name": "q",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "a",
+     "type": "lt",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "changelog",
+   "kind": "collection",
+   "key": "changes",
+   "module": "M17",
+   "label": {
+    "bn": "চেঞ্জলগ",
+    "en": "Changelog"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "month",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "status",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "live",
+      "testing",
+      "soon"
+     ]
+    },
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "items",
+     "type": "llist",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "career_team",
+   "kind": "collection",
+   "key": "roles",
+   "module": "M18",
+   "label": {
+    "bn": "ক্যারিয়ার",
+    "en": "Careers"
+   },
+   "titleField": "team",
+   "fields": [
+    {
+     "name": "team",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "titles",
+     "type": "llist",
+     "required": true
+    }
+   ]
+  },
+  {
+   "type": "solution",
+   "kind": "collection",
+   "key": "solutions",
+   "module": "M06",
+   "label": {
+    "bn": "সলিউশন পেজ",
+    "en": "Solution pages"
+   },
+   "titleField": "title",
+   "fields": [
+    {
+     "name": "slug",
+     "type": "string",
+     "required": true
+    },
+    {
+     "name": "type",
+     "type": "enum",
+     "required": true,
+     "options": [
+      "home",
+      "guest",
+      "hotel",
+      "resort",
+      "group"
+     ]
+    },
+    {
+     "name": "title",
+     "type": "l",
+     "required": true
+    },
+    {
+     "name": "intro",
+     "type": "lt",
+     "required": true
+    },
+    {
+     "name": "runs",
+     "type": "llist",
+     "required": true
+    },
+    {
+     "name": "modules",
+     "type": "strlist",
+     "required": true
+    },
+    {
+     "name": "themes",
+     "type": "strlist",
+     "required": true
+    }
+   ]
+  }
+ ]
+}

@@ -10,6 +10,8 @@ import { plans, priceFor, includesFor, MIN_BILLABLE } from '@/data/pricing'
 import { integrations, modules } from '@/data/status'
 import { themes, demoUrl } from '@/data/themes'
 import { testimonials, clientLogos } from '@/data/testimonials'
+import { trustFacts } from '@/data/trust'
+import { shown } from '@/data/copy'
 import type { MediaId } from '@/data/media'
 import { Media } from '@/components/media/Media'
 import { StatusChip } from '@/components/ui/StatusChip'
@@ -19,13 +21,9 @@ import { openTheme } from '@/components/site/ThemeViewer'
 /* ── Trust strip: only facts we can stand behind. Logos/quotes appear once real ones are added. ── */
 export function TrustStrip() {
   const { t } = useLang()
+  if (!shown('home.trust')) return null
   const live = modules.filter((m) => m.status === 'live').length
-  const facts: { v: string; l: L }[] = [
-    { v: String(live), l: { bn: 'মডিউল প্রোডাকশনে চালু', en: 'modules live in production' } },
-    { v: 'বাংলা · EN', l: { bn: 'পুরো সিস্টেম দুই ভাষায়', en: 'the whole system in two languages' } },
-    { v: '7', l: { bn: 'দিনের ফ্রি ট্রায়াল', en: 'day free trial' } },
-    { v: t({ bn: 'ঢাকা', en: 'Dhaka' }), l: { bn: 'থেকে টিম সাপোর্ট দেয়', en: 'based team that answers you' } },
-  ]
+  const facts = trustFacts.map((f) => ({ v: t(f.value).replace('{liveModules}', String(live)), l: f.label }))
   return (
     <section className="container-x pt-10 md:pt-14" aria-label={t({ bn: 'কেন BinGi', en: 'Why BinGi' })}>
       {clientLogos.length > 0 && (
@@ -49,6 +47,7 @@ export function TrustStrip() {
 /* ── Testimonials: hidden until real, permitted quotes exist ── */
 export function Testimonials() {
   const { t } = useLang()
+  if (!shown('home.testimonials')) return null
   if (!testimonials.length) return null
   return (
     <section className="container-x pt-16 md:pt-24">
@@ -71,6 +70,7 @@ export function Testimonials() {
 /* ── Room slider: monthly bill per plan, from the one pricing catalog ── */
 export function PriceSlider() {
   const { t, taka } = useLang()
+  if (!shown('home.pricing')) return null
   const [rooms, setRooms] = useState(20)
   const paid = plans.filter((p) => p.rate)
   const pct = ((rooms - MIN_BILLABLE) / (200 - MIN_BILLABLE)) * 100
@@ -124,6 +124,7 @@ export function PriceSlider() {
 const pick = ['nest', 'escape', 'grand']
 export function ThemeAiPreview() {
   const { t } = useLang()
+  if (!shown('home.themes-ai')) return null
   const list = themes.filter((x) => pick.includes(x.id))
   const [id, setId] = useState('grand')
   const th = list.find((x) => x.id === id)!
@@ -181,6 +182,7 @@ export function ThemeAiPreview() {
 /* ── Local payments & hardware — honest status per item ── */
 export function Integrations() {
   const { t } = useLang()
+  if (!shown('home.integrations')) return null
   return (
     <section className="container-x pt-16 md:pt-24" aria-labelledby="int-h">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">

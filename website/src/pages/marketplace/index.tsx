@@ -1,3 +1,4 @@
+import { faqsFor } from '@/data/faqs'
 import { Link } from 'react-router-dom'
 import { ArrowRight, BadgeCheck, BedDouble, CalendarCheck2, Camera, Clock3, MessagesSquare, Search, ShieldCheck, Store, ToggleRight } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
@@ -208,13 +209,7 @@ export default function Marketplace() {
         <section className="mx-auto mt-24 max-w-[760px] md:mt-32">
           <h2 className="h2 text-center">{t({ bn: 'প্রশ্ন', en: 'Questions' })}</h2>
           <div className="mt-8">
-            <Accordion items={[
-              { q: t({ bn: 'মার্কেটপ্লেসে আসতে কী লাগে?', en: 'What do I need to get listed?' }), a: t({ bn: 'BinGi অ্যাকাউন্ট, রুম আর দাম সেটআপ, আর আসল ছবি। তারপর HMS থেকে অনুরোধ পাঠালে BinGi টিম যাচাই করে অনুমোদন দেয়।', en: 'A BinGi account, your rooms and prices set up, and real photos. Then request access in HMS and the BinGi team reviews and approves.' }) },
-              { q: t({ bn: 'কমিশন কখন কাটা হয়?', en: 'When does the commission apply?' }), a: t({ bn: 'শুধু মার্কেটপ্লেস থেকে আসা বুকিংয়ে, আপনার প্ল্যানের হারে। বিস্তারিত দাম পেজে আছে।', en: 'Only on bookings that come from the marketplace, at your plan’s rate. Details are on the pricing page.' }) },
-              { q: t({ bn: 'গেস্ট কি অনলাইনে টাকা দিতে পারে?', en: 'Can guests pay online?' }), a: t({ bn: 'BinGi দিয়ে অনলাইন পেমেন্ট এখনো Coming Soon। আপনার প্রপার্টিতে কোন পেমেন্ট উপায় চালু, BinGi টিমকে জিজ্ঞেস করুন।', en: 'Online payment through BinGi is still Coming Soon. Ask the BinGi team which payment options are active for your property.' }) },
-              { q: t({ bn: 'গেস্টের মেসেজ কে দেখে?', en: 'Who answers guest messages?' }), a: t({ bn: 'আপনার টিম — HMS-এর Chat থেকে। মেসেজ সরাসরি সেখানে আসে।', en: 'Your team, from Chat in HMS. Messages arrive there directly.' }) },
-              { q: t({ bn: 'কিছু রুম মার্কেটপ্লেস থেকে সরাতে পারব?', en: 'Can I keep some rooms off the marketplace?' }), a: t({ bn: 'হ্যাঁ। HMS-এ প্রতিটা রুম মার্কেটপ্লেসে দেখাবে কিনা, আলাদা করে ঠিক করা যায়।', en: 'Yes. In HMS you choose, room by room, whether it shows on the marketplace.' }) },
-            ]} />
+            <Accordion items={faqsFor('marketplace').map((f) => ({ q: t(f.q), a: t(f.a) }))} />
           </div>
         </section>
 

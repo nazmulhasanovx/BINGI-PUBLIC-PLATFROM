@@ -13,19 +13,10 @@ import { ios } from '../../lib/motion'
 import { Logo } from './Logo'
 import { useLang } from '../../i18n/lang'
 import { site } from '../../data/site'
+import { nav, footer } from '../../data/nav'
 import { prefetch } from '../../routes'
 import { notFoundSeo, seo } from '../../data/seo'
 
-const nav = [
-  { to: '/products', label: { bn: 'প্রোডাক্ট', en: 'Products' } },
-  { to: '/solutions', label: { bn: 'সলিউশন', en: 'Solutions' } },
-  { to: '/themes', label: { bn: 'থিম', en: 'Themes' } },
-  { to: '/ai', label: { bn: 'BinGi AI', en: 'BinGi AI' } },
-  { to: '/pricing', label: { bn: 'প্রাইসিং', en: 'Pricing' } },
-  { to: '/docs', label: { bn: 'ডকস', en: 'Docs' } },
-  { to: '/help', label: { bn: 'হেল্প', en: 'Help' } },
-  { to: '/contact', label: { bn: 'যোগাযোগ', en: 'Contact' }, phoneOnly: true },
-]
 
 export const ctaLabel = { bn: 'শুরু করুন', en: 'Get started' }
 
@@ -116,40 +107,21 @@ function Footer() {
           <p className="text-[14px] text-muted-foreground max-w-[320px] leading-relaxed hidden md:block">{t({ bn: 'হোটেল টিম হোটেল চালায়; BinGi চালায় হোটেলের টেকনোলজি।', en: "The hotel team runs the hotel; BinGi runs the hotel's technology." })}</p>
           <FooterSkyline className="hidden h-auto w-full max-w-[360px] text-brand opacity-[0.24] md:block md:pt-6" />
         </div>
-        <div>
-          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'প্রোডাক্ট', en: 'Product' })}</h2>
-          <ul className="space-y-2 text-[14px] text-muted-foreground">
-            <li><Link className="hover:text-ink" to="/products">{t({ bn: 'প্ল্যাটফর্ম ও মডিউল', en: 'Platforms & modules' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/solutions">{t({ bn: 'সলিউশন', en: 'Solutions' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/themes">{t({ bn: 'ওয়েবসাইট থিম', en: 'Website themes' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/ai">BinGi AI <span className="text-[12px] text-link">Beta</span></Link></li>
-            <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/marketplace">{t({ bn: 'মার্কেটপ্লেস', en: 'Marketplace' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/partners">{t({ bn: 'পার্টনার', en: 'Partners' })}</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'রিসোর্স', en: 'Resources' })}</h2>
-          <ul className="space-y-2 text-[14px] text-muted-foreground">
-            <li><Link className="hover:text-ink" to="/docs">{t({ bn: 'ডকুমেন্টেশন', en: 'Documentation' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/help">{t({ bn: 'হেল্প সেন্টার', en: 'Help center' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/blog">{t({ bn: 'গাইড', en: 'Guides' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/changelog">{t({ bn: 'নতুন কী', en: 'What’s new' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/customers">{t({ bn: 'গ্রাহকের গল্প', en: 'Customer stories' })}</Link></li>
-            <li><a className="hover:text-ink" href={site.whatsapp}>WhatsApp</a></li>
-            <li><button type="button" onClick={openDemo} className="-my-3 inline-flex min-h-11 cursor-pointer items-center hover:text-ink">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</button></li>
-          </ul>
-        </div>
-        <div>
-          <h2 className="text-[13px] font-semibold text-ink mb-3">{t({ bn: 'কোম্পানি', en: 'Company' })}</h2>
-          <ul className="space-y-2 text-[14px] text-muted-foreground">
-            <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'আমাদের সম্পর্কে', en: 'About us' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/careers">{t({ bn: 'ক্যারিয়ার', en: 'Careers' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/legal/privacy">{t({ bn: 'প্রাইভেসি', en: 'Privacy' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/legal/terms">{t({ bn: 'শর্তাবলি', en: 'Terms' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/foundation">{t({ bn: 'ডিজাইন ফাউন্ডেশন', en: 'Design foundation' })}</Link></li>
-          </ul>
-        </div>
+        {footer.map((col) => (
+          <div key={col.title.en}>
+            <h2 className="text-[13px] font-semibold text-ink mb-3">{t(col.title)}</h2>
+            <ul className="space-y-2 text-[14px] text-muted-foreground">
+              {col.links.map((l) => (
+                <li key={l.label.en + l.to}>
+                  {l.kind === 'demo' ? <button type="button" onClick={openDemo} className="-my-3 inline-flex min-h-11 cursor-pointer items-center hover:text-ink">{t(l.label)}</button>
+                    : l.kind === 'whatsapp' ? <a className="hover:text-ink" href={site.whatsapp}>{t(l.label)}</a>
+                    : /^https?:/.test(l.to) ? <a className="hover:text-ink" href={l.to} target="_blank" rel="noopener">{t(l.label)}</a>
+                    : <Link className="hover:text-ink" to={l.to}>{t(l.label)}{l.badge && <span className="ml-1 text-[12px] text-link">{t(l.badge)}</span>}</Link>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
       <div>
         <div className="container-x flex flex-col md:flex-row gap-2 justify-between py-4 text-[13px] text-muted-foreground">

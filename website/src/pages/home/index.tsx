@@ -13,6 +13,8 @@ import { StudioDisplay, IPhone16PM } from '../../components/media/Devices'
 import { Media } from '../../components/media/Media'
 import { Accordion, PillTabs } from '../../components/ui/Ui'
 import { team } from '../../data/team'
+import { faqsFor } from '../../data/faqs'
+import { copy, shown } from '../../data/copy'
 import { Integrations, PriceSlider, Testimonials, ThemeAiPreview, TrustStrip, useZoom, ZoomHint } from '../../components/home/HomeExtras'
 
 const story: { title: L; text: L; media: MediaId }[] = [
@@ -40,13 +42,6 @@ const types: { id: string; name: L; points: L[]; plan: string }[] = [
   { id: 'group', name: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' }, plan: 'Custom', points: [{ bn: 'একাধিক প্রপার্টি', en: 'Multiple properties' }, { bn: 'নিজের মতো মডিউল ও লিমিট', en: 'Your modules and limits' }, { bn: 'মাইগ্রেশন ও অনসাইট সাপোর্ট', en: 'Migration and onsite support' }] },
 ]
 
-const faqs: { q: L; a: L }[] = [
-  { q: { bn: 'কিছু ইনস্টল করতে হবে?', en: 'Do I need to install anything?' }, a: { bn: 'না। BinGi HMS ব্রাউজারে চলে। স্টাফদের জন্য মোবাইল অ্যাপও আছে।', en: 'No. BinGi HMS runs in the browser, and staff also have a mobile app.' } },
-  { q: { bn: 'বাংলায় ব্যবহার করা যাবে?', en: 'Can my team use it in Bangla?' }, a: { bn: 'হ্যাঁ, বাংলা আর ইংরেজি দুটোই আছে।', en: 'Yes, it works in Bangla and English.' } },
-  { q: { bn: 'গেস্ট কীভাবে বুক করবে?', en: 'How do guests book?' }, a: { bn: 'আপনার নিজের ওয়েবসাইট, BinGi মার্কেটপ্লেস (bingi.app) অথবা সরাসরি রিসেপশনে।', en: 'On your own website, the BinGi Marketplace (bingi.app), or at reception.' } },
-  { q: { bn: 'আমার ডেটা কি আলাদা থাকবে?', en: 'Is my data kept separate?' }, a: { bn: 'হ্যাঁ। প্রতিটা প্রপার্টির ডেটা, স্টাফ আর বিল আলাদা, শুধু অনুমতি পাওয়া মানুষ দেখে।', en: 'Yes. Each property has its own data, staff and invoices, visible only to people you allow.' } },
-  { q: { bn: 'সেটআপে সাহায্য পাবো?', en: 'Will you help me set up?' }, a: { bn: 'হ্যাঁ। রিমোট ট্রেনিং এখন ফ্রি; চাইলে অনসাইট ট্রেনিংও আছে।', en: 'Yes. Remote training is free right now, and onsite training is available.' } },
-]
 
 function spot(e: PointerEvent<HTMLElement>) {
   const r = e.currentTarget.getBoundingClientRect()
@@ -78,18 +73,21 @@ export default function Home() {
       </section>
 
       {/* story — one booking, five steps */}
+      {shown('home.story') && (
       <section className="container-x pt-16 md:pt-24">
         <div className="max-w-[640px]">
-          <h2 className="h2">{t({ bn: 'একটা বুকিং, শুরু থেকে শেষ পর্যন্ত', en: 'One booking, from first click to final report' })}</h2>
+          <h2 className="h2">{t(copy('home.story.title', { bn: 'একটা বুকিং, শুরু থেকে শেষ পর্যন্ত', en: 'One booking, from first click to final report' }))}</h2>
           <p className="lead mt-4 hidden sm:block">{t({ bn: 'আলাদা খাতা, আলাদা অ্যাপ নয়। একই বুকিং নম্বর প্রতিটা ধাপে নিজে থেকে এগোয়।', en: 'No separate notebooks or apps. The same booking ID moves through every step on its own.' })}</p>
         </div>
         <div className="mt-12 lg:mt-0"><StoryScroll steps={story.map((s) => ({ media: s.media, title: t(s.title), text: t(s.text) }))} /></div>
       </section>
+      )}
 
       {/* bento — what you run every day */}
+      {shown('home.bento') && (
       <section className="container-x pt-16 md:pt-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-          <h2 className="h2 max-w-[560px]">{t({ bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' })}</h2>
+          <h2 className="h2 max-w-[560px]">{t(copy('home.bento.title', { bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' }))}</h2>
           <Link to="/products" className="inline-flex min-h-11 items-center text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
         </div>
         <div className="relative isolate mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-6">
@@ -106,13 +104,15 @@ export default function Home() {
           ))}
         </div>
       </section>
+      )}
 
       {/* dark bay — three platforms */}
+      {shown('home.platforms') && (
       <section className="relative mt-16 md:mt-24 overflow-hidden bg-bay text-white grain">
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FD413F33,transparent)] blur-[30px]" aria-hidden="true" />
         <div className="container-x relative py-14 md:py-20">
           <div className="max-w-[620px]">
-            <h2 className="h2">{t({ bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' })}</h2>
+            <h2 className="h2">{t(copy('home.platforms.title', { bn: 'ডেস্কে, স্টাফের হাতে, গেস্টের ফোনে', en: 'At the desk, in your staff’s hands, on your guest’s phone' }))}</h2>
           </div>
           {/* one composed scene: display in the centre, the two phones resting in front of it */}
           <div className="relative mx-auto mt-12 max-w-[1080px] pb-[3%]">
@@ -127,14 +127,16 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       <ThemeAiPreview />
 
       {/* property types */}
+      {shown('home.types') && (
       <section className="container-x pt-16 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-start">
           <div className="min-w-0">
-            <h2 className="h2">{t({ bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' })}</h2>
+            <h2 className="h2">{t(copy('home.types.title', { bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' }))}</h2>
             <div className="mt-8"><PillTabs size="sm" wrap label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })} value={type} onChange={setType} options={types.map((x) => ({ id: x.id, label: t(x.name) }))} /></div>
           </div>
           <div className="card glow-border p-7 md:p-9" role="tabpanel">
@@ -151,6 +153,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      )}
 
       <Integrations />
 
@@ -159,20 +162,23 @@ export default function Home() {
       <Testimonials />
 
       {/* FAQ */}
+      {shown('home.faq') && (
       <section className="container-x pt-16 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1fr_1.6fr]">
           <div>
-            <h2 className="h2">{t({ bn: 'সাধারণ প্রশ্ন', en: 'Common questions' })}</h2>
+            <h2 className="h2">{t(copy('home.faq.title', { bn: 'সাধারণ প্রশ্ন', en: 'Common questions' }))}</h2>
             <p className="lead mt-3">{t({ bn: 'আরও জানতে চান? ', en: 'More questions? ' })}<Link to="/help" className="text-link hover:underline underline-offset-4">{t({ bn: 'হেল্প সেন্টার', en: 'Visit the help center' })}</Link></p>
           </div>
-          <Accordion items={faqs.map((f) => ({ q: t(f.q), a: t(f.a) }))} />
+          <Accordion items={faqsFor('home').map((f) => ({ q: t(f.q), a: t(f.a) }))} />
         </div>
       </section>
+      )}
 
       {/* team — after FAQ, like zatiqeasy */}
+      {shown('home.team') && (
       <section className="container-x pt-16 md:pt-24" aria-labelledby="team-h">
         <div className="max-w-[620px]">
-          <h2 id="team-h" className="h2">{t({ bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' })}</h2>
+          <h2 id="team-h" className="h2">{t(copy('home.team.title', { bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' }))}</h2>
           <p className="lead mt-4 hidden sm:block">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — 2023 থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
         </div>
         <ul className="relative isolate mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
@@ -195,6 +201,7 @@ export default function Home() {
           ))}
         </ul>
       </section>
+      )}
 
       {/* closing — the sunrise again */}
       <section className="container-x pt-16 md:pt-24">

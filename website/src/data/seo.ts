@@ -1,5 +1,6 @@
+import { pick } from './content'
 // Per-page <title> and description (English — site language). Used by the prerender script and on navigation.
-export const seo: Record<string, { title: string; description: string }> = {
+export const seo: Record<string, { title: string; description: string }> = pick('seo', {
   '/': { title: 'BinGi — Hotel management technology for hotels and resorts', description: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts in one connected system. Your team runs the hotel; BinGi runs the technology.' },
   '/products': { title: 'Products — BinGi HMS Web, Mobile and Guest App', description: 'One ecosystem, three platforms: BinGi HMS Web for reception, HMS Mobile for staff and the Guest App with the BinGi Marketplace.' },
   '/pricing': { title: 'Pricing — from ৳25 per room a month | BinGi', description: 'Starter ৳25, Business ৳70, Ultra ৳116 (launch offer until 11 Feb 2027) per room a month, from 10 rooms. Save on 6 and 12 months. Every charge shown separately.' },
@@ -12,7 +13,7 @@ export const seo: Record<string, { title: string; description: string }> = {
   '/help/create-booking': { title: 'How to create a new booking — BinGi help', description: 'Book a guest from the BinGi dashboard in a minute.' },
   '/help/add-room-type': { title: 'Add a room type and rooms — BinGi help', description: 'Set category, rate and room numbers in one go.' },
   '/help/change-plan': { title: 'View and change your plan — BinGi help', description: 'Monthly, 6 months or 12 months.' },
-}
+})
 Object.assign(seo, {
   '/solutions': { title: 'Solutions by property — hotels, resorts, guest houses | BinGi', description: 'BinGi for hotels, resorts, guest houses, homes and hotel groups — the plan, modules and website themes that fit each.' },
   '/solutions/hotel': { title: 'Hotel management software for hotels | BinGi', description: 'Reception to housekeeping, restaurant to accounts — BinGi Business for hotels in Bangladesh.' },

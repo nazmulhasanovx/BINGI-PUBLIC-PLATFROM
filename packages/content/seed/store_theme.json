@@ -1,0 +1,212 @@
+[
+ {
+  "id": "isle",
+  "name": "ISLE",
+  "collection": "luxury",
+  "for": {
+   "bn": "দ্বীপ ও ওভারওয়াটার ভিলা রিসোর্ট",
+   "en": "Island and overwater villa resorts"
+  },
+  "demo": "nila-island"
+ },
+ {
+  "id": "zamindar",
+  "name": "ZAMINDAR",
+  "collection": "luxury",
+  "for": {
+   "bn": "হেরিটেজ প্রাসাদ ও রাজবাড়ি",
+   "en": "Heritage palaces and rajbaris"
+  },
+  "demo": "shonali-rajbari"
+ },
+ {
+  "id": "maison",
+  "name": "MAISON",
+  "collection": "luxury",
+  "for": {
+   "bn": "ক্লাসিক গ্র্যান্ড সিটি হোটেল",
+   "en": "Classic grand city hotels"
+  },
+  "demo": "maison-gulshan"
+ },
+ {
+  "id": "noir",
+  "name": "NOIR",
+  "collection": "luxury",
+  "for": {
+   "bn": "রুফটপ ও নাইটলাইফ হোটেল",
+   "en": "Rooftop and night-life hotels"
+  },
+  "demo": "obsidian-gulshan"
+ },
+ {
+  "id": "orbit",
+  "name": "ORBIT",
+  "collection": "luxury",
+  "for": {
+   "bn": "স্কাই টাওয়ার হোটেল",
+   "en": "Sky-tower hotels"
+  },
+  "demo": "altura"
+ },
+ {
+  "id": "haven",
+  "name": "HAVEN",
+  "collection": "luxury",
+  "for": {
+   "bn": "ওয়েলনেস ও স্পা রিট্রিট",
+   "en": "Wellness and spa retreats"
+  },
+  "demo": "haven-lalakhal"
+ },
+ {
+  "id": "summit",
+  "name": "SUMMIT",
+  "collection": "luxury",
+  "for": {
+   "bn": "পাহাড়ি লজ ও রিসোর্ট",
+   "en": "Hill and mountain lodges"
+  },
+  "demo": "meghchura"
+ },
+ {
+  "id": "canopy",
+  "name": "CANOPY",
+  "collection": "luxury",
+  "for": {
+   "bn": "ট্রিহাউস ও বনের রিট্রিট",
+   "en": "Treehouses and forest retreats"
+  },
+  "demo": "canopy-nest"
+ },
+ {
+  "id": "drift",
+  "name": "DRIFT",
+  "collection": "luxury",
+  "for": {
+   "bn": "লাক্সারি হাউসবোট",
+   "en": "Luxury houseboats"
+  },
+  "demo": "haor-bilash"
+ },
+ {
+  "id": "estate",
+  "name": "ESTATE",
+  "collection": "luxury",
+  "for": {
+   "bn": "প্রাইভেট ভিলা এস্টেট",
+   "en": "Private villa estates"
+  },
+  "demo": "bonolota-estate"
+ },
+ {
+  "id": "aurel",
+  "name": "AUREL",
+  "collection": "signature",
+  "for": {
+   "bn": "আধুনিক সিটি হোটেল",
+   "en": "Contemporary city hotels"
+  },
+  "demo": "aurel-banani"
+ },
+ {
+  "id": "courtyard",
+  "name": "COURTYARD",
+  "collection": "signature",
+  "for": {
+   "bn": "বুটিক ও হেরিটেজ টাউনহাউস",
+   "en": "Boutique and heritage townhouses"
+  },
+  "demo": "the-courtyard"
+ },
+ {
+  "id": "axis",
+  "name": "AXIS",
+  "collection": "signature",
+  "for": {
+   "bn": "বিজনেস হোটেল",
+   "en": "Business hotels"
+  },
+  "demo": "axis-gulshan"
+ },
+ {
+  "id": "waypoint",
+  "name": "WAYPOINT",
+  "collection": "signature",
+  "for": {
+   "bn": "হাইওয়ে ইন ও মোটেল",
+   "en": "Highway inns and motels"
+  },
+  "demo": "waypoint-inn"
+ },
+ {
+  "id": "shanti",
+  "name": "SHANTI",
+  "collection": "signature",
+  "for": {
+   "bn": "গেস্ট হাউস",
+   "en": "Guest houses"
+  },
+  "demo": "shanti-guest-house"
+ },
+ {
+  "id": "reside",
+  "name": "RESIDE",
+  "collection": "signature",
+  "for": {
+   "bn": "সার্ভিসড অ্যাপার্টমেন্ট",
+   "en": "Serviced apartments"
+  },
+  "demo": "haven-residences"
+ },
+ {
+  "id": "commons",
+  "name": "COMMONS",
+  "collection": "signature",
+  "for": {
+   "bn": "সোশ্যাল হোস্টেল",
+   "en": "Social hostels"
+  },
+  "demo": "common-ground"
+ },
+ {
+  "id": "roots",
+  "name": "ROOTS",
+  "collection": "signature",
+  "for": {
+   "bn": "হোমস্টে",
+   "en": "Homestays"
+  },
+  "demo": "roots-homestay"
+ },
+ {
+  "id": "morning",
+  "name": "MORNING",
+  "collection": "signature",
+  "for": {
+   "bn": "বেড অ্যান্ড ব্রেকফাস্ট",
+   "en": "Bed & breakfasts"
+  },
+  "demo": "morning-house"
+ },
+ {
+  "id": "matir",
+  "name": "MATIR",
+  "collection": "signature",
+  "for": {
+   "bn": "ফার্ম স্টে",
+   "en": "Farm stays"
+  },
+  "demo": "matir-farm"
+ },
+ {
+  "id": "pod",
+  "name": "POD",
+  "collection": "more",
+  "for": {
+   "bn": "ক্যাপসুল হোটেল",
+   "en": "Capsule hotels"
+  },
+  "demo": "skypod"
+ }
+]

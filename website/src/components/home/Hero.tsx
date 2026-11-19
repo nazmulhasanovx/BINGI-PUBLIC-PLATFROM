@@ -1,3 +1,4 @@
+import { copy } from '@/data/copy'
 import { openDemo } from '@/components/site/Demo'
 import { useRef } from 'react'
 
@@ -28,8 +29,8 @@ export function Hero() {
   const phoneY = useTransform(scrollYProgress, [0, 1], reduce ? [0, 0] : [140, 0])
 
   const lines = [
-    t({ bn: 'আপনার টিম হোটেল চালায়।', en: 'Your team runs the hotel.' }),
-    t({ bn: 'BinGi চালায় টেকনোলজি।', en: 'BinGi runs the technology.' }),
+    t(copy('home.hero.line1', { bn: 'আপনার টিম হোটেল চালায়।', en: 'Your team runs the hotel.' })),
+    t(copy('home.hero.line2', { bn: 'BinGi চালায় টেকনোলজি।', en: 'BinGi runs the technology.' })),
   ]
   // Headline rise is pure CSS so it starts with the prerendered HTML (no wait for JavaScript → fast LCP).
   const rise = (i: number) => ({ className: 'rise', style: { animationDelay: `${80 + i * 120}ms` } })
@@ -48,14 +49,14 @@ export function Hero() {
       <div className="container-x pt-8 md:pt-14">
         <div className="grid gap-5 md:gap-8 md:grid-cols-[1.35fr_1fr] md:items-end">
           <h1 className="display text-[31px] min-[400px]:text-[34px] sm:text-[60px] lg:text-[76px] text-ink">
-            {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{withMark(l, t({ bn: 'টেকনোলজি', en: 'technology' }))}</span>)}
+            {lines.map((l, i) => <span key={i} className="block rise" style={rise(i).style}>{withMark(l, t(copy('home.hero.mark', { bn: 'টেকনোলজি', en: 'technology' })))}</span>)}
           </h1>
           <div className="md:pb-3 rise" style={rise(2).style}>
             <p className="lead max-w-[420px]">
-              {t({ bn: 'ওয়েবসাইট, বুকিং, ফ্রন্ট ডেস্ক, হাউসকিপিং, রেস্টুরেন্ট, স্টাফ আর হিসাব — হোটেল ও রিসোর্টের জন্য একটা যুক্ত সিস্টেম।', en: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts — one connected system for hotels and resorts.' })}
+              {t(copy('home.hero.lead', { bn: 'ওয়েবসাইট, বুকিং, ফ্রন্ট ডেস্ক, হাউসকিপিং, রেস্টুরেন্ট, স্টাফ আর হিসাব — হোটেল ও রিসোর্টের জন্য একটা যুক্ত সিস্টেম।', en: 'Website, bookings, front desk, housekeeping, restaurant, staff and accounts — one connected system for hotels and resorts.' }))}
             </p>
             <div className="mt-5 md:mt-7 flex flex-wrap gap-3">
-              <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
+              <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t(copy('home.hero.cta', { bn: 'শুরু করুন', en: 'Get started' }))}</a>
               <button type="button" onClick={openDemo} className="btn-ghost h-12 px-6 cursor-pointer">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</button>
             </div>
           </div>

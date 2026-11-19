@@ -1,0 +1,59 @@
+[
+ {
+  "to": "/products",
+  "label": {
+   "bn": "প্রোডাক্ট",
+   "en": "Products"
+  }
+ },
+ {
+  "to": "/solutions",
+  "label": {
+   "bn": "সলিউশন",
+   "en": "Solutions"
+  }
+ },
+ {
+  "to": "/themes",
+  "label": {
+   "bn": "থিম",
+   "en": "Themes"
+  }
+ },
+ {
+  "to": "/ai",
+  "label": {
+   "bn": "BinGi AI",
+   "en": "BinGi AI"
+  }
+ },
+ {
+  "to": "/pricing",
+  "label": {
+   "bn": "প্রাইসিং",
+   "en": "Pricing"
+  }
+ },
+ {
+  "to": "/docs",
+  "label": {
+   "bn": "ডকস",
+   "en": "Docs"
+  }
+ },
+ {
+  "to": "/help",
+  "label": {
+   "bn": "হেল্প",
+   "en": "Help"
+  }
+ },
+ {
+  "to": "/contact",
+  "label": {
+   "bn": "যোগাযোগ",
+   "en": "Contact"
+  },
+  "phoneOnly": true
+ }
+]
