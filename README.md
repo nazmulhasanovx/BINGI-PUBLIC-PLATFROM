@@ -8,8 +8,16 @@ BINGI-PUBLIC-PLATFROM/
 ├── docs/
 │   ├── 01-plan/          what we build and why (sitemap, flow, decisions, open items)
 │   ├── 02-ui-ux/         design system, layout, motion, device frames, media slots, a11y
-│   └── 03-technology/    stack, folder map, data sources, build & deploy, handoff
-└── website/              React app (Vite + TypeScript + Tailwind)
+│   ├── 03-technology/    stack, folder map, data sources, build & deploy, handoff
+│   ├── 04-qa/            test log (one line per check)
+│   ├── 05-admin/         admin panel + backend: plan, architecture, API, content types, deploy
+│   └── adr/              decisions (one file each)
+├── website/              public site — React app (Vite + TypeScript + Tailwind)
+├── admin/                admin panel — React app (same UI tokens)
+├── api/                  backend — Laravel 12 (content, leads, visitors, SEO, publish)
+├── packages/content/     content types + JSON Schema + seed (shared by api, admin, website)
+├── theme-demos/          live demos of the hotel website themes
+└── motion/               Remotion videos used on the site
 ```
 
 ## Run
@@ -22,7 +30,11 @@ npm run build          # production build → website/dist (clean URLs)
 npm run build:preview  # one self-contained HTML → website/dist-preview/index.html
 ```
 
-## Edit content without touching pages
+## Edit content without touching code
+
+Use the admin panel (`admin/`, see [docs/05-admin](docs/05-admin/README.md)). Until it is deployed, the files below are the fallback the site builds from.
+
+### Fallback files
 
 | What | File |
 |---|---|
@@ -33,3 +45,5 @@ npm run build:preview  # one self-contained HTML → website/dist-preview/index.
 | Phone, address, links | `website/src/data/site.ts` |
 
 Status: v0.1 — 9 Nov 2026. Open decisions in [docs/01-plan](docs/01-plan/README.md#open-decisions).
+
+Branches and PR rules: [CONTRIBUTING.md](CONTRIBUTING.md).
