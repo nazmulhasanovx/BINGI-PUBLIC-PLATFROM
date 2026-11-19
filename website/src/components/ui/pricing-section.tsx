@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { TimelineContent } from '@/components/ui/timeline-animation'
 import { useLang, type L } from '@/i18n/lang'
 import { site } from '@/data/site'
-import { compare, cycles, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType, LAUNCH_OFF, LAUNCH_UNTIL } from '@/data/pricing'
+import { cycles, includesFor, MIN_BILLABLE, plans, priceFor, propertyTypes, type Cycle, type Plan, type PlanId, type PropertyType, LAUNCH_OFF, LAUNCH_UNTIL } from '@/data/pricing'
 import { ios } from '@/lib/motion'
 
 // Pricing section — structure and motion from the 21st.dev "pricing-section" component
@@ -296,21 +296,6 @@ export default function PricingSection() {
     ]
   }
 
-  const includesFor = (p: Plan): L[] => {
-    if (p.id === 'custom') return [
-      { bn: 'যা দরকার, শুধু সেটাই', en: 'Only what you need:' },
-      { bn: 'মাইগ্রেশন ও ইন্টিগ্রেশন প্ল্যান', en: 'Migration and integration planning' },
-      { bn: 'প্রপার্টি অনুযায়ী মডিউল', en: 'Modules per property' },
-      { bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after review' },
-    ]
-    const rows: L[] = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id).map((r) => {
-      const cell = r.values[p.id]
-      return typeof cell === 'object' ? { bn: `${r.name.bn} (${cell.bn})`, en: `${r.name.en} (${cell.en.toLowerCase()})` } : r.name
-    })
-    if (p.id === 'ultra') rows.unshift({ bn: 'পূর্ণ রেস্টুরেন্ট ও বার', en: 'Full restaurant & bar' })
-    if (p.id === 'starter') return [{ bn: 'Starter-এ আছে:', en: 'Starter includes:' }, ...rows, { bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' }]
-    return [p.plus!, ...rows]
-  }
 
   return (
     <div ref={ref} className="relative isolate overflow-hidden pb-4 pt-12 md:pt-20">

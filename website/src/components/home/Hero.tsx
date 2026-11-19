@@ -1,5 +1,6 @@
+import { openDemo } from '@/components/site/Demo'
 import { useRef } from 'react'
-import { Link } from 'react-router-dom'
+
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { useLang } from '../../i18n/lang'
 import { site } from '../../data/site'
@@ -55,7 +56,7 @@ export function Hero() {
             </p>
             <div className="mt-5 md:mt-7 flex flex-wrap gap-3">
               <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
-              <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
+              <button type="button" onClick={openDemo} className="btn-ghost h-12 px-6 cursor-pointer">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</button>
             </div>
           </div>
         </div>

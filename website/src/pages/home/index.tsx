@@ -5,7 +5,6 @@ import { CheckCheck } from 'lucide-react'
 import { motion } from 'motion/react'
 import { useLang, type L } from '../../i18n/lang'
 import { site } from '../../data/site'
-import { plans } from '../../data/pricing'
 import { modules } from '../../data/status'
 import type { MediaId } from '../../data/media'
 import { Hero } from '../../components/home/Hero'
@@ -14,6 +13,7 @@ import { StudioDisplay, IPhone16PM } from '../../components/media/Devices'
 import { Media } from '../../components/media/Media'
 import { Accordion, PillTabs } from '../../components/ui/Ui'
 import { team } from '../../data/team'
+import { Integrations, PriceSlider, Testimonials, ThemeAiPreview, TrustStrip, useZoom, ZoomHint } from '../../components/home/HomeExtras'
 
 const story: { title: L; text: L; media: MediaId }[] = [
   { media: 'story1', title: { bn: 'বুকিং আসে', en: 'A booking comes in' }, text: { bn: 'আপনার ওয়েবসাইট, BinGi মার্কেটপ্লেস বা রিসেপশন — সব বুকিং একই তালিকায়, একই নম্বরে।', en: 'From your website, the BinGi Marketplace or the front desk — every booking lands in one list with one ID.' } },
@@ -55,14 +55,16 @@ function spot(e: PointerEvent<HTMLElement>) {
 }
 
 export default function Home() {
-  const { t, taka } = useLang()
+  const { t } = useLang()
   const [type, setType] = useState('hotel')
   const active = types.find((x) => x.id === type)!
   const live = modules.filter((m) => m.status === 'live')
+  const zoom = useZoom()
 
   return (
     <>
       <Hero />
+      <TrustStrip />
 
       {/* modules marquee — quiet, continuous */}
       <section className="border-y border-line bg-white/60 py-5 overflow-hidden" aria-label={t({ bn: 'চালু মডিউল', en: 'Live modules' })}>
@@ -98,7 +100,8 @@ export default function Home() {
               <div className="p-6 pb-4">
                 <h3 className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em]">{t(b.title)}</h3>
               </div>
-              <div className={`mx-3 mb-3 mt-auto overflow-hidden rounded-[12px] ${i === 0 ? '' : 'hidden sm:block'}`}><Media id={b.media} /></div>
+              <button type="button" onClick={() => zoom.open(b.media, t(b.title))} aria-label={t({ bn: `${b.title.bn} — বড় করে দেখুন`, en: `${b.title.en} — view larger` })}
+                className={`group relative mx-3 mb-3 mt-auto cursor-zoom-in overflow-hidden rounded-[12px] text-left ring-1 ring-ink/5 ${i === 0 ? 'block' : 'hidden sm:block'}`}><Media id={b.media} /><ZoomHint /></button>
             </article>
           ))}
         </div>
@@ -125,6 +128,8 @@ export default function Home() {
         </div>
       </section>
 
+      <ThemeAiPreview />
+
       {/* property types */}
       <section className="container-x pt-16 md:pt-24">
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-start">
@@ -147,25 +152,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* pricing — one quiet line, not another card grid */}
-      <section className="container-x pt-16 md:pt-24">
-        <div className="relative isolate glow-border rounded-[24px] bg-white border border-line shadow-soft px-6 py-10 md:px-12 md:py-14 grid gap-8 md:grid-cols-[1.2fr_2fr] md:items-center">
-          <div className="ambient left-1/2 -translate-x-1/2 -bottom-10 h-[200px] w-[70%] opacity-50" aria-hidden="true" />
-          <div>
-            <h2 className="h2">{t({ bn: 'প্রতি রুমে দাম', en: 'Priced per room' })}</h2>
-            <p className="lead mt-3">{t({ bn: 'সর্বনিম্ন 10 রুম। লঞ্চ অফার −60%। 6 ও 12 মাসে আরও কম।', en: 'From 10 rooms. Launch offer −60%. Even less on 6 and 12 months.' })}</p>
-          </div>
-          <div className="grid grid-cols-3 divide-x divide-line">
-            {plans.filter((p) => p.rate).map((p) => (
-              <Link key={p.id} to="/pricing" className="px-3 md:px-6 text-center group">
-                <p className="text-[15px] text-muted-foreground">{p.name}</p>
-                <p className="mt-1 font-[family-name:var(--font-display)] text-[34px] md:text-[44px] font-semibold tracking-[-0.03em] group-hover:text-brand transition-colors">{taka(p.rate!)}</p>
-                <p className="text-[14px] text-soft">{t({ bn: 'প্রতি রুম/মাস', en: 'per room / month' })}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <Integrations />
+
+      <PriceSlider />
+
+      <Testimonials />
 
       {/* FAQ */}
       <section className="container-x pt-16 md:pt-24">
@@ -195,7 +186,9 @@ export default function Home() {
                 <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[12px] font-medium text-ink backdrop-blur">{t(m.group)}</span>
               </div>
               <div className="p-4">
-                <h3 className="text-[16px] font-semibold leading-snug">{m.name}</h3>
+                <h3 className="flex items-center gap-1.5 text-[16px] font-semibold leading-snug">{m.name}
+                  {m.linkedin && <a href={m.linkedin} target="_blank" rel="noopener" aria-label={`${m.name} — LinkedIn`} className="-my-2 grid size-9 place-items-center rounded-full text-[#0A66C2] hover:bg-canvas"><svg viewBox="0 0 24 24" className="size-4" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a>}
+                </h3>
                 <p className="mt-0.5 text-[14px] text-muted-foreground leading-snug">{t(m.role)}</p>
               </div>
             </li>
@@ -217,6 +210,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      {zoom.node}
     </>
   )
 }

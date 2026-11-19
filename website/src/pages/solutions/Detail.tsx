@@ -1,3 +1,4 @@
+import { openDemo } from '@/components/site/Demo'
 import { FadeImg } from '@/components/ui/FadeImg'
 import { Link, useParams } from 'react-router-dom'
 import { CheckCheck, ChevronRight } from 'lucide-react'
@@ -36,7 +37,7 @@ export default function SolutionDetail() {
         <p className="lead mt-4 max-w-[600px]">{t(s.intro)}</p>
         <div className="mt-8 flex flex-wrap gap-3">
           <a href={site.hmsRegister} className="btn-primary h-12 px-6">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
-          <Link to="/contact" className="btn-ghost h-12 px-6">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link>
+          <button type="button" onClick={openDemo} className="btn-ghost h-12 px-6 cursor-pointer">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</button>
         </div>
       </header>
 

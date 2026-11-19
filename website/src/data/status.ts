@@ -30,3 +30,13 @@ export const platformStatus: Record<'web' | 'mobile' | 'guest', Status> = {
   mobile: 'confirm',
   guest: 'confirm',
 }
+
+// Local payments & hardware. Names only (no third-party logos). None is verified live yet → 'confirm' until checked in production.
+export type Integration = { id: string; status: Status; kind: 'pay' | 'hw'; name: L }
+export const integrations: Integration[] = [
+  { id: 'bkash', kind: 'pay', status: 'confirm', name: { bn: 'bKash', en: 'bKash' } },
+  { id: 'nagad', kind: 'pay', status: 'confirm', name: { bn: 'Nagad', en: 'Nagad' } },
+  { id: 'sslcommerz', kind: 'pay', status: 'confirm', name: { bn: 'SSLCommerz', en: 'SSLCommerz' } },
+  { id: 'printer', kind: 'hw', status: 'confirm', name: { bn: 'POS / রিসিট প্রিন্টার', en: 'POS / receipt printer' } },
+  { id: 'lock', kind: 'hw', status: 'confirm', name: { bn: 'কী-কার্ড / স্মার্ট লক', en: 'Key card / smart lock' } },
+]

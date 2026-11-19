@@ -1,3 +1,4 @@
+import { DemoModal, FloatingWhatsApp, openDemo } from '@/components/site/Demo'
 import { FooterSkyline } from './FooterSkyline'
 import { useRef, useEffect, useState } from 'react'
 import { flushSync } from 'react-dom'
@@ -135,7 +136,7 @@ function Footer() {
             <li><Link className="hover:text-ink" to="/changelog">{t({ bn: 'নতুন কী', en: 'What’s new' })}</Link></li>
             <li><Link className="hover:text-ink" to="/customers">{t({ bn: 'গ্রাহকের গল্প', en: 'Customer stories' })}</Link></li>
             <li><a className="hover:text-ink" href={site.whatsapp}>WhatsApp</a></li>
-            <li><Link className="hover:text-ink" to="/contact">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</Link></li>
+            <li><button type="button" onClick={openDemo} className="-my-3 inline-flex min-h-11 cursor-pointer items-center hover:text-ink">{t({ bn: 'ডেমো বুক করুন', en: 'Book a demo' })}</button></li>
           </ul>
         </div>
         <div>
@@ -206,6 +207,8 @@ export function Layout() {
       <main id="main" className="flex-1"><div key={pathname.startsWith('/docs/') ? '/docs/*' : pathname} className="animate-page-in"><Outlet /></div></main>
       <Footer />
       <MobileCta />
+      <FloatingWhatsApp />
+      <DemoModal />
     </div>
   )
 }

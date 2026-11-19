@@ -116,3 +116,20 @@ export function priceFor(rate: number, rooms: number, cycle: Cycle) {
   const total = q * perRoom * c.months
   return { q, months: c.months, total, perMonth: Math.round(total / c.months), perRoom, saved: list - total }
 }
+
+// What each plan adds (same source as the pricing cards: the comparison rows that plan first includes).
+export function includesFor(p: Plan): L[] {
+  if (p.id === 'custom') return [
+    { bn: 'যা দরকার, শুধু সেটাই', en: 'Only what you need:' },
+    { bn: 'মাইগ্রেশন ও ইন্টিগ্রেশন প্ল্যান', en: 'Migration and integration planning' },
+    { bn: 'প্রপার্টি অনুযায়ী মডিউল', en: 'Modules per property' },
+    { bn: 'প্রয়োজন দেখে কোটেশন', en: 'Quotation after review' },
+  ]
+  const rows: L[] = compare.flatMap((g) => g.rows).filter((r) => r.highlight === p.id).map((r) => {
+    const cell = r.values[p.id]
+    return typeof cell === 'object' ? { bn: `${r.name.bn} (${cell.bn})`, en: `${r.name.en} (${cell.en.toLowerCase()})` } : r.name
+  })
+  if (p.id === 'ultra') rows.unshift({ bn: 'পূর্ণ রেস্টুরেন্ট ও বার', en: 'Full restaurant & bar' })
+  if (p.id === 'starter') return [{ bn: 'Starter-এ আছে:', en: 'Starter includes:' }, ...rows, { bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' }]
+  return [p.plus!, ...rows]
+}

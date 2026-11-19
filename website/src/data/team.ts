@@ -3,7 +3,7 @@
 // Keep roles exactly as the person's real title — no invented bios.
 import type { L } from '../i18n/lang'
 
-export type Member = { name: string; role: L; group: L; photo?: string }
+export type Member = { name: string; role: L; group: L; photo?: string; linkedin?: string } // linkedin: the person's own public profile URL, only when they share it
 
 export const team: Member[] = [
   { name: 'Nazmul Hasan', role: { bn: 'প্রতিষ্ঠাতা, NEONECY ও BinGi · সিস্টেম ইঞ্জিনিয়ার', en: 'Founder, NEONECY & BinGi · System Engineer' }, group: { bn: 'প্রতিষ্ঠাতা', en: 'Founder' }, photo: '/team/nazmul-hasan.webp' },

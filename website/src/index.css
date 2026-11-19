@@ -228,3 +228,11 @@ html.lang-vt::view-transition-old(root) { animation-name: lang-out; }
 html.lang-vt::view-transition-new(root) { animation-name: lang-in; }
 @keyframes lang-out { to { opacity: 0; filter: blur(2px); } }
 @keyframes lang-in { from { opacity: 0; filter: blur(2px); } }
+
+/* room slider (home) */
+.range-brand { -webkit-appearance: none; appearance: none; height: 44px; background: transparent; cursor: pointer; }
+.range-brand::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: linear-gradient(to right, var(--color-brand) var(--p), #E4E7EC var(--p)); }
+.range-brand::-moz-range-track { height: 6px; border-radius: 999px; background: linear-gradient(to right, var(--color-brand) var(--p), #E4E7EC var(--p)); }
+.range-brand::-webkit-slider-thumb { -webkit-appearance: none; margin-top: -11px; width: 28px; height: 28px; border-radius: 999px; background: #fff; box-shadow: 0 2px 8px rgb(16 24 40 / .25), 0 0 0 1px rgb(16 24 40 / .06); }
+.range-brand::-moz-range-thumb { width: 28px; height: 28px; border: 0; border-radius: 999px; background: #fff; box-shadow: 0 2px 8px rgb(16 24 40 / .25); }
+.range-brand:focus-visible { outline: 2px solid var(--color-link); outline-offset: 4px; border-radius: 999px; }
