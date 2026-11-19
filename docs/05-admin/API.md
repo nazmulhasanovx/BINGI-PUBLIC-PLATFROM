@@ -1,0 +1,72 @@
+# API — `/api/v1`
+
+Base URL: `https://api.technology.bingi.com.bd/api/v1` (local `http://localhost:8000/api/v1`).
+Auth: `POST /auth/login` → `token`; send `Authorization: Bearer <token>` on every admin call. Tokens last 14 days.
+
+## Errors (every endpoint)
+```json
+{ "code": "validation_failed", "message": "Some fields need attention.", "fields": { "role": "Write both Bangla and English." } }
+```
+| HTTP | code | When |
+|---|---|---|
+| 401 | `unauthenticated` | no/expired token, user disabled |
+| 403 | `forbidden` | role cannot do this |
+| 404 | `not_found` · `unknown_type` · `not_published` | |
+| 409 | `single_exists` · `single_required` · `last_owner` · `duplicate` | conflicts |
+| 422 | `validation_failed` · `invalid_login` · `bad_image` | `fields` says which field |
+| 429 | `too_many_requests` · `too_many_attempts` | rate limits |
+
+## Public — the website calls these
+| Method | Path | Body / answer | Limit |
+|---|---|---|---|
+| GET | `/public/content` | latest published snapshot JSON; header `X-Content-Version` | cached 60 s |
+| POST | `/public/leads` | `{ name, property, phone, property_type?, rooms?, preferred_time?, source_page?, utm?, lang?, website? }` → 201. `website` is a honeypot (leave empty) | 3/min, 20/day per IP |
+| POST | `/public/events` | `{ events: [{ type, path, referrer?, utm?, lang? }] }` (max 20) → 204. Types: `pageview demo_open whatsapp theme_demo price_slider` | 120/min per IP |
+
+## Auth
+| Method | Path | Body |
+|---|---|---|
+| POST | `/auth/login` | `{ email, password }` → `{ token, user }` (5 wrong tries → 1 min lock) |
+| POST | `/auth/logout` | — |
+| GET | `/auth/me` | → `{ user }` |
+| POST | `/auth/password` | `{ current, password }` (min 10) |
+| POST | `/auth/forgot` | `{ email }` → emails a link to `ADMIN_URL/reset` |
+| POST | `/auth/reset` | `{ email, token, password }` |
+
+## Admin
+Role column: O owner · E editor · S sales.
+
+| Method | Path | Role | What |
+|---|---|---|---|
+| GET | `/dashboard` | O E S | today's visitors, new leads, unpublished count, live version |
+| GET | `/types` | O E | content registry + `count` + `unpublished` per type (admin builds forms from it) |
+| GET | `/entries/{type}` | O E | `{ items: [{ id, data, visible, sort, state }] }` — `state`: draft · changed · published |
+| POST | `/entries/{type}` | O E | `{ data, visible? }` → 201 |
+| PATCH | `/entries/{type}/{id}` | O E | `{ data?, visible? }` |
+| DELETE | `/entries/{type}/{id}` | O E | soft delete; gone from the site at next publish |
+| POST | `/entries/{type}/reorder` | O E | `{ ids: [3, 1, 2] }` |
+| GET/POST/PATCH/DELETE | `/media` `/media/{id}` | O E | upload `file` (jpg png webp gif svg pdf, 15 MB) → WebP 480/960/1600 |
+| GET/POST/PATCH/DELETE | `/seo/pages` `/seo/pages/{id}` | O E | `{ path, title, description, og_image?, noindex? }`; answer has `checks` |
+| GET/POST/PATCH/DELETE | `/seo/redirects` `/seo/redirects/{id}` | O E | `{ from_path, to_path, code: 301\|302 }` |
+| GET | `/publish/pending` | O E | what Publish would change (`new · edited · hidden · shown · deleted`, with before/after) |
+| GET | `/publish/preview` | O E | the snapshot the draft would produce |
+| POST | `/publish` | O | `{ note? }` → new version; triggers the site build |
+| GET | `/snapshots` · `/snapshots/{id}` | O E | history · one version with its content |
+| POST | `/snapshots/{id}/rollback` | O | republish an old version as a new version |
+| GET | `/leads?status=&q=&page=` | O S | paginated + `counts` per status |
+| GET/PATCH | `/leads/{id}` | O S | `{ status?, assigned_to? }` — status: new contacted demo_done won lost |
+| POST | `/leads/{id}/notes` | O S | `{ body }` |
+| GET | `/leads/export?status=` | O S | CSV (UTF-8 BOM); audited |
+| GET | `/analytics/overview?from=&to=` | O S | totals, daily series, pages, sources, countries, devices, lead pages; `has_data` |
+| GET | `/analytics/page?path=` | O S | one page |
+| GET/POST/PATCH | `/users` `/users/{id}` | O | invite `{ name, email, role }` (emails a set-password link) · `{ role?, active?, name? }` |
+| GET | `/audit?entity=&user=` | O | who changed what |
+
+## Truth guards (422 from the API, whatever the client)
+| Type | Rule | Field in `fields` |
+|---|---|---|
+| module, integration | `status: live` needs `verified_by` + `verified_at` | `verified_by` |
+| platform_status | any platform `live` needs the same | `verified_by` |
+| module `id: ai` | cannot be `live` | `status` |
+| testimonial, client_logo | visible needs `permission_file` | `permission_file` |
+| trust_fact | needs `source` | `source` |
