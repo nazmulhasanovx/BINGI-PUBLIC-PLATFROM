@@ -6,6 +6,7 @@ import { useLang } from '@/i18n/lang'
 import { asset } from '@/lib/utils'
 import { demoUrl } from '@/data/themes'
 import { ios } from '@/lib/motion'
+import { track } from '@/lib/track'
 
 // Theme demos open inside the page (an iframe of our own /theme-demo build), so they work in the
 // sandboxed preview too, where new-tab links have nowhere to go.
@@ -13,6 +14,7 @@ type Open = { slug: string; name: string }
 type State = { themes: { id: string; name: string; brand: string }[]; active: string; heading: 'sans' | 'serif'; layout?: string }
 export const openTheme = (slug: string, name: string) => (e?: MouseEvent) => {
   e?.preventDefault()
+  track('theme_demo')
   window.dispatchEvent(new CustomEvent<Open>('bingi:theme', { detail: { slug, name } }))
 }
 

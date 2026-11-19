@@ -13,14 +13,16 @@ class EventController extends Controller
 {
     public function __invoke(Request $r)
     {
-        $d = $r->validate([
+        // navigator.sendBeacon sends text/plain (no CORS preflight), so read the raw body too.
+        $input = $r->isJson() ? $r->all() : (json_decode($r->getContent(), true) ?: []);
+        $d = validator($input, [
             'events' => 'required|array|max:20',
             'events.*.type' => ['required', Rule::in(VisitEvent::TYPES)],
             'events.*.path' => 'required|string|max:255',
             'events.*.referrer' => 'nullable|string|max:500',
             'events.*.utm' => 'nullable|array',
             'events.*.lang' => 'nullable|in:bn,en',
-        ]);
+        ])->validate();
         if (Visitor::isBot($r)) return response()->noContent();
         foreach ($d['events'] as $e) {
             if ($e['type'] === 'lead') continue; // leads are counted server-side when the lead is saved

@@ -185,3 +185,4 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-19 · Theme viewer: in-demo switcher bar hidden; colour (10) + heading font controls and Full screen in the viewer bar (postMessage to the demo).
 - 2026-11-19 · A10–A18 admin: 22 modules, tsc + vite build ok, vitest 4/4, browser flow e2e 13/13 (login, draft → publish → rollback, truth guard on field, SEO, lead + note, visitors), desktop + phone screenshots checked.
 - 2026-11-19 · A03–A09 API: Pest 45 tests / 214 assertions pass (SQLite).
+- 2026-11-19 · A19 site ↔ API: CONTENT_API build reads snapshot v2 (copy override + redirect live), lead form saves to Leads (source page kept), sendBeacon events recorded (headless bots ignored), no-API build = identical site: devtest NO ISSUES on 8 devices, footer unchanged.

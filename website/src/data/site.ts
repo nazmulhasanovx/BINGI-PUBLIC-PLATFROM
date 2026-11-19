@@ -12,4 +12,8 @@ export const site = pick('site', {
   marketplace: 'https://bingi.app',
   facebook: 'https://www.facebook.com/',
   youtube: 'https://www.youtube.com/',
+  // Set in the admin (Site settings). Empty = off.
+  announcement: undefined as { bn: string; en: string } | undefined,
+  gaId: undefined as string | undefined,
+  pixelId: undefined as string | undefined,
 })

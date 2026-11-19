@@ -1,3 +1,5 @@
+import { track } from '@/lib/track'
+import { Announcement, Consent } from '@/components/site/Consent'
 import { ThemeViewer } from '@/components/site/ThemeViewer'
 import { DemoModal, FloatingWhatsApp, openDemo } from '@/components/site/Demo'
 import { FooterSkyline } from './FooterSkyline'
@@ -170,12 +172,14 @@ export function Layout() {
     const key = pathname.replace(/\/+$/, '') || '/'
     if (key.startsWith('/docs')) return // docs pages set their own title
     const m = seo[key] ?? notFoundSeo
+    track('pageview', key)
     document.title = m.title
     document.querySelector('meta[name="description"]')?.setAttribute('content', m.description)
   }, [pathname])
   return (
     <div className="min-h-dvh flex flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-full focus:bg-brand focus:px-4 focus:py-2 focus:text-white">Skip to content</a>
+      <Announcement />
       <Header />
       <main id="main" className="flex-1"><div key={pathname.startsWith('/docs/') ? '/docs/*' : pathname} className="animate-page-in"><Outlet /></div></main>
       <Footer />
@@ -183,6 +187,7 @@ export function Layout() {
       <FloatingWhatsApp />
       <DemoModal />
       <ThemeViewer />
+      <Consent />
     </div>
   )
 }

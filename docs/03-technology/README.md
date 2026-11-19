@@ -42,7 +42,8 @@ website/
 | Pricing catalog | `data/pricing.ts` (onboarding v4 per-room pricing, 9 Nov 2026) — `priceFor(rate, rooms, cycle)` = max(rooms,10) × rate × months × (1 − discount) | fetch from the Super Admin pricing version (same source as HMS) |
 | Module status | `data/status.ts` | Super Admin → Content & Web registry |
 | Help articles | `data/help.ts` (3 drafts) | shared with in-app "? Help" |
-| Demo form | builds the request and shows a "Send on WhatsApp" button | POST to lead API → NEC TEAM |
+| Demo form | POST `/api/v1/public/leads` (admin → Leads) + "Send on WhatsApp" button | + `LEAD_WEBHOOK_URL` → NEC TEAM |
+| All other content | `src/data/*.ts` read through `pick(key, fallback)` | published snapshot from the admin (`CONTENT_API` at build) — see `docs/05-admin` |
 
 ## Prerender (v2, 9 Nov 2026)
 `npm run build` = client build → SSR build of `src/entry-server.tsx` → `scripts/prerender.mjs`.
