@@ -10,6 +10,7 @@ export const loaders = {
   '/customers': () => import('./pages/customers'),
   '/changelog': () => import('./pages/changelog'),
   '/partners': () => import('./pages/partners'),
+  '/marketplace': () => import('./pages/marketplace'),
   '/careers': () => import('./pages/careers'),
   '/docs': () => import('./pages/docs'),
   '/ai': () => import('./pages/ai'),

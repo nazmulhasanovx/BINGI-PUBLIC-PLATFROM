@@ -122,7 +122,8 @@ function Footer() {
             <li><Link className="hover:text-ink" to="/themes">{t({ bn: 'ওয়েবসাইট থিম', en: 'Website themes' })}</Link></li>
             <li><Link className="hover:text-ink" to="/ai">BinGi AI <span className="text-[12px] text-link">Beta</span></Link></li>
             <li><Link className="hover:text-ink" to="/pricing">{t({ bn: 'প্রাইসিং', en: 'Pricing' })}</Link></li>
-            <li><Link className="hover:text-ink" to="/partners">{t({ bn: 'মার্কেটপ্লেস ও পার্টনার', en: 'Marketplace & partners' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/marketplace">{t({ bn: 'মার্কেটপ্লেস', en: 'Marketplace' })}</Link></li>
+            <li><Link className="hover:text-ink" to="/partners">{t({ bn: 'পার্টনার', en: 'Partners' })}</Link></li>
           </ul>
         </div>
         <div>

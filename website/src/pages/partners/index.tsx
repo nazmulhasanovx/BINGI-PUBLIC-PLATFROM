@@ -22,7 +22,7 @@ export default function Partners() {
           <p className="mt-3 text-[16px] text-muted-foreground">{t({ bn: 'bingi.app-এ গেস্টরা হোটেল খুঁজে সরাসরি বুক করে। আপনার রুম অনুমোদনের পর সেখানে দেখায়, বুকিং আসে আপনার HMS-এ।', en: 'On bingi.app guests find hotels and book directly. Your rooms appear there after approval, and bookings land in your HMS.' })}</p>
         </div>
         <div className="mt-6 flex flex-wrap gap-3 md:mt-0 md:flex-col">
-          <a href={site.marketplace} className="btn-primary h-12 px-6">{t({ bn: 'মার্কেটপ্লেস দেখুন', en: 'Visit the marketplace' })}</a>
+          <Link to="/marketplace" className="btn-primary h-12 px-6">{t({ bn: 'মার্কেটপ্লেস কীভাবে কাজ করে', en: 'How the marketplace works' })}</Link>
           <a href={site.hmsRegister} className="btn-ghost h-12 px-6">{t({ bn: 'প্রপার্টি লিস্ট করুন', en: 'List your property' })}</a>
         </div>
       </section>

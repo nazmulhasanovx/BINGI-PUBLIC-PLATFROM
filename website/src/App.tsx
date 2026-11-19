@@ -22,6 +22,7 @@ const Post = lazy(loadPost)
 const Customers = lazy(loaders['/customers'])
 const Changelog = lazy(loaders['/changelog'])
 const Partners = lazy(loaders['/partners'])
+const Marketplace = lazy(loaders['/marketplace'])
 const Careers = lazy(loaders['/careers'])
 const Docs = lazy(loaders['/docs'])
 const Doc = lazy(loadDoc)
@@ -62,6 +63,7 @@ export default function App({ ssrUrl }: { ssrUrl?: string }) {
               <Route path="customers" element={<Customers />} />
               <Route path="changelog" element={<Changelog />} />
               <Route path="partners" element={<Partners />} />
+              <Route path="marketplace" element={<Marketplace />} />
               <Route path="careers" element={<Careers />} />
               <Route path="ai" element={<Ai />} />
               <Route path="docs" element={<Docs />} />
