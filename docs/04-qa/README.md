@@ -183,3 +183,5 @@ Floors kept on purpose: text ≥ 12 px, tap targets ≥ 40 px (Apple HIG recomme
 - 2026-11-19 · Home 9.5 pass: trust strip (real facts only), room slider 10–200 + plan bullets, theme switcher + BinGi AI card, local payments/hardware strip (status to confirm), click-to-zoom module cards, demo pop-up, floating WhatsApp, LinkedIn field. devtest NO ISSUES (8 devices).
 - 2026-11-19 · Theme demos now open in an in-page viewer (iframe of /theme-demo, desktop/mobile toggle); new-tab links failed inside the sandboxed artifact. Verified in the live artifact (NEST, GRAND).
 - 2026-11-19 · Theme viewer: in-demo switcher bar hidden; colour (10) + heading font controls and Full screen in the viewer bar (postMessage to the demo).
+- 2026-11-19 · A10–A18 admin: 22 modules, tsc + vite build ok, vitest 4/4, browser flow e2e 13/13 (login, draft → publish → rollback, truth guard on field, SEO, lead + note, visitors), desktop + phone screenshots checked.
+- 2026-11-19 · A03–A09 API: Pest 45 tests / 214 assertions pass (SQLite).

@@ -25,7 +25,21 @@ class PublishController extends Controller
             'updated_at' => $e->updated_at?->toIso8601String(),
         ])->values();
         $live = Snapshot::orderByDesc('version')->first();
-        return ['items' => $items, 'live' => $live ? ['version' => $live->version, 'published_at' => $live->published_at->toIso8601String()] : null];
+        // SEO pages and redirects are not entries: compare them with the live snapshot.
+        $now = SnapshotBuilder::build('data');
+        $was = $live ? json_decode($live->content, true) : [];
+        $seoNow = json_decode(json_encode($now['seo']), true); $seoWas = $was['seo'] ?? [];
+        foreach (array_unique(array_merge(array_keys($seoNow), array_keys($seoWas))) as $path) {
+            if (($seoNow[$path] ?? null) == ($seoWas[$path] ?? null)) continue;
+            $items->push(['id' => 0, 'type' => 'seo', 'type_label' => ['bn' => 'SEO', 'en' => 'SEO'], 'title' => $path,
+                'change' => !isset($seoWas[$path]) ? 'new' : (!isset($seoNow[$path]) ? 'deleted' : 'edited'),
+                'before' => $seoWas[$path] ?? null, 'after' => $seoNow[$path] ?? null, 'updated_at' => null]);
+        }
+        if (($now['redirects'] ?? []) != ($was['redirects'] ?? [])) {
+            $items->push(['id' => 0, 'type' => 'redirects', 'type_label' => ['bn' => 'রিডাইরেক্ট', 'en' => 'Redirects'], 'title' => count($now['redirects']) . ' redirects',
+                'change' => 'edited', 'before' => ['list' => $was['redirects'] ?? []], 'after' => ['list' => $now['redirects']], 'updated_at' => null]);
+        }
+        return ['items' => $items->values(), 'live' => $live ? ['version' => $live->version, 'published_at' => $live->published_at->toIso8601String()] : null];
     }
 
     public function preview()
