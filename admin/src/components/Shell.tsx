@@ -60,6 +60,7 @@ export function Shell({ children }: { children: ReactNode }) {
           </aside>
         </div>
       )}
+      {import.meta.env.MODE === 'demo' && <div className="bg-ink px-4 py-2 text-center text-[13px] text-white">{t({ bn: 'ডেমো: সার্ভার ছাড়া চলছে — বদল শুধু এই ব্রাউজারে থাকে, পেজ রিলোড করলে মুছে যায়। আসল সাইটে কিছু যায় না।', en: 'Demo: running without a server — changes stay in this browser and reset on reload. Nothing reaches the real site.' })}</div>}
       <header className="sticky top-0 z-20 flex h-16 items-center gap-2 border-b border-line bg-pearl/85 px-4 backdrop-blur-xl md:px-8">
         <button type="button" className="grid size-11 place-items-center rounded-full hover:bg-black/5 lg:hidden" onClick={() => setOpen(true)} aria-label={t({ bn: 'মেনু', en: 'Menu' })}><MenuIcon className="size-5" /></button>
         <a href={SITE_URL} target="_blank" rel="noopener" className="hidden items-center gap-1.5 rounded-full px-3 py-2 text-[14px] text-soft hover:bg-black/5 hover:text-ink sm:inline-flex">{t({ bn: 'সাইট দেখুন', en: 'View site' })}<ExternalLink className="size-3.5" /></a>
@@ -78,7 +79,7 @@ export function Shell({ children }: { children: ReactNode }) {
 function Brand() {
   return (
     <div className="flex h-16 items-center gap-2.5 px-6">
-      <img src="/bingi-logo.png" alt="BinGi" className="h-7 w-auto" />
+      <img src={`${import.meta.env.BASE_URL}bingi-logo.png`} alt="BinGi" className="h-7 w-auto" />
       <span className="rounded-full bg-ink px-2 py-0.5 text-[11px] font-semibold tracking-wide text-white">ADMIN</span>
     </div>
   )

@@ -9,7 +9,7 @@ function Frame({ title, sub, children }: { title: string; sub: string; children:
   return (
     <div className="grid min-h-dvh place-items-center bg-[radial-gradient(80%_60%_at_50%_0%,#FFE7E4,transparent_70%)] px-4">
       <div className="w-full max-w-[400px]">
-        <img src="/bingi-logo.png" alt="BinGi" className="mx-auto h-9 w-auto" />
+        <img src={`${import.meta.env.BASE_URL}bingi-logo.png`} alt="BinGi" className="mx-auto h-9 w-auto" />
         <div className="mt-6 rounded-[28px] border border-line bg-white p-6 shadow-lift md:p-8">
           <h1 className="text-[22px] font-semibold tracking-tight">{title}</h1>
           <p className="mt-1 text-[14px] text-soft">{sub}</p>
@@ -24,8 +24,9 @@ export function Login() {
   const { t } = useLang()
   const { login } = useAuth()
   const nav = useNavigate()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const demo = import.meta.env.MODE === 'demo'
+  const [email, setEmail] = useState(demo ? 'demo@bingi.local' : '')
+  const [password, setPassword] = useState(demo ? 'demo' : '')
   const [err, setErr] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const submit = async (e: FormEvent) => {
