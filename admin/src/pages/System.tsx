@@ -80,7 +80,7 @@ export function MediaLibrary() {
   return (
     <>
       <PageHeader title={t({ bn: 'মিডিয়া লাইব্রেরি', en: 'Media library' })} sub={t({ bn: 'ছবি নিজে থেকে WebP-তে 480/960/1600 px সাইজে তৈরি হয়। PDF (অনুমতিপত্র) যেমন আছে তেমন থাকে।', en: 'Photos become WebP at 480/960/1600 px automatically. PDFs (permission letters) are kept as they are.' })}
-        actions={<label className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-brand-edge bg-linear-to-t from-brand to-brand-2 px-5 text-[15px] font-medium text-white"><UploadCloud className="size-4" />{busy ? t({ bn: 'আপলোড হচ্ছে…', en: 'Uploading…' }) : t({ bn: 'আপলোড', en: 'Upload' })}<input type="file" multiple accept="image/*,application/pdf" className="sr-only" onChange={(e) => { onFiles(e.target.files); e.target.value = '' }} /></label>} />
+        actions={<label className="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-brand-edge bg-linear-to-t from-brand to-brand-2 px-5 text-[15px] font-medium text-white"><UploadCloud className="size-4" />{busy ? t({ bn: 'আপলোড হচ্ছে…', en: 'Uploading…' }) : t({ bn: 'আপলোড', en: 'Upload' })}<input type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" className="sr-only" onChange={(e) => { onFiles(e.target.files); e.target.value = '' }} /></label>} />
       {q.loading ? <ListSkeleton /> : q.error ? <ErrorBox error={q.error} retry={q.reload} /> : !q.data?.data.length ? <Empty title={t({ bn: 'এখনো কিছু আপলোড হয়নি', en: 'Nothing uploaded yet' })} /> : (
         <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">{q.data.data.map((m) => (
           <li key={m.id} className="overflow-hidden rounded-[16px] border border-line bg-white shadow-soft">

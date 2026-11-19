@@ -24,7 +24,7 @@ class MediaController extends Controller
 
     public function store(Request $r)
     {
-        $r->validate(['file' => 'required|file|max:15360|mimes:jpg,jpeg,png,webp,gif,svg,pdf']);
+        $r->validate(['file' => ['required', 'file', 'max:15360', 'mimes:jpg,jpeg,png,webp,gif,pdf']], ['file.mimes' => 'Upload a JPG, PNG, WebP, GIF or PDF (SVG is not accepted — it can carry scripts).']);
         $f = $r->file('file');
         $mime = $f->getMimeType();
         $base = 'media/' . now()->format('Y/m') . '/' . Str::lower(Str::random(10)) . '-' . Str::slug(pathinfo($f->getClientOriginalName(), PATHINFO_FILENAME));

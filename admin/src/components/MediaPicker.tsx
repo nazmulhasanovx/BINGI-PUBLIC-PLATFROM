@@ -37,7 +37,7 @@ export function MediaPicker({ value, onChange }: { value: string; onChange: (v: 
         </div>
       )}
       <div className="flex flex-wrap gap-2">
-        <input ref={input} type="file" accept="image/*,application/pdf" className="hidden" onChange={(e) => { pick(e.target.files?.[0]); e.target.value = '' }} />
+        <input ref={input} type="file" accept="image/jpeg,image/png,image/webp,image/gif,application/pdf" className="hidden" onChange={(e) => { pick(e.target.files?.[0]); e.target.value = '' }} />
         <Button size="sm" loading={busy} onClick={() => input.current?.click()}><ImagePlus className="size-4" />{t({ bn: 'আপলোড', en: 'Upload' })}</Button>
         <Button size="sm" onClick={() => setLib(true)}><Library className="size-4" />{t({ bn: 'লাইব্রেরি থেকে', en: 'From library' })}</Button>
       </div>
