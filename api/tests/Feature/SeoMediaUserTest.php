@@ -13,8 +13,11 @@ it('edits page SEO with honest length checks and publishes it', function () {
     $this->postJson('/api/v1/seo/pages', ['path' => 'no-slash', 'title' => 'x', 'description' => 'y'])->assertStatus(422);
     $this->postJson('/api/v1/seo/redirects', ['from_path' => '/old', 'to_path' => '/pricing', 'code' => 301])->assertOk();
     $this->postJson('/api/v1/seo/redirects', ['from_path' => '/same', 'to_path' => '/same', 'code' => 301])->assertStatus(422);
+    $pending = collect($this->getJson('/api/v1/publish/pending')->json('items'));
+    expect($pending->where('type', 'seo')->pluck('title'))->toContain('/new-page')->and($pending->where('type', 'redirects'))->toHaveCount(1);
     actAs('owner');
     $this->postJson('/api/v1/publish')->assertCreated();
+    expect($this->getJson('/api/v1/publish/pending')->json('items'))->toBeEmpty();
     $c = $this->getJson('/api/v1/public/content')->json();
     expect($c['seo']['/new-page']['title'])->toBe('Short')->and($c['redirects'][0])->toBe(['from' => '/old', 'to' => '/pricing', 'code' => 301]);
 });
@@ -59,4 +62,10 @@ it('shows a dashboard', function () {
     seedContent();
     actAs('sales');
     $this->getJson('/api/v1/dashboard')->assertOk()->assertJsonPath('live.version', 1)->assertJsonPath('unpublished', 0);
+});
+
+it('refuses SVG uploads (they can carry scripts)', function () {
+    actAs('editor');
+    $svg = UploadedFile::fake()->createWithContent('x.svg', '<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>');
+    $this->postJson('/api/v1/media', ['file' => $svg])->assertStatus(422);
 });

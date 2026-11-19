@@ -4,6 +4,7 @@ import { CheckCircle2, MessageCircle, X } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { site } from '@/data/site'
 import { ios } from '@/lib/motion'
+import { sendLead, track } from '@/lib/track'
 
 // One short "Book a demo" form, opened from anywhere with openDemo(). No backend yet: the request is handed to WhatsApp.
 export const openDemo = () => window.dispatchEvent(new Event('bingi:demo'))
@@ -18,7 +19,7 @@ export function DemoModal() {
   const [sent, setSent] = useState<string | null>(null)
   const first = useRef<HTMLInputElement>(null)
   useEffect(() => {
-    const on = () => { setOpen(true); setSent(null) }
+    const on = () => { setOpen(true); setSent(null); track('demo_open') }
     window.addEventListener('bingi:demo', on)
     return () => window.removeEventListener('bingi:demo', on)
   }, [])
@@ -29,12 +30,19 @@ export function DemoModal() {
     setTimeout(() => first.current?.focus(), 60)
     return () => document.removeEventListener('keydown', k)
   }, [open])
-  const submit = (e: FormEvent) => {
+  const [saved, setSaved] = useState(false)
+  const [busy, setBusy] = useState(false)
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     const n = { name: !f.name.trim(), property: !f.property.trim(), phone: !/^\+?\d[\d\s-]{8,}$/.test(f.phone.trim()) }
     setErr(n)
     if (n.name || n.property || n.phone) return
     const msg = `Demo request\nName: ${f.name}\nProperty: ${f.property}\nPhone: ${f.phone}`
+    setBusy(true)
+    // Saved in the admin (Leads) when the API is set up; WhatsApp stays as the second way either way.
+    const r = await sendLead({ name: f.name, property: f.property, phone: f.phone })
+    setBusy(false)
+    setSaved(r.ok)
     setSent(`${site.whatsapp}?text=${encodeURIComponent(msg)}`)
   }
   const field = (id: 'name' | 'property' | 'phone', label: string, extra: Record<string, string> = {}) => (
@@ -62,16 +70,17 @@ export function DemoModal() {
             {sent ? (
               <div className="py-6 text-center" role="status">
                 <CheckCircle2 className="mx-auto size-12 text-ok" aria-hidden="true" />
-                <p className="mt-3 text-[16px] font-semibold">{t({ bn: 'অনুরোধ তৈরি', en: 'Request ready' })}</p>
-                <p className="mt-1 text-[14px] text-muted-foreground">{t({ bn: 'WhatsApp-এ মেসেজটা পাঠালেই হবে।', en: 'Send the message on WhatsApp to finish.' })}</p>
-                <a href={sent} target="_blank" rel="noopener" className="btn-primary mt-5 h-12 w-full">{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
+                <p className="mt-3 text-[16px] font-semibold">{saved ? t({ bn: 'অনুরোধ পেয়েছি', en: 'Request received' }) : t({ bn: 'অনুরোধ তৈরি', en: 'Request ready' })}</p>
+                <p className="mt-1 text-[14px] text-muted-foreground">{saved ? t({ bn: 'আমাদের টিম শিগগিরই কল করবে। চাইলে WhatsApp-এও লিখতে পারেন।', en: 'Our team will call you soon. You can also write on WhatsApp.' }) : t({ bn: 'WhatsApp-এ মেসেজটা পাঠালেই হবে।', en: 'Send the message on WhatsApp to finish.' })}</p>
+                <a href={sent} target="_blank" rel="noopener" className={`${saved ? 'btn-ghost' : 'btn-primary'} mt-5 h-12 w-full`}>{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
               </div>
             ) : (
               <form onSubmit={submit} noValidate className="mt-5 space-y-4">
                 {field('name', t({ bn: 'আপনার নাম', en: 'Your name' }), { autoComplete: 'name' })}
                 {field('property', t({ bn: 'হোটেল / প্রপার্টির নাম', en: 'Hotel / property name' }))}
                 {field('phone', t({ bn: 'ফোন নম্বর', en: 'Phone number' }), { type: 'tel', inputMode: 'tel', autoComplete: 'tel', placeholder: '01XXXXXXXXX' })}
-                <button type="submit" className="btn-primary h-12 w-full cursor-pointer">{t({ bn: 'অনুরোধ পাঠান', en: 'Send request' })}</button>
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+                <button type="submit" disabled={busy} className="btn-primary h-12 w-full cursor-pointer disabled:opacity-60">{busy ? t({ bn: 'পাঠানো হচ্ছে…', en: 'Sending…' }) : t({ bn: 'অনুরোধ পাঠান', en: 'Send request' })}</button>
               </form>
             )}
           </motion.div>

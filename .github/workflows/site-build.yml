@@ -1,0 +1,32 @@
+name: Site build (after Publish)
+# Started by the API on every Publish (repository_dispatch "content-published"), or by hand.
+# Secrets: CONTENT_API (https://api.technology.bingi.com.bd), SITE_API_URL (same, for lead form + visitor events)
+# Deploy: pick ONE block at the end once the host is known (docs/05-admin/DEPLOY.md).
+on:
+  repository_dispatch: { types: [content-published] }
+  workflow_dispatch:
+
+concurrency: { group: site-build, cancel-in-progress: true }
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: website } }
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: main }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm, cache-dependency-path: website/package-lock.json }
+      - run: npm ci
+      - run: npm run build
+        env:
+          CONTENT_API: ${{ secrets.CONTENT_API }}
+          VITE_API_URL: ${{ secrets.SITE_API_URL }}
+      - uses: actions/upload-artifact@v4
+        with: { name: site-dist, path: website/dist, retention-days: 14 }
+      # ── Deploy (uncomment one) ──────────────────────────────
+      # Cloudflare Pages:
+      # - run: npx wrangler pages deploy dist --project-name bingi-public-site
+      #   env: { CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}, CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }} }
+      # VPS over SSH (Nginx serves /var/www/technology.bingi.com.bd):
+      # - run: rsync -az --delete dist/ deploy@${{ secrets.SITE_HOST }}:/var/www/technology.bingi.com.bd/

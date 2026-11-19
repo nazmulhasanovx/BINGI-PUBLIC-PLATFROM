@@ -1,0 +1,45 @@
+@import "tailwindcss";
+/* Same tokens as the public site — one source of truth */
+@import "../../website/src/styles/bingi-theme.css";
+@source "./";
+
+@theme {
+  --color-pearl: var(--background);
+  --color-ink: var(--foreground);
+  --color-soft: #616A77;
+  --color-line: var(--border);
+  --color-line-strong: var(--input);
+  --color-brand: var(--primary);
+  --color-brand-2: var(--primary-2);
+  --color-brand-edge: var(--primary-edge);
+  --color-brand-soft: var(--accent);
+  --color-link: var(--secondary);
+  --color-canvas: var(--background);
+  --color-ok: #166534;
+  --color-ok-soft: #E7F4EC;
+  --color-warn: #92400E;
+  --color-warn-soft: #FEF2E2;
+  --color-bad: #B11C29;
+  --color-bad-soft: #FDECEC;
+  --color-info-soft: #EAF0FF;
+  --shadow-soft: 0 1px 2px rgb(15 23 32 / 0.05), 0 6px 18px -6px rgb(15 23 32 / 0.08);
+  --shadow-lift: 0 2px 6px rgb(15 23 32 / 0.06), 0 24px 48px -20px rgb(15 23 32 / 0.25);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-sans: "Instrument Sans", "Hind Siliguri", system-ui, sans-serif;
+}
+
+html[lang="bn"] body { font-family: "Hind Siliguri", "Instrument Sans", system-ui, sans-serif; }
+body { @apply bg-pearl text-ink antialiased; }
+::selection { background: #FFD9C6; }
+:focus-visible { outline: 2px solid var(--color-link); outline-offset: 2px; }
+
+@keyframes sheet-in { from { transform: translateX(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop-in { from { transform: translateY(8px) scale(.98); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes shimmer { 100% { transform: translateX(100%); } }
+.animate-sheet { animation: sheet-in 280ms var(--ease-out-quint) both; }
+.animate-fade { animation: fade-in 200ms ease-out both; }
+.animate-pop { animation: pop-in 240ms var(--ease-out-quint) both; }
+.skeleton { position: relative; overflow: hidden; background: #E9EDF2; border-radius: 8px; }
+.skeleton::after { content: ""; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, rgb(255 255 255 / .6), transparent); animation: shimmer 1.4s infinite; }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }

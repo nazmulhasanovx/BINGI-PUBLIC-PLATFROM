@@ -1,3 +1,4 @@
+import { sendLead } from '@/lib/track'
 import { useState, type FormEvent } from 'react'
 import { CheckCircle2, MapPin, MessageCircle, Phone } from 'lucide-react'
 import { useLang, type L } from '../../i18n/lang'
@@ -29,7 +30,8 @@ export default function Contact() {
   const [sent, setSent] = useState<string | null>(null)
   const set = (k: keyof Form) => (e: { target: { value: string } }) => setF({ ...f, [k]: e.target.value })
 
-  const submit = (e: FormEvent) => {
+  const [saved, setSaved] = useState(false)
+  const submit = async (e: FormEvent) => {
     e.preventDefault()
     const required = t({ bn: 'এটা দরকার', en: 'Required' })
     const n: typeof err = {}
@@ -39,8 +41,10 @@ export default function Contact() {
     if (f.rooms && !(+f.rooms > 0)) n.rooms = t({ bn: 'সংখ্যা দিন', en: 'Enter a number' })
     setErr(n)
     if (Object.keys(n).length) { document.getElementById(Object.keys(n)[0])?.focus(); return }
-    // No backend yet: hand the request to WhatsApp. Production: POST to the lead API (NEC TEAM).
+    // Saved to the admin (Leads) through the site API; WhatsApp stays as the second way.
     const msg = `Demo request\nName: ${f.name}\nProperty: ${f.property} (${f.type})\nRooms: ${f.rooms || '-'}\nPhone: ${f.phone}\nPreferred time: ${f.time || '-'}`
+    const r = await sendLead({ name: f.name, property: f.property, phone: f.phone, property_type: f.type, rooms: f.rooms ? Number(f.rooms) : null, preferred_time: f.time || null })
+    setSaved(r.ok)
     setSent(`${site.whatsapp}?text=${encodeURIComponent(msg)}`)
   }
 
@@ -64,8 +68,8 @@ export default function Contact() {
           {sent ? (
             <Bubble className="text-center py-10" origin="center"><div role="status">
               <CheckCircle2 className="size-12 text-ok mx-auto" aria-hidden="true" />
-              <h2 className="mt-4 text-[22px] font-semibold">{t({ bn: 'অনুরোধ তৈরি হয়েছে', en: 'Request ready' })}</h2>
-              <p className="mt-2 text-muted-foreground text-[15px]">{t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
+              <h2 className="mt-4 text-[22px] font-semibold">{saved ? t({ bn: 'অনুরোধ পেয়েছি', en: 'Request received' }) : t({ bn: 'অনুরোধ তৈরি হয়েছে', en: 'Request ready' })}</h2>
+              <p className="mt-2 text-muted-foreground text-[15px]">{saved ? t({ bn: 'আমাদের টিম শিগগিরই কল করবে। ফোন: ', en: 'Our team will call you soon. Phone: ' }) : t({ bn: 'নিচের বাটনে WhatsApp-এ মেসেজটা পাঠালেই আমাদের টিম যোগাযোগ করবে। ফোন: ', en: 'Send the message on WhatsApp below and our team will contact you. Phone: ' })}{site.phone}</p>
               <a href={sent} target="_blank" rel="noopener" className="btn-primary mt-6">{t({ bn: 'WhatsApp-এ পাঠান', en: 'Send on WhatsApp' })}</a>
               <button onClick={() => { setSent(null); setF(empty) }} className="btn-ghost mt-3 ml-2 cursor-pointer">{t({ bn: 'আরেকটা অনুরোধ', en: 'New request' })}</button>
             </div></Bubble>

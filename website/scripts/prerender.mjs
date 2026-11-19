@@ -29,6 +29,8 @@ function page(url, html, meta) {
     `<meta property="og:description" content="${esc(meta.description)}" />`,
     `<meta property="og:url" content="${SITE}${url}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
+    ...(meta.ogImage ? [`<meta property="og:image" content="${esc(meta.ogImage.startsWith('http') ? meta.ogImage : SITE + meta.ogImage)}" />`] : []),
+    ...(meta.noindex ? ['<meta name="robots" content="noindex" />'] : []),
     preload,
   ].join('\n    ')
   return template
@@ -46,9 +48,12 @@ fs.writeFileSync(path.join(dist, 'llms.txt'), llmsIndex(SITE))
 fs.writeFileSync(path.join(dist, 'llms-full.txt'), fullMarkdown(SITE))
 console.log('wrote llms.txt, llms-full.txt and', docs.length, 'docs/*.md')
 
-const routes = Object.keys(seo)
-for (const url of routes) {
+const routes = []
+for (const url of Object.keys(seo)) {
   const html = await render(url)
+  // An SEO entry for a path the site has no page for (typo in the admin) is skipped, never published as a 404 page.
+  if (url !== '/404' && html.includes('data-not-found')) { console.warn('skipped (no such page):', url); continue }
+  routes.push(url)
   const file = url === '/' ? path.join(dist, 'index.html') : path.join(dist, url, 'index.html')
   fs.mkdirSync(path.dirname(file), { recursive: true })
   fs.writeFileSync(file, page(url, html, seo[url]))
@@ -56,3 +61,15 @@ for (const url of routes) {
 }
 fs.writeFileSync(path.join(dist, '404.html'), page('/404', await render('/404'), notFoundSeo))
 console.log('prerendered 404.html')
+
+// sitemap.xml + robots.txt from the same SEO map (admin → SEO). noindex pages are left out.
+const indexable = routes.filter((u) => !seo[u].noindex)
+fs.writeFileSync(path.join(dist, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable.map((u) => `  <url><loc>${SITE}${u}</loc></url>`).join('\n')}\n</urlset>\n`)
+fs.writeFileSync(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n${routes.filter((u) => seo[u].noindex).map((u) => `Disallow: ${u}`).join('\n')}\n\nSitemap: ${SITE}/sitemap.xml\n`.replace(/\n\n\n/, '\n\n'))
+console.log('wrote sitemap.xml (', indexable.length, 'urls ) and robots.txt')
+
+// Redirects (admin → SEO → Redirects): Netlify/Cloudflare `_redirects` + an Nginx include.
+const { redirects } = await import(pathToFileURL(path.join(root, 'dist-ssr/seo.js')).href)
+fs.writeFileSync(path.join(dist, '_redirects'), redirects.map((r) => `${r.from} ${r.to} ${r.code}`).join('\n') + '\n')
+fs.writeFileSync(path.join(dist, 'redirects.nginx.conf'), '# include inside the server {} block\n' + redirects.map((r) => `location = ${r.from} { return ${r.code} ${r.to}; }`).join('\n') + '\n')
+console.log('wrote', redirects.length, 'redirects')

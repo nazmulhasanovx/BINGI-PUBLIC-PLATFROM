@@ -20,7 +20,15 @@ BINGI-PUBLIC-PLATFROM/
 └── motion/               Remotion videos used on the site
 ```
 
-## Run
+## Run everything (site + admin + API)
+
+```bash
+git checkout develop
+./dev.sh          # needs PHP 8.3+, Composer, Node 22+  (Mac: brew install php composer node)
+```
+Admin http://localhost:5174 (owner@bingi.local / bingi-local-1234) · Site http://localhost:5173 · API http://localhost:8000
+
+## Run the site only
 
 ```bash
 cd website

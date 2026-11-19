@@ -67,6 +67,9 @@ T=[
  dict(type="solution",kind="collection",key="solutions",module="M06",label=L("সলিউশন পেজ","Solution pages"),titleField="title",fields=[
    f("slug","string",True),f("type","enum",True,options=["home","guest","hotel","resort","group"]),f("title","l",True),f("intro","lt",True),f("runs","llist",True),f("modules","strlist",True),f("themes","strlist",True)]),
 ]
+OWNER_ONLY={"site","nav_item","footer_column","module","platform_status","integration","pricing_config","plan","property_type","compare_group"}
+for t in T:
+    if t["type"] in OWNER_ONLY: t["ownerOnly"]=True
 json.dump({"version":1,"fieldTypes":["string","text","l","lt","number","bool","enum","url","image","date","llist","strlist","list","object","blocks","json"],"types":T},open("types.json","w"),ensure_ascii=False,indent=1)
 print(len(T),"types")
 

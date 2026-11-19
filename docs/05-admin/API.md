@@ -41,11 +41,11 @@ Role column: O owner · E editor · S sales.
 | GET | `/dashboard` | O E S | today's visitors, new leads, unpublished count, live version |
 | GET | `/types` | O E | content registry + `count` + `unpublished` per type (admin builds forms from it) |
 | GET | `/entries/{type}` | O E | `{ items: [{ id, data, visible, sort, state }] }` — `state`: draft · changed · published |
-| POST | `/entries/{type}` | O E | `{ data, visible? }` → 201 |
+| POST | `/entries/{type}` | O E | `{ data, visible? }` → 201. Types marked `ownerOnly` (site, menus, status, pricing) → owner only |
 | PATCH | `/entries/{type}/{id}` | O E | `{ data?, visible? }` |
 | DELETE | `/entries/{type}/{id}` | O E | soft delete; gone from the site at next publish |
 | POST | `/entries/{type}/reorder` | O E | `{ ids: [3, 1, 2] }` |
-| GET/POST/PATCH/DELETE | `/media` `/media/{id}` | O E | upload `file` (jpg png webp gif svg pdf, 15 MB) → WebP 480/960/1600 |
+| GET/POST/PATCH/DELETE | `/media` `/media/{id}` | O E | upload `file` (jpg png webp gif pdf, 15 MB; no SVG) → WebP 480/960/1600 |
 | GET/POST/PATCH/DELETE | `/seo/pages` `/seo/pages/{id}` | O E | `{ path, title, description, og_image?, noindex? }`; answer has `checks` |
 | GET/POST/PATCH/DELETE | `/seo/redirects` `/seo/redirects/{id}` | O E | `{ from_path, to_path, code: 301\|302 }` |
 | GET | `/publish/pending` | O E | what Publish would change (`new · edited · hidden · shown · deleted`, with before/after) |
