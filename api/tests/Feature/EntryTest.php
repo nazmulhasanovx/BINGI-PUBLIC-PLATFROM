@@ -1,0 +1,80 @@
+<?php
+
+use App\Models\AuditLog;
+use App\Models\Entry;
+
+it('lists types with counts', function () {
+    actAs('editor');
+    $r = $this->getJson('/api/v1/types')->assertOk();
+    expect(collect($r->json('types'))->pluck('type'))->toContain('team_member', 'module', 'faq', 'blog_post');
+});
+
+it('creates, edits, reorders and deletes an entry, all audited', function () {
+    actAs('editor');
+    $a = $this->postJson('/api/v1/entries/team_member', ['data' => teamItem()])->assertCreated()->json('item');
+    expect($a['state'])->toBe('draft');
+    $b = $this->postJson('/api/v1/entries/team_member', ['data' => teamItem(['name' => 'Second'])])->assertCreated()->json('item');
+    $this->patchJson("/api/v1/entries/team_member/{$a['id']}", ['data' => teamItem(['name' => 'Renamed'])])->assertOk()->assertJsonPath('item.data.name', 'Renamed');
+    $this->postJson('/api/v1/entries/team_member/reorder', ['ids' => [$b['id'], $a['id']]])->assertOk();
+    expect($this->getJson('/api/v1/entries/team_member')->json('items.0.data.name'))->toBe('Second');
+    $this->deleteJson("/api/v1/entries/team_member/{$a['id']}")->assertOk();
+    expect(Entry::where('type', 'team_member')->count())->toBe(1);
+    expect(AuditLog::pluck('action')->all())->toContain('created', 'updated', 'reordered', 'deleted');
+});
+
+it('says exactly which field is wrong', function () {
+    actAs('editor');
+    $this->postJson('/api/v1/entries/team_member', ['data' => ['name' => 'X', 'role' => ['bn' => '', 'en' => 'Dev'], 'linkedin' => 'not a url']])
+        ->assertStatus(422)
+        ->assertJsonPath('fields.role', 'Write both Bangla and English.')
+        ->assertJsonPath('fields.group', 'Required.')
+        ->assertJsonPath('fields.linkedin', 'Must be a link starting with https:// or /.');
+});
+
+it('rejects an unknown type', function () {
+    actAs('editor');
+    $this->getJson('/api/v1/entries/nope')->assertStatus(404)->assertJsonPath('code', 'unknown_type');
+});
+
+it('drops fields that are not in the type', function () {
+    actAs('editor');
+    $r = $this->postJson('/api/v1/entries/team_member', ['data' => teamItem(['hack' => '<script>'])])->assertCreated();
+    expect($r->json('item.data'))->not->toHaveKey('hack');
+});
+
+describe('truth guards', function () {
+    $module = fn ($over = []) => array_replace(['id' => 'ota', 'status' => 'live', 'icon' => 'Network', 'name' => ['bn' => 'ও', 'en' => 'OTA'], 'desc' => ['bn' => 'ও', 'en' => 'OTA']], $over);
+
+    it('will not mark a module Live without who verified it and when', function () use ($module) {
+        actAs('editor');
+        $this->postJson('/api/v1/entries/module', ['data' => $module()])->assertStatus(422)->assertJsonPath('fields.verified_by', 'Live needs who verified it and when.');
+        $this->postJson('/api/v1/entries/module', ['data' => $module(['verified_by' => 'Nazmul', 'verified_at' => '2026-11-19'])])->assertCreated();
+    });
+
+    it('never lets BinGi AI be Live', function () use ($module) {
+        actAs('editor');
+        $this->postJson('/api/v1/entries/module', ['data' => $module(['id' => 'ai', 'verified_by' => 'x', 'verified_at' => '2026-11-19'])])
+            ->assertStatus(422)->assertJsonPath('fields.status', 'BinGi AI can only be Beta or Coming Soon.');
+    });
+
+    it('needs written permission to show a testimonial', function () {
+        actAs('editor');
+        $t = ['quote' => ['bn' => 'ভালো', 'en' => 'Good'], 'name' => 'A', 'role' => ['bn' => 'ম', 'en' => 'M'], 'property' => 'P'];
+        $this->postJson('/api/v1/entries/testimonial', ['data' => $t])->assertStatus(422)->assertJsonPath('fields.permission_file', 'Upload the written permission before showing this.');
+        $this->postJson('/api/v1/entries/testimonial', ['data' => $t, 'visible' => false])->assertCreated(); // can be saved hidden
+        $this->postJson('/api/v1/entries/testimonial', ['data' => $t + ['permission_file' => '/storage/media/p.pdf']])->assertCreated();
+    });
+
+    it('needs a source for every trust fact', function () {
+        actAs('editor');
+        $this->postJson('/api/v1/entries/trust_fact', ['data' => ['value' => ['bn' => '50', 'en' => '50'], 'label' => ['bn' => 'হোটেল', 'en' => 'hotels']]])
+            ->assertStatus(422)->assertJsonPath('fields.source', 'Say where this fact comes from.');
+    });
+});
+
+it('keeps single types to one item', function () {
+    actAs('owner');
+    $site = json_decode(file_get_contents(config('content.seed_dir') . '/site.json'), true)[0];
+    $this->postJson('/api/v1/entries/site', ['data' => $site])->assertCreated();
+    $this->postJson('/api/v1/entries/site', ['data' => $site])->assertStatus(409)->assertJsonPath('code', 'single_exists');
+});
