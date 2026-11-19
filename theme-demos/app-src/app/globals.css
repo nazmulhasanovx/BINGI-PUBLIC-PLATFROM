@@ -1,0 +1,339 @@
+@import "tailwindcss";
+
+:root {
+  /* neutrals (same for every colour theme) */
+  --ink: #16181d;
+  --muted: #5e6470;
+  --canvas: #fafaf9;
+  --surface: #ffffff;
+  --line: #ecebe8;
+  /* brand family — overwritten per hotel by ThemeScope */
+  --brand: #f0503f;
+  --action: #c8382a;
+  --action-hover: #ad2f23;
+  --action-pressed: #93271d;
+  --on-action: #ffffff;
+  --brand-soft: #fef3f2;
+  --brand-soft-2: #fde7e4;
+  --brand-ring: #f9b9b2;
+
+  --font-heading: var(--font-sans-stack);
+  --font-sans-stack: "Plus Jakarta Sans Variable", "Hind Siliguri", system-ui, sans-serif;
+  --font-serif-stack: "Fraunces Variable", Georgia, serif;
+  --header-h: 72px;
+}
+
+@media (max-width: 767px) {
+  :root { --header-h: 58px; }
+}
+
+[data-heading="serif"] {
+  --font-heading: var(--font-serif-stack);
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-line: var(--line);
+  --color-brand: var(--brand);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-action-pressed: var(--action-pressed);
+  --color-on-action: var(--on-action);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-2: var(--brand-soft-2);
+  --color-brand-ring: var(--brand-ring);
+  --font-sans: var(--font-sans-stack);
+  --font-heading: var(--font-heading);
+  --shadow-card: 0 1px 2px rgb(22 24 29 / 0.04), 0 8px 24px -12px rgb(22 24 29 / 0.12);
+  --shadow-float: 0 2px 6px rgb(22 24 29 / 0.06), 0 24px 48px -20px rgb(22 24 29 / 0.25);
+  --breakpoint-xs: 400px;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Lenis smooth scroll */
+html.lenis, html.lenis body { height: auto; }
+.lenis:not(.lenis-autoToggle).lenis-stopped { overflow: clip; }
+.lenis [data-lenis-prevent] { overscroll-behavior: contain; }
+.lenis.lenis-smooth iframe { pointer-events: none; }
+
+body {
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans-stack);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3, .font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--action);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+.pb-safe { padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  body * { visibility: hidden; }
+  .invoice-print, .invoice-print * { visibility: visible; }
+  .invoice-print { position: absolute; inset: 0; padding: 24px; }
+  .no-print { display: none !important; }
+}
+
+/* page transition */
+@keyframes page-in {
+  from { opacity: 0.35; }
+  to { opacity: 1; }
+}
+.page-in { animation: page-in 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ---------- Master theme shape: CITY is sharper and more compact than GRAND ---------- */
+[data-master="city"] .rounded-3xl { border-radius: 16px; }
+[data-master="city"] .rounded-\[22px\] { border-radius: 16px; }
+[data-master="city"] .rounded-2xl { border-radius: 12px; }
+/* NEST keeps GRAND's soft shapes; nothing to override. */
+
+/* Inline text editing in the admin preview (Website Management › Preview › Edit) */
+.bingi-editable { outline: 2px dashed rgb(215 56 56 / .55); outline-offset: 3px; border-radius: 4px; cursor: text; transition: outline-color .15s, background .15s; }
+.bingi-editable:hover { outline-color: #d73838; background: rgb(215 56 56 / .06); }
+.bingi-editable:focus { outline: 2px solid #d73838; background: rgb(255 255 255 / .85); color: #16181d; }
+html[data-bingi-editing] a, html[data-bingi-editing] button { cursor: default; }
+
+/* ORBIT floor stack: slow float (only when Motion = Immersive; never with reduced motion) */
+@keyframes orbit-float {
+  0%, 100% { transform: rotateX(58deg) rotateZ(-36deg); }
+  50% { transform: rotateX(55deg) rotateZ(-30deg); }
+}
+
+/* ---------- HMS (BinGi Hotel Management) shell — matches the live HMS ---------- */
+/* BinGi theme "BinGi Pearl" (light) — Nazmul 10 Nov 2026 (shadcn / 21st.dev format, full file: docs/theme/bingi-theme.css).
+   Mapped onto the hms-* tokens so HMS + onboarding use it without clashing with hotel-website theme vars. */
+@theme {
+  --color-hms-red: #b11c29;        /* --primary (action red) · white text 6.85:1 · hover #8e1621 · pressed #7a1320 */
+  --color-hms-coral: #b11c29;      /* filled buttons / avatars with white text */
+  --color-hms-brand: #fd413f;      /* --sunrise-coral: logo, large surfaces only */
+  --color-hms-coral-soft: #ffe7e4; /* --accent (coral blush) — text on it: #8e1621 or #b11c29 */
+  --color-hms-accent-ink: #8e1621; /* --accent-foreground 8.1:1 */
+  --color-hms-canvas: #f4f6f8;     /* --background (Pearl) */
+  --color-hms-nav: #f4f6f8;
+  --color-hms-line: #e3e7ec;       /* --border (decorative) */
+  --color-hms-input: #858c97;      /* --input: control borders ≥3:1 */
+  --color-hms-ink: #0f1720;        /* --foreground 16.7:1 */
+  --color-hms-muted: #4d5664;      /* --muted-foreground 7.4:1 on white */
+  --color-hms-hover: #e9edf2;      /* --muted */
+  --color-hms-green: #15803d;
+  --color-hms-green-soft: #e9f7ee;
+  --color-hms-amber: #a16207;
+  --color-hms-amber-soft: #fef6e3;
+  --color-hms-blue: #1d4ed8;       /* --secondary / --ring (Ocean Blue, D-B) */
+  --color-hms-blue-soft: #eef4ff;
+  --color-hms-danger: #c81e1e;     /* --destructive */
+  --color-hms-bay: #0b2235;
+}
+.hms-app, .bingi-ui {
+  font-family: "Instrument Sans Variable", "Hind Siliguri", system-ui, sans-serif;
+  color: #0f1720; letter-spacing: -0.003em;
+}
+.hms-app :is(h1, h2, h3), .bingi-ui :is(h1, h2, h3) {
+  font-family: "Bricolage Grotesque Variable", "Hind Siliguri", system-ui, sans-serif; letter-spacing: -0.02em;
+}
+/* Focus ring = Ocean Blue (6.2:1), never confused with the red brand */
+.hms-app :focus-visible, .bingi-ui :focus-visible { outline: 2px solid #1d4ed8; outline-offset: 2px; }
+/* Button foundation = the live HMS (iOS-style): 12 px corners, 44 px main actions, red top-to-bottom gradient with a
+   soft red shadow for the one main action; white + 1 px border for everything else. */
+.btn-glow {
+  background-color: #c8232e;
+  background-image: linear-gradient(180deg, #d22c35, #c8232e 55%, #ba1f2b);
+  box-shadow: 0 6px 16px rgb(200 35 46 / 0.24);
+  transition: background-color 0.15s ease, box-shadow 0.15s ease, transform 0.12s ease;
+}
+.btn-glow:hover { background-image: linear-gradient(180deg, #c8232e, #a81c27); }
+.btn-glow:active { transform: scale(0.985); }
+.btn-glow:disabled { filter: grayscale(0.35); box-shadow: none; }
+.hms-app :is(button, a, [role=button])[class*="rounded-lg"], .hms-app :is(button, a, [role=button])[class*="rounded-xl"] { border-radius: 12px; }
+.hms-app :is(input:not([type=checkbox]):not([type=radio]), select, textarea)[class*="rounded-lg"],
+.hms-app :is(input:not([type=checkbox]):not([type=radio]), select, textarea)[class*="rounded-xl"] { border-radius: 12px; }
+/* Cards: BinGi shadow (Bay-tinted) */
+.hms-app .shadow-card, .bingi-ui .shadow-card { box-shadow: 0 8px 24px -6px rgb(11 34 53 / 0.08); }
+/* "BinGi Bay" (dark) tokens — kept for later; HMS shows no dark toggle (decision D-D: dark only for KDS). */
+.hms-app.dark {
+  --color-hms-red: #ff6b66; --color-hms-coral: #ff6b66; --color-hms-coral-soft: #2a1a22; --color-hms-accent-ink: #ffb3b0;
+  --color-hms-canvas: #08131f; --color-hms-line: #1f3a55; --color-hms-input: #5e7c98; --color-hms-ink: #eef2f6;
+  --color-hms-muted: #b4c0cd; --color-hms-hover: #15304a; --color-hms-blue: #8aa8ff;
+}
+
+/* Onboarding: each step slides in gently (respects reduced motion). */
+@keyframes onb-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+.onb-in { animation: onb-in 280ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@media (prefers-reduced-motion: reduce) { .onb-in { animation: none; } }
+
+@keyframes onb-pop { 0% { opacity: 0; transform: scale(0.6); } 70% { transform: scale(1.08); } 100% { opacity: 1; transform: scale(1); } }
+.onb-pop { transform-box: fill-box; transform-origin: center; animation: onb-pop 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes onb-floor { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.onb-floor { animation: onb-floor 360ms ease-out both; }
+@keyframes onb-confetti { from { opacity: 0; transform: translateY(-30px); } 60% { opacity: 1; } to { opacity: 0.9; transform: translateY(40px); } }
+.onb-confetti { animation: onb-confetti 1200ms ease-out both; }
+@media (prefers-reduced-motion: reduce) { .onb-pop, .onb-floor, .onb-confetti { animation: none; } }
+
+/* ---------- HMS motion (functional, Telegram-smooth). Durations 140–280 ms; all off with reduced motion. ---------- */
+@keyframes hms-page { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes hms-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes hms-drawer-r { from { transform: translateX(100%); } to { transform: none; } }
+@keyframes hms-drawer-l { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes hms-pop { from { opacity: 0; transform: scale(0.96) translateY(-4px); } to { opacity: 1; transform: none; } }
+@keyframes hms-up { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+.hms-page-in { animation: hms-fade 150ms ease-out both; }
+.hms-fade { animation: hms-fade 0.2s ease-out both; }
+.hms-drawer-r { animation: hms-drawer-r 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hms-drawer-l { animation: hms-drawer-l 0.26s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.hms-pop { animation: hms-pop 0.14s cubic-bezier(0.2, 0.9, 0.3, 1.15) both; transform-origin: top right; }
+.hms-up { animation: hms-up 0.26s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@media (prefers-reduced-motion: reduce) {
+  .hms-page-in, .hms-fade, .hms-drawer-r, .hms-drawer-l, .hms-pop, .hms-up { animation: none; }
+}
+
+/* ================= BinGi Luxury Collection (themes/lux) ================= */
+/* Each luxury master sets its own canvas, ink, accent, heading font and radius for the whole hotel site. */
+#hotel-theme[data-master="isle"], #hotel-theme[data-master="zamindar"], #hotel-theme[data-master="maison"], #hotel-theme[data-master="noir"],
+#hotel-theme[data-master="orbit"], #hotel-theme[data-master="haven"], #hotel-theme[data-master="summit"], #hotel-theme[data-master="canopy"],
+#hotel-theme[data-master="drift"], #hotel-theme[data-master="estate"] {
+  --font-cormorant: "Cormorant Garamond Variable", Georgia, serif;
+  --font-playfair: "Playfair Display Variable", Georgia, serif;
+  --lux-r: 0px;
+  --lux-btn-r: 999px;
+  --lux-dw: 400;
+  --lux-dt: -0.015em;
+  --lux-lh: 1.04;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100svh;
+}
+#hotel-theme[data-master="isle"] { --canvas:#F6F2EA; --surface:#FFFFFF; --ink:#0E2A30; --muted:#465B60; --line:#E2DCCF; --lux-accent:#2A9D9A; --lux-accent-ink:#0E6866; --font-heading:"Italiana", Georgia, serif; --lux-r:28px; --lux-dw:400; --lux-dt:0; --lux-lh:1.02; --isle-accent:"Bodoni Moda Variable", Georgia, serif; font-family:"Manrope Variable", "Hind Siliguri", system-ui, sans-serif; }
+.isle-accent { font-family: var(--isle-accent); font-style: italic; }
+#hotel-theme[data-master="zamindar"] { --canvas:#F6F0E4; --surface:#FFFBF3; --ink:#2A1612; --muted:#664E43; --line:#E3D6BE; --lux-accent:#A8823A; --lux-accent-ink:#7A1F2B; --font-heading:var(--font-cormorant); --lux-r:0px; --lux-btn-r:0px; --lux-dw:500; }
+#hotel-theme[data-master="maison"] { --canvas:#F8F5EF; --surface:#FFFFFF; --ink:#111111; --muted:#55514C; --line:#E2DDD3; --lux-accent:#9C7C48; --lux-accent-ink:#6B5124; --font-heading:var(--font-playfair); --lux-r:0px; --lux-btn-r:0px; --lux-dt:-0.02em; }
+#hotel-theme[data-master="noir"] { --canvas:#0B0B0D; --surface:#17171A; --ink:#F3EEE4; --muted:#ABA598; --line:#2C2C31; --lux-accent:#C9A96E; --lux-accent-ink:#DCC08A; --font-heading:var(--font-playfair); --lux-r:2px; --lux-btn-r:2px; --brand-soft:#1E1C19 !important; --brand-soft-2:#26231F !important; --brand-ring:#5C4D33 !important; --brand:#C9A96E !important; --action:#D2B47C !important; --action-hover:#E0C796 !important; --action-pressed:#BFA068 !important; --on-action:#14120E !important; color-scheme: dark; }
+#hotel-theme[data-master="orbit"] { --canvas:#0A1020; --surface:#131B30; --ink:#EEF2F8; --muted:#A5B0C4; --line:#26324C; --lux-accent:#9FB4D6; --lux-accent-ink:#BCCBE6; --font-heading:"Instrument Sans Variable", system-ui, sans-serif; --lux-r:6px; --lux-btn-r:6px; --lux-dw:300; --lux-dt:-0.035em; --lux-lh:1; --brand-soft:#16203A !important; --brand-soft-2:#1C2846 !important; --brand-ring:#3A4D73 !important; --brand:#9FB4D6 !important; --action:#C9D6EC !important; --action-hover:#DCE5F4 !important; --action-pressed:#B3C3DF !important; --on-action:#0A1020 !important; font-family:"Instrument Sans Variable", "Hind Siliguri", system-ui, sans-serif; color-scheme: dark; }
+#hotel-theme[data-master="haven"] { --canvas:#F3F1EA; --surface:#FBFAF6; --ink:#1E2A22; --muted:#525E56; --line:#DCDBCF; --lux-accent:#7D9A80; --lux-accent-ink:#46664C; --font-heading:var(--font-serif-stack); --lux-r:32px; --lux-dw:330; --lux-dt:-0.02em; }
+#hotel-theme[data-master="summit"] { --canvas:#F2F0EC; --surface:#FFFFFF; --ink:#1B1F22; --muted:#53595E; --line:#DDD9D2; --lux-accent:#9A6B3F; --lux-accent-ink:#784D26; --font-heading:var(--font-serif-stack); --lux-r:6px; --lux-btn-r:6px; --lux-dw:420; --lux-dt:-0.025em; }
+#hotel-theme[data-master="canopy"] { --canvas:#F1F2EC; --surface:#FAFBF6; --ink:#13241A; --muted:#4A5A4F; --line:#D8DCCF; --lux-accent:#A88A4A; --lux-accent-ink:#3B6744; --font-heading:var(--font-cormorant); --lux-r:14px; --lux-dw:500; }
+#hotel-theme[data-master="drift"] { --canvas:#F5F2EA; --surface:#FFFDF8; --ink:#0F1E33; --muted:#4C5868; --line:#E0DACB; --lux-accent:#8C6A43; --lux-accent-ink:#1F3D66; --font-heading:var(--font-cormorant); --lux-r:4px; --lux-btn-r:4px; --lux-dw:500; }
+#hotel-theme[data-master="estate"] { --canvas:#EFEDE7; --surface:#F8F7F3; --ink:#22241F; --muted:#55584E; --line:#D7D4C9; --lux-accent:#6F7653; --lux-accent-ink:#4D5437; --font-heading:var(--font-cormorant); --lux-r:0px; --lux-btn-r:0px; --lux-dw:500; font-family:"Instrument Sans Variable", "Hind Siliguri", system-ui, sans-serif; }
+
+.lux-eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 0.28em; text-transform: uppercase; color: var(--lux-accent-ink, var(--action)); }
+.lux-rule { display: block; width: 44px; height: 1px; background: var(--lux-accent, var(--action)); }
+.lux-display { font-family: var(--font-heading); font-weight: var(--lux-dw, 400); letter-spacing: var(--lux-dt, -0.015em); line-height: var(--lux-lh, 1.04); text-wrap: balance; }
+.lux-link { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; border-bottom: 1px solid var(--lux-accent, currentColor); padding-bottom: 3px; transition: gap .3s ease; }
+.lux-link:hover { gap: 12px; }
+.lux-btn { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 26px; border-radius: var(--lux-btn-r, 999px); background: var(--action); color: var(--on-action); font-size: 14px; font-weight: 600; letter-spacing: 0.05em; transition: background .25s ease; }
+.lux-btn:hover { background: var(--action-hover); }
+.lux-btn-ghost { display: inline-flex; align-items: center; gap: 8px; height: 50px; padding: 0 22px; border-radius: var(--lux-btn-r, 999px); border: 1px solid var(--line); color: var(--ink); font-size: 14px; font-weight: 600; letter-spacing: 0.04em; transition: border-color .25s ease, background .25s ease; }
+.lux-btn-ghost:hover { border-color: var(--lux-accent, var(--ink)); }
+.lux-btn-ghost-light { color: #fff; border-color: rgb(255 255 255 / 0.55); }
+.lux-btn-ghost-light:hover { background: rgb(255 255 255 / 0.12); border-color: #fff; }
+.lux-search > * { box-shadow: 0 24px 60px -28px rgb(0 0 0 / 0.45); }
+/* HAVEN breathing circle + NOIR light sweep + ISLE water shimmer (signature motion, calm) */
+@keyframes lux-breathe { 0%,100% { transform: scale(0.82); opacity: .55 } 50% { transform: scale(1); opacity: .9 } }
+.lux-breathe { animation: lux-breathe 9s ease-in-out infinite; }
+@keyframes lux-sweep { 0% { transform: translateX(-60%) } 100% { transform: translateX(160%) } }
+.lux-sweep { animation: lux-sweep 9s linear infinite; }
+@keyframes lux-drift { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-6px) } }
+.lux-float { animation: lux-drift 7s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .lux-breathe, .lux-sweep, .lux-float { animation: none; } }
+.lux-arch { border-radius: 999px 999px 0 0 / 46% 46% 0 0; }
+#hotel-theme[data-master="noir"] .lux-card:hover img, #hotel-theme[data-master="orbit"] .lux-card:hover img { filter: brightness(1.08); }
+#hotel-theme[data-master="noir"] .lux-display { font-style: normal; }
+#hotel-theme[data-master="noir"] main img { filter: brightness(0.8) contrast(1.08) saturate(0.85); }
+
+/* ================= Signature Collection (themes/sig) — every theme has its own type pairing ================= */
+#hotel-theme[data-master="aurel"], #hotel-theme[data-master="courtyard"], #hotel-theme[data-master="axis"], #hotel-theme[data-master="waypoint"], #hotel-theme[data-master="shanti"],
+#hotel-theme[data-master="reside"], #hotel-theme[data-master="commons"], #hotel-theme[data-master="roots"], #hotel-theme[data-master="morning"], #hotel-theme[data-master="matir"] {
+  background: var(--canvas); color: var(--ink); min-height: 100svh; --lux-dw: 400; --lux-dt: 0; --lux-lh: 1.02; --lux-btn-r: 0px;
+}
+#hotel-theme[data-master="aurel"] { --canvas:#F6F1EB; --surface:#FFFFFF; --ink:#1C1714; --muted:#5C534C; --line:#E5DDD3; --lux-accent:#C8452B; --lux-accent-ink:#A33620; --font-heading:"Anton", Impact, sans-serif; --lux-lh:0.95; --lux-r:0px; --action:#B83A22 !important; --action-hover:#9C301C !important; --on-action:#fff !important; font-family:"Archivo Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="courtyard"] { --canvas:#F5ECE0; --surface:#FBF6EF; --ink:#2A1A16; --muted:#5F4B42; --line:#E3D3C0; --lux-accent:#7A1F2B; --lux-accent-ink:#6E1A26; --font-heading:"DM Serif Display", Georgia, serif; --lux-r:0px; --action:#6E1A26 !important; --action-hover:#58141E !important; --on-action:#fff !important; font-family:"Montserrat Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="axis"] { --canvas:#FFFFFF; --surface:#F4F7FD; --ink:#0B1530; --muted:#4A5675; --line:#DFE5F1; --lux-accent:#1447E6; --lux-accent-ink:#1240CF; --font-heading:"Montserrat Variable", system-ui, sans-serif; --lux-dw:800; --lux-dt:-0.03em; --lux-r:4px; --action:#0E5E6F !important; --action-hover:#0A4A58 !important; --on-action:#fff !important; font-family:"Inter Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="waypoint"] { --canvas:#F7EFE3; --surface:#FFF9F0; --ink:#3A2117; --muted:#6B4E3F; --line:#E8D6C0; --lux-accent:#E0622A; --lux-accent-ink:#B4461A; --font-heading:"Alfa Slab One", Rockwell, serif; --lux-r:16px; --lux-btn-r:12px; --action:#1F3A6B !important; --action-hover:#16294D !important; --on-action:#fff !important; font-family:"Nunito Sans Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="shanti"] { --canvas:#F8F2E8; --surface:#FFFCF6; --ink:#2C3326; --muted:#5A6152; --line:#E5DFCF; --lux-accent:#C4693F; --lux-accent-ink:#A65430; --font-heading:"Spectral", Georgia, serif; --lux-dw:500; --lux-r:20px; --lux-btn-r:999px; --action:#55673A !important; --action-hover:#46552F !important; --on-action:#fff !important; font-family:"Nunito Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="reside"] { --canvas:#F3EEE7; --surface:#FBF9F5; --ink:#1E1B18; --muted:#5B544C; --line:#E2DAD0; --lux-accent:#8C7663; --lux-accent-ink:#6B5847; --font-heading:"Gilda Display", Georgia, serif; --lux-r:4px; --action:#1E1B18 !important; --action-hover:#3A342E !important; --on-action:#fff !important; font-family:"Karla Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="commons"] { --canvas:#FFFFFF; --surface:#F3F4FF; --ink:#0C0C14; --muted:#3F4152; --line:#E0E2F0; --lux-accent:#1F2BD8; --lux-accent-ink:#1A24B8; --font-heading:"Archivo Black", Impact, sans-serif; --lux-dt:-0.01em; --lux-lh:0.92; --lux-r:6px; --action:#1F2BD8 !important; --action-hover:#1822AE !important; --on-action:#fff !important; font-family:"Space Grotesk Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="roots"] { --canvas:#F7F0E3; --surface:#FFFAF1; --ink:#2B211A; --muted:#5E5045; --line:#E5D9C4; --lux-accent:#A5352A; --lux-accent-ink:#8E2C22; --font-heading:"Literata Variable", Georgia, serif; --lux-r:10px; --lux-btn-r:6px; --action:#9C3D54 !important; --action-hover:#7E2F43 !important; --on-action:#fff !important; font-family:"Nunito Sans Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="morning"] { --canvas:#FFF9EC; --surface:#FFFFFF; --ink:#3A2414; --muted:#6A5341; --line:#F0E2C4; --lux-accent:#F2B705; --lux-accent-ink:#8A5A00; --font-heading:"Fraunces Variable", Georgia, serif; --lux-dw:800; --lux-dt:-0.02em; --lux-r:22px; --lux-btn-r:999px; --action:#7D5A00 !important; --action-hover:#634700 !important; --on-action:#fff !important; font-family:"Nunito Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="morning"] .lux-display { font-style: italic; }
+#hotel-theme[data-master="matir"] { --canvas:#F5EEDF; --surface:#FFFAF0; --ink:#3A2216; --muted:#62503F; --line:#E2D4BB; --lux-accent:#B5532C; --lux-accent-ink:#953F1E; --font-heading:"Young Serif", Georgia, serif; --lux-r:12px; --lux-btn-r:6px; --action:#2E6B34 !important; --action-hover:#225228 !important; --on-action:#fff !important; font-family:"Nunito Sans Variable", system-ui, sans-serif; }
+.sig-script { font-family: "Caveat Variable", cursive; }
+.sig-marker { font-family: "Permanent Marker", cursive; }
+.sig-satisfy { font-family: "Satisfy", cursive; }
+.sig-caps { text-transform: uppercase; letter-spacing: 0.22em; font-size: 11.5px; font-weight: 600; }
+
+/* Luxury v1 — unique body fonts per theme (audit A2) */
+#hotel-theme[data-master="zamindar"] { --font-heading:"Rozha One", Georgia, serif; --lux-dw:400; font-family:"Nunito Sans Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="maison"] { font-family:"Montserrat Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="noir"] { --font-heading:"Marcellus", Georgia, serif; --lux-dw:400; font-family:"Space Grotesk Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="haven"] { --font-heading:"Lora Variable", Georgia, serif; font-family:"Karla Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="summit"] { --font-heading:"Bricolage Grotesque Variable", system-ui, sans-serif; font-family:"Archivo Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="canopy"] { --font-heading:"Libre Baskerville", Georgia, serif; --lux-dw:400; font-family:"Nunito Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="drift"] { font-family:"Karla Variable", system-ui, sans-serif; }
+#hotel-theme[data-master="estate"] { --font-heading:"Prata", Georgia, serif; --lux-dw:400; }
+
+/* Body fonts — one per paid theme (audit 2026-11-11) */
+#hotel-theme[data-master="summit"] { font-family:"Work Sans Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="drift"] { font-family:"DM Sans Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="estate"] { font-family:"Lora Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="courtyard"] { font-family:"Jost Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="waypoint"] { font-family:"Figtree Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="shanti"] { font-family:"Mulish Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="reside"] { font-family:"Sora Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="commons"] { font-family:"Rubik Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="roots"] { font-family:"Quicksand Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="morning"] { font-family:"Outfit Variable", "Hind Siliguri", system-ui, sans-serif; }
+#hotel-theme[data-master="matir"] { font-family:"Hind Siliguri", "Hind Siliguri", system-ui, sans-serif; }
+
+/* One page frame for every HMS module: same width, same padding, so nothing jumps between modules. */
+.hms-page { margin-inline: auto; width: 100%; max-width: 1600px; padding: 16px; }
+@media (min-width: 640px) { .hms-page { padding: 24px; } }
+@media (min-width: 1280px) { .hms-page { padding: 28px 32px; } }
+/* Big screens (27" at 2560 px, 4K): scale the whole app so text and controls stay comfortable. */
+@media (min-width: 1880px) { .hms-app { zoom: 1.12; height: calc(100dvh / 1.12) !important; } }
+@media (min-width: 2300px) { .hms-app { zoom: 1.28; height: calc(100dvh / 1.28) !important; } }
+@media (min-width: 3200px) { .hms-app { zoom: 1.6; height: calc(100dvh / 1.6) !important; } }
+
+/* Out-of-order rooms in the bookings calendar */
+.hms-hatch { background-image: repeating-linear-gradient(135deg, rgb(233 185 73 / 0.16) 0 6px, transparent 6px 12px); }
+
+/* ---------- Route transitions: a plain 150 ms fade of the page content only (no view transitions, no zoom). ---------- */
+/* Nested page fades never stack. */
+.hms-page-in .hms-page-in { animation: none; }
+
+/* My preferences → Reduce motion: switch off page/drawer animations inside the HMS. */
+.hms-no-motion *, .hms-no-motion *::before, .hms-no-motion *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+
+/* HMS app frame: the page itself never scrolls sideways (wide tables and tab rows scroll inside their own box).
+   Chrome let inner scroll content extend the root's scroll area at tablet widths. */
+html:has(.hms-app), html:has(.hms-app) body { overflow-x: clip; }
+/* Screen-reader-only text keeps its static position by default; inside a wide scrolling table that position can be
+   far to the right and stretch the page. Pin it to the containing block's corner instead (still read by screen readers). */
+.hms-app .sr-only:not(:focus):not(:focus-within) { left: 0; top: 0; }

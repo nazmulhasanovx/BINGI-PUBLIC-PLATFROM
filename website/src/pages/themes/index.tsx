@@ -5,7 +5,7 @@ import { useLang } from '@/i18n/lang'
 import { PageHeader, PillTabs } from '@/components/ui/Ui'
 import { Reveal } from '@/components/ui/Reveal'
 import { ThemeCard } from '@/components/ui/ThemeCard'
-import { storeThemes, themes, themesFor } from '@/data/themes'
+import { demoUrl, storeThemes, themes, themesFor } from '@/data/themes'
 import { asset } from '@/lib/utils'
 import type { PlanId } from '@/data/pricing'
 
@@ -17,7 +17,7 @@ export default function Themes() {
   return (
     <div className="container-x">
       <PageHeader mark={t({ bn: 'ওয়েবসাইট', en: 'website' })} title={t({ bn: 'আপনার হোটেলের নিজের ওয়েবসাইট', en: 'Your hotel’s own website' })}
-        lead={t({ bn: 'থিম বাছুন, রং দিন, প্রকাশ করুন।', en: 'Pick a theme, set your colour, publish.' })} />
+        lead={t({ bn: 'থিম বাছুন, রং দিন, প্রকাশ করুন। যেকোনো থিমে ক্লিক করলে তার লাইভ ডেমো খোলে — ঘুরে দেখুন, রুম খুলুন, বুকিং পর্যন্ত যান (ডেমো — আসল বুকিং হয় না)।', en: 'Pick a theme, set your colour, publish. Click any theme to open its live demo — browse it, open rooms, go all the way to booking (demo — nothing is really booked).' })} />
 
       <div className="mt-10">
         <PillTabs size="sm" label="Plan" value={plan} onChange={setPlan}
@@ -44,10 +44,10 @@ export default function Themes() {
             <h3 className="text-[15px] font-semibold text-white/90">{t(label)}</h3>
             <div className="mt-3 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-5">
               {storeThemes.filter((x) => x.collection === col).map((s) => (
-                <figure key={s.id} className="overflow-hidden rounded-[14px] bg-white/5 ring-1 ring-white/10">
-                  <FadeImg src={asset(`/media/themes/${s.id}.webp`)} alt={`${s.name} theme — demo`} loading="lazy" width={720} height={450} className="aspect-[16/10] w-full object-cover object-top" />
-                  <figcaption className="p-3"><span className="text-[14px] font-semibold tracking-[0.06em]">{s.name}</span><span className="block text-[13px] text-white/70">{t(s.for)}</span></figcaption>
-                </figure>
+                <a key={s.id} href={asset(demoUrl(s.demo))} target="_blank" rel="noopener" aria-label={`${s.name} — ${t({ bn: 'লাইভ ডেমো খুলুন', en: 'open live demo' })}`} className="group block overflow-hidden rounded-[14px] bg-white/5 ring-1 ring-white/10 transition hover:ring-white/40 focus-visible:ring-white">
+                  <div className="overflow-hidden"><FadeImg src={asset(`/media/themes/${s.id}.webp`)} alt={`${s.name} theme — demo`} loading="lazy" width={720} height={450} className="aspect-[16/10] w-full object-cover object-top transition-transform duration-700 group-hover:scale-[1.04]" /></div>
+                  <span className="block p-3"><span className="flex items-center justify-between text-[14px] font-semibold tracking-[0.06em]">{s.name}<span className="text-[12px] font-medium tracking-normal text-white/60 group-hover:text-white">{t({ bn: 'ডেমো ↗', en: 'Demo ↗' })}</span></span><span className="block text-[13px] text-white/70">{t(s.for)}</span></span>
+                </a>
               ))}
             </div>
           </div>
