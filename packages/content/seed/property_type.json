@@ -1,0 +1,62 @@
+[
+ {
+  "id": "home",
+  "name": {
+   "bn": "হোম / ফ্ল্যাট",
+   "en": "Home / flat"
+  },
+  "plan": "starter",
+  "need": {
+   "bn": "কয়েকটা রুম অনলাইনে দিন, বুকিং নিন",
+   "en": "List a few rooms online and take bookings"
+  }
+ },
+ {
+  "id": "guest",
+  "name": {
+   "bn": "গেস্ট হাউস",
+   "en": "Guest house"
+  },
+  "plan": "starter",
+  "need": {
+   "bn": "বুকিং, গেস্ট তথ্য আর নিজের ওয়েবসাইট",
+   "en": "Bookings, guest records and your own website"
+  }
+ },
+ {
+  "id": "hotel",
+  "name": {
+   "bn": "হোটেল",
+   "en": "Hotel"
+  },
+  "plan": "business",
+  "need": {
+   "bn": "প্রতিদিনের অপারেশন: হাউসকিপিং, রেস্টুরেন্ট, খরচ",
+   "en": "Daily operations: housekeeping, restaurant, expenses"
+  }
+ },
+ {
+  "id": "resort",
+  "name": {
+   "bn": "রিসোর্ট",
+   "en": "Resort"
+  },
+  "plan": "ultra",
+  "need": {
+   "bn": "বড় টিম, স্টক আর অনেক চলমান কাজ",
+   "en": "A bigger team, stock and more moving parts"
+  }
+ },
+ {
+  "id": "group",
+  "name": {
+   "bn": "হোটেল গ্রুপ",
+   "en": "Hotel group"
+  },
+  "plan": "custom",
+  "need": {
+   "bn": "একাধিক প্রপার্টি এক অ্যাকাউন্টে",
+   "en": "Several properties under one account"
+  }
+ }
+]

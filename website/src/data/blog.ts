@@ -1,11 +1,12 @@
 import type { L } from '../i18n/lang'
+import { pick } from './content'
 
 // Blog / guides. Practical advice only — no invented statistics, no customer claims.
 export type Block = { h: L } | { p: L } | { list: L[] }
 // cover = a real BinGi screen (never stock UI); caption says which screen it is.
 export type Post = { slug: string; date: string; tag: L; title: L; summary: L; cover: { src: string; alt: L }; body: Block[] }
 
-export const posts: Post[] = [
+export const posts: Post[] = pick('posts', [
   {
     slug: 'write-a-listing-guests-trust', date: '2026-11-19',
     cover: { src: '/media/guest/hotel.webp', alt: { bn: 'BinGi Guest App-এ একটা হোটেল পেজ', en: 'A hotel page in the BinGi Guest App' } },
@@ -130,7 +131,7 @@ export const posts: Post[] = [
       { p: { bn: 'BinGi-র প্রতিটা প্ল্যানে বুকিং ইঞ্জিনসহ নিজের ওয়েবসাইট থাকে, আর রিসেপশনে নেওয়া ওয়াক-ইন বুকিংয়ে কোনো ফি নেই।', en: 'Every BinGi plan includes your own website with a booking engine, and walk-in bookings at reception have no fee.' } },
     ],
   },
-]
+])
 
 export const readMinutes = (p: Post, lang: 'bn' | 'en') => {
   const words = p.body.flatMap((b) => ('p' in b ? [b.p[lang]] : 'h' in b ? [b.h[lang]] : b.list.map((x) => x[lang]))).join(' ').split(/\s+/).length

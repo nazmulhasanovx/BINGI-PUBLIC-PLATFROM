@@ -1,10 +1,11 @@
 import type { L } from '../i18n/lang'
+import { pick } from './content'
 
 // What's new. Month-level dates. Status is explicit on every entry: live / testing / soon.
 // Source: project status docs (9–10 Nov 2026). Confirm with the dev team before each release note goes out.
 export type Change = { month: L; status: 'live' | 'testing' | 'soon'; title: L; items: L[] }
 
-export const changes: Change[] = [
+export const changes: Change[] = pick('changes', [
   { month: { bn: 'নভেম্বর 2026', en: 'November 2026' }, status: 'testing',
     title: { bn: 'নতুন HMS ড্যাশবোর্ড ও সাইডবার', en: 'New HMS dashboard and sidebar' },
     items: [
@@ -57,4 +58,4 @@ export const changes: Change[] = [
       { bn: 'ডেভেলপার API', en: 'Developer API' },
       { bn: 'HMS-এর ভেতরে BinGi AI', en: 'BinGi AI inside the HMS' },
     ] },
-]
+])

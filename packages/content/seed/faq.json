@@ -1,0 +1,156 @@
+[
+ {
+  "page": "home",
+  "q": {
+   "bn": "কিছু ইনস্টল করতে হবে?",
+   "en": "Do I need to install anything?"
+  },
+  "a": {
+   "bn": "না। BinGi HMS ব্রাউজারে চলে। স্টাফদের জন্য মোবাইল অ্যাপও আছে।",
+   "en": "No. BinGi HMS runs in the browser, and staff also have a mobile app."
+  }
+ },
+ {
+  "page": "home",
+  "q": {
+   "bn": "বাংলায় ব্যবহার করা যাবে?",
+   "en": "Can my team use it in Bangla?"
+  },
+  "a": {
+   "bn": "হ্যাঁ, বাংলা আর ইংরেজি দুটোই আছে।",
+   "en": "Yes, it works in Bangla and English."
+  }
+ },
+ {
+  "page": "home",
+  "q": {
+   "bn": "গেস্ট কীভাবে বুক করবে?",
+   "en": "How do guests book?"
+  },
+  "a": {
+   "bn": "আপনার নিজের ওয়েবসাইট, BinGi মার্কেটপ্লেস (bingi.app) অথবা সরাসরি রিসেপশনে।",
+   "en": "On your own website, the BinGi Marketplace (bingi.app), or at reception."
+  }
+ },
+ {
+  "page": "home",
+  "q": {
+   "bn": "আমার ডেটা কি আলাদা থাকবে?",
+   "en": "Is my data kept separate?"
+  },
+  "a": {
+   "bn": "হ্যাঁ। প্রতিটা প্রপার্টির ডেটা, স্টাফ আর বিল আলাদা, শুধু অনুমতি পাওয়া মানুষ দেখে।",
+   "en": "Yes. Each property has its own data, staff and invoices, visible only to people you allow."
+  }
+ },
+ {
+  "page": "home",
+  "q": {
+   "bn": "সেটআপে সাহায্য পাবো?",
+   "en": "Will you help me set up?"
+  },
+  "a": {
+   "bn": "হ্যাঁ। রিমোট ট্রেনিং এখন ফ্রি; চাইলে অনসাইট ট্রেনিংও আছে।",
+   "en": "Yes. Remote training is free right now, and onsite training is available."
+  }
+ },
+ {
+  "page": "pricing",
+  "q": {
+   "bn": "দাম কীভাবে হিসাব হয়?",
+   "en": "How is the price calculated?"
+  },
+  "a": {
+   "bn": "রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। 6 মাসে প্রায় 10% আর 12 মাসে প্রায় 25% ছাড়, রুমের রেট পূর্ণ টাকায়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।",
+   "en": "Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line."
+  }
+ },
+ {
+  "page": "pricing",
+  "q": {
+   "bn": "10টার কম রুম থাকলে?",
+   "en": "What if I have fewer than 10 rooms?"
+  },
+  "a": {
+   "bn": "সর্বনিম্ন বিলিং 10 রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।",
+   "en": "Billing starts at 10 rooms. You only add the rooms you really have."
+  }
+ },
+ {
+  "page": "pricing",
+  "q": {
+   "bn": "বুকিং ফি কী?",
+   "en": "What are booking fees?"
+  },
+  "a": {
+   "bn": "BinGi মার্কেটপ্লেস বা আপনার ওয়েবসাইট থেকে আসা বুকিংয়ে ছোট একটা শতাংশ। রিসেপশনে নেওয়া ওয়াক-ইন বুকিংয়ে কোনো ফি নেই।",
+   "en": "A small percentage on bookings from the BinGi Marketplace or your website. Walk-in bookings at reception have no fee."
+  }
+ },
+ {
+  "page": "pricing",
+  "q": {
+   "bn": "আর কোনো খরচ আছে?",
+   "en": "Any other costs?"
+  },
+  "a": {
+   "bn": "এখন কোনো VAT যোগ হয় না। SMS ও ইমেইল যায় আপনার নিজের প্রোভাইডার দিয়ে — তাদের চার্জ সরাসরি তাদের দেবেন; কানেক্ট না করলে OTP/SMS যাবে না। কেনা ডোমেইন রিনিউ, পেমেন্ট গেটওয়ে ফি আর কাস্টম কাজ আলাদা দেখানো হয় — আপনি রাজি হলে তবেই।",
+   "en": "No VAT is added for now. SMS and email go through your own provider — you pay them directly; without one connected, OTP and SMS are not sent. Domain renewal, payment gateway fees and custom work are shown separately — only if you agree."
+  }
+ },
+ {
+  "page": "marketplace",
+  "q": {
+   "bn": "মার্কেটপ্লেসে আসতে কী লাগে?",
+   "en": "What do I need to get listed?"
+  },
+  "a": {
+   "bn": "BinGi অ্যাকাউন্ট, রুম আর দাম সেটআপ, আর আসল ছবি। তারপর HMS থেকে অনুরোধ পাঠালে BinGi টিম যাচাই করে অনুমোদন দেয়।",
+   "en": "A BinGi account, your rooms and prices set up, and real photos. Then request access in HMS and the BinGi team reviews and approves."
+  }
+ },
+ {
+  "page": "marketplace",
+  "q": {
+   "bn": "কমিশন কখন কাটা হয়?",
+   "en": "When does the commission apply?"
+  },
+  "a": {
+   "bn": "শুধু মার্কেটপ্লেস থেকে আসা বুকিংয়ে, আপনার প্ল্যানের হারে। বিস্তারিত দাম পেজে আছে।",
+   "en": "Only on bookings that come from the marketplace, at your plan’s rate. Details are on the pricing page."
+  }
+ },
+ {
+  "page": "marketplace",
+  "q": {
+   "bn": "গেস্ট কি অনলাইনে টাকা দিতে পারে?",
+   "en": "Can guests pay online?"
+  },
+  "a": {
+   "bn": "BinGi দিয়ে অনলাইন পেমেন্ট এখনো Coming Soon। আপনার প্রপার্টিতে কোন পেমেন্ট উপায় চালু, BinGi টিমকে জিজ্ঞেস করুন।",
+   "en": "Online payment through BinGi is still Coming Soon. Ask the BinGi team which payment options are active for your property."
+  }
+ },
+ {
+  "page": "marketplace",
+  "q": {
+   "bn": "গেস্টের মেসেজ কে দেখে?",
+   "en": "Who answers guest messages?"
+  },
+  "a": {
+   "bn": "আপনার টিম — HMS-এর Chat থেকে। মেসেজ সরাসরি সেখানে আসে।",
+   "en": "Your team, from Chat in HMS. Messages arrive there directly."
+  }
+ },
+ {
+  "page": "marketplace",
+  "q": {
+   "bn": "কিছু রুম মার্কেটপ্লেস থেকে সরাতে পারব?",
+   "en": "Can I keep some rooms off the marketplace?"
+  },
+  "a": {
+   "bn": "হ্যাঁ। HMS-এ প্রতিটা রুম মার্কেটপ্লেসে দেখাবে কিনা, আলাদা করে ঠিক করা যায়।",
+   "en": "Yes. In HMS you choose, room by room, whether it shows on the marketplace."
+  }
+ }
+]

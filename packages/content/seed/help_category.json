@@ -1,0 +1,66 @@
+[
+ {
+  "id": "start",
+  "icon": "Rocket",
+  "name": {
+   "bn": "শুরু করা",
+   "en": "Getting started"
+  }
+ },
+ {
+  "id": "bookings",
+  "icon": "CalendarDays",
+  "name": {
+   "bn": "বুকিং",
+   "en": "Bookings"
+  }
+ },
+ {
+  "id": "rooms",
+  "icon": "BedDouble",
+  "name": {
+   "bn": "রুম",
+   "en": "Rooms"
+  }
+ },
+ {
+  "id": "housekeeping",
+  "icon": "Sparkles",
+  "name": {
+   "bn": "হাউসকিপিং",
+   "en": "Housekeeping"
+  }
+ },
+ {
+  "id": "guests",
+  "icon": "MessagesSquare",
+  "name": {
+   "bn": "গেস্ট ও চ্যাট",
+   "en": "Guests & Chat"
+  }
+ },
+ {
+  "id": "restaurant",
+  "icon": "UtensilsCrossed",
+  "name": {
+   "bn": "রেস্টুরেন্ট ও বার",
+   "en": "Restaurant & Bar"
+  }
+ },
+ {
+  "id": "staff",
+  "icon": "Users",
+  "name": {
+   "bn": "স্টাফ ও HRM",
+   "en": "Staff & HRM"
+  }
+ },
+ {
+  "id": "billing",
+  "icon": "Wallet",
+  "name": {
+   "bn": "পেমেন্ট ও বিলিং",
+   "en": "Payments & Billing"
+  }
+ }
+]

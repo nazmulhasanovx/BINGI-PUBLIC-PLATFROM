@@ -1,0 +1,57 @@
+[
+ {
+  "id": "bkash",
+  "kind": "pay",
+  "status": "confirm",
+  "name": {
+   "bn": "bKash",
+   "en": "bKash"
+  },
+  "verified_by": "Existing site (before admin)",
+  "verified_at": "2026-11-19"
+ },
+ {
+  "id": "nagad",
+  "kind": "pay",
+  "status": "confirm",
+  "name": {
+   "bn": "Nagad",
+   "en": "Nagad"
+  },
+  "verified_by": "Existing site (before admin)",
+  "verified_at": "2026-11-19"
+ },
+ {
+  "id": "sslcommerz",
+  "kind": "pay",
+  "status": "confirm",
+  "name": {
+   "bn": "SSLCommerz",
+   "en": "SSLCommerz"
+  },
+  "verified_by": "Existing site (before admin)",
+  "verified_at": "2026-11-19"
+ },
+ {
+  "id": "printer",
+  "kind": "hw",
+  "status": "confirm",
+  "name": {
+   "bn": "POS / রিসিট প্রিন্টার",
+   "en": "POS / receipt printer"
+  },
+  "verified_by": "Existing site (before admin)",
+  "verified_at": "2026-11-19"
+ },
+ {
+  "id": "lock",
+  "kind": "hw",
+  "status": "confirm",
+  "name": {
+   "bn": "কী-কার্ড / স্মার্ট লক",
+   "en": "Key card / smart lock"
+  },
+  "verified_by": "Existing site (before admin)",
+  "verified_at": "2026-11-19"
+ }
+]

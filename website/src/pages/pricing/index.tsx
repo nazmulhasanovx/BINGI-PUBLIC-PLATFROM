@@ -1,17 +1,12 @@
+import { faqsFor } from '@/data/faqs'
 import { useState } from 'react'
 import { CheckCheck, Gift, Minus } from 'lucide-react'
-import { useLang, type L } from '../../i18n/lang'
+import { useLang } from '../../i18n/lang'
 import { compare, offers, plans, type Cell } from '../../data/pricing'
 import { Accordion, PillTabs, SectionHead } from '../../components/ui/Ui'
 import { StudioDisplay } from '../../components/media/Devices'
 import PricingSection, { ActivationLine } from '@/components/ui/pricing-section'
 
-const faqs: { q: L; a: L }[] = [
-  { q: { bn: 'দাম কীভাবে হিসাব হয়?', en: 'How is the price calculated?' }, a: { bn: 'রুম সংখ্যা × প্রতি রুমের মাসিক রেট × মাস। 6 মাসে প্রায় 10% আর 12 মাসে প্রায় 25% ছাড়, রুমের রেট পূর্ণ টাকায়। প্রযোজ্য ট্যাক্স আলাদা লাইনে।', en: 'Rooms × monthly rate per room × months. 10% off the subscription for 6 months, 25% for 12 months. Applicable taxes are a separate line.' } },
-  { q: { bn: '10টার কম রুম থাকলে?', en: 'What if I have fewer than 10 rooms?' }, a: { bn: 'সর্বনিম্ন বিলিং 10 রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।', en: 'Billing starts at 10 rooms. You only add the rooms you really have.' } },
-  { q: { bn: 'বুকিং ফি কী?', en: 'What are booking fees?' }, a: { bn: 'BinGi মার্কেটপ্লেস বা আপনার ওয়েবসাইট থেকে আসা বুকিংয়ে ছোট একটা শতাংশ। রিসেপশনে নেওয়া ওয়াক-ইন বুকিংয়ে কোনো ফি নেই।', en: 'A small percentage on bookings from the BinGi Marketplace or your website. Walk-in bookings at reception have no fee.' } },
-  { q: { bn: 'আর কোনো খরচ আছে?', en: 'Any other costs?' }, a: { bn: 'এখন কোনো VAT যোগ হয় না। SMS ও ইমেইল যায় আপনার নিজের প্রোভাইডার দিয়ে — তাদের চার্জ সরাসরি তাদের দেবেন; কানেক্ট না করলে OTP/SMS যাবে না। কেনা ডোমেইন রিনিউ, পেমেন্ট গেটওয়ে ফি আর কাস্টম কাজ আলাদা দেখানো হয় — আপনি রাজি হলে তবেই।', en: 'No VAT is added for now. SMS and email go through your own provider — you pay them directly; without one connected, OTP and SMS are not sent. Domain renewal, payment gateway fees and custom work are shown separately — only if you agree.' } },
-]
 
 function CellView({ c }: { c: Cell }) {
   const { t } = useLang()
@@ -92,7 +87,7 @@ export default function Pricing() {
 
         <section className="mt-14 max-w-[820px] mx-auto">
           <SectionHead title={t({ bn: 'প্রাইসিং প্রশ্ন', en: 'Pricing questions' })} />
-          <div className="mt-8"><Accordion items={faqs.map((f) => ({ q: t(f.q), a: t(f.a) }))} /></div>
+          <div className="mt-8"><Accordion items={faqsFor('pricing').map((f) => ({ q: t(f.q), a: t(f.a) }))} /></div>
         </section>
       </div>
     </div>

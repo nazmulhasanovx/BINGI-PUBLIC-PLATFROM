@@ -1,0 +1,79 @@
+[
+ {
+  "minBillable": 10,
+  "launchOff": 60,
+  "launchUntil": {
+   "bn": "11 ফেব্রুয়ারি 2027",
+   "en": "11 Feb 2027"
+  },
+  "themePrice": 50,
+  "cycles": [
+   {
+    "id": "monthly",
+    "months": 1,
+    "discount": 0,
+    "label": {
+     "bn": "মাসিক",
+     "en": "Monthly"
+    }
+   },
+   {
+    "id": "six",
+    "months": 6,
+    "discount": 0.1,
+    "label": {
+     "bn": "6 মাস",
+     "en": "6 months"
+    }
+   },
+   {
+    "id": "yearly",
+    "months": 12,
+    "discount": 0.25,
+    "label": {
+     "bn": "12 মাস",
+     "en": "12 months"
+    }
+   }
+  ],
+  "cycleRates": {
+   "25": {
+    "monthly": 25,
+    "six": 23,
+    "yearly": 19
+   },
+   "70": {
+    "monthly": 70,
+    "six": 63,
+    "yearly": 53
+   },
+   "116": {
+    "monthly": 116,
+    "six": 105,
+    "yearly": 87
+   }
+  },
+  "offers": [
+   {
+    "bn": "Business অ্যাক্টিভেশন ৳14,500 — এখন ৳4,999",
+    "en": "Business activation ৳14,500 — now ৳4,999"
+   },
+   {
+    "bn": "Ultra অ্যাক্টিভেশন ৳29,500 — এখন ৳8,999",
+    "en": "Ultra activation ৳29,500 — now ৳8,999"
+   },
+   {
+    "bn": "রিমোট টিম ট্রেনিং ৳500/শিফট — এখন ফ্রি",
+    "en": "Remote team training ৳500/shift — now free"
+   },
+   {
+    "bn": "অনসাইট ট্রেনিং ৳12,500 — টিমের থাকা-খাওয়া প্রপার্টি দেবে",
+    "en": "Onsite training ৳12,500 — property provides team meals & stay"
+   },
+   {
+    "bn": "ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳0",
+    "en": "Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them"
+   }
+  ]
+ }
+]

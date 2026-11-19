@@ -1,3 +1,4 @@
+import { pick } from './content'
 // BinGi public documentation — ONE source for the /docs pages, per-page Markdown, /llms.txt and /llms-full.txt.
 // Written so a person OR any LLM can read it and fix a user's issue.
 // Sources: Sidebar v6 (names follow the live HMS), module rules, pricing data, status registry, staging check 9 Nov 2026,
@@ -24,7 +25,7 @@ export const DOCS_VERSION = 'v0.2 draft · 12 November 2026'
 export const SUPPORT = 'WhatsApp +880 1624-127562 (https://wa.me/8801624127562) · BinGi, Level 11, Medona Tower, 28 Mohakhali C/A, Dhaka 1213'
 const ACCESS_CHECK = 'Check the three gates every BinGi screen respects: (1) your PLAN includes the module, (2) your ROLE has permission, (3) the right PROPERTY is selected in the property switcher at the top.'
 
-export const docs: DocPage[] = [
+export const docs: DocPage[] = pick('docs', [
   // ───────────────────────── START HERE
   {
     slug: 'fix-with-ai', group: 'Start here', title: 'Fix an issue with AI',
@@ -505,7 +506,7 @@ export const docs: DocPage[] = [
       { heading: 'Never send', list: ['Passwords or OTP codes', 'Full card numbers'] },
     ],
   },
-]
+])
 
 // ───────── Markdown (for "Copy for AI", per-page .md, /llms.txt and /llms-full.txt)
 export function pageToMarkdown(p: DocPage): string {
