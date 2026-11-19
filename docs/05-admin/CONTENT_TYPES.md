@@ -2,7 +2,7 @@
 
 Field types: `string` one line · `text` multi-line · `l` bilingual line {bn,en} · `lt` bilingual multi-line · `number` · `bool` · `enum` (fixed options) · `url` · `image` (media library path) · `date` YYYY-MM-DD · `llist` list of `l` · `strlist` list of strings · `list` list of objects · `object` · `blocks` blog body (heading / paragraph / list) · `json` raw JSON.
 
-`internal` fields stay in the admin and are never published. Guards: `verified_live` (Live needs verified_by + verified_at) · `ai_not_live` (BinGi AI cannot be Live) · `permission` (visible needs permission_file) · `source` (needs a source).
+`internal` fields stay in the admin and are never published. Guards: `verified_live` (Live needs verified_by + verified_at) · `ai_not_live` (BinGi AI cannot be Live) · `permission` (visible needs permission_file) · `source` (needs a source) · `result_sources` (every result number needs a source) · `no_sample_visible` (a sample can never be shown).
 
 | Type | Kind | Snapshot key | Module | Name | Guards |
 |---|---|---|---|---|---|
@@ -24,6 +24,7 @@ Field types: `string` one line · `text` multi-line · `l` bilingual line {bn,en
 | `team_member` | collection | `team` | M12 | Team | — |
 | `testimonial` | collection | `testimonials` | M13 | Testimonials | permission |
 | `client_logo` | collection | `clientLogos` | M13 | Client logos | permission |
+| `customer_story` | collection | `stories` | M23 | Customer stories | permission, result_sources, no_sample_visible |
 | `blog_post` | collection | `posts` | M14 | Blog | — |
 | `help_category` | collection | `categories` | M15 | Help categories | — |
 | `help_article` | collection | `articles` | M15 | Help articles | — |
@@ -211,6 +212,30 @@ Field types: `string` one line · `text` multi-line · `l` bilingual line {bn,en
 |---|---|---|---|
 | `name` | string | yes |  |
 | `src` | image | yes |  |
+| `permission_file` | image |  | internal · Written permission (required to show it) |
+
+## `customer_story` — Customer stories
+
+| Field | Type | Required | Notes |
+|---|---|---|---|
+| `slug` | string | yes | URL: /customers/<slug> |
+| `property` | string | yes | The hotel's real name |
+| `location` | l | yes |  |
+| `propertyType` | enum | yes | options: home, guest, hotel, resort, group |
+| `rooms` | number |  |  |
+| `plan` | enum |  | options: starter, business, ultra, custom |
+| `since` | date |  | Using BinGi since |
+| `headline` | l | yes | The main result in one line |
+| `summary` | lt | yes |  |
+| `cover` | object |  | fields: src, alt |
+| `logo` | image |  |  |
+| `challenge` | lt | yes | What was hard before BinGi |
+| `solution` | lt | yes | What changed with BinGi |
+| `results` | list |  | fields: value, label, source |
+| `quote` | object |  | fields: text, name, role |
+| `modules` | strlist |  | Module ids used, e.g. bookings, housekeeping |
+| `body` | blocks |  | Full story (optional) |
+| `sample` | bool |  | internal · Sample story — can never be shown. Replace with a real story, then switch this off. |
 | `permission_file` | image |  | internal · Written permission (required to show it) |
 
 ## `blog_post` — Blog

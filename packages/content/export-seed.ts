@@ -19,6 +19,7 @@ import * as careers from '../../website/src/data/careers'
 import * as solutions from '../../website/src/data/solutions'
 import * as trust from '../../website/src/data/trust'
 import * as seo from '../../website/src/data/seo'
+import * as stories from '../../website/src/data/stories'
 
 const here = dirname(fileURLToPath(import.meta.url))
 const registry = JSON.parse(readFileSync(resolve(here, 'types.json'), 'utf8'))
@@ -30,6 +31,8 @@ const values: Record<string, unknown> = {
   plan: pricing.plans, property_type: pricing.propertyTypes, compare_group: pricing.compare,
   theme: themes.themes, store_theme: themes.storeThemes, team_member: team.team,
   testimonial: testimonials.testimonials, client_logo: testimonials.clientLogos,
+  // samples start hidden (they can never be shown — the API refuses)
+  customer_story: stories.samples.map((x) => ({ ...x, _visible: false })),
   blog_post: blog.posts, help_category: help.categories, help_article: help.articles, whats_new: help.whatsNew,
   doc_page: docs.docs, faq: faqs.faqs, changelog: changelog.changes, career_team: careers.roles, solution: solutions.solutions,
 }

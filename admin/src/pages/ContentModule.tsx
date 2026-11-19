@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowDown, ArrowUp, Eye, EyeOff, Pencil, Plus, Search, Trash2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, Copy, Eye, EyeOff, Pencil, Plus, Search, Trash2 } from 'lucide-react'
 import { ApiError, del, get, patch, post } from '@/lib/api'
 import { useLang } from '@/lib/i18n'
 import type { Module } from '@/lib/modules'
@@ -86,6 +86,13 @@ function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => voi
   const toggle = async (it: Entry) => {
     try { await patch(`/entries/${type.type}/${it.id}`, { visible: !it.visible }); q.reload(); onSaved() } catch (e) { toast('bad', (e as Error).message) }
   }
+  // Copy an item as a hidden draft — the quick way to turn a sample into a real story
+  const duplicate = async (it: Entry) => {
+    const data: Record<string, unknown> = { ...it.data }
+    if ('sample' in data) data.sample = false
+    if (typeof data.slug === 'string') data.slug = `${data.slug}-copy`
+    try { const r = await post<{ item: Entry }>(`/entries/${type.type}`, { data, visible: false }); toast('ok', { bn: 'কপি হয়েছে (লুকানো) — এখন এডিট করুন', en: 'Copied (hidden) — now edit it' }); q.reload(); onSaved(); setErrors({}); setEdit({ id: r.item.id, data: r.item.data, visible: false }) } catch (e) { toast('bad', (e as Error).message) }
+  }
   const remove = async (it: Entry) => {
     if (!(await confirm({ title: t({ bn: 'মুছে ফেলবেন?', en: 'Delete this?' }), body: t({ bn: 'পরের Publish-এ সাইট থেকে সরে যাবে।', en: 'It leaves the site at the next publish.' }), ok: t({ bn: 'মুছুন', en: 'Delete' }), danger: true }))) return
     try { await del(`/entries/${type.type}/${it.id}`); toast('ok', { bn: 'মুছে ফেলা হয়েছে', en: 'Deleted' }); q.reload(); onSaved() } catch (e) { toast('bad', (e as Error).message) }
@@ -107,12 +114,13 @@ function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => voi
                 <div key={it.id} className={`flex items-center gap-3 px-4 py-3 ${it.visible ? '' : 'bg-canvas/60'}`}>
                   <button type="button" onClick={() => { setErrors({}); setEdit({ id: it.id, data: it.data, visible: it.visible }) }} className="min-w-0 flex-1 cursor-pointer text-left">
                     <span className={`block truncate text-[15px] font-medium ${it.visible ? '' : 'text-soft line-through'}`}>{entryTitle(type, it.data, t)}</span>
-                    <span className="mt-0.5 flex flex-wrap items-center gap-2 text-[12px] text-soft">{typeof it.data.status === 'string' && <SiteStatus s={it.data.status} />}<StateChip state={it.state} />{!it.visible && <span>{t({ bn: 'লুকানো', en: 'Hidden' })}</span>}<span>{fmtDate(it.updated_at)}</span></span>
+                    <span className="mt-0.5 flex flex-wrap items-center gap-2 text-[12px] text-soft">{typeof it.data.status === 'string' && <SiteStatus s={it.data.status} />}{!!it.data.sample && <Chip tone="warn">{t({ bn: 'নমুনা — দেখানো যাবে না', en: 'Sample — cannot be shown' })}</Chip>}<StateChip state={it.state} />{!it.visible && <span>{t({ bn: 'লুকানো', en: 'Hidden' })}</span>}<span>{fmtDate(it.updated_at)}</span></span>
                   </button>
                   <div className="flex shrink-0 items-center">
                     {!filter && <><IconButton label={t({ bn: 'উপরে', en: 'Move up' })} disabled={i === 0} onClick={() => reorder(i, -1)}><ArrowUp className="size-4" /></IconButton>
                       <IconButton label={t({ bn: 'নিচে', en: 'Move down' })} disabled={i === items.length - 1} onClick={() => reorder(i, 1)}><ArrowDown className="size-4" /></IconButton></>}
                     <IconButton label={it.visible ? t({ bn: 'লুকান', en: 'Hide' }) : t({ bn: 'দেখান', en: 'Show' })} onClick={() => toggle(it)}>{it.visible ? <Eye className="size-4" /> : <EyeOff className="size-4" />}</IconButton>
+                    <IconButton label={t({ bn: 'কপি', en: 'Duplicate' })} onClick={() => duplicate(it)}><Copy className="size-4" /></IconButton>
                     <IconButton label={t({ bn: 'এডিট', en: 'Edit' })} onClick={() => { setErrors({}); setEdit({ id: it.id, data: it.data, visible: it.visible }) }}><Pencil className="size-4" /></IconButton>
                     <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} onClick={() => remove(it)} className="text-bad"><Trash2 className="size-4" /></IconButton>
                   </div>

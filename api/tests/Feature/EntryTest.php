@@ -85,3 +85,38 @@ it('keeps site settings, menus, status and pricing to owners', function () {
     $this->postJson('/api/v1/entries/plan', ['data' => $plan])->assertStatus(403)->assertJsonPath('message', 'Only an owner can change this.');
     $this->postJson('/api/v1/entries/faq', ['data' => ['page' => 'home', 'q' => ['bn' => 'প্র', 'en' => 'Q'], 'a' => ['bn' => 'উ', 'en' => 'A']]])->assertCreated();
 });
+
+describe('customer stories', function () {
+    $story = fn ($over = []) => array_replace([
+        'slug' => 'real-hotel', 'property' => 'Real Hotel', 'location' => ['bn' => 'ঢাকা', 'en' => 'Dhaka'], 'propertyType' => 'hotel',
+        'headline' => ['bn' => 'হ', 'en' => 'H'], 'summary' => ['bn' => 'স', 'en' => 'S'], 'challenge' => ['bn' => 'চ', 'en' => 'C'], 'solution' => ['bn' => 'স', 'en' => 'S'],
+        'results' => [['value' => '30%', 'label' => ['bn' => 'ল', 'en' => 'L'], 'source' => 'Hotel report, Mar 2027']],
+        'permission_file' => '/storage/media/permission.pdf',
+    ], $over);
+
+    it('publishes a real story with permission and sourced numbers', function () use ($story) {
+        actAs('owner');
+        $this->postJson('/api/v1/entries/customer_story', ['data' => $story()])->assertCreated();
+        $this->postJson('/api/v1/publish')->assertCreated();
+        $c = $this->getJson('/api/v1/public/content')->json('stories');
+        expect($c)->toHaveCount(1)->and($c[0])->not->toHaveKeys(['permission_file', 'sample']);
+    });
+
+    it('never shows a sample story', function () use ($story) {
+        actAs('editor');
+        $this->postJson('/api/v1/entries/customer_story', ['data' => $story(['sample' => true])])->assertStatus(422)->assertJsonPath('fields.sample', 'A sample story can never be shown. Replace it with a real story and switch "sample" off.');
+        $this->postJson('/api/v1/entries/customer_story', ['data' => $story(['sample' => true]), 'visible' => false])->assertCreated();
+    });
+
+    it('needs a source for every result number', function () use ($story) {
+        actAs('editor');
+        $this->postJson('/api/v1/entries/customer_story', ['data' => $story(['results' => [['value' => '50%', 'label' => ['bn' => 'ল', 'en' => 'L']]]])])
+            ->assertStatus(422)->assertJsonPath('fields', fn ($f) => isset($f['results.0.source']));
+    });
+
+    it('seeds the three samples hidden, so nothing shows on the site', function () {
+        seedContent();
+        expect(\App\Models\Entry::where('type', 'customer_story')->where('visible', false)->count())->toBe(3);
+        expect($this->getJson('/api/v1/public/content')->json('stories'))->toBe([]);
+    });
+});

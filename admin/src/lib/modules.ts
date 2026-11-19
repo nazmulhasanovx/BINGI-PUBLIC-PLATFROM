@@ -28,6 +28,8 @@ export const groups: Group[] = [
     { id: 'M12', path: '/content/team', label: { bn: 'টিম', en: 'Team' }, icon: 'Users', roles: C, types: ['team_member'] },
     { id: 'M13', path: '/content/testimonials', label: { bn: 'টেস্টিমোনিয়াল ও লোগো', en: 'Testimonials & logos' }, icon: 'Quote', roles: C, types: ['testimonial', 'client_logo'],
       hint: { bn: 'লিখিত অনুমতি upload না করলে দেখানো যাবে না।', en: 'Cannot be shown until the written permission is uploaded.' } },
+    { id: 'M23', path: '/content/stories', label: { bn: 'কাস্টমার স্টোরি', en: 'Customer stories' }, icon: 'BookOpenText', roles: C, types: ['customer_story'],
+      hint: { bn: '৩টা নমুনা গল্প আছে (লুকানো) — কপি করে আসল হোটেলের কথা বসান। লিখিত অনুমতি আর প্রতিটা সংখ্যার সূত্র ছাড়া দেখানো যাবে না।', en: '3 sample stories are here (hidden) — copy one and fill in a real hotel. A story cannot be shown without written permission and a source for every number.' } },
     { id: 'M14', path: '/content/blog', label: { bn: 'ব্লগ', en: 'Blog' }, icon: 'Newspaper', roles: C, types: ['blog_post'] },
     { id: 'M15', path: '/content/help', label: { bn: 'হেল্প ও ডকস', en: 'Help & Docs' }, icon: 'LifeBuoy', roles: C, types: ['help_article', 'help_category', 'whats_new', 'doc_page'] },
     { id: 'M16', path: '/content/faq', label: { bn: 'FAQ', en: 'FAQ' }, icon: 'CircleHelp', roles: C, types: ['faq'] },

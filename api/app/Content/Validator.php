@@ -122,6 +122,14 @@ class Validator
         if (in_array('permission', $g) && $visible && empty($d['permission_file'])) {
             $this->errors['permission_file'] = 'Upload the written permission before showing this.';
         }
+        if (in_array('no_sample_visible', $g) && $visible && !empty($d['sample'])) {
+            $this->errors['sample'] = 'A sample story can never be shown. Replace it with a real story and switch "sample" off.';
+        }
+        if (in_array('result_sources', $g)) {
+            foreach ($d['results'] ?? [] as $i => $res) {
+                if (empty($res['source'])) $this->errors["results.$i.source"] = 'Say where this number comes from.';
+            }
+        }
         if (in_array('source', $g) && empty($d['source'])) {
             $this->errors['source'] = 'Say where this fact comes from.';
         }

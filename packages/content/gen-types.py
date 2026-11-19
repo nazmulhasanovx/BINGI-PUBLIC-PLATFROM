@@ -50,6 +50,18 @@ T=[
  dict(type="testimonial",kind="collection",key="testimonials",module="M13",label=L("টেস্টিমোনিয়াল","Testimonials"),titleField="name",guards=["permission"],fields=[
    f("quote","lt",True),f("name","string",True),f("role","l",True),f("property","string",True),f("photo","image")]+permission),
  dict(type="client_logo",kind="collection",key="clientLogos",module="M13",label=L("ক্লায়েন্ট লোগো","Client logos"),titleField="name",guards=["permission"],fields=[f("name","string",True),f("src","image",True)]+permission),
+ dict(type="customer_story",kind="collection",key="stories",module="M23",label=L("কাস্টমার স্টোরি","Customer stories"),titleField="property",guards=["permission","result_sources","no_sample_visible"],fields=[
+   f("slug","string",True,help=L("URL: /customers/<slug>","URL: /customers/<slug>")),f("property","string",True,help=L("হোটেলের আসল নাম","The hotel's real name")),
+   f("location","l",True),f("propertyType","enum",True,options=["home","guest","hotel","resort","group"]),f("rooms","number"),
+   f("plan","enum",options=["starter","business","ultra","custom"]),f("since","date",help=L("কবে থেকে BinGi ব্যবহার করছে","Using BinGi since")),
+   f("headline","l",True,help=L("এক লাইনে মূল ফল","The main result in one line")),f("summary","lt",True),
+   f("cover","object",fields=[f("src","image",True),f("alt","l",True)]),f("logo","image"),
+   f("challenge","lt",True,help=L("BinGi-র আগে কী সমস্যা ছিল","What was hard before BinGi")),f("solution","lt",True,help=L("BinGi দিয়ে কী বদলাল","What changed with BinGi")),
+   f("results","list",fields=[f("value","string",True,help=L("যেমন 40%","e.g. 40%")),f("label","l",True),f("source","string",True,help=L("সংখ্যাটা কোথা থেকে (হোটেলের রিপোর্ট, তারিখ)","Where the number comes from (hotel report, date)"))]),
+   f("quote","object",fields=[f("text","lt"),f("name","string"),f("role","l")]),
+   f("modules","strlist",help=L("ব্যবহার করা মডিউলের id, যেমন bookings, housekeeping","Module ids used, e.g. bookings, housekeeping")),
+   f("body","blocks",help=L("পুরো গল্প (ঐচ্ছিক)","Full story (optional)")),
+   f("sample","bool",internal=True,help=L("নমুনা গল্প — কখনো সাইটে দেখানো যাবে না। আসল গল্প দিয়ে বদলে এটা বন্ধ করুন।","Sample story — can never be shown. Replace with a real story, then switch this off."))]+permission),
  dict(type="blog_post",kind="collection",key="posts",module="M14",label=L("ব্লগ","Blog"),titleField="title",fields=[
    f("slug","string",True),f("date","date",True),f("tag","l",True),f("title","l",True),f("summary","lt",True),
    f("cover","object",True,fields=[f("src","image",True),f("alt","l",True)]),f("body","blocks",True)]),
@@ -76,7 +88,7 @@ print(len(T),"types")
 # ---- docs/05-admin/CONTENT_TYPES.md (generated — do not edit by hand)
 out=["# Content types (generated from packages/content/types.json — edit gen-types.py, then run it)","",
 "Field types: `string` one line · `text` multi-line · `l` bilingual line {bn,en} · `lt` bilingual multi-line · `number` · `bool` · `enum` (fixed options) · `url` · `image` (media library path) · `date` YYYY-MM-DD · `llist` list of `l` · `strlist` list of strings · `list` list of objects · `object` · `blocks` blog body (heading / paragraph / list) · `json` raw JSON.","",
-"`internal` fields stay in the admin and are never published. Guards: `verified_live` (Live needs verified_by + verified_at) · `ai_not_live` (BinGi AI cannot be Live) · `permission` (visible needs permission_file) · `source` (needs a source).","",
+"`internal` fields stay in the admin and are never published. Guards: `verified_live` (Live needs verified_by + verified_at) · `ai_not_live` (BinGi AI cannot be Live) · `permission` (visible needs permission_file) · `source` (needs a source) · `result_sources` (every result number needs a source) · `no_sample_visible` (a sample can never be shown).","",
 "| Type | Kind | Snapshot key | Module | Name | Guards |","|---|---|---|---|---|---|"]
 for t in T: out.append(f"| `{t['type']}` | {t['kind']} | `{t['key']}` | {t['module']} | {t['label']['en']} | {', '.join(t.get('guards',[])) or '—'} |")
 for t in T:
