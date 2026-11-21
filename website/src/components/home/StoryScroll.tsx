@@ -34,14 +34,13 @@ export function StoryScroll({ steps }: { steps: Step[] }) {
   return (
     <>
       {/* mobile: plain stacked list */}
-      <ol className="space-y-5 lg:hidden">
+      <ol className="space-y-3 lg:hidden">
         {steps.map((s, i) => (
           <li key={s.media}>
-            <div className="flex gap-4">
+            <div className="flex items-center gap-4">
               <span className="grid size-8 shrink-0 place-items-center rounded-full bg-linear-to-t from-brand to-brand-2 text-white text-[14px] font-semibold">{i + 1}</span>
               <div>
-                <h3 className="font-[family-name:var(--font-display)] text-[20px] font-semibold tracking-[-0.02em]">{s.title}</h3>
-                <p className="mt-1 text-[16px] text-muted-foreground">{s.text}</p>
+                <h3 className="font-[family-name:var(--font-display)] text-[18px] font-semibold tracking-[-0.02em]">{s.title}</h3>
               </div>
             </div>
           </li>

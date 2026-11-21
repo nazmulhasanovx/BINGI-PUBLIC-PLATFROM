@@ -62,7 +62,7 @@ export default function Home() {
       <TrustStrip />
 
       {/* modules marquee — quiet, continuous */}
-      <section className="border-y border-line bg-white/60 py-5 overflow-hidden" aria-label={t({ bn: 'চালু মডিউল', en: 'Live modules' })}>
+      <section className="hidden md:block border-y border-line bg-white/60 py-5 overflow-hidden" aria-label={t({ bn: 'চালু মডিউল', en: 'Live modules' })}>
         <div className="relative [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
           <ul className="flex w-max gap-12 animate-marquee hover:[animation-play-state:paused]">
             {[...live, ...live].map((m, i) => (
@@ -86,9 +86,9 @@ export default function Home() {
       {/* bento — what you run every day */}
       {shown('home.bento') && (
       <section className="container-x pt-16 md:pt-24">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div className="flex items-end justify-between gap-4">
           <h2 className="h2 max-w-[560px]">{t(copy('home.bento.title', { bn: 'প্রতিদিনের কাজ, এক জায়গায়', en: 'Everything you run each day, in one place' }))}</h2>
-          <Link to="/products" className="inline-flex min-h-11 items-center text-link font-medium text-[16px] hover:underline underline-offset-4">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</Link>
+          <Link to="/products" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-link font-medium text-[16px] hover:underline underline-offset-4"><span className="hidden sm:inline">{t({ bn: 'সব মডিউল দেখুন', en: 'See all modules' })}</span><span className="sm:hidden">{t({ bn: 'সব দেখুন', en: 'See all' })}</span></Link>
         </div>
         <div className="relative isolate mt-8 grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-6">
           <div className="ambient -left-24 -top-16 h-[360px] w-[520px]" aria-hidden="true" />
@@ -137,13 +137,13 @@ export default function Home() {
         <div className="grid gap-10 md:grid-cols-[1fr_1.2fr] md:items-start">
           <div className="min-w-0">
             <h2 className="h2">{t(copy('home.types.title', { bn: 'ছোট বাসা থেকে বড় রিসোর্ট', en: 'From a small home to a large resort' }))}</h2>
-            <div className="mt-8"><PillTabs size="sm" wrap label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })} value={type} onChange={setType} options={types.map((x) => ({ id: x.id, label: t(x.name) }))} /></div>
+            <div className="mt-5 sm:mt-8"><PillTabs size="sm" wrap label={t({ bn: 'প্রপার্টির ধরন', en: 'Property type' })} value={type} onChange={setType} options={types.map((x) => ({ id: x.id, label: t(x.name) }))} /></div>
           </div>
-          <div className="card glow-border p-7 md:p-9" role="tabpanel">
+          <div className="card glow-border p-5 sm:p-7 md:p-9" role="tabpanel">
             {/* the card stays put; only its content swaps, so it never goes blank */}
             <motion.div key={type} initial={{ opacity: 0.35, y: 4 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.22, ease: [0.32, 0.72, 0, 1] }}>
             <ul className="space-y-4">
-              {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[18px]"><span className="check-dot mt-0.5"><CheckCheck className="size-3.5" aria-hidden="true" /></span>{t(p)}</li>)}
+              {active.points.map((p, i) => <li key={i} className="flex gap-3 text-[16px] sm:text-[18px]"><span className="check-dot mt-0.5"><CheckCheck className="size-3.5" aria-hidden="true" /></span>{t(p)}</li>)}
             </ul>
             <div className="mt-8 flex items-center justify-between border-t border-line pt-5">
               <span className="text-[15px] text-muted-foreground">{t({ bn: 'প্রস্তাবিত প্ল্যান', en: 'Suggested plan' })} <strong className="text-ink font-semibold">{active.plan}</strong></span>
@@ -167,19 +167,20 @@ export default function Home() {
         <div className="grid gap-10 md:grid-cols-[1fr_1.6fr]">
           <div>
             <h2 className="h2">{t(copy('home.faq.title', { bn: 'সাধারণ প্রশ্ন', en: 'Common questions' }))}</h2>
-            <p className="lead mt-3">{t({ bn: 'আরও জানতে চান? ', en: 'More questions? ' })}<Link to="/help" className="text-link hover:underline underline-offset-4">{t({ bn: 'হেল্প সেন্টার', en: 'Visit the help center' })}</Link></p>
+            <p className="lead mt-3 hidden md:block">{t({ bn: 'আরও জানতে চান? ', en: 'More questions? ' })}<Link to="/help" className="text-link hover:underline underline-offset-4">{t({ bn: 'হেল্প সেন্টার', en: 'Visit the help center' })}</Link></p>
           </div>
-          <Accordion items={faqsFor('home').map((f) => ({ q: t(f.q), a: t(f.a) }))} />
+          <div><Accordion items={faqsFor('home').map((f) => ({ q: t(f.q), a: t(f.a) }))} />
+            <Link to="/help" className="mt-4 inline-flex min-h-11 items-center text-[15px] font-medium text-link md:hidden">{t({ bn: 'আরও প্রশ্ন — হেল্প সেন্টার', en: 'More answers in the help center' })}</Link></div>
         </div>
       </section>
       )}
 
       {/* team — after FAQ, like zatiqeasy */}
       {shown('home.team') && (
-      <section className="container-x pt-16 md:pt-24" aria-labelledby="team-h">
+      <section className="hidden md:block container-x pt-24" aria-labelledby="team-h">
         <div className="max-w-[620px]">
           <h2 id="team-h" className="h2">{t(copy('home.team.title', { bn: 'BinGi-র পেছনের টিম', en: 'The team behind BinGi' }))}</h2>
-          <p className="lead mt-4 hidden sm:block">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — 2023 থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
+          <p className="lead mt-4">{t({ bn: 'ঢাকায় NEONECY-র তৈরি — 2023 থেকে হোটেলের জন্য সফটওয়্যার বানাচ্ছি।', en: 'Built in Dhaka by NEONECY — making software for hotels since 2023.' })}</p>
         </div>
         <ul className="relative isolate mt-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <li className="ambient left-1/2 -translate-x-1/2 top-1/3 h-[300px] w-[70%] opacity-45" aria-hidden="true" />
@@ -205,12 +206,12 @@ export default function Home() {
 
       {/* closing — the sunrise again */}
       <section className="container-x pt-16 md:pt-24">
-        <div className="relative overflow-hidden rounded-[28px] bg-bay text-white px-6 py-14 md:px-14 md:py-24 grain">
+        <div className="relative overflow-hidden rounded-[28px] bg-bay text-white px-6 py-12 md:px-14 md:py-24 grain">
           <div className="pointer-events-none absolute left-1/2 bottom-[-180px] h-[360px] w-[900px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,#FFB38A,#FD413F88_45%,transparent_75%)] blur-[30px] opacity-70" aria-hidden="true" />
           <div className="pointer-events-none absolute left-0 right-0 bottom-[7%] h-px bg-[linear-gradient(90deg,transparent,#FD413F_30%,#FFB38A_50%,#FD413F_70%,transparent)] opacity-70" aria-hidden="true" />
           <div className="relative mx-auto max-w-[760px] text-center">
-            <h2 className="display text-[40px] md:text-[72px] text-balance">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
-            <div className="mt-10 flex flex-wrap justify-center gap-3">
+            <h2 className="display text-[34px] md:text-[72px] text-balance">{t({ bn: 'আজই আপনার প্রপার্টি সেটআপ করুন', en: 'Set up your property today' })}</h2>
+            <div className="mt-8 md:mt-10 flex flex-wrap justify-center gap-3">
               <a href={site.hmsRegister} className="btn h-12 px-6 bg-white text-ink hover:-translate-y-px shadow-lift">{t({ bn: 'শুরু করুন', en: 'Get started' })}</a>
               <a href={site.whatsapp} className="btn h-12 px-6 border border-white/25 bg-white/[0.06] backdrop-blur-sm text-white hover:bg-white/12">{t({ bn: 'WhatsApp-এ কথা বলুন', en: 'Talk on WhatsApp' })}</a>
             </div>

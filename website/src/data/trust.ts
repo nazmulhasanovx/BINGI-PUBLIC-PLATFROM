@@ -6,8 +6,8 @@ import { pick } from './content'
 export type TrustFact = { value: L; label: L; source: string }
 
 export const trustFacts: TrustFact[] = pick('trustFacts', [
-  { value: { bn: '{liveModules}', en: '{liveModules}' }, label: { bn: 'মডিউল প্রোডাকশনে চালু', en: 'modules live in production' }, source: 'Status registry (status.ts / admin)' },
-  { value: { bn: 'বাংলা · EN', en: 'বাংলা · EN' }, label: { bn: 'পুরো সিস্টেম দুই ভাষায়', en: 'the whole system in two languages' }, source: 'Product fact' },
+  { value: { bn: '{liveModules}', en: '{liveModules}' }, label: { bn: 'লাইভ মডিউল', en: 'modules live' }, source: 'Status registry (status.ts / admin)' },
+  { value: { bn: 'বাংলা · EN', en: 'বাংলা · EN' }, label: { bn: 'দুই ভাষায় পুরো সিস্টেম', en: 'in both languages' }, source: 'Product fact' },
   { value: { bn: '7', en: '7' }, label: { bn: 'দিনের ফ্রি ট্রায়াল', en: 'day free trial' }, source: 'Current CTA: seven-day free trial' },
-  { value: { bn: 'ঢাকা', en: 'Dhaka' }, label: { bn: 'থেকে টিম সাপোর্ট দেয়', en: 'based team that answers you' }, source: 'Company address' },
+  { value: { bn: 'ঢাকা', en: 'Dhaka' }, label: { bn: 'লোকাল টিম ও সাপোর্ট', en: 'local team and support' }, source: 'Company address' },
 ])
