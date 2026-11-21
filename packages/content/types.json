@@ -106,8 +106,7 @@
       "en": "Meta Pixel ID (turns on the consent banner)"
      }
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "nav_item",
@@ -138,8 +137,7 @@
      "name": "phoneOnly",
      "type": "bool"
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "footer_column",
@@ -186,8 +184,7 @@
       }
      ]
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "page_copy",
@@ -368,8 +365,7 @@
       "en": "When verified"
      }
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "platform_status",
@@ -435,8 +431,7 @@
       "en": "When verified"
      }
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "integration",
@@ -500,8 +495,7 @@
       "en": "When verified"
      }
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "pricing_config",
@@ -579,8 +573,7 @@
      "name": "offers",
      "type": "llist"
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "plan",
@@ -642,8 +635,7 @@
      "name": "plus",
      "type": "l"
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "property_type",
@@ -689,8 +681,7 @@
      "type": "l",
      "required": true
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "compare_group",
@@ -713,8 +704,7 @@
      "type": "json",
      "required": true
     }
-   ],
-   "ownerOnly": true
+   ]
   },
   {
    "type": "theme",

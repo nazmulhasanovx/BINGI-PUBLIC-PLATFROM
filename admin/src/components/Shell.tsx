@@ -17,14 +17,14 @@ export function Shell({ children }: { children: ReactNode }) {
   const loc = useLocation()
   useEffect(() => { setOpen(false) }, [loc.pathname])
   useEffect(() => {
-    if (!can('owner', 'editor')) return
+    if (!can('M20')) return
     get<{ items: unknown[] }>('/publish/pending').then((r) => setPending(r.items.length)).catch(() => {})
   }, [loc.pathname, can])
 
   const nav = (
     <nav aria-label={t({ bn: 'মূল মেনু', en: 'Main menu' })} className="space-y-6 px-3 py-4">
       {groups.map((g) => {
-        const mods = g.modules.filter((m) => user && m.roles.includes(user.role))
+        const mods = g.modules.filter((m) => can(m.id))
         if (!mods.length) return null
         return (
           <div key={g.id}>
@@ -68,7 +68,7 @@ export function Shell({ children }: { children: ReactNode }) {
           <div className="flex rounded-full border border-line bg-white p-1 text-[13px] font-medium" role="group" aria-label="Language">
             {(['bn', 'en'] as const).map((l) => <button key={l} type="button" onClick={() => setLang(l)} aria-pressed={lang === l} className={clsx('h-8 cursor-pointer rounded-full px-3', lang === l ? 'bg-ink text-white' : 'text-soft')}>{l === 'bn' ? 'বাংলা' : 'EN'}</button>)}
           </div>
-          <UserMenu name={user?.name ?? ''} role={user?.role ?? ''} onLogout={logout} />
+          <UserMenu name={user?.name ?? ''} role={user?.role ?? ''} roleName={user?.role_name} onLogout={logout} />
         </div>
       </header>
       <main id="main" className="mx-auto w-full max-w-[1200px] px-4 py-6 md:px-8 md:py-8">{children}</main>
@@ -85,15 +85,14 @@ function Brand() {
   )
 }
 
-function UserMenu({ name, role, onLogout }: { name: string; role: string; onLogout: () => void }) {
+function UserMenu({ name, role, roleName, onLogout }: { name: string; role: string; roleName?: { bn: string; en: string }; onLogout: () => void }) {
   const { t } = useLang()
   const [open, setOpen] = useState(false)
-  const roleL: Record<string, { bn: string; en: string }> = { owner: { bn: 'ওনার', en: 'Owner' }, editor: { bn: 'এডিটর', en: 'Editor' }, sales: { bn: 'সেলস', en: 'Sales' } }
   return (
     <div className="relative">
       <button type="button" onClick={() => setOpen(!open)} aria-expanded={open} className="flex h-11 cursor-pointer items-center gap-2 rounded-full border border-line bg-white pl-1.5 pr-3">
         <span className="grid size-8 place-items-center rounded-full bg-brand-soft text-[13px] font-semibold text-brand">{name.slice(0, 1).toUpperCase()}</span>
-        <span className="hidden text-left text-[13px] leading-tight sm:block"><span className="block font-medium">{name}</span><span className="text-soft">{t(roleL[role])}</span></span>
+        <span className="hidden text-left text-[13px] leading-tight sm:block"><span className="block font-medium">{name}</span><span className="text-soft">{roleName ? t(roleName) : role}</span></span>
       </button>
       {open && (
         <>

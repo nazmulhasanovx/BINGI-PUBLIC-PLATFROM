@@ -3,7 +3,7 @@
 ```
  Admin panel (admin/, React)  ──save draft──▶  Site API (api/, Laravel 12)  ──▶  MySQL + media (storage/app/public)
                                                      │
-                                            Publish (owner only)
+                                            Publish (roles with M20 edit)
                                                      ▼
                      content.json snapshot (versioned, storage/app/public/content/v{n}.json + latest.json)
                                                      │ repository_dispatch (BUILD_HOOK_URL)

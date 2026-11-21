@@ -22,7 +22,7 @@ class UserController extends Controller
     public function store(Request $r)
     {
         $r->merge(['email' => Str::lower((string) $r->input('email'))]);
-        $d = $r->validate(['name' => 'required|string|max:120', 'email' => 'required|email|unique:users,email', 'role' => ['required', Rule::in(User::ROLES)]]);
+        $d = $r->validate(['name' => 'required|string|max:120', 'email' => 'required|email|unique:users,email', 'role' => ['required', Rule::exists('roles', 'key')]]);
         $u = User::create(array_merge($d, ['email' => Str::lower($d['email']), 'password' => Str::random(40)]));
         Password::sendResetLink(['email' => $u->email]);
         Audit::log('invited', "user:{$u->id}", null, $d);
@@ -31,7 +31,7 @@ class UserController extends Controller
 
     public function update(Request $r, User $user)
     {
-        $d = $r->validate(['name' => 'sometimes|string|max:120', 'role' => ['sometimes', Rule::in(User::ROLES)], 'active' => 'sometimes|boolean']);
+        $d = $r->validate(['name' => 'sometimes|string|max:120', 'role' => ['sometimes', Rule::exists('roles', 'key')], 'active' => 'sometimes|boolean']);
         $losingOwner = $user->role === 'owner' && ((isset($d['role']) && $d['role'] !== 'owner') || (isset($d['active']) && !$d['active']));
         if ($losingOwner && User::where('role', 'owner')->where('active', true)->count() <= 1) {
             throw new ApiError('last_owner', 'There must always be at least one active owner.', 409);

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowDown, ArrowUp, Copy, Eye, EyeOff, Pencil, Plus, Search, Trash2 } from 'lucide-react'
 import { ApiError, del, get, patch, post } from '@/lib/api'
 import { useLang } from '@/lib/i18n'
+import { useAuth } from '@/lib/auth'
 import type { Module } from '@/lib/modules'
 import { emptyData, entryTitle, typeDef, type Entry, type TypeDef } from '@/lib/registry'
 import { useLoad } from '@/lib/useLoad'
@@ -19,11 +20,12 @@ export default function ContentModule({ mod }: { mod: Module }) {
   useEffect(() => setTab(types[0].type), [mod.id]) // eslint-disable-line react-hooks/exhaustive-deps
   const current = types.find((x) => x.type === tab) ?? types[0]
   const badge = (type: string) => counts.data?.types.find((x) => x.type === type)?.unpublished
+  const edit = useAuth().can(mod.id, 'edit')
   return (
     <>
-      <PageHeader title={t(mod.label)} sub={mod.hint ? t(mod.hint) : t({ bn: 'বদল draft হিসেবে জমা হয়; Publish দিলে সাইটে যায়।', en: 'Changes are saved as drafts and reach the site when published.' })} />
+      <PageHeader title={t(mod.label)} actions={!edit ? <Chip tone="info">{t({ bn: 'শুধু দেখার অনুমতি', en: 'View only' })}</Chip> : undefined} sub={mod.hint ? t(mod.hint) : t({ bn: 'বদল draft হিসেবে জমা হয়; Publish দিলে সাইটে যায়।', en: 'Changes are saved as drafts and reach the site when published.' })} />
       {types.length > 1 && <Tabs items={types.map((x) => ({ id: x.type, label: t(x.label), badge: badge(x.type) }))} value={current.type} onChange={setTab} />}
-      {current.kind === 'single' ? <SingleEditor key={current.type} type={current} onSaved={counts.reload} /> : <CollectionEditor key={current.type} type={current} onSaved={counts.reload} />}
+      {current.kind === 'single' ? <SingleEditor key={current.type} type={current} onSaved={counts.reload} edit={edit} /> : <CollectionEditor key={current.type} type={current} onSaved={counts.reload} edit={edit} />}
     </>
   )
 }
@@ -48,7 +50,7 @@ function useSave(type: TypeDef, onSaved: () => void) {
   return { save, errors, setErrors, saving, t }
 }
 
-function SingleEditor({ type, onSaved }: { type: TypeDef; onSaved: () => void }) {
+function SingleEditor({ type, onSaved, edit }: { type: TypeDef; onSaved: () => void; edit: boolean }) {
   const q = useLoad(() => get<{ items: Entry[] }>(`/entries/${type.type}`), [type.type])
   const { save, errors, saving, t } = useSave(type, onSaved)
   const [data, setData] = useState<Record<string, unknown> | null>(null)
@@ -61,13 +63,13 @@ function SingleEditor({ type, onSaved }: { type: TypeDef; onSaved: () => void })
         <h2 className="text-[17px] font-semibold">{t(type.label)}</h2>
         {item && <StateChip state={item.state} />}
       </div>
-      <EntryForm t={type} data={data} onChange={setData} errors={errors} />
-      <div className="mt-6 flex justify-end"><Button variant="primary" loading={saving} onClick={async () => { const r = await save(item?.id ?? null, data, true); if (r) q.reload() }}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></div>
+      <fieldset disabled={!edit} className="min-w-0"><EntryForm t={type} data={data} onChange={setData} errors={errors} /></fieldset>
+      {edit && <div className="mt-6 flex justify-end"><Button variant="primary" loading={saving} onClick={async () => { const r = await save(item?.id ?? null, data, true); if (r) q.reload() }}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></div>}
     </Card>
   )
 }
 
-function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => void }) {
+function CollectionEditor({ type, onSaved, edit: canEdit }: { type: TypeDef; onSaved: () => void; edit: boolean }) {
   const { t } = useLang()
   const toast = useToast()
   const confirm = useConfirm()
@@ -101,7 +103,7 @@ function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => voi
     <>
       <div className="mb-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <div className="relative sm:w-[320px]"><Search className="pointer-events-none absolute left-3.5 top-3.5 size-4 text-soft" /><Input aria-label={t({ bn: 'খুঁজুন', en: 'Search' })} placeholder={t({ bn: 'খুঁজুন…', en: 'Search…' })} className="pl-10" value={filter} onChange={(e) => setFilter(e.target.value)} /></div>
-        <Button variant="primary" onClick={() => { setErrors({}); setEdit({ id: null, data: emptyData(type), visible: true }) }}><Plus className="size-4" />{t({ bn: 'নতুন যোগ করুন', en: 'Add new' })}</Button>
+        {canEdit && <Button variant="primary" onClick={() => { setErrors({}); setEdit({ id: null, data: emptyData(type), visible: true }) }}><Plus className="size-4" />{t({ bn: 'নতুন যোগ করুন', en: 'Add new' })}</Button>}
       </div>
       {q.loading ? <ListSkeleton /> : q.error ? <ErrorBox error={q.error} retry={q.reload} /> : !items.length
         ? <Empty title={t({ bn: 'এখনো কিছু নেই', en: 'Nothing here yet' })} sub={t({ bn: 'প্রথমটা যোগ করুন। খালি থাকলে সাইটে এই অংশ দেখাবে না বা কোডের লেখা থাকবে।', en: 'Add the first one. While empty, the site hides this part or keeps the text written in code.' })} />
@@ -117,12 +119,14 @@ function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => voi
                     <span className="mt-0.5 flex flex-wrap items-center gap-2 text-[12px] text-soft">{typeof it.data.status === 'string' && <SiteStatus s={it.data.status} />}{!!it.data.sample && <Chip tone="warn">{t({ bn: 'নমুনা — দেখানো যাবে না', en: 'Sample — cannot be shown' })}</Chip>}<StateChip state={it.state} />{!it.visible && <span>{t({ bn: 'লুকানো', en: 'Hidden' })}</span>}<span>{fmtDate(it.updated_at)}</span></span>
                   </button>
                   <div className="flex shrink-0 items-center">
-                    {!filter && <><IconButton label={t({ bn: 'উপরে', en: 'Move up' })} disabled={i === 0} onClick={() => reorder(i, -1)}><ArrowUp className="size-4" /></IconButton>
+                    {canEdit && !filter && <><IconButton label={t({ bn: 'উপরে', en: 'Move up' })} disabled={i === 0} onClick={() => reorder(i, -1)}><ArrowUp className="size-4" /></IconButton>
                       <IconButton label={t({ bn: 'নিচে', en: 'Move down' })} disabled={i === items.length - 1} onClick={() => reorder(i, 1)}><ArrowDown className="size-4" /></IconButton></>}
-                    <IconButton label={it.visible ? t({ bn: 'লুকান', en: 'Hide' }) : t({ bn: 'দেখান', en: 'Show' })} onClick={() => toggle(it)}>{it.visible ? <Eye className="size-4" /> : <EyeOff className="size-4" />}</IconButton>
-                    <IconButton label={t({ bn: 'কপি', en: 'Duplicate' })} onClick={() => duplicate(it)}><Copy className="size-4" /></IconButton>
-                    <IconButton label={t({ bn: 'এডিট', en: 'Edit' })} onClick={() => { setErrors({}); setEdit({ id: it.id, data: it.data, visible: it.visible }) }}><Pencil className="size-4" /></IconButton>
-                    <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} onClick={() => remove(it)} className="text-bad"><Trash2 className="size-4" /></IconButton>
+                    {canEdit ? <>
+                      <IconButton label={it.visible ? t({ bn: 'লুকান', en: 'Hide' }) : t({ bn: 'দেখান', en: 'Show' })} onClick={() => toggle(it)}>{it.visible ? <Eye className="size-4" /> : <EyeOff className="size-4" />}</IconButton>
+                      <IconButton label={t({ bn: 'কপি', en: 'Duplicate' })} onClick={() => duplicate(it)}><Copy className="size-4" /></IconButton>
+                      <IconButton label={t({ bn: 'এডিট', en: 'Edit' })} onClick={() => { setErrors({}); setEdit({ id: it.id, data: it.data, visible: it.visible }) }}><Pencil className="size-4" /></IconButton>
+                      <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} onClick={() => remove(it)} className="text-bad"><Trash2 className="size-4" /></IconButton>
+                    </> : <IconButton label={t({ bn: 'দেখুন', en: 'View' })} onClick={() => setEdit({ id: it.id, data: it.data, visible: it.visible })}><Eye className="size-4" /></IconButton>}
                   </div>
                 </div>
               )
@@ -131,8 +135,8 @@ function CollectionEditor({ type, onSaved }: { type: TypeDef; onSaved: () => voi
         )}
       <Drawer open={!!edit} onClose={() => setEdit(null)} wide={type.fields.some((f) => ['blocks', 'list', 'json'].includes(f.type))}
         title={edit?.id ? `${t({ bn: 'এডিট', en: 'Edit' })} · ${t(type.label)}` : `${t({ bn: 'নতুন', en: 'New' })} · ${t(type.label)}`}
-        footer={<><Button onClick={() => setEdit(null)}>{t({ bn: 'বাতিল', en: 'Cancel' })}</Button><Button variant="primary" loading={saving} onClick={async () => { if (!edit) return; const r = await save(edit.id, edit.data, edit.visible); if (r) { setEdit(null); q.reload() } }}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></>}>
-        {edit && <EntryForm t={type} data={edit.data} onChange={(d) => setEdit({ ...edit, data: d })} errors={errors} />}
+        footer={!canEdit ? <Button onClick={() => setEdit(null)}>{t({ bn: 'বন্ধ করুন', en: 'Close' })}</Button> : <><Button onClick={() => setEdit(null)}>{t({ bn: 'বাতিল', en: 'Cancel' })}</Button><Button variant="primary" loading={saving} onClick={async () => { if (!edit) return; const r = await save(edit.id, edit.data, edit.visible); if (r) { setEdit(null); q.reload() } }}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></>}>
+        {edit && <fieldset disabled={!canEdit} className="min-w-0"><EntryForm t={type} data={edit.data} onChange={(d) => setEdit({ ...edit, data: d })} errors={errors} /></fieldset>}
       </Drawer>
     </>
   )

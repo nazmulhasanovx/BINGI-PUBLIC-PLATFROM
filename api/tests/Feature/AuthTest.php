@@ -33,7 +33,8 @@ it('needs a token for admin routes', function () {
 it('keeps each role to its own area', function () {
     actAs('sales');
     $this->getJson('/api/v1/leads')->assertOk();
-    $this->getJson('/api/v1/types')->assertStatus(403)->assertJsonPath('code', 'forbidden');
+    expect($this->getJson('/api/v1/types')->assertOk()->json('types'))->toBe([]); // sales sees no content types
+    $this->getJson('/api/v1/entries/faq')->assertStatus(403)->assertJsonPath('code', 'forbidden');
     actAs('editor');
     $this->getJson('/api/v1/types')->assertOk();
     $this->getJson('/api/v1/leads')->assertStatus(403);

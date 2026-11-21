@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Content\Permissions;
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use App\Support\ApiError;
@@ -24,6 +25,9 @@ class MediaController extends Controller
 
     public function store(Request $r)
     {
+        // Uploading is allowed to anyone who can edit at least one content module (photos for their own items)
+        $map = Permissions::map($r->user());
+        if (!in_array('edit', $map, true)) throw new ApiError('forbidden', 'Your role cannot upload files.', 403);
         $r->validate(['file' => ['required', 'file', 'max:15360', 'mimes:jpg,jpeg,png,webp,gif,pdf']], ['file.mimes' => 'Upload a JPG, PNG, WebP, GIF or PDF (SVG is not accepted — it can carry scripts).']);
         $f = $r->file('file');
         $mime = $f->getMimeType();

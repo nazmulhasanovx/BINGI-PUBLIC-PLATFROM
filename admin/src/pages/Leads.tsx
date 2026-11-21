@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom'
 import { Download, MessageCircle, Phone, Search } from 'lucide-react'
 import { api, get, patch, post } from '@/lib/api'
 import { useLang, type L } from '@/lib/i18n'
+import { useAuth } from '@/lib/auth'
 import { useLoad } from '@/lib/useLoad'
 import { fmtDate } from '@/lib/format'
 import { Button, Card, Chip, Drawer, Empty, ErrorBox, Input, ListSkeleton, PageHeader, Select, Tabs, Textarea, useToast } from '@/components/ui'
@@ -36,7 +37,7 @@ export default function Leads() {
   return (
     <>
       <PageHeader title={t({ bn: 'লিড', en: 'Leads' })} sub={t({ bn: 'সাইটের "ডেমো বুক করুন" ফর্ম থেকে আসা অনুরোধ।', en: 'Requests from the site\'s "Book a demo" form.' })}
-        actions={<Button onClick={exportCsv}><Download className="size-4" />{t({ bn: 'CSV এক্সপোর্ট', en: 'Export CSV' })}</Button>} />
+        actions={useAuth().can('M03', 'edit') && <Button onClick={exportCsv}><Download className="size-4" />{t({ bn: 'CSV এক্সপোর্ট', en: 'Export CSV' })}</Button>} />
       <Tabs value={status} onChange={(v) => { setStatus(v); setPage(1) }} items={[{ id: 'all', label: `${t({ bn: 'সব', en: 'All' })} · ${total}` }, ...Object.entries(leadStatus).map(([id, s]) => ({ id, label: `${t(s.l)} · ${counts[id] ?? 0}` }))]} />
       <div className="relative mb-4 sm:w-[340px]"><Search className="pointer-events-none absolute left-3.5 top-3.5 size-4 text-soft" /><Input aria-label={t({ bn: 'নাম, প্রপার্টি বা ফোন', en: 'Name, property or phone' })} placeholder={t({ bn: 'নাম, প্রপার্টি বা ফোন…', en: 'Name, property or phone…' })} className="pl-10" defaultValue={q} onKeyDown={(e) => { if (e.key === 'Enter') { setQ((e.target as HTMLInputElement).value); setPage(1) } }} onBlur={(e) => { setQ(e.target.value); setPage(1) }} /></div>
       {list.loading ? <ListSkeleton /> : list.error ? <ErrorBox error={list.error} retry={list.reload} /> : !list.data?.data.length
@@ -68,6 +69,7 @@ function LeadDrawer({ id, onClose, onChanged }: { id: number | null; onClose: ()
   const [busy, setBusy] = useState(false)
   useEffect(() => setNote(''), [id])
   const l = q.data?.item
+  const edit = useAuth().can('M03', 'edit')
   const setStatus = async (s: string) => { try { await patch(`/leads/${id}`, { status: s }); toast('ok', { bn: 'স্ট্যাটাস বদলানো হয়েছে', en: 'Status updated' }); q.reload(); onChanged() } catch (e) { toast('bad', (e as Error).message) } }
   const addNote = async () => { if (!note.trim()) return; setBusy(true); try { await post(`/leads/${id}/notes`, { body: note }); setNote(''); q.reload(); onChanged() } catch (e) { toast('bad', (e as Error).message) } finally { setBusy(false) } }
   return (
@@ -85,11 +87,11 @@ function LeadDrawer({ id, onClose, onChanged }: { id: number | null; onClose: ()
             </div>
           </Card>
           <div><label htmlFor="lead-status" className="mb-1.5 block text-[14px] font-medium">{t({ bn: 'স্ট্যাটাস', en: 'Status' })}</label>
-            <Select id="lead-status" value={l.status} onChange={(e) => setStatus(e.target.value)}>{Object.entries(leadStatus).map(([k, s]) => <option key={k} value={k}>{t(s.l)}</option>)}</Select></div>
+            <Select id="lead-status" disabled={!edit} value={l.status} onChange={(e) => setStatus(e.target.value)}>{Object.entries(leadStatus).map(([k, s]) => <option key={k} value={k}>{t(s.l)}</option>)}</Select></div>
           <div>
             <p className="mb-2 text-[14px] font-medium">{t({ bn: 'নোট', en: 'Notes' })}</p>
-            <Textarea aria-label={t({ bn: 'নতুন নোট', en: 'New note' })} value={note} onChange={(e) => setNote(e.target.value)} placeholder={t({ bn: 'যেমন: রবিবার ডেমো চায়', en: 'e.g. wants a demo on Sunday' })} />
-            <div className="mt-2 flex justify-end"><Button size="sm" variant="primary" loading={busy} disabled={!note.trim()} onClick={addNote}>{t({ bn: 'নোট যোগ করুন', en: 'Add note' })}</Button></div>
+            {edit && <><Textarea aria-label={t({ bn: 'নতুন নোট', en: 'New note' })} value={note} onChange={(e) => setNote(e.target.value)} placeholder={t({ bn: 'যেমন: রবিবার ডেমো চায়', en: 'e.g. wants a demo on Sunday' })} />
+            <div className="mt-2 flex justify-end"><Button size="sm" variant="primary" loading={busy} disabled={!note.trim()} onClick={addNote}>{t({ bn: 'নোট যোগ করুন', en: 'Add note' })}</Button></div></>}
             <ul className="mt-3 space-y-2">{l.notes?.map((n) => <li key={n.id} className="rounded-[14px] bg-white p-3 text-[14px] shadow-soft"><p className="whitespace-pre-wrap">{n.body}</p><p className="mt-1 text-[12px] text-soft">{n.user?.name} · {fmtDate(n.created_at)}</p></li>)}</ul>
           </div>
         </div>

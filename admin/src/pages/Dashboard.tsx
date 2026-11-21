@@ -16,10 +16,10 @@ export default function Dashboard() {
   const q = useLoad(() => get<D>('/dashboard'))
   const d = q.data
   const tiles = [
-    { l: { bn: 'আজকের ভিজিটর', en: 'Visitors today' }, v: d?.visitors_today, sub: d ? `${fmtNum(d.views_today)} ${t({ bn: 'পেজ ভিউ', en: 'page views' })}` : '', to: '/visitors', show: can('owner', 'sales') },
-    { l: { bn: 'নতুন লিড', en: 'New leads' }, v: d?.leads_new, sub: d ? `${fmtNum(d.leads_7d)} ${t({ bn: 'গত 7 দিনে', en: 'in 7 days' })}` : '', to: '/leads', show: can('owner', 'sales') },
-    { l: { bn: 'পাবলিশ বাকি', en: 'Waiting to publish' }, v: d?.unpublished, sub: t({ bn: 'বদল', en: 'changes' }), to: '/publish', show: can('owner', 'editor') },
-    { l: { bn: 'লাইভ ভার্সন', en: 'Live version' }, v: d?.live?.version, sub: d?.live ? ago(d.live.published_at) : t({ bn: 'এখনো পাবলিশ হয়নি', en: 'Not published yet' }), to: '/publish', show: can('owner', 'editor') },
+    { l: { bn: 'আজকের ভিজিটর', en: 'Visitors today' }, v: d?.visitors_today, sub: d ? `${fmtNum(d.views_today)} ${t({ bn: 'পেজ ভিউ', en: 'page views' })}` : '', to: '/visitors', show: can('M04') },
+    { l: { bn: 'নতুন লিড', en: 'New leads' }, v: d?.leads_new, sub: d ? `${fmtNum(d.leads_7d)} ${t({ bn: 'গত 7 দিনে', en: 'in 7 days' })}` : '', to: '/leads', show: can('M03') },
+    { l: { bn: 'পাবলিশ বাকি', en: 'Waiting to publish' }, v: d?.unpublished, sub: t({ bn: 'বদল', en: 'changes' }), to: '/publish', show: can('M20') },
+    { l: { bn: 'লাইভ ভার্সন', en: 'Live version' }, v: d?.live?.version, sub: d?.live ? ago(d.live.published_at) : t({ bn: 'এখনো পাবলিশ হয়নি', en: 'Not published yet' }), to: '/publish', show: can('M20') },
   ].filter((x) => x.show)
   return (
     <>
@@ -34,7 +34,7 @@ export default function Dashboard() {
           </Link>
         ))}
       </div>
-      {can('owner', 'sales') && (
+      {can('M03') && (
         <Card className="mt-6 p-5">
           <div className="mb-3 flex items-center justify-between"><h2 className="text-[17px] font-semibold">{t({ bn: 'সাম্প্রতিক লিড', en: 'Recent leads' })}</h2><Link to="/leads" className="inline-flex min-h-11 items-center gap-1 text-[14px] font-medium text-link">{t({ bn: 'সব দেখুন', en: 'See all' })}<ArrowRight className="size-4" /></Link></div>
           {q.loading ? <Skeleton className="h-24" /> : !d?.recent_leads.length ? <p className="py-6 text-center text-[14px] text-soft">{t({ bn: 'এখনো কোনো লিড নেই। সাইটের "ডেমো বুক করুন" ফর্ম থেকে এখানে আসবে।', en: 'No leads yet. They arrive here from the site\'s "Book a demo" form.' })}</p> : (

@@ -1,9 +1,10 @@
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 import { api, post, setUnauthorizedHandler, token } from './api'
 
-export type Role = 'owner' | 'editor' | 'sales'
-export type User = { id: number; name: string; email: string; role: Role }
-type Auth = { user: User | null; ready: boolean; login: (email: string, password: string) => Promise<void>; logout: () => Promise<void>; can: (...roles: Role[]) => boolean }
+export type Level = 'view' | 'edit'
+/** role = a role key (owner, editor, sales or one built in Users & roles). permissions = module id → level. */
+export type User = { id: number; name: string; email: string; role: string; role_name?: { bn: string; en: string }; permissions: Record<string, Level> }
+type Auth = { user: User | null; ready: boolean; login: (email: string, password: string) => Promise<void>; logout: () => Promise<void>; can: (module: string, level?: Level) => boolean }
 const Ctx = createContext<Auth>(null!)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
@@ -24,7 +25,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     token.set(null)
     setUser(null)
   }, [])
-  const can = useCallback((...roles: Role[]) => !!user && roles.includes(user.role), [user])
+  const can = useCallback((module: string, level: Level = 'view') => {
+    const have = user?.permissions?.[module]
+    return level === 'view' ? have === 'view' || have === 'edit' : have === 'edit'
+  }, [user])
   return <Ctx.Provider value={{ user, ready, login, logout, can }}>{children}</Ctx.Provider>
 }
 export const useAuth = () => useContext(Ctx)

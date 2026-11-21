@@ -1,0 +1,350 @@
+{
+ "modules": [
+  {
+   "id": "M02",
+   "label": {
+    "bn": "ড্যাশবোর্ড",
+    "en": "Dashboard"
+   },
+   "levels": [
+    "view"
+   ],
+   "hint": {
+    "bn": "সাইটের আজকের অবস্থা",
+    "en": "Today on the site"
+   }
+  },
+  {
+   "id": "M03",
+   "label": {
+    "bn": "লিড",
+    "en": "Leads"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "দেখা = তালিকা ও ফোন · এডিট = স্ট্যাটাস, নোট, CSV",
+    "en": "View = list and phones · Edit = status, notes, CSV"
+   }
+  },
+  {
+   "id": "M04",
+   "label": {
+    "bn": "ভিজিটর",
+    "en": "Visitors"
+   },
+   "levels": [
+    "view"
+   ],
+   "hint": {
+    "bn": "ভিজিটরের হিসাব",
+    "en": "Visitor numbers"
+   }
+  },
+  {
+   "id": "M05",
+   "label": {
+    "bn": "SEO",
+    "en": "SEO"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "পেজের title, description, redirect",
+    "en": "Page titles, descriptions, redirects"
+   }
+  },
+  {
+   "id": "M06",
+   "label": {
+    "bn": "পেজ ও সেকশন",
+    "en": "Pages & sections"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M07",
+   "label": {
+    "bn": "মেনু ও ফুটার",
+    "en": "Navigation & footer"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M08",
+   "label": {
+    "bn": "সাইট সেটিংস",
+    "en": "Site settings"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "ফোন, WhatsApp, GA/Pixel ID",
+    "en": "Phone, WhatsApp, GA/Pixel IDs"
+   }
+  },
+  {
+   "id": "M09",
+   "label": {
+    "bn": "স্ট্যাটাস",
+    "en": "Status registry"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "Live / Beta / Coming Soon",
+    "en": "Live / Beta / Coming Soon"
+   }
+  },
+  {
+   "id": "M10",
+   "label": {
+    "bn": "প্রাইসিং",
+    "en": "Pricing"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M11",
+   "label": {
+    "bn": "থিম",
+    "en": "Themes"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M12",
+   "label": {
+    "bn": "টিম",
+    "en": "Team"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M13",
+   "label": {
+    "bn": "টেস্টিমোনিয়াল ও লোগো",
+    "en": "Testimonials & logos"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M23",
+   "label": {
+    "bn": "কাস্টমার স্টোরি",
+    "en": "Customer stories"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M14",
+   "label": {
+    "bn": "ব্লগ",
+    "en": "Blog"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M15",
+   "label": {
+    "bn": "হেল্প ও ডকস",
+    "en": "Help & Docs"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M16",
+   "label": {
+    "bn": "FAQ",
+    "en": "FAQ"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M17",
+   "label": {
+    "bn": "চেঞ্জলগ",
+    "en": "Changelog"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M18",
+   "label": {
+    "bn": "ক্যারিয়ার",
+    "en": "Careers"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ]
+  },
+  {
+   "id": "M19",
+   "label": {
+    "bn": "মিডিয়া",
+    "en": "Media library"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "এডিট = আপলোড ও মুছা",
+    "en": "Edit = upload and delete"
+   }
+  },
+  {
+   "id": "M20",
+   "label": {
+    "bn": "পাবলিশ ও হিস্টরি",
+    "en": "Publish & history"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "দেখা = বাকি বদল ও হিস্টরি · এডিট = পাবলিশ ও আগের ভার্সনে ফেরা",
+    "en": "View = pending and history · Edit = publish and roll back"
+   }
+  },
+  {
+   "id": "M21",
+   "label": {
+    "bn": "ইউজার ও রোল",
+    "en": "Users & roles"
+   },
+   "levels": [
+    "view",
+    "edit"
+   ],
+   "hint": {
+    "bn": "এডিট = ইউজার ইনভাইট, রোল বানানো",
+    "en": "Edit = invite users, build roles"
+   }
+  },
+  {
+   "id": "M22",
+   "label": {
+    "bn": "অডিট লগ",
+    "en": "Audit log"
+   },
+   "levels": [
+    "view"
+   ]
+  }
+ ],
+ "defaultRoles": [
+  {
+   "key": "owner",
+   "name": {
+    "bn": "ওনার",
+    "en": "Owner"
+   },
+   "system": true,
+   "permissions": {
+    "M02": "view",
+    "M03": "edit",
+    "M04": "view",
+    "M05": "edit",
+    "M06": "edit",
+    "M07": "edit",
+    "M08": "edit",
+    "M09": "edit",
+    "M10": "edit",
+    "M11": "edit",
+    "M12": "edit",
+    "M13": "edit",
+    "M23": "edit",
+    "M14": "edit",
+    "M15": "edit",
+    "M16": "edit",
+    "M17": "edit",
+    "M18": "edit",
+    "M19": "edit",
+    "M20": "edit",
+    "M21": "edit",
+    "M22": "view"
+   }
+  },
+  {
+   "key": "editor",
+   "name": {
+    "bn": "এডিটর",
+    "en": "Editor"
+   },
+   "system": false,
+   "permissions": {
+    "M02": "view",
+    "M05": "edit",
+    "M20": "view",
+    "M06": "edit",
+    "M11": "edit",
+    "M12": "edit",
+    "M13": "edit",
+    "M23": "edit",
+    "M14": "edit",
+    "M15": "edit",
+    "M16": "edit",
+    "M17": "edit",
+    "M18": "edit",
+    "M19": "edit"
+   }
+  },
+  {
+   "key": "sales",
+   "name": {
+    "bn": "সেলস",
+    "en": "Sales"
+   },
+   "system": false,
+   "permissions": {
+    "M02": "view",
+    "M03": "edit",
+    "M04": "view"
+   }
+  }
+ ]
+}

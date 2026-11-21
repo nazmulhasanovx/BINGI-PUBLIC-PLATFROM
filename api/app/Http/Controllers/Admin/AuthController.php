@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Content\Permissions;
+use App\Models\Role;
 use App\Models\User;
 use App\Support\ApiError;
 use App\Support\Audit;
@@ -74,6 +76,7 @@ class AuthController extends Controller
 
     public static function me(User $u): array
     {
-        return ['id' => $u->id, 'name' => $u->name, 'email' => $u->email, 'role' => $u->role];
+        $role = Role::where('key', $u->role)->first();
+        return ['id' => $u->id, 'name' => $u->name, 'email' => $u->email, 'role' => $u->role, 'role_name' => $role?->name, 'permissions' => (object) Permissions::map($u)];
     }
 }
