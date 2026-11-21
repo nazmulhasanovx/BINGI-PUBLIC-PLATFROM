@@ -34,10 +34,10 @@ export function TrustStrip() {
       )}
       <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-[20px] border border-line bg-line md:grid-cols-4">
         {facts.map((f) => (
-          <div key={f.l.en} className="bg-white px-5 py-5 md:px-6">
+          <div key={f.l.en} className="bg-white px-4 py-4 sm:px-5 sm:py-5 md:px-6">
             <dt className="sr-only">{t(f.l)}</dt>
-            <dd className="font-[family-name:var(--font-display)] text-[28px] font-semibold tracking-[-0.03em] md:text-[32px]">{f.v}</dd>
-            <dd className="mt-0.5 text-[14px] text-muted-foreground">{t(f.l)}</dd>
+            <dd className="font-[family-name:var(--font-display)] text-[24px] font-semibold tracking-[-0.03em] sm:text-[28px] md:text-[32px]">{f.v}</dd>
+            <dd className="mt-0.5 text-[13px] leading-snug text-muted-foreground sm:text-[14px]">{t(f.l)}</dd>
           </div>
         ))}
       </dl>
@@ -83,7 +83,7 @@ export function PriceSlider() {
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div className="max-w-[520px]">
             <h2 id="price-h" className="h2">{t({ bn: 'আপনার হোটেলে মাসে কত?', en: 'What will it cost your hotel?' })}</h2>
-            <p className="lead mt-3">{t({ bn: 'রুম সংখ্যা টানুন — মাসিক বিল সাথে সাথে দেখুন। সর্বনিম্ন 10 রুম।', en: 'Drag the room count and see the monthly bill. Minimum 10 rooms.' })}</p>
+            <p className="lead mt-3 hidden sm:block">{t({ bn: 'রুম সংখ্যা বদলান, মাসিক বিল দেখুন।', en: 'Set your rooms, see the monthly bill.' })}</p>
           </div>
           <div className="md:w-[380px]">
             <div className="flex items-baseline justify-between">
@@ -104,9 +104,9 @@ export function PriceSlider() {
                   <p className="text-[16px] font-semibold">{p.name}</p>
                   {p.popular && <span className="rounded-full bg-brand px-2.5 py-0.5 text-[12px] font-medium text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
                 </div>
-                <p className="mt-3 font-[family-name:var(--font-display)] text-[34px] font-semibold tracking-[-0.03em] tabular-nums">{taka(pr.perMonth)}<span className="ml-1 text-[15px] font-normal text-muted-foreground">/{t({ bn: 'মাস', en: 'mo' })}</span></p>
+                <p className="mt-2 font-[family-name:var(--font-display)] text-[28px] sm:mt-3 sm:text-[34px] font-semibold tracking-[-0.03em] tabular-nums">{taka(pr.perMonth)}<span className="ml-1 text-[15px] font-normal text-muted-foreground">/{t({ bn: 'মাস', en: 'mo' })}</span></p>
                 <p className="text-[13px] text-soft">{taka(p.rate!)} × {pr.q} {t({ bn: 'রুম', en: 'rooms' })}</p>
-                <ul className="mt-4 space-y-2 border-t border-line pt-4 text-[14px]">
+                <ul className="mt-4 hidden space-y-2 border-t border-line pt-4 text-[14px] sm:block">
                   {includesFor(p).slice(1, 4).map((x) => (
                     <li key={x.en} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-ok" aria-hidden="true" /><span>{t(x)}</span></li>
                   ))}
@@ -116,7 +116,7 @@ export function PriceSlider() {
             )
           })}
         </div>
-        <p className="mt-4 text-[13px] text-soft">{t({ bn: 'মাসিক বিল দেখানো হয়েছে; 6 ও 12 মাসে আরও কম। অ্যাক্টিভেশন ও বুকিং ফি প্রাইসিং পেজে।', en: 'Monthly billing shown; 6 and 12 months cost less. Activation and booking fees are on the pricing page.' })}</p>
+        <p className="mt-4 text-[13px] text-soft">{t({ bn: 'মাসিক দাম। 6 ও 12 মাসে কম; অ্যাক্টিভেশন ও বুকিং ফি প্রাইসিং পেজে।', en: 'Monthly price. 6 and 12 months cost less; activation and booking fees on the pricing page.' })}</p>
       </div>
     </section>
   )
@@ -159,7 +159,7 @@ export function ThemeAiPreview() {
             <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-white/95 px-3 py-1.5 text-[13px] font-medium shadow-sm">{t({ bn: 'লাইভ ডেমো', en: 'Live demo' })}<ArrowUpRight className="size-3.5" aria-hidden="true" /></span>
           </a>
           <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-[14px]">
-            <p className="text-muted-foreground">{t(th.for)}</p>
+            <p className="hidden text-muted-foreground sm:block">{t(th.for)}</p>
             <Link to="/themes" className="inline-flex min-h-11 items-center font-medium text-link hover:underline underline-offset-4">{t({ bn: 'সব থিম দেখুন', en: 'See all themes' })}</Link>
           </div>
         </div>
@@ -169,7 +169,7 @@ export function ThemeAiPreview() {
             <span className="rounded-full bg-white/15 px-2.5 py-1 text-[12px] font-medium">{t({ bn: 'বেটা', en: 'Beta' })}</span>
           </div>
           <p className="mt-2 text-[15px] text-white/75">{t({ bn: 'হোটেল মালিকের জন্য সহকারী — আপনার কম্পিউটারে চলে।', en: 'An assistant for hotel owners — runs on your own computer.' })}</p>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-6 hidden space-y-3 sm:block">
             {ai.map(({ icon: I, l }) => (
               <li key={l.en} className="flex items-center gap-3 rounded-[14px] bg-white/8 px-4 py-3 text-[15px]"><I className="size-5 shrink-0 text-[#FFB38A]" aria-hidden="true" />{t(l)}</li>
             ))}
@@ -184,7 +184,9 @@ export function ThemeAiPreview() {
 /* ── Local payments & hardware — honest status per item ── */
 export function Integrations() {
   const { t } = useLang()
-  if (!shown('home.integrations')) return null
+  // 'confirm' = not checked in production yet → not shown. Mark an item live/beta/soon in Admin → Status and it appears.
+  const items = integrations.filter((x) => x.status !== 'confirm')
+  if (!shown('home.integrations') || !items.length) return null
   return (
     <section className="container-x pt-16 md:pt-24" aria-labelledby="int-h">
       <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
@@ -192,7 +194,7 @@ export function Integrations() {
         <button type="button" onClick={openDemo} className="inline-flex min-h-11 cursor-pointer items-center text-[16px] font-medium text-link hover:underline underline-offset-4">{t({ bn: 'আপনার সেটআপ নিয়ে জিজ্ঞেস করুন', en: 'Ask about your setup' })}</button>
       </div>
       <ul className="mt-6 flex flex-wrap gap-3">
-        {integrations.map((x) => {
+        {items.map((x) => {
           const I = x.kind === 'pay' ? CreditCard : x.id === 'printer' ? Printer : KeyRound
           return (
             <li key={x.id} className="flex items-center gap-3 rounded-full border border-line bg-white py-2 pl-3 pr-2">
