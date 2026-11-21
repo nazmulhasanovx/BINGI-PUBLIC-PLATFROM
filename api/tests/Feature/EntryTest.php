@@ -6,7 +6,7 @@ use App\Models\Entry;
 it('lists types with counts', function () {
     actAs('editor');
     $r = $this->getJson('/api/v1/types')->assertOk();
-    expect(collect($r->json('types'))->pluck('type'))->toContain('team_member', 'module', 'faq', 'blog_post');
+    expect(collect($r->json('types'))->pluck('type'))->toContain('team_member', 'faq', 'blog_post')->not->toContain('module', 'plan', 'site'); // status, pricing, settings: owner by default
 });
 
 it('creates, edits, reorders and deletes an entry, all audited', function () {
@@ -82,7 +82,7 @@ it('keeps single types to one item', function () {
 it('keeps site settings, menus, status and pricing to owners', function () {
     actAs('editor');
     $plan = json_decode(file_get_contents(config('content.seed_dir') . '/plan.json'), true)[0];
-    $this->postJson('/api/v1/entries/plan', ['data' => $plan])->assertStatus(403)->assertJsonPath('message', 'Only an owner can change this.');
+    $this->postJson('/api/v1/entries/plan', ['data' => $plan])->assertStatus(403)->assertJsonPath('message', 'Your role cannot change this.');
     $this->postJson('/api/v1/entries/faq', ['data' => ['page' => 'home', 'q' => ['bn' => 'প্র', 'en' => 'Q'], 'a' => ['bn' => 'উ', 'en' => 'A']]])->assertCreated();
 });
 

@@ -11,6 +11,8 @@ Layout and design stay in code; the admin changes content only.
 |---|---|---|---|---|
 | M01 | Login / reset | — | 2 | all |
 | M02 | Dashboard | Daily | 1 | all |
+> Access column = default roles only. Since 21 Nov 2026 any role can be built from any modules (view / edit) in Users & roles.
+
 | M03 | Leads | Daily | 2 | Owner, Sales |
 | M04 | Visitors (analytics) | Growth | 2 | Owner, Sales |
 | M05 | SEO (pages, sitemap, robots, redirects, verification) | Growth | 2 | Owner, Editor |

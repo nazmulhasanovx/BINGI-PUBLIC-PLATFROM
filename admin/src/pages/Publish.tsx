@@ -49,12 +49,12 @@ export default function Publish() {
       <Card className="p-5">
         <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <h2 className="text-[17px] font-semibold">{t({ bn: 'পাবলিশ বাকি', en: 'Waiting to publish' })} · {items.length}</h2>
-          {can('owner') ? (
+          {can('M20', 'edit') ? (
             <div className="flex flex-col gap-2 sm:flex-row">
               <Input aria-label={t({ bn: 'নোট (ঐচ্ছিক)', en: 'Note (optional)' })} placeholder={t({ bn: 'কী বদলালেন (ঐচ্ছিক)', en: 'What changed (optional)' })} value={note} onChange={(e) => setNote(e.target.value)} className="sm:w-[260px]" />
               <Button variant="primary" loading={busy} disabled={!items.length} onClick={publish}><Rocket className="size-4" />{t({ bn: 'পাবলিশ', en: 'Publish' })}</Button>
             </div>
-          ) : <Chip tone="info">{t({ bn: 'শুধু ওনার পাবলিশ করতে পারেন', en: 'Only an owner can publish' })}</Chip>}
+          ) : <Chip tone="info">{t({ bn: 'আপনার রোলে পাবলিশের অনুমতি নেই', en: 'Your role cannot publish' })}</Chip>}
         </div>
         {pending.loading ? <ListSkeleton rows={3} /> : pending.error ? <ErrorBox error={pending.error} retry={pending.reload} /> : !items.length
           ? <p className="py-6 text-center text-[14px] text-soft">{t({ bn: 'সব কিছু লাইভের সাথে মিলে আছে।', en: 'Everything matches the live site.' })}</p>
@@ -76,7 +76,7 @@ export default function Publish() {
             <span className="font-semibold tabular-nums">v{s.version}</span>{i === 0 && <Chip tone="ok">{t({ bn: 'লাইভ', en: 'Live' })}</Chip>}
             <span className="min-w-0 flex-1 truncate">{s.note ?? '—'}<span className="text-soft"> · {s.published_by ?? '—'} · {fmtDate(s.published_at)}</span></span>
             {s.build_status === 'failed' && <Chip tone="bad">{t({ bn: 'build শুরু হয়নি', en: 'build did not start' })}</Chip>}
-            {can('owner') && i > 0 && <Button size="sm" onClick={() => rollback(s)}><RotateCcw className="size-4" />{t({ bn: 'এটায় ফিরুন', en: 'Roll back' })}</Button>}
+            {can('M20', 'edit') && i > 0 && <Button size="sm" onClick={() => rollback(s)}><RotateCcw className="size-4" />{t({ bn: 'এটায় ফিরুন', en: 'Roll back' })}</Button>}
           </div>
         ))}</Card>
       )}

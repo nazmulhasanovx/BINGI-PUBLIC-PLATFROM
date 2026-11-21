@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\Perm;
 use App\Http\Middleware\Role;
 use App\Support\ApiError;
 use Illuminate\Auth\AuthenticationException;
@@ -21,7 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->alias(['role' => Role::class]);
+        $middleware->alias(['role' => Role::class, 'perm' => Perm::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // One error shape for the admin and the site: { code, message, fields }

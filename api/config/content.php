@@ -3,6 +3,7 @@
 return [
     // packages/content/types.json — the one definition of every content type
     'registry' => env('CONTENT_REGISTRY', base_path('../packages/content/types.json')),
+    'modules' => env('CONTENT_MODULES', base_path('../packages/content/modules.json')),
     'seed_dir' => env('CONTENT_SEED_DIR', base_path('../packages/content/seed')),
     // GitHub repository_dispatch: https://api.github.com/repos/<owner>/<repo>/dispatches
     'build_hook_url' => env('BUILD_HOOK_URL'),

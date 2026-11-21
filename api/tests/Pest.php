@@ -15,6 +15,7 @@ function actAs(string $role = 'owner'): User
 {
     $u = User::factory()->create(['role' => $role]);
     Laravel\Sanctum\Sanctum::actingAs($u);
+    App\Content\Permissions::flush();
     return $u;
 }
 

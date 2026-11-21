@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Plus, Trash2 } from 'lucide-react'
 import { ApiError, del, get, patch, post, SITE_URL } from '@/lib/api'
 import { useLang } from '@/lib/i18n'
+import { useAuth } from '@/lib/auth'
 import { useLoad } from '@/lib/useLoad'
 import { Button, Card, Chip, Drawer, Empty, ErrorBox, Field, IconButton, Input, ListSkeleton, PageHeader, Select, Switch, Tabs, Textarea, useConfirm, useToast } from '@/components/ui'
 import { MediaPicker } from '@/components/MediaPicker'
@@ -25,6 +26,7 @@ export default function Seo() {
 
 function Pages() {
   const { t } = useLang()
+  const canEdit = useAuth().can('M05', 'edit')
   const toast = useToast()
   const confirm = useConfirm()
   const q = useLoad(() => get<{ items: Page[] }>('/seo/pages'))
@@ -43,7 +45,7 @@ function Pages() {
   }
   return (
     <>
-      <div className="mb-4 flex justify-end"><Button variant="primary" onClick={() => { setErrors({}); setEdit({ path: '/', title: '', description: '' }) }}><Plus className="size-4" />{t({ bn: 'পেজ যোগ করুন', en: 'Add page' })}</Button></div>
+      {canEdit && <div className="mb-4 flex justify-end"><Button variant="primary" onClick={() => { setErrors({}); setEdit({ path: '/', title: '', description: '' }) }}><Plus className="size-4" />{t({ bn: 'পেজ যোগ করুন', en: 'Add page' })}</Button></div>}
       {q.loading ? <ListSkeleton /> : q.error ? <ErrorBox error={q.error} retry={q.reload} /> : !q.data?.items.length ? <Empty title={t({ bn: 'কোনো পেজ নেই', en: 'No pages' })} /> : (
         <Card className="divide-y divide-line overflow-hidden">
           {q.data.items.map((p) => (
@@ -53,15 +55,15 @@ function Pages() {
                 <span className="block truncate font-medium">{p.title}</span>
                 <span className="mt-1 flex flex-wrap gap-1">{p.checks?.filter((c) => c.level === 'warn').map((c) => <Chip key={c.msg} tone="warn">{c.msg}</Chip>)}{p.noindex && <Chip>noindex</Chip>}</span>
               </button>
-              <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} onClick={() => remove(p)} className="text-bad"><Trash2 className="size-4" /></IconButton>
+              {canEdit && <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} onClick={() => remove(p)} className="text-bad"><Trash2 className="size-4" /></IconButton>}
             </div>
           ))}
         </Card>
       )}
       <Drawer open={!!edit} onClose={() => setEdit(null)} title={edit?.id ? edit.path : t({ bn: 'নতুন পেজ', en: 'New page' })}
-        footer={<><Button onClick={() => setEdit(null)}>{t({ bn: 'বাতিল', en: 'Cancel' })}</Button><Button variant="primary" loading={saving} onClick={save}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></>}>
+        footer={!canEdit ? <Button onClick={() => setEdit(null)}>{t({ bn: 'বন্ধ করুন', en: 'Close' })}</Button> : <><Button onClick={() => setEdit(null)}>{t({ bn: 'বাতিল', en: 'Cancel' })}</Button><Button variant="primary" loading={saving} onClick={save}>{t({ bn: 'সেভ করুন', en: 'Save' })}</Button></>}>
         {edit && (
-          <div className="space-y-4">
+          <fieldset disabled={!canEdit} className="min-w-0 space-y-4">
             <div className="rounded-[16px] border border-line bg-white p-4" aria-label={t({ bn: 'Google-এ যেমন দেখাবে', en: 'How Google may show it' })}>
               <p className="text-[12px] text-soft">{t({ bn: 'Google-এ মোটামুটি এমন দেখাবে', en: 'Roughly how Google shows it' })}</p>
               <p className="mt-2 truncate text-[13px] text-[#4D5156]">{SITE_URL.replace(/^https?:\/\//, '')}{edit.path === '/' ? '' : edit.path}</p>
@@ -73,7 +75,7 @@ function Pages() {
             <Field label={`${t({ bn: 'বর্ণনা', en: 'Description' })} · ${edit.description.length}/160`} error={errors.description} required htmlFor="seo-desc"><Textarea id="seo-desc" value={edit.description} onChange={(e) => setEdit({ ...edit, description: e.target.value })} /></Field>
             <Field label={t({ bn: 'শেয়ার ছবি (1200×630)', en: 'Share image (1200×630)' })}><MediaPicker value={edit.og_image ?? ''} onChange={(v) => setEdit({ ...edit, og_image: v || null })} /></Field>
             <div className="flex items-center justify-between rounded-[14px] border border-line bg-white px-4 py-3"><span className="text-[14px] font-medium">{t({ bn: 'Google থেকে লুকান (noindex)', en: 'Hide from Google (noindex)' })}</span><Switch checked={!!edit.noindex} onChange={(v) => setEdit({ ...edit, noindex: v })} label="noindex" /></div>
-          </div>
+          </fieldset>
         )}
       </Drawer>
     </>
@@ -82,6 +84,7 @@ function Pages() {
 
 function Redirects() {
   const { t } = useLang()
+  const canEdit = useAuth().can('M05', 'edit')
   const toast = useToast()
   const q = useLoad(() => get<{ items: Redirect[] }>('/seo/redirects'))
   const [form, setForm] = useState<Redirect>({ from_path: '', to_path: '', code: 301 })
@@ -93,15 +96,15 @@ function Redirects() {
   }
   return (
     <>
-      <Card className="mb-4 grid gap-3 p-4 sm:grid-cols-[1fr_1fr_120px_auto] sm:items-end">
+      {canEdit && <Card className="mb-4 grid gap-3 p-4 sm:grid-cols-[1fr_1fr_120px_auto] sm:items-end">
         <Field label={t({ bn: 'পুরনো পাথ', en: 'Old path' })} error={errors.from_path} htmlFor="r-from"><Input id="r-from" placeholder="/old-page" value={form.from_path} onChange={(e) => setForm({ ...form, from_path: e.target.value })} /></Field>
         <Field label={t({ bn: 'নতুন পাথ বা URL', en: 'New path or URL' })} error={errors.to_path} htmlFor="r-to"><Input id="r-to" placeholder="/pricing" value={form.to_path} onChange={(e) => setForm({ ...form, to_path: e.target.value })} /></Field>
         <Field label={t({ bn: 'ধরন', en: 'Type' })} htmlFor="r-code"><Select id="r-code" value={form.code} onChange={(e) => setForm({ ...form, code: Number(e.target.value) })}><option value={301}>301 · {t({ bn: 'স্থায়ী', en: 'permanent' })}</option><option value={302}>302 · {t({ bn: 'সাময়িক', en: 'temporary' })}</option></Select></Field>
         <Button variant="primary" onClick={add}><Plus className="size-4" />{t({ bn: 'যোগ', en: 'Add' })}</Button>
-      </Card>
+      </Card>}
       {q.loading ? <ListSkeleton rows={3} /> : q.error ? <ErrorBox error={q.error} retry={q.reload} /> : !q.data?.items.length ? <Empty title={t({ bn: 'কোনো রিডাইরেক্ট নেই', en: 'No redirects' })} /> : (
         <Card className="divide-y divide-line">{q.data.items.map((r) => (
-          <div key={r.id} className="flex items-center gap-3 px-4 py-3 text-[14px]"><code className="min-w-0 flex-1 truncate">{r.from_path} → {r.to_path}</code><Chip>{r.code}</Chip><IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} className="text-bad" onClick={async () => { await del(`/seo/redirects/${r.id}`); q.reload() }}><Trash2 className="size-4" /></IconButton></div>
+          <div key={r.id} className="flex items-center gap-3 px-4 py-3 text-[14px]"><code className="min-w-0 flex-1 truncate">{r.from_path} → {r.to_path}</code><Chip>{r.code}</Chip>{canEdit && <IconButton label={t({ bn: 'মুছুন', en: 'Delete' })} className="text-bad" onClick={async () => { await del(`/seo/redirects/${r.id}`); q.reload() }}><Trash2 className="size-4" /></IconButton>}</div>
         ))}</Card>
       )}
     </>

@@ -2,6 +2,7 @@
 // clicked through without a server. Starts from the real seed (packages/content/seed). Nothing leaves the browser.
 import { registry } from './registry'
 import { ApiError } from './api'
+import modulesJson from '../../../packages/content/modules.json'
 
 const seeds = import.meta.glob('../../../packages/content/seed/*.json', { eager: true, import: 'default' }) as Record<string, unknown>
 type E = { id: number; type: string; data: Record<string, unknown>; published: Record<string, unknown> | null; visible: boolean; pubVisible: boolean | null; sort: number; deleted?: boolean; updated_at: string }
@@ -19,6 +20,9 @@ const redirects: { id: number; from_path: string; to_path: string; code: number 
 let redirLive = '[]'
 const snaps = [{ id: 1, version: 1, note: 'Initial content from the website code', rolled_back_from: null as number | null, published_at: now(), published_by: 'Demo owner', build_status: 'none' }]
 const users = [{ id: 1, name: 'Demo owner', email: 'demo@bingi.local', role: 'owner', active: true, last_login_at: now() }]
+type R = { id: number; key: string; name: { bn: string; en: string }; permissions: Record<string, string>; system: boolean }
+const roles: R[] = modulesJson.defaultRoles.map((r, i) => ({ id: i + 1, key: r.key, name: r.name, permissions: { ...r.permissions } as Record<string, string>, system: !!r.system }))
+const meOut = () => { const u = users[0]; const r = roles.find((x) => x.key === u.role); return { ...u, role_name: r?.name, permissions: r?.permissions ?? {} } }
 const audit: { id: number; action: string; entity: string; at: string; user: { name: string } }[] = []
 const leads = [
   { id: 1, name: 'Sample lead (demo)', property: 'Sample Guest House', phone: '01700000000', property_type: 'guest', rooms: 12, preferred_time: '3–5 pm', source_page: '/pricing', status: 'new', created_at: now(), notes: [] as { id: number; body: string; created_at: string; user: { name: string } }[] },
@@ -59,8 +63,22 @@ export async function mockApi(path: string, method: string, body: unknown, form?
   const b = (body ?? {}) as Record<string, unknown>
   const [p, qs] = path.split('?'); const q = new URLSearchParams(qs ?? '')
   const m = (re: RegExp) => p.match(re)
-  if (p === '/auth/login') return { token: 'demo', user: users[0] }
-  if (p === '/auth/me') return { user: users[0] }
+  if (p === '/auth/login') return { token: 'demo', user: meOut() }
+  if (p === '/auth/me') return { user: meOut() }
+  if (p === '/modules') return { modules: modulesJson.modules }
+  if (p === '/roles' && method === 'GET') return { items: roles.map((r) => ({ ...r, users: users.filter((u) => u.role === r.key).length })) }
+  if (p === '/roles' || (p.startsWith('/roles/') && method === 'PATCH')) {
+    const name = b.name as { bn: string; en: string }
+    const fields: Record<string, string> = {}
+    if (!name?.bn) fields['name.bn'] = 'Write the Bangla name.'
+    if (!name?.en) fields['name.en'] = 'Write the English name.'
+    if (Object.keys(fields).length) throw new ApiError('invalid', 'Check the highlighted fields.', 422, fields)
+    const perms = Object.fromEntries(Object.entries(b.permissions as Record<string, string>).filter(([, v]) => v && v !== 'none'))
+    if (method === 'PATCH') { const r = roles.find((x) => x.id === Number(p.split('/')[2]))!; Object.assign(r, { name, permissions: perms }); log('updated', `role:${r.key}`); return { item: r } }
+    const key = name.en.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'role'
+    roles.push({ id: roles.length + 1, key, name, permissions: perms, system: false }); log('created', `role:${key}`); return { item: roles.at(-1) }
+  }
+  if (p.startsWith('/roles/') && method === 'DELETE') { const i = roles.findIndex((x) => x.id === Number(p.split('/')[2])); log('deleted', `role:${roles[i].key}`); roles.splice(i, 1); return { ok: true } }
   if (p === '/auth/logout' || p === '/auth/password' || p === '/auth/forgot') return { ok: true }
   if (p === '/dashboard') return { visitors_today: 0, views_today: 0, leads_new: leads.filter((l) => l.status === 'new').length, leads_7d: leads.length, unpublished: pending().length, live: { version: snaps[0].version, published_at: snaps[0].published_at, build_status: 'none' }, recent_leads: leads }
   if (p === '/types') return { ...registry, types: registry.types.map((t) => ({ ...t, count: entries.filter((e) => e.type === t.type && !e.deleted).length, unpublished: entries.filter((e) => e.type === t.type && (e.deleted || state(e) !== 'published')).length })) }
