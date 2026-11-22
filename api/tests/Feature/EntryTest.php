@@ -114,9 +114,9 @@ describe('customer stories', function () {
             ->assertStatus(422)->assertJsonPath('fields', fn ($f) => isset($f['results.0.source']));
     });
 
-    it('seeds the three samples hidden, so nothing shows on the site', function () {
+    it('seeds the five samples hidden, so nothing shows on the site', function () {
         seedContent();
-        expect(\App\Models\Entry::where('type', 'customer_story')->where('visible', false)->count())->toBe(3);
+        expect(\App\Models\Entry::where('type', 'customer_story')->where('visible', false)->count())->toBe(5);
         expect($this->getJson('/api/v1/public/content')->json('stories'))->toBe([]);
     });
 });
