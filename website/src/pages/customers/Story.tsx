@@ -27,7 +27,7 @@ export default function StoryPage() {
       <h1 className="display mt-3 text-[34px] text-balance md:text-[50px]">{t(s.headline)}</h1>
       <p className="lead mt-5">{t(s.summary)}</p>
       <dl className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-[18px] border border-line bg-line sm:grid-cols-4">
-        {[[{ bn: 'প্রপার্টি', en: 'Property' }, s.property], [{ bn: 'ধরন', en: 'Type' }, `${t(typeL[s.propertyType])}${s.rooms ? ` · ${num(s.rooms)} ${t({ bn: 'রুম', en: 'rooms' })}` : ''}`], [{ bn: 'জায়গা', en: 'Location' }, t(s.location)], [{ bn: 'প্ল্যান', en: 'Plan' }, plan?.name ?? '—']].map(([k, v]) => (
+        {[[{ bn: 'প্রপার্টি', en: 'Property' }, s.property], [{ bn: 'ধরন', en: 'Type' }, `${t(typeL[s.propertyType])}${s.rooms ? ` · ${num(s.rooms)} ${t({ bn: 'রুম', en: s.rooms === 1 ? 'room' : 'rooms' })}` : ''}`], [{ bn: 'জায়গা', en: 'Location' }, t(s.location)], [{ bn: 'প্ল্যান', en: 'Plan' }, plan?.name ?? '—']].map(([k, v]) => (
           <div key={(k as { en: string }).en} className="bg-white px-4 py-3"><dt className="text-[13px] text-muted-foreground">{t(k as { bn: string; en: string })}</dt><dd className="mt-0.5 text-[15px] font-medium">{v as string}</dd></div>
         ))}
       </dl>

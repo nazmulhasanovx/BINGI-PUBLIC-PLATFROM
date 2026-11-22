@@ -214,6 +214,7 @@
       "home.bento.title",
       "home.platforms.title",
       "home.types.title",
+      "home.stories.title",
       "home.faq.title",
       "home.team.title"
      ]
@@ -252,6 +253,7 @@
       "home.integrations",
       "home.pricing",
       "home.testimonials",
+      "home.stories",
       "home.faq",
       "home.team"
      ]

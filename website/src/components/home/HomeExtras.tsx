@@ -11,7 +11,8 @@ import { integrations, modules } from '@/data/status'
 import { themes, demoUrl } from '@/data/themes'
 import { testimonials, clientLogos } from '@/data/testimonials'
 import { trustFacts } from '@/data/trust'
-import { shown } from '@/data/copy'
+import { copy, shown } from '@/data/copy'
+import { stories, type Story } from '@/data/stories'
 import type { MediaId } from '@/data/media'
 import { Media } from '@/components/media/Media'
 import { StatusChip } from '@/components/ui/StatusChip'
@@ -242,3 +243,38 @@ function Zoom({ item, close }: { item: { media: MediaId; title: string } | null;
   )
 }
 export const ZoomHint = () => <span className="absolute right-3 top-3 grid size-9 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow-sm transition-opacity group-hover:opacity-100" aria-hidden="true"><Maximize2 className="size-4" /></span>
+
+/* ── Customer stories: the 3 newest published ones (none published → section hidden; samples only in the preview build) ── */
+export function StoriesStrip() {
+  const { t, num } = useLang()
+  if (!stories.length || !shown('home.stories')) return null
+  const list = stories.slice(0, 3)
+  return (
+    <section className="container-x pt-16 md:pt-24" aria-labelledby="stories-h">
+      <div className="flex items-end justify-between gap-4">
+        <h2 id="stories-h" className="h2 max-w-[560px]">{t(copy('home.stories.title', { bn: 'যারা BinGi দিয়ে চালান', en: 'Properties that run on BinGi' }))}</h2>
+        <Link to="/customers" className="inline-flex min-h-11 shrink-0 items-center whitespace-nowrap text-[16px] font-medium text-link hover:underline underline-offset-4">
+          <span className="hidden sm:inline">{t({ bn: 'সব গল্প দেখুন', en: 'All stories' })}</span><span className="sm:hidden">{t({ bn: 'সব দেখুন', en: 'See all' })}</span>
+        </Link>
+      </div>
+      <ul className="-mx-5 mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:mx-0 md:mt-8 md:grid md:grid-cols-3 md:overflow-visible md:px-0 [scrollbar-width:none]">
+        {list.map((s) => (
+          <li key={s.slug} className="w-[82%] shrink-0 snap-start sm:w-[60%] md:w-auto">
+            <Link to={`/customers/${s.slug}`} className="card group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-[0_20px_50px_-24px_rgb(16_24_40/0.35)]">
+              {s.cover && <img src={asset(s.cover.src)} alt={t(s.cover.alt)} loading="lazy" className="aspect-[16/10] w-full object-cover" />}
+              <div className="flex flex-1 flex-col p-5">
+                <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
+                  {s.sample && <span className="rounded-full bg-[#FEF2E2] px-2 py-0.5 text-[12px] font-semibold text-[#92400E]">{t({ bn: 'নমুনা', en: 'Sample' })}</span>}
+                  <span>{t(storyTypeL[s.propertyType])}{s.rooms ? ` · ${num(s.rooms)} ${t({ bn: 'রুম', en: s.rooms === 1 ? 'room' : 'rooms' })}` : ''}</span>
+                </div>
+                <h3 className="mt-2 text-[18px] font-semibold leading-snug tracking-tight">{t(s.headline)}</h3>
+                <span className="mt-auto pt-4 text-[14px] text-muted-foreground">{s.property.replace(/ \(sample\)$/, '')} · {t(s.location)}</span>
+              </div>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
+const storyTypeL: Record<Story['propertyType'], L> = { home: { bn: 'হোম স্টে', en: 'Home stay' }, guest: { bn: 'গেস্ট হাউস', en: 'Guest house' }, hotel: { bn: 'হোটেল', en: 'Hotel' }, resort: { bn: 'রিসোর্ট', en: 'Resort' }, group: { bn: 'হোটেল গ্রুপ', en: 'Hotel group' } }
