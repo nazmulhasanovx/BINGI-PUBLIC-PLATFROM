@@ -41,6 +41,5 @@ export const footer: FooterColumn[] = pick('footer', [
     { to: '/careers', label: { bn: 'ক্যারিয়ার', en: 'Careers' } },
     { to: '/legal/privacy', label: { bn: 'প্রাইভেসি', en: 'Privacy' } },
     { to: '/legal/terms', label: { bn: 'শর্তাবলি', en: 'Terms' } },
-    { to: '/foundation', label: { bn: 'ডিজাইন ফাউন্ডেশন', en: 'Design foundation' } },
   ] },
 ])

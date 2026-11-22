@@ -26,10 +26,10 @@ export default function Customers() {
         lead={stories.length ? t({ bn: 'BinGi ব্যবহার করা হোটেলগুলো, তাদের নিজের কথায়।', en: 'Hotels that run on BinGi, in their own words.' }) : t({ bn: 'BinGi ব্যবহার করা হোটেলগুলো নিজেদের কথা বলবে — শীঘ্রই।', en: 'Hotels that run on BinGi, in their own words — coming soon.' })} />
       {stories.length > 0 && (
         <ul className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {stories.map((s) => (
+          {stories.map((s, i) => (
             <li key={s.slug}>
               <Link to={`/customers/${s.slug}`} className="card group flex h-full flex-col overflow-hidden transition-shadow hover:shadow-[0_20px_50px_-24px_rgb(16_24_40/0.35)]">
-                {s.cover && <FadeImg src={asset(s.cover.src)} alt={t(s.cover.alt)} loading="lazy" className="aspect-[16/10] w-full object-cover" />}
+                {s.cover && <FadeImg src={asset(s.cover.src)} alt={t(s.cover.alt)} loading={i < 3 ? 'eager' : 'lazy'} className="aspect-[16/10] w-full object-cover" />}
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
                     {s.sample && <SampleBadge />}

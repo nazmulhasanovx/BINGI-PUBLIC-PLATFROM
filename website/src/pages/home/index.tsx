@@ -189,9 +189,9 @@ export default function Home() {
           {team.map((m) => (
             <li key={m.name} onPointerMove={spot} className="spotlight card glow-hover overflow-hidden">
               <div className="relative aspect-[5/4] overflow-hidden bg-[radial-gradient(120%_80%_at_50%_115%,#FFB38A40,transparent_60%),linear-gradient(160deg,#16405F,#0B2235)]">
-                {m.photo
-                  ? <img src={asset(m.photo)} alt={m.name} loading="lazy" className="size-full object-cover object-[50%_25%]" />
-                  : <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[44px] sm:text-[56px] font-semibold tracking-[-0.03em] text-white/85">{m.name.replace(/^(Md\.|Most\.)\s*/, '').split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>}
+                {/* initials always sit underneath, so the card never shows an empty dark box while a photo loads (or if it fails) */}
+                <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center font-[family-name:var(--font-display)] text-[44px] sm:text-[56px] font-semibold tracking-[-0.03em] text-white/85">{m.name.replace(/^(Md\.|Most\.)\s*/, '').split(' ').map((w) => w[0]).slice(0, 2).join('')}</span>
+                {m.photo && <img src={asset(m.photo)} alt={m.name} loading="lazy" onError={(e) => { e.currentTarget.style.display = 'none' }} className="absolute inset-0 size-full object-cover object-[50%_25%]" />}
                 <span className="absolute left-3 top-3 rounded-full bg-white/90 px-2.5 py-1 text-[12px] font-medium text-ink backdrop-blur">{t(m.group)}</span>
               </div>
               <div className="p-4">
