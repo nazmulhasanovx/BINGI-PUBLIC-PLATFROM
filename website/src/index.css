@@ -45,12 +45,12 @@
   --ease-snappy: linear(0, 0.0096, 0.0354, 0.073, 0.1191, 0.171, 0.2262, 0.283, 0.3401, 0.3962, 0.4506, 0.5026, 0.5519, 0.5981, 0.6412, 0.6809, 0.7175, 0.7509, 0.7812, 0.8085, 0.8332, 0.8552, 0.8749, 0.8923, 0.9078, 0.9214, 0.9333, 0.9437, 0.9528, 0.9606, 0.9674, 0.9732, 0.9782, 0.9824, 0.986, 0.9891, 0.9916, 0.9937, 0.9954, 0.9969, 1);
   --ease-bouncy: linear(0, 0.0258, 0.0921, 0.1844, 0.291, 0.4025, 0.5123, 0.6153, 0.7085, 0.7899, 0.859, 0.9157, 0.9608, 0.9952, 1.0203, 1.0373, 1.0478, 1.0531, 1.0542, 1.0524, 1.0486, 1.0434, 1.0375, 1.0315, 1.0256, 1.02, 1.0151, 1.0108, 1.0071, 1.0041, 1.0018, 1, 0.9987, 0.9979, 0.9973, 0.9971, 0.9971, 0.9972, 0.9974, 0.9977, 1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --animate-page-in: page-in 540ms var(--ease-spring) both;
+  --animate-page-in: page-in 240ms var(--ease-out-quint) both;
   --animate-marquee: marquee 40s linear infinite;
   --animate-pulse-ring: pulse-ring 2.4s ease-out infinite;
 }
 
-@keyframes page-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@keyframes page-in { from { opacity: 0.55; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes rise { from { transform: translateY(24px); } to { transform: none; } }
 .rise { animation: rise 900ms var(--ease-out-quint) both; }
 @keyframes marquee { to { transform: translateX(-50%); } }

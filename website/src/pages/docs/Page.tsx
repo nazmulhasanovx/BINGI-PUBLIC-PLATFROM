@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { ArrowLeft, ArrowRight, ChevronRight, MapPin } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
+import { docTitle, groupLabel } from '@/data/docsBn'
 import { docs } from '@/data/docs'
 import NotFound from '../not-found'
 import { CopyButton, DocsShell, copyPage, slugify, useDocTitle } from './DocsShell'
@@ -22,11 +23,11 @@ export default function DocPage() {
       <article className="max-w-[780px]">
         <div className="flex items-center justify-between gap-3">
           <nav aria-label="Breadcrumb" className="flex items-center gap-1 text-[13px] text-muted-foreground">
-            <Link to="/docs" className="-ml-2 inline-flex min-h-10 items-center px-2 hover:text-ink">Docs</Link><ChevronRight className="size-3.5" aria-hidden="true" /><span>{d.group}</span>
+            <Link to="/docs" className="-ml-2 inline-flex min-h-10 items-center px-2 hover:text-ink">Docs</Link><ChevronRight className="size-3.5" aria-hidden="true" /><span>{t(groupLabel(d.group))}</span>
           </nav>
           <CopyButton text={copyPage(d)} label={t({ bn: 'AI-এর জন্য কপি', en: 'Copy for AI' })} />
         </div>
-        <h1 className="mt-2 font-[family-name:var(--font-display)] text-[34px] md:text-[46px] font-semibold leading-[1.05] tracking-[-0.03em]">{d.title}</h1>
+        <h1 className="mt-2 font-[family-name:var(--font-display)] text-[34px] md:text-[46px] font-semibold leading-[1.05] tracking-[-0.03em]">{t(docTitle(d))}</h1>
         <p className="lead mt-3">{d.summary}</p>
 
         {(d.where || d.plan || d.status) && (

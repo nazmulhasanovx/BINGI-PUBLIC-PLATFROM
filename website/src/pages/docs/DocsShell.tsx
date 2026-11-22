@@ -3,6 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom'
 import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from 'motion/react'
 import { Bot, Check, ChevronDown, Copy, Search } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
+import { docTitle, groupLabel } from '@/data/docsBn'
 import { docs, fullMarkdown, pageToMarkdown, type DocPage } from '@/data/docs'
 import { asset } from '@/lib/utils'
 
@@ -38,6 +39,7 @@ export const copyPage = (d: DocPage) => () => pageToMarkdown(d)
 export const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 
 function DocsNav({ q, onPick }: { q: string; onPick: () => void }) {
+  const { t } = useLang()
   const pathname = useLocation().pathname.replace(/\/+$/, '')
   const reduce = useReducedMotion()
   const activeGroup = docs.find((d) => pathname === `/docs/${d.slug}`)?.group
@@ -56,7 +58,7 @@ function DocsNav({ q, onPick }: { q: string; onPick: () => void }) {
             <div key={g}>
               <button type="button" onClick={() => toggle(g)} aria-expanded={isOpen}
                 className={`flex min-h-10 w-full items-center justify-between rounded-[8px] px-3 text-[13px] font-medium transition-colors ${g === activeGroup ? 'text-ink' : 'text-muted-foreground hover:text-ink'}`}>
-                {g}<ChevronDown className={`size-3.5 transition-transform duration-300 ${isOpen ? 'rotate-0' : '-rotate-90'}`} aria-hidden="true" />
+                {t(groupLabel(g))}<ChevronDown className={`size-3.5 transition-transform duration-300 ${isOpen ? 'rotate-0' : '-rotate-90'}`} aria-hidden="true" />
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
@@ -70,7 +72,7 @@ function DocsNav({ q, onPick }: { q: string; onPick: () => void }) {
                             className="absolute inset-0 rounded-[10px] bg-[#FFE7E4] ring-1 ring-brand/15" aria-hidden="true" />}
                           <NavLink to={`/docs/${d.slug}`} onClick={onPick} aria-current={active ? 'page' : undefined}
                             className={`relative flex min-h-10 items-center rounded-[10px] px-3 text-[14px] transition-colors duration-200 ${active ? 'font-medium text-brand' : 'text-muted-foreground hover:bg-ink/[0.035] hover:text-ink'}`}>
-                            {d.title}
+                            {t(docTitle(d))}
                           </NavLink>
                         </li>
                       )

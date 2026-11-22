@@ -14,8 +14,10 @@ const cls = {
   confirm: 'bg-canvas text-muted-foreground border border-line',
 }
 
+/** 'confirm' = not verified in production yet: the public site shows no chip at all (no claim either way). */
 export function StatusChip({ status }: { status: Status }) {
   const { t } = useLang()
+  if (status === 'confirm') return null
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[12px] font-medium whitespace-nowrap ${cls[status]}`}>
       <span className={`size-1.5 rounded-full bg-current ${status === 'live' ? 'animate-pulse-ring' : ''}`} aria-hidden="true" />

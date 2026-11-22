@@ -23,12 +23,12 @@
  },
  {
   "value": {
-   "bn": "7",
-   "en": "7"
+   "bn": "7 দিন",
+   "en": "7 days"
   },
   "label": {
-   "bn": "দিনের ফ্রি ট্রায়াল",
-   "en": "day free trial"
+   "bn": "ফ্রি ট্রায়াল",
+   "en": "free trial"
   },
   "source": "Current CTA: seven-day free trial"
  },

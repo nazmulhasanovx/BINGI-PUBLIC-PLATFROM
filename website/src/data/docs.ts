@@ -108,8 +108,8 @@ export const docs: DocPage[] = pick('docs', [
     sections: [
       { heading: 'Platforms', table: { head: ['Platform', 'For', 'Where', 'Status'], rows: [
         ['BinGi HMS Web', 'Owners, managers, reception', 'hms.bingi.app', 'Live'],
-        ['HMS Mobile', 'Staff on the move (role-wise tabs)', 'Phone app', 'Status to confirm'],
-        ['Guest App + BinGi Marketplace', 'Guests: find, book, chat', 'bingi.app', 'Marketplace web live; app status to confirm'],
+        ['HMS Mobile', 'Staff on the move (role-wise tabs)', 'Phone app', '—'],
+        ['Guest App + BinGi Marketplace', 'Guests: find, book, chat', 'bingi.app', 'Marketplace web live'],
         ['Hotel website (themes)', 'Your own website with booking engine', 'Your domain', 'Live; new theme collection rolling out'],
         ['Super Admin', 'BinGi team (approvals, plans, payouts, support)', 'Internal', 'Internal'],
         ['BinGi AI', 'An assistant that answers questions and drafts work', 'Local app on your computer (beta)', 'Beta — by invitation'],

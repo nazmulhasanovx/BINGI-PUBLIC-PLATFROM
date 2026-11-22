@@ -95,9 +95,14 @@ export function FloatingWhatsApp() {
   const { t } = useLang()
   const [show, setShow] = useState(false)
   useEffect(() => {
-    const on = () => setShow(window.scrollY > 500)
-    on(); window.addEventListener('scroll', on, { passive: true })
-    return () => window.removeEventListener('scroll', on)
+    // Hidden near the top, over the footer, and whenever a form reaches the bottom corner (so it never covers a Send button).
+    const on = () => {
+      const band = window.innerHeight - 110
+      const covers = [...document.querySelectorAll('footer, form, [data-no-fab]')].some((el) => { const r = el.getBoundingClientRect(); return r.bottom > band && r.top < window.innerHeight && r.right > window.innerWidth - 260 })
+      setShow(window.scrollY > 500 && !covers)
+    }
+    on(); window.addEventListener('scroll', on, { passive: true }); window.addEventListener('resize', on)
+    return () => { window.removeEventListener('scroll', on); window.removeEventListener('resize', on) }
   }, [])
   return (
     <AnimatePresence>

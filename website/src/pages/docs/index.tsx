@@ -3,10 +3,11 @@ import { ArrowRight, Bot } from 'lucide-react'
 import { useLang } from '@/i18n/lang'
 import { docs } from '@/data/docs'
 import { asset } from '@/lib/utils'
+import { docTitle, groupLabel } from '@/data/docsBn'
 import { CopyButton, DocsShell, copyAll, useDocTitle } from './DocsShell'
 
 export default function DocsHome() {
-  const { t } = useLang()
+  const { t, lang } = useLang()
   useDocTitle('BinGi documentation — modules, ecosystem and troubleshooting', 'Everything about BinGi in one place, written so you — or any AI assistant — can fix an issue fast.')
   const groups = [...new Set(docs.map((d) => d.group))]
   return (
@@ -35,14 +36,15 @@ export default function DocsHome() {
         <p className="mt-4 text-[13px] text-muted-foreground">{t({ bn: 'AI টুলের জন্য:', en: 'For AI tools:' })} <a className="text-link underline-offset-4 hover:underline" href={asset('/llms.txt')}>/llms.txt</a> · <a className="text-link underline-offset-4 hover:underline" href={asset('/llms-full.txt')}>/llms-full.txt</a></p>
       </section>
 
+      {lang === 'bn' && <p className="mt-8 text-[14px] text-muted-foreground">আর্টিকেলগুলো এখন ইংরেজিতে লেখা — শিরোনাম বাংলায় দেওয়া আছে।</p>}
       {groups.map((g) => (
         <section key={g} className="mt-10">
-          <h2 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{g}</h2>
+          <h2 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-muted-foreground">{t(groupLabel(g))}</h2>
           <div className="mt-3 grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
             {docs.filter((d) => d.group === g).map((d) => (
               <Link key={d.slug} to={`/docs/${d.slug}`} className="group card glow-hover flex flex-col p-5">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-[16px] font-semibold">{d.title}</h3>
+                  <h3 className="text-[16px] font-semibold">{t(docTitle(d))}</h3>
                   <ArrowRight className="size-4 shrink-0 text-brand transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
                 </div>
                 <p className="mt-1.5 line-clamp-2 text-[14px] text-muted-foreground">{d.summary}</p>

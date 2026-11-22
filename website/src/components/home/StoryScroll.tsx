@@ -18,7 +18,7 @@ function Item({ step, index, active, setActive }: { step: Step; index: number; a
   useMotionValueEvent(isActive, 'change', (v) => { if (v) setActive(index) })
   return (
     <motion.article ref={ref} style={{ y }} className="flex gap-5">
-      <span className={`mt-1 grid size-9 shrink-0 place-items-center rounded-full text-[15px] font-semibold transition-colors duration-300 ${active ? 'bg-linear-to-t from-brand to-brand-2 text-white' : 'bg-white text-muted-foreground border border-line'}`}>{index + 1}</span>
+      <span className={`mt-1 grid size-9 shrink-0 place-items-center rounded-full text-[15px] font-semibold transition-colors duration-300 ${active ? 'bg-brand text-white border border-brand' : 'bg-white text-ink border border-line-strong'}`}>{index + 1}</span>
       <div>
         <h3 className="font-[family-name:var(--font-display)] text-[26px] md:text-[30px] font-semibold tracking-[-0.02em] leading-tight">{step.title}</h3>
         <div className={`grid transition-[grid-template-rows,opacity] duration-500 ease-spring ${active ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'}`}>

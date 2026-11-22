@@ -11,7 +11,7 @@ export const seo: Record<string, SeoMeta> = pick('seo', {
   '/legal/privacy': { title: 'Privacy policy — BinGi', description: 'How BinGi handles your data.' },
   '/legal/terms': { title: 'Terms of service — BinGi', description: 'Terms for using BinGi.' },
   '/legal/refund': { title: 'Refund policy — BinGi', description: 'BinGi refund policy.' },
-  '/foundation': { title: 'Design foundation — BinGi', description: 'BinGi design tokens in the shadcn / 21st.dev theme format.' },
+  '/foundation': { title: 'Design foundation — BinGi', description: 'BinGi design tokens in the shadcn / 21st.dev theme format.', noindex: true }, // developer page, not linked from the site
   '/help/create-booking': { title: 'How to create a new booking — BinGi help', description: 'Book a guest from the BinGi dashboard in a minute.' },
   '/help/add-room-type': { title: 'Add a room type and rooms — BinGi help', description: 'Set category, rate and room numbers in one go.' },
   '/help/change-plan': { title: 'View and change your plan — BinGi help', description: 'Monthly, 6 months or 12 months.' },

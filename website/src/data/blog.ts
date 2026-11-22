@@ -33,7 +33,7 @@ export const posts: Post[] = pick('posts', [
   },
   {
     slug: 'close-the-day-cash-routine', date: '2026-11-19',
-    cover: { src: '/media/hms/bentoCash.webp', alt: { bn: 'BinGi HMS-এর ক্যাশবক্স', en: 'The Cashbox in BinGi HMS' } },
+    cover: { src: '/media/hms/bentoCash-still.webp', alt: { bn: 'BinGi HMS-এর ক্যাশবক্স', en: 'The Cashbox in BinGi HMS' } },
     tag: { bn: 'টাকা-পয়সা', en: 'Money' },
     title: { bn: 'দিন শেষের ক্যাশ মেলানো: 5 মিনিটের রুটিন', en: 'Closing the cash drawer: a 5-minute routine' },
     summary: { bn: 'ড্রয়ারে যা থাকার কথা আর যা আছে — প্রতিদিন মেলালে ছোট ভুল বড় হয় না।', en: 'What should be in the drawer and what is there — check daily and small mistakes never grow.' },
@@ -114,7 +114,7 @@ export const posts: Post[] = pick('posts', [
   },
   {
     slug: 'more-direct-bookings', date: '2026-11-10',
-    cover: { src: '/media/hms/bentoWebsite.webp', alt: { bn: 'BinGi HMS-এর ওয়েবসাইট ম্যানেজমেন্ট', en: 'Website Management in BinGi HMS' } },
+    cover: { src: '/media/hms/bentoWebsite-still.webp', alt: { bn: 'BinGi HMS-এর ওয়েবসাইট ম্যানেজমেন্ট', en: 'Website Management in BinGi HMS' } },
     tag: { bn: 'গ্রোথ', en: 'Growth' },
     title: { bn: 'সরাসরি বুকিং বাড়ানোর 6টা সহজ উপায়', en: '6 simple ways to get more direct bookings' },
     summary: { bn: 'নিজের ওয়েবসাইট থেকে আসা বুকিংয়ে কমিশন কম — এই ছয়টা কাজ দিয়ে শুরু করুন।', en: 'Bookings from your own website cost less in commission — start with these six things.' },

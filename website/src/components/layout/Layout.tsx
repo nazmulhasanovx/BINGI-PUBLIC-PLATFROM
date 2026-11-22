@@ -10,7 +10,6 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
 import Lenis from 'lenis'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { PillTabs } from '../ui/Ui'
 import { ios } from '../../lib/motion'
 import { Logo } from './Logo'
 import { useLang } from '../../i18n/lang'
@@ -40,7 +39,18 @@ function LangToggle() {
       } else setLang(l)
     }, reduce ? 0 : 220)
   }
-  return <PillTabs tone="ink" size="sm" label="Language" value={shown} onChange={change} options={[{ id: 'bn', label: 'বাংলা' }, { id: 'en', label: 'EN' }]} />
+  // Plain CSS slide (no shared-layout measuring): the pill can't jump across the page when a route changes,
+  // and fixed-width segments keep বাংলা from being squeezed while the Bangla font loads.
+  const opts = [{ id: 'bn' as const, label: 'বাংলা' }, { id: 'en' as const, label: 'EN' }]
+  return (
+    <div role="tablist" aria-label="Language" className="relative grid grid-cols-2 rounded-full border border-line bg-white/80 p-1">
+      <span aria-hidden="true" className="absolute inset-y-1 left-1 w-[calc(50%-4px)] rounded-full bg-ink transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)] motion-reduce:transition-none" style={{ transform: shown === 'en' ? 'translateX(100%)' : 'none' }} />
+      {opts.map((o) => (
+        <button key={o.id} role="tab" aria-selected={shown === o.id} onClick={() => change(o.id)}
+          className={`relative z-[1] h-8 w-[58px] cursor-pointer rounded-full text-[13px] font-medium whitespace-nowrap transition-colors duration-200 ${shown === o.id ? 'text-white' : 'text-muted-foreground hover:text-ink'}`}>{o.label}</button>
+      ))}
+    </div>
+  )
 }
 
 function Header() {

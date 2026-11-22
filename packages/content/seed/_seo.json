@@ -42,7 +42,8 @@
  {
   "path": "/foundation",
   "title": "Design foundation — BinGi",
-  "description": "BinGi design tokens in the shadcn / 21st.dev theme format."
+  "description": "BinGi design tokens in the shadcn / 21st.dev theme format.",
+  "noindex": true
  },
  {
   "path": "/help/create-booking",
