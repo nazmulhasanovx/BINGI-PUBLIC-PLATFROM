@@ -92,7 +92,7 @@ export function PriceSlider() {
             </div>
             <input id="rooms-slider" type="range" min={MIN_BILLABLE} max={200} step={1} value={rooms} onChange={(e) => { if (!moved.current) { moved.current = true; track('price_slider') } setRooms(+e.target.value) }}
               className="range-brand mt-2 w-full" style={{ ['--p' as string]: `${pct}%` }} />
-            <div className="mt-1 flex justify-between text-[13px] text-soft"><span>10</span><span>200</span></div>
+            <div className="mt-1 flex justify-between text-[13px] text-soft"><span>{MIN_BILLABLE}</span><span>200</span></div>
           </div>
         </div>
         <div className="mt-8 grid gap-3 md:grid-cols-3">
@@ -105,7 +105,7 @@ export function PriceSlider() {
                   {p.popular && <span className="rounded-full bg-brand px-2.5 py-0.5 text-[12px] font-medium text-white">{t({ bn: 'জনপ্রিয়', en: 'Popular' })}</span>}
                 </div>
                 <p className="mt-2 font-[family-name:var(--font-display)] text-[28px] sm:mt-3 sm:text-[34px] font-semibold tracking-[-0.03em] tabular-nums">{taka(pr.perMonth)}<span className="ml-1 text-[15px] font-normal text-muted-foreground">/{t({ bn: 'মাস', en: 'mo' })}</span></p>
-                <p className="text-[13px] text-soft">{taka(p.rate!)} × {pr.q} {t({ bn: 'রুম', en: 'rooms' })}</p>
+                <p className="text-[13px] text-soft">{taka(p.rate!)} × {pr.q} {t({ bn: 'রুম', en: pr.q === 1 ? 'room' : 'rooms' })}</p>
                 <ul className="mt-4 hidden space-y-2 border-t border-line pt-4 text-[14px] sm:block">
                   {includesFor(p).slice(1, 4).map((x) => (
                     <li key={x.en} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-ok" aria-hidden="true" /><span>{t(x)}</span></li>

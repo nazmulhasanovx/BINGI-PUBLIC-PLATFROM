@@ -3,11 +3,12 @@ import { pick } from './content'
 
 // ONE pricing catalog — source: onbording-flow-/v4/03-PRICING-COMMERCIAL.md
 // (confirmed by Nazmul as THE pricing on 9 Nov 2026; final published commercial agreement still pending).
-// Formula: billable Q × per-room rate for the cycle × months. Q = max(rooms, 10). No VAT is added at present (Nazmul, 11 Nov 2026).
+// Formula: billable Q × per-room rate for the cycle × months. Q = max(rooms, MIN_BILLABLE). No VAT is added at present (Nazmul, 11 Nov 2026).
+// MIN_BILLABLE = 1 since 22 Nov 2026 (Nazmul): a property with a single room can use BinGi and pays for 1 room. Was 10.
 // 11 Nov 2026 (Nazmul): Starter ৳25 · Business ৳70 · Ultra ৳116; 6/12-month rates rounded to whole taka (table below).
 // In production fetch this from the same pricing API the HMS uses, keeping this shape.
 
-export const MIN_BILLABLE: number = pick('minBillable', 10)
+export const MIN_BILLABLE: number = pick('minBillable', 1)
 
 export type Cycle = 'monthly' | 'six' | 'yearly'
 export const cycles: { id: Cycle; months: number; discount: number; label: L }[] = pick('cycles', [

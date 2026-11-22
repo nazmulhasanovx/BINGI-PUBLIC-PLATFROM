@@ -427,7 +427,7 @@ export const docs: DocPage[] = pick('docs', [
         ['Ultra', '৳116 (regular ৳290) · 6 mo ৳105 · 12 mo ৳87', '৳29,500 — currently ৳8,999', '4% / 0.5% / 0%'],
         ['Custom', 'Quotation', '—', '—'],
       ] } },
-      { heading: 'Rules', list: ['Starter is always ৳25. Business and Ultra prices are a launch offer, about 60% off the regular price (Business ৳175 · Ultra ৳290). The offer runs until 11 Feb 2027; hotels that join by then keep the launch price.', 'Minimum billing is 10 rooms.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. No VAT is added at present.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
+      { heading: 'Rules', list: ['Starter is always ৳25. Business and Ultra prices are a launch offer, about 60% off the regular price (Business ৳175 · Ultra ৳290). The offer runs until 11 Feb 2027; hotels that join by then keep the launch price.', 'No minimum: you pay only for the rooms you have, even 1.', 'Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.', 'Price = rooms × per-room rate for your cycle × months. No VAT is added at present.', 'SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.', 'Walk-in bookings at reception have no booking fee.'] },
       { heading: 'What each plan adds', table: { head: ['Plan', 'Adds'], rows: [
         ['Starter', 'Room/accommodation management · online & offline bookings · website management · domain management · limited website themes'],
         ['Business', 'Everything in Starter + housekeeping · restaurant/meal management (limited) · QR food ordering · expense management · other services'],
@@ -437,7 +437,7 @@ export const docs: DocPage[] = pick('docs', [
       { heading: 'Which plan for which property', table: { head: ['Property', 'Suggested plan'], rows: [['Home / flat', 'Starter'], ['Guest house', 'Starter'], ['Hotel', 'Business'], ['Resort', 'Ultra'], ['Hotel group', 'Custom']] } },
       { heading: 'See or change your plan', text: 'Billing & Subscription in the sidebar (Money & pricing). In the next version it lives in Settings › Billing & plan.' },
     ],
-    fixes: [{ symptom: 'My bill is higher than expected', causes: ['Minimum 10 rooms applies', 'Taxes added', 'Booking fees from marketplace/website bookings'], steps: ['Check the room count on the bill.', 'Check the tax line.', 'Check booking-fee lines by source.', 'Questions: send the bill number to support.'] }],
+    fixes: [{ symptom: 'My bill is higher than expected', causes: ['Rooms added mid-month or more rooms than before', 'Taxes added', 'Booking fees from marketplace/website bookings'], steps: ['Check the room count on the bill.', 'Check the tax line.', 'Check booking-fee lines by source.', 'Questions: send the bill number to support.'] }],
   },
   // ───────────────────────── HELP
   {
@@ -460,7 +460,7 @@ export const docs: DocPage[] = pick('docs', [
     summary: 'Short answers to what people ask most.',
     sections: [{ heading: 'Questions', table: { head: ['Question', 'Answer'], rows: [
       ['What is BinGi?', 'Hotel Management Technology by NEONECY (Dhaka): website, bookings, front desk, housekeeping, restaurant, staff, money and reports in one connected system.'],
-      ['How much does it cost?', 'Per room per month: Starter ৳25, Business ৳70, Ultra ৳116 (launch offer; minimum 10 rooms). See “Plans, pricing and billing”.'],
+      ['How much does it cost?', 'Per room per month: Starter ৳25, Business ৳70, Ultra ৳116 (launch offer; from 1 room). See “Plans, pricing and billing”.'],
       ['Is there a free trial?', 'Yes — create your account, set up your property and start a seven-day free trial.'],
       ['Does BinGi connect to Booking.com / Agoda?', 'Not yet. The channel manager (OTA connections) is coming soon.'],
       ['Can guests pay online?', 'It depends on the payment options turned on for your property (Settings › Payments). Online payments that pass through BinGi show in Finance. BinGi Payments as a full payment service is coming soon.'],
