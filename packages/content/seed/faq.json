@@ -68,12 +68,12 @@
  {
   "page": "pricing",
   "q": {
-   "bn": "10টার কম রুম থাকলে?",
-   "en": "What if I have fewer than 10 rooms?"
+   "bn": "মাত্র 1টা রুম থাকলেও কি ব্যবহার করা যাবে?",
+   "en": "Can I use BinGi with just 1 room?"
   },
   "a": {
-   "bn": "সর্বনিম্ন বিলিং 10 রুমের। আপনি শুধু আপনার আসল রুমগুলোই যোগ করবেন।",
-   "en": "Billing starts at 10 rooms. You only add the rooms you really have."
+   "bn": "হ্যাঁ। কোনো ন্যূনতম রুম নেই — যতগুলো রুম আছে, শুধু ততগুলোর দাম দেবেন। 1 রুমে Starter মাসে ৳25।",
+   "en": "Yes. There is no minimum — you pay only for the rooms you have. One room on Starter is ৳25 a month."
   }
  },
  {

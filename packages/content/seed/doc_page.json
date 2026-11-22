@@ -1507,7 +1507,7 @@
     "heading": "Rules",
     "list": [
      "Starter is always ৳25. Business and Ultra prices are a launch offer, about 60% off the regular price (Business ৳175 · Ultra ৳290). The offer runs until 11 Feb 2027; hotels that join by then keep the launch price.",
-     "Minimum billing is 10 rooms.",
+     "No minimum: you pay only for the rooms you have, even 1.",
      "Pay 6 months: about 10% off. Pay 12 months: about 25% off. Per-room rates are rounded to whole taka.",
      "Price = rooms × per-room rate for your cycle × months. No VAT is added at present.",
      "SMS and email go through your own provider (Settings → Connectivity). Their charges are paid to them directly. If no provider is connected, guest OTP and SMS are not sent.",
@@ -1581,7 +1581,7 @@
    {
     "symptom": "My bill is higher than expected",
     "causes": [
-     "Minimum 10 rooms applies",
+     "Rooms added mid-month or more rooms than before",
      "Taxes added",
      "Booking fees from marketplace/website bookings"
     ],
@@ -1637,7 +1637,7 @@
       ],
       [
        "How much does it cost?",
-       "Per room per month: Starter ৳25, Business ৳70, Ultra ৳116 (launch offer; minimum 10 rooms). See “Plans, pricing and billing”."
+       "Per room per month: Starter ৳25, Business ৳70, Ultra ৳116 (launch offer; from 1 room). See “Plans, pricing and billing”."
       ],
       [
        "Is there a free trial?",

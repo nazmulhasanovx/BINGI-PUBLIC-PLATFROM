@@ -233,7 +233,7 @@ function CostBreakdown({ pick, setPick, rooms, cycle, setRooms, setCycle }: { pi
       <div className="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr]">
         <div className="divide-y divide-line rounded-2xl bg-canvas px-4 sm:px-5">
           <Row label={t({ bn: 'সাবস্ক্রিপশন', en: 'Subscription' })} value={list}
-            sub={<>{t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} rooms × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })}</>} />
+            sub={<>{t({ bn: `${num(pr.q)} রুম × ${taka(p.rate!)} × ${num(c.months)} মাস`, en: `${pr.q} ${pr.q === 1 ? "room" : "rooms"} × ${taka(p.rate!)} × ${c.months} ${c.months === 1 ? 'month' : 'months'}` })}</>} />
           {c.discount > 0 && <Row label={t({ bn: `${num(c.months)} মাসের ছাড়`, en: `${c.months}-month discount` })}
             sub={t({ bn: `রুম প্রতি ${taka(p.rate!)} → ${taka(pr.perRoom)}`, en: `${taka(p.rate!)} → ${taka(pr.perRoom)} per room` })} value={pr.saved} minus />}
           <Row label={t({ bn: 'অ্যাক্টিভেশন (একবার)', en: 'Activation (one-time)' })}
@@ -289,8 +289,8 @@ export default function PricingSection() {
     const f = p.fees!
     return [
       { icon: <BedDouble size={18} />, text: c.months === 1
-        ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} rooms · ${taka(pr.total)}/month` })
-        : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)}`, en: `${pr.q} rooms · ${taka(pr.total)} for ${c.months} months` }) },
+        ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} ${pr.q === 1 ? "room" : "rooms"} · ${taka(pr.total)}/month` })
+        : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)}`, en: `${pr.q} ${pr.q === 1 ? "room" : "rooms"} · ${taka(pr.total)} for ${c.months} months` }) },
       { icon: <Percent size={18} />, text: t({ bn: `বুকিং ফি: মার্কেটপ্লেস ${num(f.marketplace)}% · ওয়েব ${num(f.website)}% · ওয়াক-ইন ${num(f.walkin)}%`, en: `Booking fees: Marketplace ${f.marketplace}% · Web ${f.website}% · Walk-in ${f.walkin}%` }) },
       { icon: <Sparkles size={18} />, text: <ActivationLine plan={p} /> },
     ]

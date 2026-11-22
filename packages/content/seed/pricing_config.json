@@ -1,6 +1,6 @@
 [
  {
-  "minBillable": 10,
+  "minBillable": 1,
   "launchOff": 60,
   "launchUntil": {
    "bn": "11 ফেব্রুয়ারি 2027",
