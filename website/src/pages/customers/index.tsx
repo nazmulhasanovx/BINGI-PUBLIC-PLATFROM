@@ -33,7 +33,7 @@ export default function Customers() {
                 <div className="flex flex-1 flex-col p-5">
                   <div className="flex flex-wrap items-center gap-2 text-[13px] text-muted-foreground">
                     {s.sample && <SampleBadge />}
-                    <span>{t(typeL[s.propertyType])}{s.rooms ? ` · ${num(s.rooms)} ${t({ bn: 'রুম', en: 'rooms' })}` : ''} · {t(s.location)}</span>
+                    <span>{t(typeL[s.propertyType])}{s.rooms ? ` · ${num(s.rooms)} ${t({ bn: 'রুম', en: s.rooms === 1 ? 'room' : 'rooms' })}` : ''} · {t(s.location)}</span>
                   </div>
                   <h2 className="mt-3 text-[19px] font-semibold leading-snug tracking-tight">{t(s.headline)}</h2>
                   <p className="mt-2 line-clamp-3 text-[15px] text-muted-foreground">{t(s.summary)}</p>

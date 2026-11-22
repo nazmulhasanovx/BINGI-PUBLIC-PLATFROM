@@ -15,7 +15,7 @@ import { Accordion, PillTabs } from '../../components/ui/Ui'
 import { team } from '../../data/team'
 import { faqsFor } from '../../data/faqs'
 import { copy, shown } from '../../data/copy'
-import { Integrations, PriceSlider, Testimonials, ThemeAiPreview, TrustStrip, useZoom, ZoomHint } from '../../components/home/HomeExtras'
+import { Integrations, PriceSlider, StoriesStrip, Testimonials, ThemeAiPreview, TrustStrip, useZoom, ZoomHint } from '../../components/home/HomeExtras'
 
 const story: { title: L; text: L; media: MediaId }[] = [
   { media: 'story1', title: { bn: 'বুকিং আসে', en: 'A booking comes in' }, text: { bn: 'আপনার ওয়েবসাইট, BinGi মার্কেটপ্লেস বা রিসেপশন — সব বুকিং একই তালিকায়, একই নম্বরে।', en: 'From your website, the BinGi Marketplace or the front desk — every booking lands in one list with one ID.' } },
@@ -160,6 +160,8 @@ export default function Home() {
       <PriceSlider />
 
       <Testimonials />
+
+      <StoriesStrip />
 
       {/* FAQ */}
       {shown('home.faq') && (

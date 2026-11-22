@@ -19,9 +19,9 @@ T=[
  dict(type="footer_column",kind="collection",key="footer",module="M07",label=L("ফুটার কলাম","Footer columns"),titleField="title",fields=[
    f("title","l",True),f("links","list",True,fields=[f("to","string"),f("label","l",True),f("kind","enum",options=["link","whatsapp","demo"]),f("badge","l")])]),
  dict(type="page_copy",kind="collection",key="copy",module="M06",label=L("পেজের লেখা","Page copy"),titleField="key",shape="map",mapKey="key",mapValue="value",fields=[
-   f("key","enum",True,options=["home.hero.line1","home.hero.line2","home.hero.mark","home.hero.lead","home.hero.cta","home.story.title","home.bento.title","home.platforms.title","home.types.title","home.faq.title","home.team.title"]),f("value","lt",True)]),
+   f("key","enum",True,options=["home.hero.line1","home.hero.line2","home.hero.mark","home.hero.lead","home.hero.cta","home.story.title","home.bento.title","home.platforms.title","home.types.title","home.stories.title","home.faq.title","home.team.title"]),f("value","lt",True)]),
  dict(type="hidden_section",kind="collection",key="hiddenSections",module="M06",label=L("লুকানো সেকশন","Hidden sections"),titleField="key",shape="values",valueField="key",fields=[
-   f("key","enum",True,options=["home.trust","home.story","home.bento","home.platforms","home.themes-ai","home.types","home.integrations","home.pricing","home.testimonials","home.faq","home.team"])]),
+   f("key","enum",True,options=["home.trust","home.story","home.bento","home.platforms","home.themes-ai","home.types","home.integrations","home.pricing","home.testimonials","home.stories","home.faq","home.team"])]),
  dict(type="trust_fact",kind="collection",key="trustFacts",module="M06",label=L("ট্রাস্ট তথ্য","Trust facts"),titleField="label",guards=["source"],fields=[
    f("value","l",True,help=L("{liveModules} = চালু মডিউলের সংখ্যা","{liveModules} = number of live modules")),f("label","l",True),f("source","string",True,help=L("তথ্যটা কোথা থেকে","Where this fact comes from"))]),
  dict(type="module",kind="collection",key="modules",module="M09",label=L("মডিউল স্ট্যাটাস","Module status"),titleField="name",guards=["verified_live","ai_not_live"],fields=[

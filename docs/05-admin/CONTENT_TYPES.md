@@ -73,14 +73,14 @@ Field types: `string` one line · `text` multi-line · `l` bilingual line {bn,en
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `key` | enum | yes | options: home.hero.line1, home.hero.line2, home.hero.mark, home.hero.lead, home.hero.cta, home.story.title, home.bento.title, home.platforms.title, home.types.title, home.faq.title, home.team.title |
+| `key` | enum | yes | options: home.hero.line1, home.hero.line2, home.hero.mark, home.hero.lead, home.hero.cta, home.story.title, home.bento.title, home.platforms.title, home.types.title, home.stories.title, home.faq.title, home.team.title |
 | `value` | lt | yes |  |
 
 ## `hidden_section` — Hidden sections
 
 | Field | Type | Required | Notes |
 |---|---|---|---|
-| `key` | enum | yes | options: home.trust, home.story, home.bento, home.platforms, home.themes-ai, home.types, home.integrations, home.pricing, home.testimonials, home.faq, home.team |
+| `key` | enum | yes | options: home.trust, home.story, home.bento, home.platforms, home.themes-ai, home.types, home.integrations, home.pricing, home.testimonials, home.stories, home.faq, home.team |
 
 ## `trust_fact` — Trust facts
 
