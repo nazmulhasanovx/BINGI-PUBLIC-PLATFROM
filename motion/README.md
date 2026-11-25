@@ -36,3 +36,18 @@ Built from real BinGi HMS prototype screenshots (sample hotel "Azure Bay Grand R
 The loops only reveal parts of the real screen, grow bars to their real length, type the value already in the field and move the booking bar that is already on the calendar.
 Compositions: hmsDash, hmsCalendar, hmsBookings, hmsCheckin, hmsPos, hmsHousekeeping (1600×900) and realBento* (slot sizes, cropped).
 Rendered to `website/public/media/hms/*.mp4` + `*.webp` posters.
+
+## Pricing page — dashboard per plan (`src/PlanFinal.tsx`, 25 Nov 2026)
+`planUltra`, `planBusiness`, `planStarter` — 1920×1080, 10 s, 30 fps. Rebuilt 1:1 from Nazmul's three final HMS dashboard
+screenshots (Azure Bay Grand · Ultra, Sea Pearl Hotel · Business, Tea Valley · Starter; HMS prototype, demo data), with the
+official `bingi-hms.svg` lockup and Plus Jakarta Sans / Hind Siliguri. The motion only builds the screen and ends on that exact
+view (sidebar → top bar → banner → greeting → KPI count-up → priorities + website → arrivals + right card → pointer hovers
+"Start with the first" → "New in BinGi" toast / Starter upsell → hold → 0.3 s fade for the loop).
+Only change from the screenshots: Marketplace fee 7% on every plan (decision 25 Nov 2026). Values hidden under the toast come
+from the prototype (Low stock 5 items, Restaurant orders 10, Orders today 10, Menu items 13).
+
+```bash
+for p in Ultra Business Starter; do
+  npx remotion render src/index.ts plan$p out/plan/$p.mp4 --codec=h264 --crf=20 --x264-preset=veryfast --muted
+done   # → website/public/media/hms/plan-{ultra,business,starter}.mp4 + .webp posters (frame 280)
+```

@@ -12,9 +12,10 @@ import { HMS_LOOP, HmsDash, HmsCalendar, HmsBookings, HmsCheckin, HmsPos, HmsHou
 import { MobileTour, MOBILE_LOOP, GuestTour, GUEST_LOOP } from './MobileHms';
 import { AiHome, AiAnswer, AiBrief, AI_LOOP, aiFontsReady } from './AiScreens';
 import { Dashboard, BookingsList, CheckIn, GuestApp, MobileToday } from './Screens';
+import { PlanFinal, PLAN_LEN, planFontsReady } from './PlanFinal';
 
 const h = delayRender('fonts');
-Promise.all([fontsReady, robotoReady, aiFontsReady]).then(() => continueRender(h));
+Promise.all([fontsReady, robotoReady, aiFontsReady, planFontsReady]).then(() => continueRender(h));
 
 // Sizes match the public site's media slots (website/src/data/media.ts).
 export const RemotionRoot: React.FC = () => (
@@ -26,6 +27,10 @@ export const RemotionRoot: React.FC = () => (
     <Composition id="bentoStaff" component={Staff} durationInFrames={LOOP} fps={30} width={1200} height={750} />
     <Composition id="bentoWebsite" component={Website} durationInFrames={LOOP} fps={30} width={2400} height={800} />
     {/* hero / platform / story slots (sizes keep each slot's aspect ratio) */}
+    {/* Pricing page "Your dashboard on each plan" — exact HMS views (25 Nov 2026), 1920×1080 */}
+    <Composition id="planUltra" component={PlanFinal} durationInFrames={PLAN_LEN} fps={30} width={1920} height={1080} defaultProps={{ plan: 'ultra' as const }} />
+    <Composition id="planBusiness" component={PlanFinal} durationInFrames={PLAN_LEN} fps={30} width={1920} height={1080} defaultProps={{ plan: 'business' as const }} />
+    <Composition id="planStarter" component={PlanFinal} durationInFrames={PLAN_LEN} fps={30} width={1920} height={1080} defaultProps={{ plan: 'starter' as const }} />
     <Composition id="heroWeb" component={PlanDashboard} durationInFrames={SEG * 3} fps={30} width={1600} height={900} />
     <Composition id="dashStarter" component={PlanDashboard} durationInFrames={SEG} fps={30} width={1600} height={900} defaultProps={{ only: 'starter' }} />
     <Composition id="dashBusiness" component={PlanDashboard} durationInFrames={SEG} fps={30} width={1600} height={900} defaultProps={{ only: 'business' }} />
