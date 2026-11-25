@@ -767,7 +767,7 @@
   "group": "Modules",
   "title": "Staff (HRM)",
   "where": "Property & team › Staff (People · Attendance · Schedule · Leave · Payroll · Hiring · Team Operations)",
-  "plan": "Full HRM on Ultra",
+  "plan": "Team (staff list) on Business · Full HR on Ultra",
   "status": "Live",
   "summary": "Staff records, attendance, shifts, leave and payroll.",
   "sections": [
@@ -1480,19 +1480,19 @@
        "Starter",
        "৳25 (always) · 6 mo ৳23 · 12 mo ৳19",
        "None",
-       "12% / 1.5% / 0%"
+       "7% / 1.5% / 0%"
       ],
       [
        "Business",
        "৳70 (regular ৳175) · 6 mo ৳63 · 12 mo ৳53",
        "৳14,500 — currently ৳4,999",
-       "8% / 1% / 0%"
+       "7% / 1% / 0%"
       ],
       [
        "Ultra",
        "৳116 (regular ৳290) · 6 mo ৳105 · 12 mo ৳87",
        "৳29,500 — currently ৳8,999",
-       "4% / 0.5% / 0%"
+       "7% / 0.5% / 0%"
       ],
       [
        "Custom",

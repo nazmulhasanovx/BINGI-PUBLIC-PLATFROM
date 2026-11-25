@@ -40,14 +40,15 @@ export type Plan = {
   plus?: L // "Everything in X, plus:"
 }
 
+// Marketplace commission 7% on every plan (Nazmul, 25 Nov 2026). Website fee (1.5/1/0.5) = old values, NOT yet re-decided.
 export const plans: Plan[] = pick('plans', [
   { id: 'starter', name: 'Starter', rate: 25, // Starter ৳25 always (Nazmul 11 Nov 13:32) — no launch label
-    activation: null, fees: { marketplace: 12, website: 1.5, walkin: 0 },
+    activation: null, fees: { marketplace: 7, website: 1.5, walkin: 0 },
     tagline: { bn: 'রুম, বুকিং ও নিজের ওয়েবসাইট', en: 'Rooms, bookings and your own website' } },
-  { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 8, website: 1, walkin: 0 }, popular: true,
+  { id: 'business', name: 'Business', rate: 70, regular: 175, activation: { standard: 14500, now: 4999 }, fees: { marketplace: 7, website: 1, walkin: 0 }, popular: true,
     tagline: { bn: 'হোটেলের দৈনন্দিন অপারেশন', en: 'Day-to-day hotel operations' }, plus: { bn: 'Starter-এর সব কিছু, সাথে:', en: 'Everything in Starter, plus:' } },
-  { id: 'ultra', name: 'Ultra', rate: 116, regular: 290, activation: { standard: 29500, now: 8999 }, fees: { marketplace: 4, website: 0.5, walkin: 0 },
-    tagline: { bn: 'স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন', en: 'Staff, inventory and advanced operations' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
+  { id: 'ultra', name: 'Ultra', rate: 116, regular: 290, activation: { standard: 29500, now: 8999 }, fees: { marketplace: 7, website: 0.5, walkin: 0 },
+    tagline: { bn: 'পূর্ণ HR, ইনভেন্টরি ও রেস্টুরেন্ট', en: 'Full HR, inventory and restaurant' }, plus: { bn: 'Business-এর সব কিছু, সাথে:', en: 'Everything in Business, plus:' } },
   { id: 'custom', name: 'Custom', rate: null, activation: null, fees: null,
     tagline: { bn: 'হোটেল গ্রুপ ও বিশেষ প্রয়োজন', en: 'Hotel groups and special needs' } },
 ])
@@ -60,37 +61,48 @@ const v = (s: Cell, b: Cell, u: Cell): Record<PlanId, Cell> => ({ starter: s, bu
 const limited = { bn: 'সীমিত', en: 'Limited' }
 const unlimited = { bn: 'আনলিমিটেড', en: 'Unlimited' }
 
-// Source: onbording-flow-/v4/04-PLAN-ENTITLEMENTS.md (only Y/— items; unresolved "?" items like Bar are left out).
+// Source: pricing update brief (25 Nov 2026) = plan rules 22 Nov + HR decision 23 Nov + commission decision 25 Nov.
+// Row names = the module names owners see in HMS. Business restaurant / QR = still the old value until Nazmul decides.
+const pct7 = { bn: '7%', en: '7%' }
 export const compare: Group[] = pick('compare', [
   { name: { bn: 'প্রপার্টি ও বুকিং', en: 'Property & booking' }, rows: [
-    { name: { bn: 'রুম / অ্যাকোমোডেশন ম্যানেজমেন্ট', en: 'Room / accommodation management' }, values: v(true, true, true), highlight: 'starter' },
-    { name: { bn: 'অনলাইন ও অফলাইন বুকিং', en: 'Online & offline bookings' }, values: v(true, true, true), highlight: 'starter' },
-    { name: { bn: 'ওয়েবসাইট ম্যানেজমেন্ট', en: 'Website management' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'রুম ও দাম', en: 'Rooms & rates' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'বুকিং ও ক্যালেন্ডার', en: 'Bookings & calendar' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'গেস্ট ও চ্যাট', en: 'Guests & chat' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'নিজের ওয়েবসাইট ও ডোমেইন', en: 'Website & domain' }, values: v(true, true, true), highlight: 'starter' },
     { name: { bn: 'ওয়েবসাইট থিম', en: 'Website themes' }, values: v(limited, limited, unlimited) },
-    { name: { bn: 'ডোমেইন ম্যানেজমেন্ট', en: 'Domain management' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'BinGi Marketplace লিস্টিং', en: 'BinGi Marketplace listing' }, values: v(pct7, pct7, pct7), highlight: 'starter' },
+  ]},
+  { name: { bn: 'টাকা ও রিপোর্ট', en: 'Money & reports' }, rows: [
+    { name: { bn: 'পেমেন্ট ও Finance', en: 'Payments & finance' }, values: v(true, true, true), highlight: 'starter' },
+    { name: { bn: 'রিপোর্ট', en: 'Reports' }, values: v({ bn: 'বেসিক', en: 'Basic' }, true, true), highlight: 'starter' },
+    { name: { bn: 'Cashbox (ক্যাশ ড্রয়ার, দিন বন্ধ)', en: 'Cashbox (cash drawer, day close)' }, values: v(false, true, true), highlight: 'business' },
+    { name: { bn: 'খরচ', en: 'Expenses' }, values: v(false, true, true), highlight: 'business' },
   ]},
   { name: { bn: 'হোটেল অপারেশন', en: 'Hotel operations' }, rows: [
-    { name: { bn: 'হাউসকিপিং', en: 'Housekeeping' }, values: v(false, true, true), highlight: 'business' },
-    { name: { bn: 'রেস্টুরেন্ট / মিল ম্যানেজমেন্ট', en: 'Restaurant / meal management' }, values: v(false, limited, { bn: 'পূর্ণ', en: 'Full' }), highlight: 'business' },
-    { name: { bn: 'QR ফুড অর্ডার', en: 'QR food ordering' }, values: v(false, true, true), highlight: 'business' },
-    { name: { bn: 'খরচ ব্যবস্থাপনা', en: 'Expense management' }, values: v(false, true, true), highlight: 'business' },
+    { name: { bn: 'Room board (সব রুম এক নজরে)', en: 'Room board (every room at a glance)' }, values: v(false, true, true), highlight: 'business' },
+    { name: { bn: 'হাউসকিপিং ও মেইনটেন্যান্স', en: 'Housekeeping & maintenance' }, values: v(false, true, true), highlight: 'business' },
     { name: { bn: 'অন্যান্য সার্ভিস', en: 'Other services' }, values: v(false, true, true), highlight: 'business' },
+    { name: { bn: 'রেস্টুরেন্ট ও বার', en: 'Restaurant & bar' }, values: v(false, limited, { bn: 'পূর্ণ (POS, KOT, একাধিক আউটলেট)', en: 'Full (POS, KOT, multiple outlets)' }), highlight: 'business' },
+    { name: { bn: 'QR ফুড অর্ডার', en: 'QR food ordering' }, values: v(false, true, true), highlight: 'business' },
   ]},
-  { name: { bn: 'স্টাফ ও কন্ট্রোল', en: 'Staff & control' }, rows: [
-    { name: { bn: 'পূর্ণ HRM', en: 'Full HRM' }, values: v(false, false, true), highlight: 'ultra' },
+  { name: { bn: 'টিম ও স্টক', en: 'Team & stock' }, rows: [
+    { name: { bn: 'স্টাফ', en: 'Staff' }, values: v(false, { bn: 'টিম (স্টাফ লিস্ট)', en: 'Team (staff list)' }, { bn: 'পূর্ণ HR (হাজিরা, শিফট, ছুটি, বেতন)', en: 'Full HR (attendance, shifts, leave, payroll)' }), highlight: 'business' },
     { name: { bn: 'ইনভেন্টরি', en: 'Inventory' }, values: v(false, false, true), highlight: 'ultra' },
-    { name: { bn: 'অ্যাডভান্সড অপারেশন', en: 'Advanced operations' }, values: v(false, false, true), highlight: 'ultra' },
-    { name: { bn: 'আনলিমিটেড ওয়েবসাইট থিম', en: 'Unlimited website themes' }, values: v(false, false, true), highlight: 'ultra' },
+    { name: { bn: 'Communication Center (SMS, ইমেইল)', en: 'Communication Center (SMS, email)' }, values: v(false, false, true), highlight: 'ultra' },
+    { name: { bn: 'একাধিক প্রপার্টি', en: 'Multi-property' }, values: { starter: false, business: false, ultra: false, custom: true } },
   ]},
 ])
 
 // Current offers & services (v4 D-08…D-11). Never say "free forever".
 export const offers: L[] = pick('offers', [
+  { bn: '7 দিন ফ্রি ট্রায়াল — অ্যাকাউন্ট খুলুন, প্রপার্টি সেটআপ করুন, আজই শুরু করুন', en: '7-day free trial — create your account, set up your property and start today' },
   { bn: 'Business অ্যাক্টিভেশন ৳14,500 — এখন ৳4,999', en: 'Business activation ৳14,500 — now ৳4,999' },
   { bn: 'Ultra অ্যাক্টিভেশন ৳29,500 — এখন ৳8,999', en: 'Ultra activation ৳29,500 — now ৳8,999' },
   { bn: 'রিমোট টিম ট্রেনিং ৳500/শিফট — এখন ফ্রি', en: 'Remote team training ৳500/shift — now free' },
   { bn: 'অনসাইট ট্রেনিং ৳12,500 — টিমের থাকা-খাওয়া প্রপার্টি দেবে', en: 'Onsite training ৳12,500 — property provides team meals & stay' },
   { bn: 'ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳0', en: 'Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them' },
+  { bn: 'অনলাইনে গেস্ট টাকা দিলে payment gateway fee 2.5% আলাদা (অনলাইন পেমেন্ট Coming Soon)। হোটেলে নগদ নিলে কোনো fee নেই।', en: 'Online guest payments carry a separate 2.5% gateway fee (online payment coming soon). No fee on cash taken at the hotel.' },
 ])
 
 // Per-room rate per cycle, rounded to whole taka (approved 11 Nov 2026). Keyed by monthly rate.
@@ -131,7 +143,7 @@ export function includesFor(p: Plan): L[] {
     const cell = r.values[p.id]
     return typeof cell === 'object' ? { bn: `${r.name.bn} (${cell.bn})`, en: `${r.name.en} (${cell.en.toLowerCase()})` } : r.name
   })
-  if (p.id === 'ultra') rows.unshift({ bn: 'পূর্ণ রেস্টুরেন্ট ও বার', en: 'Full restaurant & bar' })
+  if (p.id === 'ultra') rows.unshift({ bn: 'পূর্ণ রেস্টুরেন্ট ও বার', en: 'Full restaurant & bar' }, { bn: 'পূর্ণ HR (হাজিরা, শিফট, ছুটি, বেতন)', en: 'Full HR (attendance, shifts, leave, payroll)' }); if (p.id === 'ultra') rows.push({ bn: 'আনলিমিটেড ওয়েবসাইট থিম', en: 'Unlimited website themes' })
   if (p.id === 'starter') return [{ bn: 'Starter-এ আছে:', en: 'Starter includes:' }, ...rows, { bn: 'সীমিত ওয়েবসাইট থিম', en: 'Limited website themes' }]
   return [p.plus!, ...rows]
 }

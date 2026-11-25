@@ -5,7 +5,7 @@
   "rate": 25,
   "activation": null,
   "fees": {
-   "marketplace": 12,
+   "marketplace": 7,
    "website": 1.5,
    "walkin": 0
   },
@@ -24,7 +24,7 @@
    "now": 4999
   },
   "fees": {
-   "marketplace": 8,
+   "marketplace": 7,
    "website": 1,
    "walkin": 0
   },
@@ -48,13 +48,13 @@
    "now": 8999
   },
   "fees": {
-   "marketplace": 4,
+   "marketplace": 7,
    "website": 0.5,
    "walkin": 0
   },
   "tagline": {
-   "bn": "স্টাফ, ইনভেন্টরি ও অ্যাডভান্সড অপারেশন",
-   "en": "Staff, inventory and advanced operations"
+   "bn": "পূর্ণ HR, ইনভেন্টরি ও রেস্টুরেন্ট",
+   "en": "Full HR, inventory and restaurant"
   },
   "plus": {
    "bn": "Business-এর সব কিছু, সাথে:",

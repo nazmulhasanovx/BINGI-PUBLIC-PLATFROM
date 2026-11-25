@@ -291,7 +291,7 @@ export default function PricingSection() {
       { icon: <BedDouble size={18} />, text: c.months === 1
         ? t({ bn: `${num(pr.q)} রুম · ${taka(pr.total)}/মাস`, en: `${pr.q} ${pr.q === 1 ? "room" : "rooms"} · ${taka(pr.total)}/month` })
         : t({ bn: `${num(pr.q)} রুম · ${num(c.months)} মাসে ${taka(pr.total)}`, en: `${pr.q} ${pr.q === 1 ? "room" : "rooms"} · ${taka(pr.total)} for ${c.months} months` }) },
-      { icon: <Percent size={18} />, text: t({ bn: `বুকিং ফি: মার্কেটপ্লেস ${num(f.marketplace)}% · ওয়েব ${num(f.website)}% · ওয়াক-ইন ${num(f.walkin)}%`, en: `Booking fees: Marketplace ${f.marketplace}% · Web ${f.website}% · Walk-in ${f.walkin}%` }) },
+      { icon: <Percent size={18} />, text: t({ bn: `BinGi Marketplace-এর বুকিংয়ে ${num(f.marketplace)}% · রিসেপশনে নেওয়া বুকিংয়ে ${num(f.walkin)}%`, en: `${f.marketplace}% on BinGi Marketplace bookings · ${f.walkin}% on bookings you take at reception` }) },
       { icon: <Sparkles size={18} />, text: <ActivationLine plan={p} /> },
     ]
   }
@@ -322,9 +322,9 @@ export default function PricingSection() {
           <PricingSwitch value={cycle} onChange={setCycle} />
           <RoomStepper rooms={rooms} setRooms={setRooms} />
           <p className="text-center text-[13px] text-muted-foreground" aria-live="polite">
-            {rooms < MIN_BILLABLE
+            {MIN_BILLABLE > 1 && rooms < MIN_BILLABLE
               ? t({ bn: `সর্বনিম্ন বিলিং ${num(MIN_BILLABLE)} রুম — দাম ${num(MIN_BILLABLE)} রুম ধরে`, en: `Minimum billing is ${MIN_BILLABLE} rooms — prices shown for ${MIN_BILLABLE}` })
-              : t({ bn: `লঞ্চ অফার ${LAUNCH_UNTIL.bn} পর্যন্ত · SMS/ইমেইল নিজের প্রোভাইডার দিয়ে`, en: `Launch offer until ${LAUNCH_UNTIL.en} · SMS/email via your own provider` })}
+              : t({ bn: `1টা রুম থাকলেও শুরু করা যায়। যত রুম, তত টাকা। · লঞ্চ অফার ${LAUNCH_UNTIL.bn} পর্যন্ত`, en: `Start with even 1 room. You pay only for the rooms you have. · Launch offer until ${LAUNCH_UNTIL.en}` })}
           </p>
         </TimelineContent>
 
