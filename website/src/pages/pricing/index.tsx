@@ -3,6 +3,11 @@ import { useState } from 'react'
 import { CheckCheck, Gift, Minus } from 'lucide-react'
 import { useLang } from '../../i18n/lang'
 import { compare, offers, plans, type Cell } from '../../data/pricing'
+
+// Activation lines are drawn from the plans (struck price); the free-trial line leads the list.
+const notActivation = offers.filter((o) => !/activation/i.test(o.en))
+const trial = notActivation.filter((o) => /free trial/i.test(o.en))
+const rest = notActivation.filter((o) => !/free trial/i.test(o.en))
 import { Accordion, PillTabs, SectionHead } from '../../components/ui/Ui'
 import { StudioDisplay } from '../../components/media/Devices'
 import PricingSection, { ActivationLine } from '@/components/ui/pricing-section'
@@ -49,9 +54,9 @@ export default function Pricing() {
           <span className="grid size-11 shrink-0 place-items-center rounded-[10px] bg-brand-soft text-brand"><Gift className="size-5" aria-hidden="true" /></span>
           <div className="flex-1">
             <h2 className="text-[16px] font-semibold">{t({ bn: 'এখনকার অফার ও সার্ভিস', en: 'Current offers & services' })}</h2>
-            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2"><li className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{t({ bn: 'লঞ্চ অফার (11 ফেব্রুয়ারি 2027 পর্যন্ত; এর মধ্যে যোগ দিলে এই দামই থাকবে): Business ৳175 → ৳70 · Ultra ৳290 → ৳116', en: 'Launch offer until 11 Feb 2027 — join by then and keep the price: Business ৳175 → ৳70 · Ultra ৳290 → ৳116' })}</span></li>
+            <ul className="mt-2 grid gap-x-6 gap-y-1.5 text-[14px] text-muted-foreground md:grid-cols-2">{trial.map((o, i) => <li key={`t${i}`} className="flex gap-2 font-medium text-ink"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}<li className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{t({ bn: 'লঞ্চ অফার (11 ফেব্রুয়ারি 2027 পর্যন্ত; এর মধ্যে যোগ দিলে এই দামই থাকবে): Business ৳175 → ৳70 · Ultra ৳290 → ৳116', en: 'Launch offer until 11 Feb 2027 — join by then and keep the price: Business ৳175 → ৳70 · Ultra ৳290 → ৳116' })}</span></li>
               {plans.filter((p) => p.activation).map((p) => <li key={p.id} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span><span>{p.name} <ActivationLine plan={p} /></span></li>)}
-              {offers.slice(2).map((o, i) => <li key={i} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}</ul>
+              {rest.map((o, i) => <li key={i} className="flex gap-2"><span className="check-dot size-5 mt-px"><CheckCheck className="size-3" aria-hidden="true" /></span>{t(o)}</li>)}</ul>
           </div>
         </div>
 

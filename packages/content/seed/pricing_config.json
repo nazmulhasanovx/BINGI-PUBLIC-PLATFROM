@@ -55,6 +55,10 @@
   },
   "offers": [
    {
+    "bn": "7 দিন ফ্রি ট্রায়াল — অ্যাকাউন্ট খুলুন, প্রপার্টি সেটআপ করুন, আজই শুরু করুন",
+    "en": "7-day free trial — create your account, set up your property and start today"
+   },
+   {
     "bn": "Business অ্যাক্টিভেশন ৳14,500 — এখন ৳4,999",
     "en": "Business activation ৳14,500 — now ৳4,999"
    },
@@ -73,6 +77,10 @@
    {
     "bn": "ওয়েবসাইট ম্যানেজমেন্ট ও রেস্টুরেন্ট-বার: প্ল্যানে থাকলে এখন বাড়তি ৳0",
     "en": "Website management & Restaurant-Bar: currently ৳0 extra where your plan includes them"
+   },
+   {
+    "bn": "অনলাইনে গেস্ট টাকা দিলে payment gateway fee 2.5% আলাদা (অনলাইন পেমেন্ট Coming Soon)। হোটেলে নগদ নিলে কোনো fee নেই।",
+    "en": "Online guest payments carry a separate 2.5% gateway fee (online payment coming soon). No fee on cash taken at the hotel."
    }
   ]
  }
